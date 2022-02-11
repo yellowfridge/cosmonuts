@@ -1,0 +1,14 @@
+{
+  "name": "avatarnft",
+  "version": "1.0.0",
+  "description": "Builds generative NFT artwork",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "NFT"
+  ],
+  "author": "",
+  "license": "ISC"
+}
