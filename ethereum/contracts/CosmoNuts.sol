@@ -21,6 +21,7 @@ contract CosmoNuts is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
   bool public saleIsActive = false;
   uint256 public REVEAL_TIMESTAMP;
 
+  // Using 1645347572 for saleStart date in tests
   constructor(string memory name, string memory symbol, uint256 maxNFTSupply, uint256 saleStart) ERC721(name, symbol) {
       MAX_NUTS = maxNFTSupply;
       REVEAL_TIMESTAMP = saleStart + (86400 * 9); // Represents 9 days - from BAYC code (86,400 * 9) - should show exact amount to save gas
@@ -28,9 +29,10 @@ contract CosmoNuts is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
 
   // Set Base URI
   function _baseURI() internal pure override returns (string memory) {
-    return "https://baseruri";
+    return "https://baseruri/";
   }
 
+  // Will not work on the initial mint
   function safeMint(address to, uint256 tokenId, string memory uri) public {
     _safeMint(to, tokenId);
     _setTokenURI(tokenId, uri);
@@ -64,7 +66,23 @@ contract CosmoNuts is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
     require(numberOfTokens <= maxNutPurchase, "Can only mint 1 token at a time");
     require(totalSupply() + numberOfTokens <= MAX_NUTS, "Purchase would exceed max supply of Nuts");
     require(nutPrice * numberOfTokens <= msg.value, "Ether value sent is not correct");
+
+    for(uint i = 0; i < numberOfTokens; i++) {
+      uint mintIndex = totalSupply();
+
+      // Do we need this check in the new contract? (does it do it automatically?)
+      if (totalSupply() < MAX_NUTS) {
+        _safeMint(msg.sender, mintIndex);
+        _setTokenURI(mintIndex, tokenURI(mintIndex));
+      }
+    }
+
   }
+
+  // Allows CosmoNuts to change their background
+  //function jumpUniverse() {
+  //
+  //}
 
   // The following functions are overrides required by Solidity.
   function _beforeTokenTransfer(address from, address to, uint256 tokenId) internal override(ERC721, ERC721Enumerable) {
