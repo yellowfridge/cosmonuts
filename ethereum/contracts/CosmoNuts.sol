@@ -8,7 +8,7 @@ import "../access/Ownable.sol";
 
 /**
   * @title CosmoNuts contract
-  * @custom: security-contact security@gmail.com //put security contact info (recommended)
+  * @custom:security-contact security@gmail.com //put security contact info (recommended)
   */
 contract CosmoNuts is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
   //using SafeMath for uint256; //Do you need to define this still - taking out for now - not needed for .8.0 and above
@@ -24,6 +24,16 @@ contract CosmoNuts is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
   constructor(string memory name, string memory symbol, uint256 maxNFTSupply, uint256 saleStart) ERC721(name, symbol) {
       MAX_NUTS = maxNFTSupply;
       REVEAL_TIMESTAMP = saleStart + (86400 * 9); // Represents 9 days - from BAYC code (86,400 * 9) - should show exact amount to save gas
+  }
+
+  // Set Base URI
+  function _baseURI() internal pure override returns (string memory) {
+    return "https://baseruri";
+  }
+
+  function safeMint(address to, uint256 tokenId, string memory uri) public {
+    _safeMint(to, tokenId);
+    _setTokenURI(tokenId, uri);
   }
 
   // Allows developer to withdraw funds
@@ -47,14 +57,6 @@ contract CosmoNuts is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
   function flipSaleState() public onlyOwner {
       saleIsActive = !saleIsActive;
   }
-
-  // Set the baseuri where metadata will be stored
-  // This is no longer how it is done - using URIStorage - go to newest implementation
-  //function setBaseURI(string memory baseURI) public onlyOwner {
-  //  _setBaseURI(baseURI);
-  //}
-
-  
 
   // Mint Cosmo Nuts
   function mintNut(uint numberOfTokens) public payable {
