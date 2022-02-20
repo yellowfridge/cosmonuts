@@ -21,6 +21,9 @@ contract CosmoNuts is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
   bool public saleIsActive = false;
   uint256 public REVEAL_TIMESTAMP;
 
+  // Create a mapping of token id to all token uri's
+  mapping(uint256 => string[]) private traveledUniverses;
+
   // Using 1645347572 for saleStart date in tests
   constructor(string memory name, string memory symbol, uint256 maxNFTSupply, uint256 saleStart) ERC721(name, symbol) {
       MAX_NUTS = maxNFTSupply;
@@ -30,12 +33,6 @@ contract CosmoNuts is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
   // Set Base URI
   function _baseURI() internal pure override returns (string memory) {
     return "https://baseruri/";
-  }
-
-  // Will not work on the initial mint
-  function safeMint(address to, uint256 tokenId, string memory uri) public {
-    _safeMint(to, tokenId);
-    _setTokenURI(tokenId, uri);
   }
 
   // Allows developer to withdraw funds
@@ -73,16 +70,25 @@ contract CosmoNuts is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
       // Do we need this check in the new contract? (does it do it automatically?)
       if (totalSupply() < MAX_NUTS) {
         _safeMint(msg.sender, mintIndex);
-        _setTokenURI(mintIndex, tokenURI(mintIndex));
+        _setTokenURI(mintIndex, Strings.toString(mintIndex));
+        string memory uri = tokenURI(mintIndex);
+        traveledUniverses[mintIndex].push(uri);
       }
     }
 
   }
 
   // Allows CosmoNuts to change their background
-  //function jumpUniverse() {
-  //
-  //}
+  function jumpUniverse(uint256 tokenId, string memory new_tokenURI) public {
+    require(_isApprovedOrOwner(_msgSender(), tokenId), "ERC721: caller is not owner nor approved");
+    _setTokenURI(tokenId, new_tokenURI);
+    string memory new_uri = tokenURI(tokenId);
+    traveledUniverses[tokenId].push(new_uri);
+  }
+
+  function getUniversees(uint256 tokenId) public view virtual returns (string[] memory) {
+    return traveledUniverses[tokenId];
+  }
 
   // The following functions are overrides required by Solidity.
   function _beforeTokenTransfer(address from, address to, uint256 tokenId) internal override(ERC721, ERC721Enumerable) {
