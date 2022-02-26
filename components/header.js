@@ -1,6 +1,7 @@
 import React from "react";
 import { Menu, Button, Icon } from 'semantic-ui-react';
 import { Link } from '../routes';
+import Login from './login';
 
 export default () => {
   return (
@@ -13,6 +14,12 @@ export default () => {
           </Menu.Item>
         </a>
       </Link>
+
+      <Menu.Menu position='right' icon='labeled'>
+        <Menu.Item name='login'>
+          <Login />
+        </Menu.Item>
+      </Menu.Menu>
     </Menu>
   )
 }
