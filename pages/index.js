@@ -1,25 +1,53 @@
 import React, { Component } from 'react';
 import { Button, List } from 'semantic-ui-react';
 import Layout from '../components/layout';
-import defaultAccount from '../ethereum/default_account';
-import enableUser from '../ethereum/user_account';
+//import { checkConnection, enableUser } from '../ethereum/web3';
+//import activate from '../ethereum/web3';
+import getProvider from '../ethereum/provider';
+import detectEthereumProvider from '@metamask/detect-provider';
+//import ConnectWallet from './connect-wallet';
+import Web3Connector from './web3connector';
 
 class Main extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentAcct: defaultAccount,
+      provider: null,
+      currentAccount: null,
       isUserConnected: false,
-      errorMessage: ''
+      errorMessage: null,
+      isWalletConnected: null,
+      connectWalletClick: false
     };
 
-    // ?? This binding is necessary to make 'this' work in the callback
     this.connectUser = this.connectUser.bind(this);
   }
 
+  async componentDidMount() {
+    const provider = await detectEthereumProvider();
+    this.setState({ provider: provider });
+
+  }
+
+  /*
   connectUser() {
-    const userAccount = enableUser()
-    this.setState({currentAcct: userAccount});
+    //web3 = checkConnection();
+    //const userAccount = enableUser();
+    //web3, userAccount = activate();
+    //this.setState({currentAccount: userAccount});
+    //let provider = getProvider();
+    //this.setState({provider: provider});
+    //if (this.state.provider !== window.ethereum) {
+    //  console.error("Provider is not window.ethereum");
+    //} else {
+    //  console.log("Successfully have provider.");
+    //}
+    console.log(this.state.provider);
+  }
+  */
+
+  connectUser() {
+    console.log("CLICKED THE BIG BLUE CONNECT BUTTON");
   }
 
   createNFT() {
@@ -30,15 +58,16 @@ class Main extends Component {
     return (
       <Layout>
         <div>
-          <h1>CREATE YOUR OWN UNIQUE NFT</h1>
+          <Web3Connector/>
           <List divided relaxed>
           <List.Item>
             <Button
               floated="left"
-              content="Connect Ethereum Account"
+              content="Connect Wallet"
               icon="add circle"
               primary
-              onClick={this.connectUser}
+              onClick={this.walletClicked}
+              disabled={this.state.isUserConnected}
             />
           </List.Item>
           <List.Item>
