@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { Button, List, Divider, Header } from 'semantic-ui-react';
+import { Button, List, Divider, Header, Container } from 'semantic-ui-react';
 import Layout from '../components/layout';
-import getProvider from '../ethereum/provider';
 import detectEthereumProvider from '@metamask/detect-provider';
 import ConnectionIPFS from './ipfsConnection';
+import QRCode from 'react-qr-code';
 
 class Main extends Component {
   constructor(props) {
@@ -119,9 +119,12 @@ class Main extends Component {
             <ConnectionIPFS />
             <Divider horizontal>
               <Header as='h4'>
-                QR Code Functionality
+                QR Code Generator
               </Header>
             </Divider>
+            <Container textAlign='center'>
+              <QRCode value='https://www.youtube.com/watch?v=DLzxrzFCyOs'/>
+            </Container>
           </List>
         </div>
       </Layout>

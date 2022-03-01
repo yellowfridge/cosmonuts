@@ -18,6 +18,10 @@ export default function Connect(props) {
     window.location.reload(true);
   }
 
+  function handleChange(event) {
+    console.log("Event", event);
+  }
+
   return (
     <div>
       <Button
@@ -25,6 +29,7 @@ export default function Connect(props) {
         icon="add circle"
         primary
         onClick={connectClicked}
+        onChange={handleChange}
         disabled={load}
       />
     </div>

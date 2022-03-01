@@ -4,8 +4,8 @@ import * as IPFS from 'ipfs-core';
 
 export default function ConnectionIPFS(props) {
 
-  const [message, setMessage] = useState('')
-  const [ipfsCID, setIpfsCID] = useState('This is where unique CID will be shown...')
+  const [message, setMessage] = useState('');
+  const [ipfsCID, setIpfsCID] = useState('This is where unique CID will be shown...');
 
   const addtoIPFSClicked = async () => {
     console.log('IN HERE BOI');
