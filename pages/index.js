@@ -18,7 +18,6 @@ class Main extends Component {
 
   async componentDidMount() {
     const provider = await detectEthereumProvider();
-    //this.setState({ provider: provider });
 
     (() => {
       if (provider.selectedAddress === null) {
@@ -34,69 +33,11 @@ class Main extends Component {
       }
     })();
 
-    /*
-    (() => {
-      if (provider.isMetaMask) {
-        this.setState({ isMetaMaskInstalled: 'Yes' });
-      } else {
-        this.setState({ isMetaMaskInstalled: 'No' });
-      }
-    })();
-    */
-
-    /*
-    (async () => {
-      try {
-        await provider.request({ method: 'eth_requestAccounts' });
-      } catch (err) {
-        console.log(err);
-      }
-    })()
-    */
-
-    console.log("Provider", provider);
     console.log("END OF COMPONENT DID MOUNT");
 
   }
 
-  /*
-  componentDidUpdate(prevProps, prevState) {
-    const checkAccountChanges = () => {
-      if (prevState.currentAccount !== this.state.currentAccount) {
-        this.setState({
-          currentAccount: this.state.currentAccount
-        })
-      }
-
-      if (prevState.isUserConnected !== this.state.isUserConnected) {
-        this.setState({
-          isUserConnected: this.state.isUserConnected
-        })
-      }
-    }
-
-  }
-  /*
-
-  /*
-  connectUser() {
-    //web3 = checkConnection();
-    //const userAccount = enableUser();
-    //web3, userAccount = activate();
-    //this.setState({currentAccount: userAccount});
-    //let provider = getProvider();
-    //this.setState({provider: provider});
-    //if (this.state.provider !== window.ethereum) {
-    //  console.error("Provider is not window.ethereum");
-    //} else {
-    //  console.log("Successfully have provider.");
-    //}
-    console.log(this.state.provider);
-  }
-  */
-
   render() {
-    //console.log("PROVIDER RENDER", this.state.provider);
 
     return (
       <Layout>
