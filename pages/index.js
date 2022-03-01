@@ -1,33 +1,82 @@
 import React, { Component } from 'react';
-import { Button, List } from 'semantic-ui-react';
+import { Button, List, Divider, Header } from 'semantic-ui-react';
 import Layout from '../components/layout';
-//import { checkConnection, enableUser } from '../ethereum/web3';
-//import activate from '../ethereum/web3';
 import getProvider from '../ethereum/provider';
 import detectEthereumProvider from '@metamask/detect-provider';
-//import ConnectWallet from './connect-wallet';
-import Web3Connector from './web3connector';
+import ConnectionIPFS from './ipfsConnection';
 
 class Main extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      provider: null,
-      currentAccount: null,
-      isUserConnected: false,
-      errorMessage: null,
-      isWalletConnected: null,
-      connectWalletClick: false
+      isUserConnected: null,
+      currentAccount: null
     };
 
-    this.connectUser = this.connectUser.bind(this);
+    //this.connectUser = this.connectUser.bind(this);
   }
 
   async componentDidMount() {
     const provider = await detectEthereumProvider();
-    this.setState({ provider: provider });
+    //this.setState({ provider: provider });
+
+    (() => {
+      if (provider.selectedAddress === null) {
+        this.setState({
+          currentAccount: '',
+          isUserConnected: 'No'
+        });
+      } else {
+        this.setState({
+          currentAccount: provider.selectedAddress,
+          isUserConnected: 'Yes'
+        });
+      }
+    })();
+
+    /*
+    (() => {
+      if (provider.isMetaMask) {
+        this.setState({ isMetaMaskInstalled: 'Yes' });
+      } else {
+        this.setState({ isMetaMaskInstalled: 'No' });
+      }
+    })();
+    */
+
+    /*
+    (async () => {
+      try {
+        await provider.request({ method: 'eth_requestAccounts' });
+      } catch (err) {
+        console.log(err);
+      }
+    })()
+    */
+
+    console.log("Provider", provider);
+    console.log("END OF COMPONENT DID MOUNT");
 
   }
+
+  /*
+  componentDidUpdate(prevProps, prevState) {
+    const checkAccountChanges = () => {
+      if (prevState.currentAccount !== this.state.currentAccount) {
+        this.setState({
+          currentAccount: this.state.currentAccount
+        })
+      }
+
+      if (prevState.isUserConnected !== this.state.isUserConnected) {
+        this.setState({
+          isUserConnected: this.state.isUserConnected
+        })
+      }
+    }
+
+  }
+  /*
 
   /*
   connectUser() {
@@ -46,39 +95,33 @@ class Main extends Component {
   }
   */
 
-  connectUser() {
-    console.log("CLICKED THE BIG BLUE CONNECT BUTTON");
-  }
-
-  createNFT() {
-    console.log("MINT ME THAT MONEY");
-  }
-
   render() {
+    //console.log("PROVIDER RENDER", this.state.provider);
+
     return (
       <Layout>
         <div>
-          <Web3Connector/>
           <List divided relaxed>
-          <List.Item>
-            <Button
-              floated="left"
-              content="Connect Wallet"
-              icon="add circle"
-              primary
-              onClick={this.walletClicked}
-              disabled={this.state.isUserConnected}
-            />
-          </List.Item>
-          <List.Item>
-            <Button
-              floated="left"
-              content="Create Unique NFT"
-              icon="add circle"
-              primary
-              onClick={this.createNFT}
-            />
-          </List.Item>
+            <List.Item>
+              <h3>Let's get cracking. Showing all the data we are pulling below.</h3>
+            </List.Item>
+            <List.Item>
+              <h4>
+                <p>Is User Connected? {this.state.isUserConnected}</p>
+                <p>User Account Number: {this.state.currentAccount}</p>
+              </h4>
+            </List.Item>
+            <Divider horizontal>
+              <Header as='h4'>
+                IPFS Functionality
+              </Header>
+            </Divider>
+            <ConnectionIPFS />
+            <Divider horizontal>
+              <Header as='h4'>
+                QR Code Functionality
+              </Header>
+            </Divider>
           </List>
         </div>
       </Layout>

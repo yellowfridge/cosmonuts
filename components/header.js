@@ -1,7 +1,7 @@
 import React from "react";
 import { Menu, Button, Icon } from 'semantic-ui-react';
 import { Link } from '../routes';
-import Login from './login';
+import Connect from './connect';
 
 export default () => {
   return (
@@ -16,8 +16,8 @@ export default () => {
       </Link>
 
       <Menu.Menu position='right' icon='labeled'>
-        <Menu.Item name='login'>
-          <Login />
+        <Menu.Item name='connect'>
+          <Connect />
         </Menu.Item>
       </Menu.Menu>
     </Menu>
