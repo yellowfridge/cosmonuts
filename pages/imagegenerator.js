@@ -170,23 +170,19 @@ export default function ImageGenerator(props) {
     var qrImg = document.getElementById('qrImgSnap');
     console.log("QR IMG", qrImg);
 
-    //var qrImg = document.getElementById('qrImage');
-    //var qrCanvas = document.createElement('canvas');
+    /*
+    var qrImg = document.getElementById('qrImage');
+    var qrCanvas = document.createElement('canvas');
     console.log("SVG QR", svgQR);
     // Get sizes of svg
     var bBox = svgQR.getBBox();
     var qrWidth = bBox.width;
     var qrHeight = bBox.height;
 
-
-    /*
     var svgString = new XMLSerializer().serializeToString(svgQR);;
     var canvas = document.getElementById('canvas');
     var ctx = canvas.getContext('2d');
-    var DOMURL = self.URL || self.webkitURL || self;
     var qrImg = document.createElement('img');
-    var svg = new Blob([svgString], {type: 'image/svg+xml;charset=utf-8'});
-    var url = DOMURL.createObjectURL(svg);
     qrImg.onload = function() {
       ctx.drawImage(qrImg, 0, 0);
       var png = canvas.toDataURL('image/png');
@@ -194,32 +190,16 @@ export default function ImageGenerator(props) {
       DOMURL.revokeObjectURL(png);
     }
     qrImg.src = url;
-
     */
-
     /*
     var qrImg = document.createElement('img');
-
-    //var decoded = unescape(encodeURIComponent(svgString));
-    var encoded = encodeURIComponent(svgString);
-    //console.log("Serialize", s);
-    //var encodedData = window.btoa(s);
-    //console.log("Encoded Data:", encodedData);
+    var decoded = unescape(encodeURIComponent(svgString));
     var base64 = btoa(encoded);
     var qrImgSourceBase = 'data:image/svg+xml;base64,';
     var qrImgSource = qrImgSourceBase.concat(base64);
     qrImg.setAttribute('src', qrImgSource);
     qrImg.width = qrWidth;
     qrImg.height = qrHeight;
-    console.log("Converted QR Image", qrImg);
-
-    var qrCanvas = document.createElement('canvas');
-    qrCanvas.getContext('2d').drawImage(qrImg, 0, 0);
-
-    //var svg = new Blob([qrImage], {
-    //  type: 'image/svg+xml;charset=utf-8'
-    //});
-    //console.log("SVG BLOB", svg);
     */
 
     var embeddedImage = embedImage(avatarImg, qrImg);
