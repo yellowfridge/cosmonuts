@@ -11,6 +11,7 @@ export default function ImageGenerator(props) {
   const [message, setMessage] = useState('');
   const [ipfsCID, setIpfsCID] = useState('This is where unique CID will be shown...');
   const [imgSrc, setImgSrc] = useState('');
+  const [newImgSrc, setNewImgSrc] = useState('');
 
   const addtoIPFSClicked = async () => {
     console.log("Message", message);
@@ -46,10 +47,13 @@ export default function ImageGenerator(props) {
     tmp.width = sWidth;
     tmp.height = sHeight;
 
+    tmpContext.drawImage(image, 0, 0);
+
     var embed = document.createElement('canvas');
     var embedContext = embed.getContext('2d');
     embed.width = embedImage.width;
     embed.height = embedImage.height;
+
     embedContext.drawImage(embedImage, 0, 0);
 
     var embedData = embedContext.getImageData(0, 0, embed.width, embed.height);
@@ -137,7 +141,7 @@ export default function ImageGenerator(props) {
 
     tmpContext.drawImage(image, 0, 0);
 
-    var imageData = tmp.Context.getImageData(0, 0, tmp.width, tmp.height);
+    var imageData = tmpContext.getImageData(0, 0, tmp.width, tmp.height);
     for (var x = 0; x < tmp.width; x++) {
       for (var y = 0; y < tmp.height; y++) {
         var idx = (x + y * tmp.width) * 4;
@@ -145,7 +149,7 @@ export default function ImageGenerator(props) {
         // The RGB values
         var r = imageData.data[idx + 0];
         var g = imageData.data[idx + 1];
-        var b = imageDara.dara[idx + 2];
+        var b = imageData.data[idx + 2];
 
         var isOdd = !!((r+g+b) % 2);
 
@@ -225,6 +229,13 @@ export default function ImageGenerator(props) {
 
   }
 
+  function interpretImage() {
+    var embeddedImage = document.getElementById('newImage');
+
+    var parsedImage = parseImage(embeddedImage)
+    setNewImgSrc(parsedImage);
+  }
+
   return (
     <div>
     <Input
@@ -282,7 +293,7 @@ export default function ImageGenerator(props) {
       <Grid.Column>
         <h4>Original Image</h4>
         <Image
-          src={testImage} alt="ogImage" width="600" height="600" id='avatar'
+          src={testImage} alt="ogImage" width="550" height="550" id='avatar'
         />
         <h4>Planet Image</h4>
         <Image
@@ -292,7 +303,34 @@ export default function ImageGenerator(props) {
       <Grid.Column>
         <h4>Image with Embedded Attributes</h4>
         <img
+          src={imgSrc} id='newImage'
+        />
+      </Grid.Column>
+    </Grid>
+    <Divider horizontal>
+      <Header as='h4'>
+        Interpret Image
+      </Header>
+    </Divider>
+    <Container textAlign='center'>
+      <Button
+        content='Interpret Embedded Image'
+        icon='add circle'
+        primary
+        onClick={interpretImage}
+      />
+    </Container>
+    <Grid textAlign='center' columns={2} padded>
+      <Grid.Column>
+        <h4>Embedded Image</h4>
+        <img
           src={imgSrc}
+        />
+      </Grid.Column>
+      <Grid.Column>
+        <h4>Scanned Image</h4>
+        <img
+          src={newImgSrc}
         />
       </Grid.Column>
     </Grid>
