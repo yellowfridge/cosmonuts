@@ -38,26 +38,6 @@ class Main extends Component {
 
   }
 
-
-  //async componentDidUpdate(prevProps, prevState) {
-    //(() => {
-    //  this.setState({ qrCodeValue: prevState.qrCodeValue })
-    //})();
-    /*
-    function handleQRCodeUpdate() {
-      if (prevState.qrCodeValue !== this.state.qrCodeValue) {
-        this.setState({ qrCodeValue: this.state.qrCodeValue });
-      }
-    }
-    <QRCode value={this.state.qrCodeValue} />
-    */
-    //(() => {
-    //  if (prevState.qrCodeValue !== )
-    //})();
-
-  //}
-
-
   render() {
 
     return (
