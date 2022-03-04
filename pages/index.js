@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { Button, List, Divider, Header, Container } from 'semantic-ui-react';
+import { Button, List, Divider, Header } from 'semantic-ui-react';
 import Layout from '../components/layout';
 import detectEthereumProvider from '@metamask/detect-provider';
-import ConnectionIPFS from './ipfsConnection';
+import ImageGenerator from './imagegenerator';
 import QRCode from 'react-qr-code';
 
 class Main extends Component {
@@ -10,7 +10,8 @@ class Main extends Component {
     super(props);
     this.state = {
       isUserConnected: null,
-      currentAccount: null
+      currentAccount: null,
+      qrCodeValue: 'https://www.youtube.com/watch?v=DLzxrzFCyOs'
     };
 
     //this.connectUser = this.connectUser.bind(this);
@@ -37,6 +38,26 @@ class Main extends Component {
 
   }
 
+
+  //async componentDidUpdate(prevProps, prevState) {
+    //(() => {
+    //  this.setState({ qrCodeValue: prevState.qrCodeValue })
+    //})();
+    /*
+    function handleQRCodeUpdate() {
+      if (prevState.qrCodeValue !== this.state.qrCodeValue) {
+        this.setState({ qrCodeValue: this.state.qrCodeValue });
+      }
+    }
+    <QRCode value={this.state.qrCodeValue} />
+    */
+    //(() => {
+    //  if (prevState.qrCodeValue !== )
+    //})();
+
+  //}
+
+
   render() {
 
     return (
@@ -57,15 +78,7 @@ class Main extends Component {
                 IPFS Functionality
               </Header>
             </Divider>
-            <ConnectionIPFS />
-            <Divider horizontal>
-              <Header as='h4'>
-                QR Code Generator
-              </Header>
-            </Divider>
-            <Container textAlign='center'>
-              <QRCode value='https://www.youtube.com/watch?v=DLzxrzFCyOs'/>
-            </Container>
+            <ImageGenerator />
           </List>
         </div>
       </Layout>
