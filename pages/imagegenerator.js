@@ -5,6 +5,7 @@ import QRCode from 'react-qr-code';
 import testImage from '../public/images/eminem_boredApe.png';
 import qrImgSnap from '../public/images/qrImgSnap.png';
 import Image from 'next/image';
+import { Canvg } from 'canvg';
 
 export default function ImageGenerator(props) {
 
@@ -12,6 +13,7 @@ export default function ImageGenerator(props) {
   const [ipfsCID, setIpfsCID] = useState('This is where unique CID will be shown...');
   const [imgSrc, setImgSrc] = useState('');
   const [newImgSrc, setNewImgSrc] = useState('');
+  const [qrImgSrc, setQRimgSrc] = useState('');
 
   const addtoIPFSClicked = async () => {
     console.log("Message", message);
@@ -166,20 +168,15 @@ export default function ImageGenerator(props) {
   function generateImage() {
     // Grab first image - which is our avatar
     var avatarImg = document.getElementById('avatar');
-    console.log("Avatar Img", avatarImg);
+    //console.log("Avatar Img", avatarImg);
     var qrImg = document.getElementById('qrImgSnap');
-    console.log("QR IMG", qrImg);
+    //console.log("QR IMG", qrImg);
 
     /*
     var qrImg = document.getElementById('qrImage');
     var qrCanvas = document.createElement('canvas');
     console.log("SVG QR", svgQR);
-    // Get sizes of svg
-    var bBox = svgQR.getBBox();
-    var qrWidth = bBox.width;
-    var qrHeight = bBox.height;
 
-    var svgString = new XMLSerializer().serializeToString(svgQR);;
     var canvas = document.getElementById('canvas');
     var ctx = canvas.getContext('2d');
     var qrImg = document.createElement('img');
@@ -202,16 +199,101 @@ export default function ImageGenerator(props) {
     qrImg.height = qrHeight;
     */
 
-    var embeddedImage = embedImage(avatarImg, qrImg);
+    var qrSvg = document.getElementById('svgQR');
+    console.log("QR Code SVG", qrSvg, "type", typeof qrSvg);
+    // Getting sizes for svg
+    var bBox = svgQR.getBBox();
+    var qrWidth = bBox.width;
+    var qrHeight = bBox.height;
+    console.log("QR SVG width:", qrWidth, "QR SVG height", qrHeight);
 
+    /*
+    //var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    var svg = document.getElementsByTagName('svg');
+    console.log('SVG', svg, "typeof svg", typeof svg);
+    function createSVGElement (qrSVGData) {
+      console.log("in QR Function Baby");
+      console.log("svg array 0", qrSVGData);
+
+    }
+    var qrSVGElement = createSVGElement(qrSvg);
+    */
+
+    console.log("SVG Get Tag:", document.getElementsByTagName('svg'));
+    console.log("QR SVG Inner HTML", qrSvg.innerHTML);
+
+    var svgString = new XMLSerializer().serializeToString(qrSvg);
+    console.log("SVG String:", svgString);
+    //var encodedURI = encodeURIComponent(svgString);
+    //console.log("Encoded URI:", encodedURI);
+    //var base64 = btoa(encodedURI);
+    //var qrImgSourceBase = 'data:image/svg+xml;base64,';
+    //var qrImgSource = qrImgSourceBase.concat(base64);
+
+    let v;
+    (async function () {
+      var canvas = document.createElement('canvas');
+      var ctx = canvas.getContext('2d');
+      var v = await Canvg.fromString(ctx, qrSvg);
+    })();
+    console.log("V Canvg", v);
+
+    //Canvg('qrCanvas', svgString, {useCORS: true});
+    //imageSource = qrCanvas.toDataURL('image/png');
+    //console.log("Image Source:", imageSource)
+
+    //var embedCanvas = document.createElement('canvas');
+    //var ctx = embedCanvas.getContext('2d');
+    //embedCanvas.width = qrWidth;
+    //embedCanvas.height = qrHeight;
+
+    //var qrCodeImg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    //qrCodeImg.setAttribute('width', qrWidth);
+    //qrCodeImg.setAttribute('height', qrHeight);
+    //qrCodeImg.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+    //var qrCodeImg = document.createElementNS('http://www.w3.org/2000/svg', 'image');
+    var qrCodeImg = document.createElementNS('http://www.w3.org/2000/svg', 'image');
+    qrCodeImg.setAttribute('width', qrWidth);
+    qrCodeImg.setAttribute('height', qrHeight);
+    qrCodeImg.src = 'data:image/svg+xml; base64,' + btoa(qrSvg.innerHTML);
+    qrCodeImg.onload = function() {
+      console.log("OnLoad qrCodeImg function");
+      ctx.drawImage(qrCodeImg, 0, 0);
+    }
+
+    //console.log("CTX to Data Test", embedCanvas.toDataURL());
+
+    //var qrCodeCanvas = document.getElementById('qrCanvas');
+    //var qrctx = qrCodeCanvas.getContext('2d');
+
+    //var qrsvg_path = new Path2D('M0 0 h 256 v 256 h -256 Z');
+    //console.log("QR SVG Path:", qrsvg_path);
+    //qrctx.fill(qrsvg_path);
+
+    //qrCodeImg.width = qrWidth;
+    //qrCodeImg.height = qrHeight;
+    //qrCodeImg.src = qrImgSource;
+
+    //ctx.drawImage(qrCodeImg, 0, 0);
+
+    //console.log("QR Code SVG Source", qrImgSource);
+
+
+    //var qrImgSrc = qrCodeCanvas.toDataURL();
+    //console.log("QR Img Source", qrImgSrc);
+    //qrCodeImg.setAttribute('src', qrImgSrc);
+    //var qrImgTag = document.getElementById('qrImage');
+    //qrImgTag.setAttribute('width', qrWidth);
+    //qrImgTag.setAttribute('height', qrHeight);
+
+
+    var embeddedImage = embedImage(avatarImg, qrCodeImg);
     setImgSrc(embeddedImage);
-    console.log("Embedded Image", embeddedImage);
 
   }
 
   function interpretImage() {
     var embeddedImage = document.getElementById('newImage');
-
     var parsedImage = parseImage(embeddedImage)
     setNewImgSrc(parsedImage);
   }
@@ -250,6 +332,9 @@ export default function ImageGenerator(props) {
     <Grid textAlign='center' columns={2} padded>
       <Grid.Column>
         <h4>Public Message</h4>
+        <img
+          src={qrImgSrc}
+        />
         <QRCode value={message} id='svgQR'/>
       </Grid.Column>
       <Grid.Column>
@@ -275,7 +360,7 @@ export default function ImageGenerator(props) {
         <Image
           src={testImage} alt="ogImage" width="550" height="550" id='avatar'
         />
-        <h4>Planet Image</h4>
+        <h4>QR Code Image</h4>
         <Image
           src={qrImgSnap} alt='qrImage' width="256" height="256" id='qrImgSnap'
         />
@@ -317,3 +402,10 @@ export default function ImageGenerator(props) {
     </div>
   )
 }
+
+/*
+<canvas id='qrCanvas' width='256' height='256' style={{
+    border: '1px solid #000000'
+  }}
+/>
+*/
