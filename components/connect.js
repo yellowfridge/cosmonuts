@@ -15,7 +15,7 @@ export default function Connect(props) {
     } catch (err) {
       console.log(err);
     }
-    window.location.reload(true);
+    window.location.reload(true); // Not a good way to probably update user connected and account number in index
   }
 
   function handleChange(event) {
