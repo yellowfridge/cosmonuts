@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button, Input, Divider, Header, Grid, Container } from 'semantic-ui-react';
 import * as IPFS from 'ipfs-core';
 import QRCode from 'react-qr-code';
@@ -6,6 +6,7 @@ import testImage from '../public/images/eminem_boredApe.png';
 import qrImgSnap from '../public/images/qrImgSnap.png';
 import Image from 'next/image';
 import { Canvg } from 'canvg';
+import { svgAsPngUri } from 'save-svg-as-png';
 
 export default function ImageGenerator(props) {
 
@@ -165,12 +166,50 @@ export default function ImageGenerator(props) {
     return tmp.toDataURL()
   }
 
-  function generateImage() {
+  async function generateImage() {
     // Grab first image - which is our avatar
     var avatarImg = document.getElementById('avatar');
-    //console.log("Avatar Img", avatarImg);
-    var qrImg = document.getElementById('qrImgSnap');
+    //console.log("Avatar Img", avatarImg, "Type Of", typeof avatarImg);
+    var qrImgSnap = document.getElementById('qrImgSnap');
     //console.log("QR IMG", qrImg);
+    var qrCodeImage = document.getElementById('qrCodeImage');
+
+    var qrSvg = document.getElementById('svgQR');
+    console.log("QR Code SVG", qrSvg, "type", typeof qrSvg);
+    // Getting sizes for svg
+    var bBox = svgQR.getBBox();
+    var qrWidth = bBox.width;
+    var qrHeight = bBox.height;
+    //console.log("QR SVG width:", qrWidth, "QR SVG height", qrHeight);
+    //console.log("QR SVG Inner HTML", qrSvg.innerHTML);
+
+    var qrPNGuri = await svgAsPngUri(qrSvg);
+    console.log("QR PNG Uri:", qrPNGuri);
+
+    var qrImg = document.createElement('image');
+    qrImg.setAttribute('width', qrWidth);
+    qrImg.setAttribute('height', qrHeight);
+
+    var qrCanvas = document.getElementById('qrCanvas');
+    qrCanvas.width = qrWidth;
+    qrCanvas.height = qrHeight;
+    var qrctx = qrCanvas.getContext('2d');
+    qrImg.onload = async function () {
+      console.log("In onload functon");
+      await qrctx.drawImage(qrImg, 0, 0, qrCanvas.width, qrCanvas.height);
+
+      var qrImageData = qrctx.getImageData(0, 0, qrCanvas.width, qrCanvas.height);
+
+      var pngUrl = qrCanvas.toDataURL('image/png');
+      console.log("pngURL", pngUrl);
+    }
+    //qrImg.src = qrPNGuri;
+    qrImg.setAttribute('src', qrPNGuri);
+    console.log("QR Image", qrImg);
+
+    setQRimgSrc(qrPNGuri);
+
+    //document.body.appendChild(qrCanvas);
 
     /*
     var qrImg = document.getElementById('qrImage');
@@ -198,15 +237,6 @@ export default function ImageGenerator(props) {
     qrImg.width = qrWidth;
     qrImg.height = qrHeight;
     */
-
-    var qrSvg = document.getElementById('svgQR');
-    console.log("QR Code SVG", qrSvg, "type", typeof qrSvg);
-    // Getting sizes for svg
-    var bBox = svgQR.getBBox();
-    var qrWidth = bBox.width;
-    var qrHeight = bBox.height;
-    console.log("QR SVG width:", qrWidth, "QR SVG height", qrHeight);
-
     /*
     //var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
     var svg = document.getElementsByTagName('svg');
@@ -219,24 +249,13 @@ export default function ImageGenerator(props) {
     var qrSVGElement = createSVGElement(qrSvg);
     */
 
-    console.log("SVG Get Tag:", document.getElementsByTagName('svg'));
-    console.log("QR SVG Inner HTML", qrSvg.innerHTML);
-
     var svgString = new XMLSerializer().serializeToString(qrSvg);
-    console.log("SVG String:", svgString);
+    //console.log("SVG String:", svgString);
     //var encodedURI = encodeURIComponent(svgString);
     //console.log("Encoded URI:", encodedURI);
     //var base64 = btoa(encodedURI);
     //var qrImgSourceBase = 'data:image/svg+xml;base64,';
     //var qrImgSource = qrImgSourceBase.concat(base64);
-
-    let v;
-    (async function () {
-      var canvas = document.createElement('canvas');
-      var ctx = canvas.getContext('2d');
-      var v = await Canvg.fromString(ctx, qrSvg);
-    })();
-    console.log("V Canvg", v);
 
     //Canvg('qrCanvas', svgString, {useCORS: true});
     //imageSource = qrCanvas.toDataURL('image/png');
@@ -287,7 +306,7 @@ export default function ImageGenerator(props) {
     //qrImgTag.setAttribute('height', qrHeight);
 
 
-    var embeddedImage = embedImage(avatarImg, qrCodeImg);
+    var embeddedImage = embedImage(avatarImg, qrCodeImage);
     setImgSrc(embeddedImage);
 
   }
@@ -295,6 +314,7 @@ export default function ImageGenerator(props) {
   function interpretImage() {
     var embeddedImage = document.getElementById('newImage');
     var parsedImage = parseImage(embeddedImage)
+    console.log("Parsed Image:", parsedImage, "Type Of", typeof parsedImage);
     setNewImgSrc(parsedImage);
   }
 
@@ -332,10 +352,14 @@ export default function ImageGenerator(props) {
     <Grid textAlign='center' columns={2} padded>
       <Grid.Column>
         <h4>Public Message</h4>
-        <img
-          src={qrImgSrc}
+        <canvas id='qrCanvas' width='256' height='256' style={{
+            border: '1px solid #000000'
+          }}
         />
         <QRCode value={message} id='svgQR'/>
+        <img
+          src={qrImgSrc} id='qrCodeImage' width="256" height="256"
+        />
       </Grid.Column>
       <Grid.Column>
         <h4>Encrypted Message</h4>
@@ -407,5 +431,11 @@ export default function ImageGenerator(props) {
 <canvas id='qrCanvas' width='256' height='256' style={{
     border: '1px solid #000000'
   }}
+/>
+*/
+
+/*
+<Image
+  src={qrImgSrc} alt='qrImage' width="256" height="256" id='qrImgSnap'
 />
 */
