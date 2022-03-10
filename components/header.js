@@ -2,8 +2,28 @@ import React from "react";
 import { Menu, Button, Icon } from 'semantic-ui-react';
 import { Link } from '../routes';
 import Connect from './connect';
+import Userpage from '../pages/users/userpage';
+import { useState, useEffect } from 'react';
+import detectEthereumProvider from '@metamask/detect-provider';
 
 export default () => {
+
+  const [userAddress, setUserAddress] = useState('');
+
+  useEffect(() => {
+    // You're doing this same thing twice - consider grabbing as props from parent
+    (async () => {
+      let address;
+      const provider = await detectEthereumProvider();
+      if (provider.selectedAddress === null) {
+        address = 'None';
+      } else {
+        address = provider.selectedAddress;
+      }
+      setUserAddress(address);
+    })();
+  });
+
   return (
     <Menu style={{ marginTop: '10px' }} secondary icon = 'labeled'>
       <Link route="/">
@@ -15,6 +35,16 @@ export default () => {
         </a>
       </Link>
 
+      <Menu.Menu position='left'>
+        <Menu.Item name='userpagelink'>
+          <Link route={`/users/${userAddress}`}>
+            <a>
+              Jump to another Universe ----->
+            </a>
+          </Link>
+        </Menu.Item>
+      </Menu.Menu>
+
       <Menu.Menu position='right' icon='labeled'>
         <Menu.Item name='connect'>
           <Connect />
@@ -23,18 +53,3 @@ export default () => {
     </Menu>
   )
 }
-
-/*
-// Do not have to work on this yet, need to have users first
-work on initial set-up / plan - begin process
-<Menu.Menu position="right" icon='labeled'>
-  <Link route="/login">
-    <a className="item">
-      <Menu.Item name ='create'>
-        <Icon name='add' />
-        Connect Wallet
-      </Menu.Item>
-    </a>
-  </Link>
-</Menu.Menu>
-*/

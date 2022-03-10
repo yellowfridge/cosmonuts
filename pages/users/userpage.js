@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import Layout from '../components/layout';
+import Layout from '../../components/layout';
 
 class Userpage extends Component {
   render() {
     return (
       <Layout>
         <div>
-          <h1>Hello World</h1>
+          <h1>User Page --> where they will embed messages</h1>
         </div>
       </Layout>
     );

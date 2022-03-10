@@ -1,6 +1,6 @@
 const routes = require('next-routes')();
 
 routes
-  .add('/:address', '/userpage');
+  .add('/users/:address', '/users/userpage');
 
 module.exports = routes;

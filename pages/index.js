@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { Button, List, Divider, Header } from 'semantic-ui-react';
+import { Button, List, Divider, Header, Container } from 'semantic-ui-react';
 import Layout from '../components/layout';
 import detectEthereumProvider from '@metamask/detect-provider';
 import ImageGenerator from './imagegenerator';
 import QRCode from 'react-qr-code';
+import Mint from './mint';
 
 class Main extends Component {
   constructor(props) {
@@ -53,6 +54,9 @@ class Main extends Component {
                 <p>User Account Number: {this.state.currentAccount}</p>
               </h4>
             </List.Item>
+            <Container textAlign='center'>
+              <Mint />
+            </Container>
             <Divider horizontal>
               <Header as='h4'>
                 IPFS Functionality
