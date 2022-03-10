@@ -6,9 +6,4 @@ const provider = new HDWalletProvider(mnemonic, "https://rinkeby.infura.io/v3/1d
 
 const web3 = new Web3(provider);
 
-const instance = new web3.eth.Contract(
-  JSON.parse(CosmoNuts.interface),
-  'NEED CONTRACT ADDRESS HERE 0x...'
-);
-
-export default instance;
+export default web3;
