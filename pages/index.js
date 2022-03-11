@@ -6,13 +6,14 @@ import ImageGenerator from './imagegenerator';
 import QRCode from 'react-qr-code';
 import Mint from './mint';
 
+// Latest deployed CosmoNuts address: 0xd8b934580fcE35a11B58C6D73aDeE468a2833fa8
+
 class Main extends Component {
   constructor(props) {
     super(props);
     this.state = {
       isUserConnected: null,
-      currentAccount: null,
-      qrCodeValue: 'https://www.youtube.com/watch?v=DLzxrzFCyOs'
+      currentAccount: null
     };
 
     //this.connectUser = this.connectUser.bind(this);

@@ -86,7 +86,7 @@ contract CosmoNuts is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
     traveledUniverses[tokenId].push(new_uri);
   }
 
-  function getUniversees(uint256 tokenId) public view virtual returns (string[] memory) {
+  function getUniverses(uint256 tokenId) public view virtual returns (string[] memory) {
     return traveledUniverses[tokenId];
   }
 
