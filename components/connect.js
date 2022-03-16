@@ -1,12 +1,18 @@
 import { Button } from 'semantic-ui-react';
 import Head from 'next/head';
 import Header from './header';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function Connect(props) {
 
   const [load, setLoad] = useState(false);
   const [content, setContent] = useState('Connect');
+
+  useEffect(() => {
+    function handleButtonChange() {
+      console.log("In Button Change Area")
+    }
+  });
 
   const connectClicked = async () => {
     setLoad(true);
@@ -21,6 +27,7 @@ export default function Connect(props) {
   function handleChange(event) {
     console.log("Event", event);
   }
+
 
   return (
     <div>

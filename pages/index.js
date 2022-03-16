@@ -19,7 +19,7 @@ class Main extends Component {
     this.state = {
       isUserConnected: null,
       currentAccount: null,
-      isSaleActive: null
+      isSaleActive: 'Not Sure'
     };
 
     //this.connectUser = this.connectUser.bind(this);
@@ -64,6 +64,7 @@ class Main extends Component {
               <h4>
                 <p>Is User Connected? {this.state.isUserConnected}</p>
                 <p>User Account Number: {this.state.currentAccount}</p>
+                <p>Is Sale Active: {this.state.isSaleActive}</p>
               </h4>
             </List.Item>
             <Container textAlign='center'>
