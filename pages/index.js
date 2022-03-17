@@ -22,11 +22,6 @@ class Main extends Component {
       isSaleActive: 'Not Sure'
     };
 
-    //this.connectUser = this.connectUser.bind(this);
-  }
-
-  handleAccountChange(id) {
-    this.setState({ currentAccount: id })
   }
 
   async componentDidMount() {

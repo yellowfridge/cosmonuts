@@ -1,5 +1,5 @@
 import React from "react";
-import { Menu, Button, Icon } from 'semantic-ui-react';
+import { Menu, Button, Icon, Popup } from 'semantic-ui-react';
 import { Link } from '../routes';
 import Connect from './connect';
 import Userpage from '../pages/users/userpage';

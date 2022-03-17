@@ -1,17 +1,39 @@
-import { Button } from 'semantic-ui-react';
+import { Button, Popup } from 'semantic-ui-react';
 import Head from 'next/head';
 import Header from './header';
 import { useState, useEffect } from 'react';
+import detectEthereumProvider from '@metamask/detect-provider';
 
 export default function Connect(props) {
 
   const [load, setLoad] = useState(false);
   const [content, setContent] = useState('Connect');
+  const [userAddress, setUserAddress] = useState('');
+  const [isConnected, setIsConnected] = useState(false);
+  const [helperMessage, setHelperMessage] = useState('');
+
+  async function getInitialStates() {
+    let address;
+    let connection;
+    let message;
+    const provider = await detectEthereumProvider();
+    if (provider.selectedAddress === null) {
+      address = 'None';
+      connection = false;
+      message = 'Make sure to have MetaMask installed.'
+    } else {
+      address = provider.selectedAddress;
+      connection = true;
+      message = 'Navigate to MetaMask plugin to disable manually and refresh page.'
+      setContent('Already Connected');
+    }
+    setUserAddress(address);
+    setIsConnected(connection);
+    setHelperMessage(message);
+  }
 
   useEffect(() => {
-    function handleButtonChange() {
-      console.log("In Button Change Area")
-    }
+    getInitialStates();
   });
 
   const connectClicked = async () => {
@@ -21,7 +43,7 @@ export default function Connect(props) {
     } catch (err) {
       console.log(err);
     }
-    window.location.reload(true); // Not a good way to probably update user connected and account number in index
+    window.location.reload(true); // Documnetation suggests a refresh
   }
 
   function handleChange(event) {
@@ -31,13 +53,21 @@ export default function Connect(props) {
 
   return (
     <div>
-      <Button
-        content={content}
-        icon="add circle"
-        primary
-        onClick={connectClicked}
-        onChange={handleChange}
-        disabled={load}
+      <Popup
+        content={helperMessage}
+        trigger = {
+          <div>
+            <Button
+              content={content}
+              icon="add circle"
+              primary
+              onClick={connectClicked}
+              onChange={handleChange}
+              loading={load}
+              disabled={isConnected}
+            />
+          </div>
+        }
       />
     </div>
   )
