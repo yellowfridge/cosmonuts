@@ -196,6 +196,11 @@ export default function ImageGenerator(props) {
 
   return (
     <div>
+    <Divider horizontal>
+      <Header as='h4'>
+        IPFS Functionality
+      </Header>
+    </Divider>
     <Input
       action={{
         content: 'Add to IPFS',

@@ -26,7 +26,6 @@ class Main extends Component {
 
   async componentDidMount() {
     var provider = await detectEthereumProvider();
-    //console.log("Provider", provider);
 
     (() => {
       if (provider.selectedAddress === null) {
@@ -41,8 +40,6 @@ class Main extends Component {
         });
       }
     })();
-
-    console.log("END OF COMPONENT DID MOUNT");
 
   }
 
@@ -65,12 +62,6 @@ class Main extends Component {
             <Container textAlign='center'>
               <Mint />
             </Container>
-            <Divider horizontal>
-              <Header as='h4'>
-                IPFS Functionality
-              </Header>
-            </Divider>
-            <ImageGenerator />
           </List>
         </div>
       </Layout>
