@@ -7,6 +7,8 @@ import QRCode from 'react-qr-code';
 import Mint from './mint';
 import Web3 from 'web3';
 import CosmoNuts from '../ethereum/build_manual/CosmoNuts_abi.json';
+import Image from 'next/image';
+import darkblack_img from '../public/images/darkblack_flatring.jpg';
 
 // Latest deployed CosmoNuts address: 0x66023f6da39cbffd7ad4f287ad4f8b44e0725167
 // https://ropsten.etherscan.io/tx/0xe207cdcc1a558b06f5790d409c222eb5fa1652f22a7a820c41a235b3b3a7094e
@@ -45,9 +47,15 @@ class Main extends Component {
 
   render() {
 
+    console.log("Background Image:", darkblack_img.src);
+
     return (
       <Layout>
-        <div>
+        <style>{'body { background-color: black; }'}</style>
+        <div style={{
+          backgroundImage: `url(${darkblack_img.src})`,
+          backgroundSize: 'cover'
+        }}>
           <List divided relaxed>
             <List.Item>
               <h3>Let's get cracking. Showing all the data we are pulling below.</h3>
@@ -69,3 +77,5 @@ class Main extends Component {
 }
 
 export default Main
+
+//<div style={{ background: '#778fde' }}>

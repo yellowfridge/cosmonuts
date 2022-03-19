@@ -75,6 +75,10 @@ export default function Mint(props) {
         trigger = {
           <div>
             <Button
+              inverted
+              style = {{
+                backgroundColor: 'purple'
+              }}
               content='MINT'
               primary
               onClick={mintClicked}

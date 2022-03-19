@@ -53,6 +53,7 @@ export default function Connect(props) {
         trigger = {
           <div>
             <Button
+              inverted
               content={content}
               icon="add circle"
               primary
