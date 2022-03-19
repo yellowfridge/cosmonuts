@@ -2,6 +2,7 @@ import React from 'react';
 import Web3 from 'web3';
 import { Web3ReactProvider} from '@web3-react/core';
 import detectEthereumProvider from '@metamask/detect-provider';
+//import './semantic.min.css';
 
 function getLibrary(provider) {
   return new Web3(provider)

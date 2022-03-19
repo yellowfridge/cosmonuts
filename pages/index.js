@@ -6,7 +6,6 @@ import ImageGenerator from './imagegenerator';
 import QRCode from 'react-qr-code';
 import Mint from './mint';
 import Web3 from 'web3';
-import web3_inf from '../ethereum/web3_inf';
 import CosmoNuts from '../ethereum/build_manual/CosmoNuts_abi.json';
 
 // Latest deployed CosmoNuts address: 0x66023f6da39cbffd7ad4f287ad4f8b44e0725167
@@ -19,7 +18,8 @@ class Main extends Component {
     this.state = {
       isUserConnected: null,
       currentAccount: null,
-      isSaleActive: 'Not Sure'
+      isSaleActive: 'Not Known',
+      totalSupply: 'Not Known'
     };
 
   }
@@ -57,11 +57,10 @@ class Main extends Component {
                 <p>Is User Connected? {this.state.isUserConnected}</p>
                 <p>User Account Number: {this.state.currentAccount}</p>
                 <p>Is Sale Active: {this.state.isSaleActive}</p>
+                <p>Supply Status: {this.state.totalSupply}</p>
               </h4>
             </List.Item>
-            <Container textAlign='center'>
-              <Mint />
-            </Container>
+            <Mint />
           </List>
         </div>
       </Layout>

@@ -72,7 +72,6 @@ export default function Mint(props) {
     <div>
       <Popup
         content={helperMessage}
-        position='top center'
         trigger = {
           <div>
             <Button

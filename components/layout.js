@@ -18,3 +18,11 @@ export default (props) => {
     </Container>
   )
 }
+
+/*
+// Placed in <Head> tag
+<link
+  rel="stylesheet"
+  href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.12/semantic.min.css"
+/>
+*/
