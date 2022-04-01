@@ -9,6 +9,8 @@ import Web3 from 'web3';
 import CosmoNuts from '../ethereum/build_manual/CosmoNuts_abi.json';
 import Image from 'next/image';
 import darkblack_img from '../public/images/darkblack_flatring.jpg';
+import galaxy_img from '../public/images/galaxy_center.jpg';
+import { Parallax, ParallaxLayer } from '@react-spring/parallax';
 
 // Latest deployed CosmoNuts address: 0x66023f6da39cbffd7ad4f287ad4f8b44e0725167
 // https://ropsten.etherscan.io/tx/0xe207cdcc1a558b06f5790d409c222eb5fa1652f22a7a820c41a235b3b3a7094e
@@ -27,6 +29,9 @@ class Main extends Component {
   }
 
   async componentDidMount() {
+    document.body.style.backgroundImage = `url(${darkblack_img.src})`;
+    document.body.style.backgroundSize = 'cover';
+
     var provider = await detectEthereumProvider();
 
     (() => {
@@ -47,15 +52,36 @@ class Main extends Component {
 
   render() {
 
-    console.log("Background Image:", darkblack_img.src);
+    //console.log("Background Image:", darkblack_img.src);
 
     return (
       <Layout>
-        <style>{'body { background-color: black; }'}</style>
-        <div style={{
-          backgroundImage: `url(${darkblack_img.src})`,
-          backgroundSize: 'cover'
-        }}>
+
+        // Testing Parallax design
+        <Parallax pages={2} style={{ top: '0', left: '0' }}>
+          <ParallaxLayer
+            offset={0}
+            speed={2.5}
+            style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <p>Scroll down</p>
+          </ParallaxLayer>
+
+          <ParallaxLayer offset={1} speed={2} style={{ backgroundColor: '#ff6d6d' }} />
+
+          <ParallaxLayer
+            offset={1}
+            speed={0.5}
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              color: 'white',
+            }}>
+            <p>Scroll up</p>
+          </ParallaxLayer>
+        </Parallax>
+
+        <div>
           <List divided relaxed>
             <List.Item>
               <h3>Let's get cracking. Showing all the data we are pulling below.</h3>
@@ -79,3 +105,16 @@ class Main extends Component {
 export default Main
 
 //<div style={{ background: '#778fde' }}>
+
+/*
+To include a background image for a div tag
+<div style={{
+  backgroundImage: `url(${darkblack_img.src})`,
+  backgroundSize: 'cover'
+}}>
+*/
+
+/*
+To set as background color
+<style>{'body { background-color: black; }'}</style>
+*/
