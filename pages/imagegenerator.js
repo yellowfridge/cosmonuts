@@ -4,7 +4,6 @@ import * as IPFS from 'ipfs-core';
 import QRCode from 'react-qr-code';
 import testImage from '../public/images/eminem_boredApe.png';
 import Image from 'next/image';
-import { Canvg } from 'canvg';
 import { svgAsPngUri } from 'save-svg-as-png';
 
 export default function ImageGenerator(props) {

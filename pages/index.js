@@ -11,6 +11,7 @@ import Image from 'next/image';
 import darkblack_img from '../public/images/darkblack_flatring.jpg';
 import galaxy_img from '../public/images/galaxy_center.jpg';
 import { Parallax, ParallaxLayer } from '@react-spring/parallax';
+import Starfield from './starfield';
 
 // Latest deployed CosmoNuts address: 0x66023f6da39cbffd7ad4f287ad4f8b44e0725167
 // https://ropsten.etherscan.io/tx/0xe207cdcc1a558b06f5790d409c222eb5fa1652f22a7a820c41a235b3b3a7094e
@@ -29,8 +30,11 @@ class Main extends Component {
   }
 
   async componentDidMount() {
-    document.body.style.backgroundImage = `url(${darkblack_img.src})`;
-    document.body.style.backgroundSize = 'cover';
+    //document.body.style.backgroundImage = `url(${darkblack_img.src})`;
+    //var starfield = <Starfield />;
+    //console.log("Starfield", starfield);
+
+    //document.body.style.backgroundSize = 'cover';
 
     var provider = await detectEthereumProvider();
 
@@ -55,33 +59,36 @@ class Main extends Component {
     //console.log("Background Image:", darkblack_img.src);
 
     return (
-      <Layout>
+      <Parallax pages={3} style={{
+        top: '0',
+        left: '0'
+      }}>
+        <ParallaxLayer
+          sticky={{ start: 0, end: 3 }}
+        >
+          <Layout />
+        </ParallaxLayer>
 
-        // Testing Parallax design
-        <Parallax pages={2} style={{ top: '0', left: '0' }}>
-          <ParallaxLayer
-            offset={0}
-            speed={2.5}
-            style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-            <p>Scroll down</p>
-          </ParallaxLayer>
+        <ParallaxLayer
+          offset={0}
+          speed={2}
+          style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+        >
+          <Mint />
+        </ParallaxLayer>
 
-          <ParallaxLayer offset={1} speed={2} style={{ backgroundColor: '#ff6d6d' }} />
+        <ParallaxLayer offset={1} speed={3} style={{ backgroundColor: '#ff6d6d' }}>
+        </ParallaxLayer>
 
-          <ParallaxLayer
-            offset={1}
-            speed={0.5}
-            style={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              color: 'white',
-            }}>
-            <p>Scroll up</p>
-          </ParallaxLayer>
-        </Parallax>
-
-        <div>
+        <ParallaxLayer
+          offset={1}
+          speed={1}
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            color: 'white',
+          }}>
           <List divided relaxed>
             <List.Item>
               <h3>Let's get cracking. Showing all the data we are pulling below.</h3>
@@ -94,10 +101,11 @@ class Main extends Component {
                 <p>Supply Status: {this.state.totalSupply}</p>
               </h4>
             </List.Item>
-            <Mint />
+
           </List>
-        </div>
-      </Layout>
+        </ParallaxLayer>
+      </Parallax>
+
     );
   }
 }
