@@ -2,8 +2,6 @@ import { useState, useEffect } from 'react';
 
 export default function Starfield(props) {
 
-  const [imgURL, setImgURL] = useState('');
-
   useEffect(() => {
     var starfield_canvas = document.getElementById('starfield');
     document.body.appendChild(starfield_canvas);
@@ -58,7 +56,7 @@ export default function Starfield(props) {
 
     var Star = function() {
       this.orbitRadius = random(maxOrbit(w, h));
-      this.radius = random(100,  this.orbitRadius) / 12;
+      this.radius = random(60,  this.orbitRadius) / 12;
       this.orbitX = w / 2;
       this.orbitY = h / 4;
       this.timePassed = random(0, maxStars);
@@ -72,8 +70,8 @@ export default function Starfield(props) {
     Star.prototype.draw = function() {
       var x = Math.sin(this.timePassed) * this.orbitRadius + this.orbitX;
       var y = Math.cos(this.timePassed) * this.orbitRadius + this.orbitY;
-      var twinkle = random(100);
-      var twinkleDepth = 1; // greater means less twinkling in front
+      var twinkle = random(10000);
+      var twinkleDepth = 100; // greater means less twinkling in front
 
       if (Math.round(this.speed*100000) % twinkleDepth === 0) {
         if (twinkle === 1 && this.alpha > 0) {
@@ -114,12 +112,6 @@ export default function Starfield(props) {
       window.requestAnimationFrame(animation);
     }
     animation();
-
-    var starfieldURL = starfield_canvas.toDataURL();
-    //console.log("Starfield URL", starfieldURL);
-    function updateURL() {
-      setImgURL(starfieldURL);
-    }
 
   });
 
