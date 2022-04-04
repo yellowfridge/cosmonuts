@@ -12,6 +12,7 @@ import darkblack_img from '../public/images/darkblack_flatring.jpg';
 import galaxy_img from '../public/images/galaxy_center.jpg';
 import { Parallax, ParallaxLayer } from '@react-spring/parallax';
 import Starfield from './starfield';
+import Galaxy from './galaxy';
 
 // Latest deployed CosmoNuts address: 0x66023f6da39cbffd7ad4f287ad4f8b44e0725167
 // https://ropsten.etherscan.io/tx/0xe207cdcc1a558b06f5790d409c222eb5fa1652f22a7a820c41a235b3b3a7094e
@@ -24,7 +25,8 @@ class Main extends Component {
       isUserConnected: null,
       currentAccount: null,
       isSaleActive: 'Not Known',
-      totalSupply: 'Not Known'
+      totalSupply: 'Not Known',
+      backgroundSource: null
     };
 
   }
@@ -63,6 +65,7 @@ class Main extends Component {
         top: '0',
         left: '0'
       }}>
+        <Starfield />
         <ParallaxLayer
           sticky={{ start: 0, end: 3 }}
         >
@@ -77,7 +80,8 @@ class Main extends Component {
           <Mint />
         </ParallaxLayer>
 
-        <ParallaxLayer offset={1} speed={3} style={{ backgroundColor: '#ff6d6d' }}>
+        <ParallaxLayer offset={1} speed={3}>
+          <Galaxy />
         </ParallaxLayer>
 
         <ParallaxLayer
