@@ -11,7 +11,6 @@ import Image from 'next/image';
 import darkblack_img from '../public/images/darkblack_flatring.jpg';
 import galaxy_img from '../public/images/galaxy_center.jpg';
 import { Parallax, ParallaxLayer } from '@react-spring/parallax';
-import Starfield from './starfield';
 import Galaxy from './galaxy';
 
 // Latest deployed CosmoNuts address: 0x66023f6da39cbffd7ad4f287ad4f8b44e0725167
@@ -61,54 +60,58 @@ class Main extends Component {
     //console.log("Background Image:", darkblack_img.src);
 
     return (
-      <Parallax pages={3} style={{
-        top: '0',
-        left: '0'
-      }}>
-        <Starfield />
-        <ParallaxLayer
-          sticky={{ start: 0, end: 3 }}
-        >
-          <Layout />
-        </ParallaxLayer>
+      <div>
 
-        <ParallaxLayer
-          offset={0}
-          speed={2}
-          style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
-        >
-          <Mint />
-        </ParallaxLayer>
+        <Parallax pages={3}>
 
-        <ParallaxLayer offset={1} speed={3}>
-          <Galaxy />
-        </ParallaxLayer>
+          <ParallaxLayer
+            sticky={{ start: 0, end: 3 }}
+          >
+            <Layout />
+          </ParallaxLayer>
 
-        <ParallaxLayer
-          offset={1}
-          speed={1}
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            color: 'white',
-          }}>
-          <List divided relaxed>
-            <List.Item>
-              <h3>Let's get cracking. Showing all the data we are pulling below.</h3>
-            </List.Item>
-            <List.Item>
-              <h4>
-                <p>Is User Connected? {this.state.isUserConnected}</p>
-                <p>User Account Number: {this.state.currentAccount}</p>
-                <p>Is Sale Active: {this.state.isSaleActive}</p>
-                <p>Supply Status: {this.state.totalSupply}</p>
-              </h4>
-            </List.Item>
+          <ParallaxLayer
+            offset={0}
+            speed={2}
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center'
+            }}
+          >
+            <Mint />
+          </ParallaxLayer>
 
-          </List>
-        </ParallaxLayer>
-      </Parallax>
+          <ParallaxLayer offset={1} speed={3}>
+            <Galaxy />
+          </ParallaxLayer>
+
+          <ParallaxLayer
+            offset={1}
+            speed={1}
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              color: 'white',
+            }}>
+            <List divided relaxed>
+              <List.Item>
+                <h3>Let's get cracking. Showing all the data we are pulling below.</h3>
+              </List.Item>
+              <List.Item>
+                <h4>
+                  <p>Is User Connected? {this.state.isUserConnected}</p>
+                  <p>User Account Number: {this.state.currentAccount}</p>
+                  <p>Is Sale Active: {this.state.isSaleActive}</p>
+                  <p>Supply Status: {this.state.totalSupply}</p>
+                </h4>
+              </List.Item>
+
+            </List>
+          </ParallaxLayer>
+        </Parallax>
+      </div>
 
     );
   }
