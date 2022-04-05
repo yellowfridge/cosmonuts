@@ -12,6 +12,7 @@ import darkblack_img from '../public/images/darkblack_flatring.jpg';
 import galaxy_img from '../public/images/galaxy_center.jpg';
 import { Parallax, ParallaxLayer } from '@react-spring/parallax';
 import Galaxy from './galaxy';
+import sharp_nebula1 from '../public/images/sharp_nebula1.gif';
 
 // Latest deployed CosmoNuts address: 0x66023f6da39cbffd7ad4f287ad4f8b44e0725167
 // https://ropsten.etherscan.io/tx/0xe207cdcc1a558b06f5790d409c222eb5fa1652f22a7a820c41a235b3b3a7094e
@@ -82,9 +83,25 @@ class Main extends Component {
             <Mint />
           </ParallaxLayer>
 
+          <ParallaxLayer offset={0.5} style={{
+            opacity: 0.2
+          }}>
+            <img
+              alt="nebula1"
+              src={sharp_nebula1.src}
+            />
+          </ParallaxLayer>
+
           <ParallaxLayer offset={1} speed={3}>
             <Galaxy />
           </ParallaxLayer>
+
+          <ParallaxLayer offset={2} speed={2} style={{
+            backgroundImage: `url(${sharp_nebula1.src})`,
+            backgroundSize: 'cover',
+            opacity: 0.2
+          }}
+          />
 
           <ParallaxLayer
             offset={1}
