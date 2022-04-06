@@ -13,7 +13,7 @@ import galaxy_img from '../public/images/galaxy_center.jpg';
 import { Parallax, ParallaxLayer } from '@react-spring/parallax';
 import Galaxy from './galaxy';
 import sharp_nebula1 from '../public/images/sharp_nebula1.gif';
-import colorfulnebula1 from '../public/images/colorfulnebula1.gif';
+import colorfulnebula1 from '../public/images/colorfulnebula12.gif';
 import abstractnebula from '../public/images/abstract_nebula.gif';
 
 // Latest deployed CosmoNuts address: 0x66023f6da39cbffd7ad4f287ad4f8b44e0725167
@@ -74,12 +74,11 @@ class Main extends Component {
           </ParallaxLayer>
 
           <ParallaxLayer
-            offset={0}
+            offset={0.5}
             speed={2}
             style={{
               display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center'
+              position: 'relative'
             }}
           >
             <Mint />

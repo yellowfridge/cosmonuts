@@ -69,15 +69,27 @@ export default function Mint(props) {
   }
 
   return (
-    <div>
+    <div style={{
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      position: 'relative'
+    }}>
       <Popup
         content={helperMessage}
         trigger = {
-          <div>
+          <div style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            position: 'relative'
+          }}>
             <Button
               inverted
               style = {{
-                backgroundColor: 'purple'
+                display: 'flex',
+                backgroundColor: 'purple',
+                position: 'relative'
               }}
               content='MINT'
               primary

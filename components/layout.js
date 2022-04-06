@@ -7,7 +7,8 @@ import Starfield from '../pages/starfield';
 
 export default (props) => {
   return (
-    <Container>
+
+    <div>
       <Starfield />
       <Head>
         <link
@@ -20,7 +21,8 @@ export default (props) => {
       <Header />
       {props.children}
 
-    </Container>
+    </div>
+
   )
 }
 
