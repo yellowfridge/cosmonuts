@@ -11,14 +11,26 @@ class Userpage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: ''
+      openMessage: 'Current open message ...',
+      publicMessage: 'Current public message ...',
+      groupMessage: 'Current group message ...',
+      secretMessage: 'Current secret message ...',
+      secretKey: 'Should be ecnreypted key (?)'
     };
 
+    this.handlePublicMessage = this.handlePublicMessage.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  handlePublicMessage(event) {
+    this.setState({
+      publicMessage: event.target.value
+    })
+  }
+
   handleChange(event) {
+    console.log("Event:", event)
     this.setState({
       value: event.target.value
     });
@@ -64,7 +76,7 @@ class Userpage extends Component {
 
         <ParallaxLayer
           offset={0.3}
-          speed={3}
+          speed={1}
           style={{
             display: 'flex',
             justifyContent: 'right'
@@ -92,12 +104,12 @@ class Userpage extends Component {
               marginRight: '10%'
             }}>
               <p style={{color: 'white'}}>
-                Change Public Message
+                Change Open Message
               </p>
 
               <Form>
                 <Form.TextArea
-                  placeholder='Should it display current public message?'
+                  placeholder='Should it display current open message?'
                 />
               </Form>
 
@@ -105,7 +117,33 @@ class Userpage extends Component {
         </ParallaxLayer>
 
         <ParallaxLayer
-          offset={1.4}
+          offset={1.3}
+          speed={1.8}
+          style={{
+            display: 'flex',
+            justifyContent: 'flex-end',
+            height: 'auto'
+          }}
+          >
+            <div style={{
+              marginRight: '10%'
+            }}>
+              <p style={{color: 'white'}}>
+                Change Public Message
+              </p>
+
+              <Form>
+                <Form.TextArea
+                  placeholder='Should it display current public message?'
+                  onChange={this.handlePublicMessage}
+                />
+              </Form>
+
+            </div>
+        </ParallaxLayer>
+
+        <ParallaxLayer
+          offset={1.6}
           speed={1.3}
           style={{
             display: 'flex',
@@ -123,6 +161,7 @@ class Userpage extends Component {
             <Form>
               <Form.TextArea
                 placeholder='Should it display current group message?'
+                onChange={this.handleChange}
               />
             </Form>
 
@@ -130,7 +169,7 @@ class Userpage extends Component {
         </ParallaxLayer>
 
         <ParallaxLayer
-          offset={1.8}
+          offset={1.9}
           speed={1}
           style={{
             display: 'flex',
@@ -148,6 +187,27 @@ class Userpage extends Component {
             <Form>
               <Form.TextArea
                 placeholder='Should it display current private message?'
+              />
+            </Form>
+
+          </div>
+        </ParallaxLayer>
+
+        <ParallaxLayer
+          offset={2.9}
+          style={{
+            display: 'flex',
+            justifyContent: 'flex-end',
+            height: 'auto'
+          }}
+        >
+          <div style={{
+            marginRight: '10%'
+          }}>
+
+            <Form>
+              <Form.Button
+                content='***FALL DOWN THE HOLE***'
               />
             </Form>
 
