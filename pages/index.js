@@ -8,8 +8,6 @@ import Mint from './mint';
 import Web3 from 'web3';
 import CosmoNuts from '../ethereum/build_manual/CosmoNuts_abi.json';
 import Image from 'next/image';
-import darkblack_img from '../public/images/darkblack_flatring.jpg';
-import galaxy_img from '../public/images/galaxy_center.jpg';
 import { Parallax, ParallaxLayer } from '@react-spring/parallax';
 import Galaxy from './galaxy';
 import colorfulnebula1 from '../public/images/colorfulnebula12.gif';
