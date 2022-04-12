@@ -32,10 +32,11 @@ class Userpage extends Component {
   render() {
     return (
 
-      <Parallax pages={3}>
+      <Parallax pages={3}
+      >
 
         <ParallaxLayer
-          sticky={{ start: 0, end: 3 }}
+          sticky={{ start: 0, end: 2 }}
           style={{
             height: 'auto'
           }}
@@ -45,11 +46,10 @@ class Userpage extends Component {
 
         <ParallaxLayer
           offset={0.1}
-          speed={-0.5}
+          speed={-1.1}
           style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'flex-start'
+            display: 'flex',
+            justifyContent: 'left'
           }}>
           <div style={{
             marginLeft: '10%'
@@ -64,12 +64,11 @@ class Userpage extends Component {
         </ParallaxLayer>
 
         <ParallaxLayer
-          offset={0.2}
-          speed={2}
+          offset={0.3}
+          speed={3}
           style={{
             display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'flex-end'
+            justifyContent: 'right'
           }}>
           <div style={{
             marginRight: '10%'
@@ -82,23 +81,74 @@ class Userpage extends Component {
         </ParallaxLayer>
 
         <ParallaxLayer
-          offset={0.7}
-          speed={1}
+          offset={1}
+          speed={2.2}
           style={{
             display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'flex-end'
-          }}>
+            justifyContent: 'flex-end',
+            height: 'auto'
+          }}
+          >
+            <div style={{
+              marginRight: '10%'
+            }}>
+              <p style={{color: 'white'}}>
+                Change Public Message
+              </p>
+
+              <Form>
+                <Form.TextArea
+                  placeholder='Should it display current public message?'
+                />
+              </Form>
+
+            </div>
+        </ParallaxLayer>
+
+        <ParallaxLayer
+          offset={1.4}
+          speed={1.3}
+          style={{
+            display: 'flex',
+            justifyContent: 'flex-end',
+            height: 'auto'
+          }}
+        >
           <div style={{
             marginRight: '10%'
           }}>
             <p style={{color: 'white'}}>
-              Change Public Message
+              Change Group Message
             </p>
 
             <Form>
               <Form.TextArea
-                placeholder='Should it display current public message?'
+                placeholder='Should it display current group message?'
+              />
+            </Form>
+
+          </div>
+        </ParallaxLayer>
+
+        <ParallaxLayer
+          offset={1.8}
+          speed={1}
+          style={{
+            display: 'flex',
+            justifyContent: 'flex-end',
+            height: 'auto'
+          }}
+        >
+          <div style={{
+            marginRight: '10%'
+          }}>
+            <p style={{color: 'white'}}>
+              Change Private Message
+            </p>
+
+            <Form>
+              <Form.TextArea
+                placeholder='Should it display current private message?'
               />
             </Form>
 
