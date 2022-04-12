@@ -5,7 +5,8 @@ import QRCode from 'react-qr-code';
 import { Parallax, ParallaxLayer } from '@react-spring/parallax';
 import Image from 'next/image';
 import eminemApe from '../../public/images/eminem_boredApe.png';
-import { Container, Form } from 'semantic-ui-react';
+import { Container, Form, Button, Grid } from 'semantic-ui-react';
+import Starfield from '../starfield';
 
 class Userpage extends Component {
   constructor(props) {
@@ -18,9 +19,17 @@ class Userpage extends Component {
       secretKey: 'Should be ecnreypted key (?)'
     };
 
+    this.handleOpenMessage = this.handleOpenMessage.bind(this);
     this.handlePublicMessage = this.handlePublicMessage.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleGroupMessage = this.handleGroupMessage.bind(this);
+    this.handleSecretMessage = this.handleSecretMessage.bind(this);
+    this.jumpInitiated = this.jumpInitiated.bind(this);
+  }
+
+  handleOpenMessage(event) {
+    this.setState({
+      openMessage: event.target.value
+    })
   }
 
   handlePublicMessage(event) {
@@ -29,15 +38,24 @@ class Userpage extends Component {
     })
   }
 
-  handleChange(event) {
-    console.log("Event:", event)
+  handleGroupMessage(event) {
     this.setState({
-      value: event.target.value
-    });
+      groupMessage: event.target.value
+    })
   }
 
-  handleSubmit(event) {
-    console.log('Submit Button Pressed');
+  handleSecretMessage(event) {
+    this.setState({
+      secretMessage: event.target.value
+    })
+  }
+
+  jumpInitiated(event) {
+    console.log("FALLING DOWN BOOP BEEP BOOP")
+    console.log("Open Message: ", this.state.openMessage);
+    console.log("Public Message: ", this.state.publicMessage);
+    console.log("Group Message: ", this.state.groupMessage);
+    console.log("Secret Message: ", this.state.secretMessage);
   }
 
   render() {
@@ -65,7 +83,7 @@ class Userpage extends Component {
           <div style={{
             marginLeft: '10%'
           }}>
-            <p style={{color: 'white'}}>
+            <p style={{color: 'yellow'}}>
               Current Selected Avatar
             </p>
             <Image
@@ -84,7 +102,7 @@ class Userpage extends Component {
           <div style={{
             marginRight: '10%'
           }}>
-            <p style={{color: 'white'}}>
+            <p style={{color: 'yellow'}}>
               Current Embedded Image
             </p>
             <img src='blank' width="550" height="550" />
@@ -103,13 +121,14 @@ class Userpage extends Component {
             <div style={{
               marginRight: '10%'
             }}>
-              <p style={{color: 'white'}}>
+              <p style={{color: 'yellow'}}>
                 Change Open Message
               </p>
 
               <Form>
                 <Form.TextArea
                   placeholder='Should it display current open message?'
+                  onChange={this.handleOpenMessage}
                 />
               </Form>
 
@@ -128,7 +147,7 @@ class Userpage extends Component {
             <div style={{
               marginRight: '10%'
             }}>
-              <p style={{color: 'white'}}>
+              <p style={{color: 'yellow'}}>
                 Change Public Message
               </p>
 
@@ -154,14 +173,14 @@ class Userpage extends Component {
           <div style={{
             marginRight: '10%'
           }}>
-            <p style={{color: 'white'}}>
+            <p style={{color: 'yellow'}}>
               Change Group Message
             </p>
 
             <Form>
               <Form.TextArea
                 placeholder='Should it display current group message?'
-                onChange={this.handleChange}
+                onChange={this.handleGroupMessage}
               />
             </Form>
 
@@ -180,13 +199,14 @@ class Userpage extends Component {
           <div style={{
             marginRight: '10%'
           }}>
-            <p style={{color: 'white'}}>
+            <p style={{color: 'yellow'}}>
               Change Private Message
             </p>
 
             <Form>
               <Form.TextArea
                 placeholder='Should it display current private message?'
+                onChange={this.handleSecretMessage}
               />
             </Form>
 
@@ -205,11 +225,10 @@ class Userpage extends Component {
             marginRight: '10%'
           }}>
 
-            <Form>
-              <Form.Button
-                content='***FALL DOWN THE HOLE***'
-              />
-            </Form>
+            <Button
+              content='***FALL DOWN THE HOLE***'
+              onClick={this.jumpInitiated}
+            />
 
           </div>
         </ParallaxLayer>

@@ -9,7 +9,7 @@ export default (props) => {
   return (
 
     <div>
-      <Starfield />
+      
       <Head>
         <link
           rel="stylesheet"
