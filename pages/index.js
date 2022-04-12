@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, List, Divider, Header, Container } from 'semantic-ui-react';
+import { Button, List, Divider, Container } from 'semantic-ui-react';
 import Layout from '../components/layout';
 import detectEthereumProvider from '@metamask/detect-provider';
 import ImageGenerator from './imagegenerator';
@@ -61,60 +61,64 @@ class Main extends Component {
     //console.log("Background Image:", darkblack_img.src);
 
     return (
-      <div>
+      <Parallax pages={3}>
 
-        <Parallax pages={3}>
-
-          <ParallaxLayer
-            sticky={{ start: 0, end: 3 }}
-          >
-            <Layout />
-          </ParallaxLayer>
-
-          <ParallaxLayer
-            offset={0}
-            speed={2}
-          >
-            <Mint />
-          </ParallaxLayer>
-
-          <ParallaxLayer offset={1} speed={3}>
-            <Galaxy />
-          </ParallaxLayer>
-
-          <ParallaxLayer offset={2} speed={1} style={{
-            backgroundImage: `url(${colorfulnebula1.src})`,
-            backgroundSize: 'cover',
-            opacity: 0.3
+        <ParallaxLayer
+          sticky={{ start: 0, end: 3 }}
+          style={{
+            height: 'auto'
           }}
-          />
+        >
+          <Layout />
+        </ParallaxLayer>
 
-          <ParallaxLayer
-            offset={1}
-            speed={1}
-            style={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              color: 'white',
-            }}>
-            <List divided relaxed>
-              <List.Item>
-                <h3>Let's get cracking. Showing all the data we are pulling below.</h3>
-              </List.Item>
-              <List.Item>
-                <h4>
-                  <p>Is User Connected? {this.state.isUserConnected}</p>
-                  <p>User Account Number: {this.state.currentAccount}</p>
-                  <p>Is Sale Active: {this.state.isSaleActive}</p>
-                  <p>Supply Status: {this.state.totalSupply}</p>
-                </h4>
-              </List.Item>
+        <ParallaxLayer
+          offset={0.5}
+          speed={2}
+          style={{
+            display: 'flex',
+            justifyContent: 'center'
+          }}
+        >
+          <Mint />
+        </ParallaxLayer>
 
-            </List>
-          </ParallaxLayer>
-        </Parallax>
-      </div>
+        <ParallaxLayer offset={1} speed={3}>
+          <Galaxy />
+        </ParallaxLayer>
+
+        <ParallaxLayer offset={2} speed={1} style={{
+          backgroundImage: `url(${colorfulnebula1.src})`,
+          backgroundSize: 'cover',
+          opacity: 0.3
+        }}
+        />
+
+        <ParallaxLayer
+          offset={1}
+          speed={1}
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            color: 'white',
+          }}>
+          <List divided relaxed>
+            <List.Item>
+              <h3>Let's get cracking. Showing all the data we are pulling below.</h3>
+            </List.Item>
+            <List.Item>
+              <h4>
+                <p>Is User Connected? {this.state.isUserConnected}</p>
+                <p>User Account Number: {this.state.currentAccount}</p>
+                <p>Is Sale Active: {this.state.isSaleActive}</p>
+                <p>Supply Status: {this.state.totalSupply}</p>
+              </h4>
+            </List.Item>
+
+          </List>
+        </ParallaxLayer>
+      </Parallax>
 
     );
   }

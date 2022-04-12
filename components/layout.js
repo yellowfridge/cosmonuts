@@ -26,6 +26,8 @@ export default (props) => {
   )
 }
 
+// Include <Starfield> above headed if need background
+
 /*
 // Placed in <Head> tag
 <link

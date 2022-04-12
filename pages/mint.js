@@ -69,14 +69,24 @@ export default function Mint(props) {
   }
 
   return (
-    <div id='mint' style={{
-      display: 'flex'
-    }}>
-      <Button
-        content='MINT'
-        onClick={mintClicked}
-      />
-    </div>
+    <Popup
+      content={helperMessage}
+      trigger = {
+        <div>
+          <Button
+            inverted
+            style = {{
+              backgroundColor: 'purple'
+            }}
+            content='MINT'
+            primary
+            onClick={mintClicked}
+            loading={load}
+            disabled={!isConnected}
+          />
+        </div>
+      }
+    />
   )
 
 }

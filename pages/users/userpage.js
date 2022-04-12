@@ -36,6 +36,9 @@ class Userpage extends Component {
 
         <ParallaxLayer
           sticky={{ start: 0, end: 3 }}
+          style={{
+            height: 'auto'
+          }}
         >
           <Layout />
         </ParallaxLayer>
@@ -93,14 +96,12 @@ class Userpage extends Component {
               Change Public Message
             </p>
 
-            <form onSubmit={this.handleSubmit} style={{
-              position: 'relative'
-            }}>
-              <label>
-                <input type="text" value={this.state.value} onChange={this.handleChange} />
-              </label>
-              <input type="submit" value="Submit" />
-            </form>
+            <Form>
+              <Form.TextArea
+                placeholder='Should it display current public message?'
+              />
+            </Form>
+
           </div>
         </ParallaxLayer>
 
@@ -120,4 +121,10 @@ export default Userpage
     <ImageGenerator />
   </div>
 </Layout>
+
+// Old form code (without semantic)
+sticky={{ start: 0, end: 3 }}
+style={{
+  height: 'auto'
+}}
 */
