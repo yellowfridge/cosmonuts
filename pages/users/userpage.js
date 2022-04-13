@@ -235,10 +235,14 @@ class Userpage extends Component {
             <Grid columns={2}>
               <Grid.Column>
               <Form>
+                <Form.Field>
+                  <input placeholder='Secret Keyphrase' />
+                </Form.Field>
+
                 <Form.TextArea
                   placeholder='Should it display current private message?'
                   onChange={this.handleSecretMessage}
-                  rows={13}
+                  rows={10}
                 />
               </Form>
               </Grid.Column>
