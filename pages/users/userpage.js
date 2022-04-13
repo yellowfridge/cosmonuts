@@ -16,7 +16,7 @@ class Userpage extends Component {
       publicMessage: 'Current public message ...',
       groupMessage: 'Current group message ...',
       secretMessage: 'Current secret message ...',
-      secretKey: 'Should be ecnreypted key (?)'
+      secretKey: 'Should be ecnreypted key ...'
     };
 
     this.handleOpenMessage = this.handleOpenMessage.bind(this);
@@ -51,7 +51,7 @@ class Userpage extends Component {
   }
 
   jumpInitiated(event) {
-    console.log("FALLING DOWN BOOP BEEP BOOP")
+    console.log("FALLING DOWN BOOP BEEP BOOP");
     console.log("Open Message: ", this.state.openMessage);
     console.log("Public Message: ", this.state.publicMessage);
     console.log("Group Message: ", this.state.groupMessage);
@@ -61,11 +61,11 @@ class Userpage extends Component {
   render() {
     return (
 
-      <Parallax pages={3}
+      <Parallax pages={4}
       >
 
         <ParallaxLayer
-          sticky={{ start: 0, end: 2 }}
+          sticky={{ start: 0, end: 4 }}
           style={{
             height: 'auto'
           }}
@@ -75,7 +75,7 @@ class Userpage extends Component {
 
         <ParallaxLayer
           offset={0.1}
-          speed={-1.1}
+          speed={-1.05}
           style={{
             display: 'flex',
             justifyContent: 'left'
@@ -83,7 +83,7 @@ class Userpage extends Component {
           <div style={{
             marginLeft: '10%'
           }}>
-            <p style={{color: 'yellow'}}>
+            <p style={{color: 'black'}}>
               Current Selected Avatar
             </p>
             <Image
@@ -102,7 +102,7 @@ class Userpage extends Component {
           <div style={{
             marginRight: '10%'
           }}>
-            <p style={{color: 'yellow'}}>
+            <p style={{color: 'black'}}>
               Current Embedded Image
             </p>
             <img src='blank' width="550" height="550" />
@@ -111,7 +111,7 @@ class Userpage extends Component {
 
         <ParallaxLayer
           offset={1}
-          speed={2.2}
+          speed={2}
           style={{
             display: 'flex',
             justifyContent: 'flex-end',
@@ -121,49 +121,69 @@ class Userpage extends Component {
             <div style={{
               marginRight: '10%'
             }}>
-              <p style={{color: 'yellow'}}>
+              <p style={{color: 'black'}}>
                 Change Open Message
               </p>
 
-              <Form>
-                <Form.TextArea
-                  placeholder='Should it display current open message?'
-                  onChange={this.handleOpenMessage}
-                />
-              </Form>
+              <Grid columns={2}>
+                <Grid.Column>
+                  <Form>
+                    <Form.TextArea
+                      placeholder='Should it display current open message?'
+                      onChange={this.handleOpenMessage}
+                      rows={13}
+                    />
+                  </Form>
+                </Grid.Column>
 
-            </div>
-        </ParallaxLayer>
+                <Grid.Column>
+                  <img width="256" height="256" />
+                </Grid.Column>
+              </Grid>
 
-        <ParallaxLayer
-          offset={1.3}
-          speed={1.8}
-          style={{
-            display: 'flex',
-            justifyContent: 'flex-end',
-            height: 'auto'
-          }}
-          >
-            <div style={{
-              marginRight: '10%'
-            }}>
-              <p style={{color: 'yellow'}}>
-                Change Public Message
-              </p>
 
-              <Form>
-                <Form.TextArea
-                  placeholder='Should it display current public message?'
-                  onChange={this.handlePublicMessage}
-                />
-              </Form>
 
             </div>
         </ParallaxLayer>
 
         <ParallaxLayer
           offset={1.6}
-          speed={1.3}
+          speed={1}
+          style={{
+            display: 'flex',
+            justifyContent: 'flex-end',
+            height: 'auto'
+          }}
+          >
+            <div style={{
+              marginRight: '10%'
+            }}>
+              <p style={{color: 'black'}}>
+                Change Public Message
+              </p>
+
+              <Grid columns={2}>
+                <Grid.Column>
+                  <Form>
+                    <Form.TextArea
+                      placeholder='Should it display current public message?'
+                      onChange={this.handlePublicMessage}
+                      rows={13}
+                    />
+                  </Form>
+                </Grid.Column>
+
+                <Grid.Column>
+                  <QRCode value={this.state.publicMessage} />
+                </Grid.Column>
+              </Grid>
+
+            </div>
+        </ParallaxLayer>
+
+        <ParallaxLayer
+          offset={2}
+          speed={2}
           style={{
             display: 'flex',
             justifyContent: 'flex-end',
@@ -173,22 +193,31 @@ class Userpage extends Component {
           <div style={{
             marginRight: '10%'
           }}>
-            <p style={{color: 'yellow'}}>
+            <p style={{color: 'black'}}>
               Change Group Message
             </p>
 
-            <Form>
-              <Form.TextArea
-                placeholder='Should it display current group message?'
-                onChange={this.handleGroupMessage}
-              />
-            </Form>
+            <Grid columns={2}>
+              <Grid.Column>
+              <Form>
+                <Form.TextArea
+                  placeholder='Should it display current group message?'
+                  onChange={this.handleGroupMessage}
+                  rows={13}
+                />
+              </Form>
+              </Grid.Column>
+
+              <Grid.Column>
+                <QRCode value={this.state.groupMessage} />
+              </Grid.Column>
+            </Grid>
 
           </div>
         </ParallaxLayer>
 
         <ParallaxLayer
-          offset={1.9}
+          offset={2.6}
           speed={1}
           style={{
             display: 'flex',
@@ -199,22 +228,31 @@ class Userpage extends Component {
           <div style={{
             marginRight: '10%'
           }}>
-            <p style={{color: 'yellow'}}>
+            <p style={{color: 'black'}}>
               Change Private Message
             </p>
 
-            <Form>
-              <Form.TextArea
-                placeholder='Should it display current private message?'
-                onChange={this.handleSecretMessage}
-              />
-            </Form>
+            <Grid columns={2}>
+              <Grid.Column>
+              <Form>
+                <Form.TextArea
+                  placeholder='Should it display current private message?'
+                  onChange={this.handleSecretMessage}
+                  rows={13}
+                />
+              </Form>
+              </Grid.Column>
+
+              <Grid.Column>
+                <QRCode value={this.state.secretMessage} />
+              </Grid.Column>
+            </Grid>
 
           </div>
         </ParallaxLayer>
 
         <ParallaxLayer
-          offset={2.9}
+          offset={3.9}
           style={{
             display: 'flex',
             justifyContent: 'flex-end',
