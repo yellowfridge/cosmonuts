@@ -13,6 +13,7 @@ class Userpage extends Component {
     super(props);
     this.state = {
       openMessage: 'Current open message ...',
+      openMsgSrc: 'blank',
       publicMessage: 'Current public message ...',
       groupMessage: 'Current group message ...',
       secretMessage: 'Current secret message ...',
@@ -24,6 +25,33 @@ class Userpage extends Component {
     this.handleGroupMessage = this.handleGroupMessage.bind(this);
     this.handleSecretMessage = this.handleSecretMessage.bind(this);
     this.jumpInitiated = this.jumpInitiated.bind(this);
+    this.openImgSrc = this.openImgSrc.bind(this);
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+
+    if (prevState.openMessage !== this.state.openMessage) {
+      var imgURL = this.openImgSrc(this.state.openMessage);
+      this.setState({
+        openMsgSrc: imgURL
+      })
+      console.log("IMG URL", imgURL);
+    }
+
+  }
+
+  openImgSrc(msg) {
+    var openMsgImg = document.getElementById('openMsgImg');
+    var openMsgCanvas = document.createElement('canvas');
+    var openMsgCtx = openMsgCanvas.getContext('2d');
+    openMsgCanvas.width = openMsgImg.width;
+    openMsgCanvas.height = openMsgImg.height;
+
+    openMsgCtx.fillText(msg, 10, 10);
+
+    var imgURL = openMsgCanvas.toDataURL();
+
+    return imgURL;
   }
 
   handleOpenMessage(event) {
@@ -59,6 +87,7 @@ class Userpage extends Component {
   }
 
   render() {
+
     return (
 
       <Parallax pages={4}
@@ -137,7 +166,7 @@ class Userpage extends Component {
                 </Grid.Column>
 
                 <Grid.Column>
-                  <img width="256" height="256" />
+                  <img id='openMsgImg' src={this.state.openMsgSrc} width="256" height="256" />
                 </Grid.Column>
               </Grid>
 
@@ -147,7 +176,7 @@ class Userpage extends Component {
         </ParallaxLayer>
 
         <ParallaxLayer
-          offset={1.6}
+          offset={1.8}
           speed={1}
           style={{
             display: 'flex',
@@ -217,7 +246,7 @@ class Userpage extends Component {
         </ParallaxLayer>
 
         <ParallaxLayer
-          offset={2.6}
+          offset={2.8}
           speed={1}
           style={{
             display: 'flex',
