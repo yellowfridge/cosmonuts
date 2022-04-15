@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, List, Divider, Container } from 'semantic-ui-react';
+import { Button, List, Divider, Container, Grid } from 'semantic-ui-react';
 import Layout from '../components/layout';
 import detectEthereumProvider from '@metamask/detect-provider';
 import ImageGenerator from './imagegenerator';
@@ -11,6 +11,7 @@ import Image from 'next/image';
 import { Parallax, ParallaxLayer } from '@react-spring/parallax';
 import Galaxy from './galaxy';
 import colorfulnebula1 from '../public/images/colorfulnebula12.gif';
+import parseImage from '../components/helpers/parseimage';
 
 // Latest deployed CosmoNuts address: 0x66023f6da39cbffd7ad4f287ad4f8b44e0725167
 // https://ropsten.etherscan.io/tx/0xe207cdcc1a558b06f5790d409c222eb5fa1652f22a7a820c41a235b3b3a7094e
@@ -24,16 +25,18 @@ class Main extends Component {
       currentAccount: null,
       isSaleActive: 'Not Known',
       totalSupply: 'Not Known',
-      backgroundSource: null
+      backgroundSource: null,
+      selectedNut: '0',
+      embeddedImgSrc: 'blank'
     };
 
+    this.interpretImage = this.interpretImage.bind(this);
   }
 
   async componentDidMount() {
     //document.body.style.backgroundImage = `url(${darkblack_img.src})`;
     //var starfield = <Starfield />;
     //console.log("Starfield", starfield);
-
     //document.body.style.backgroundSize = 'cover';
 
     var provider = await detectEthereumProvider();
@@ -54,6 +57,16 @@ class Main extends Component {
 
   }
 
+  interpretImage() {
+    console.log("HOOT HOOT BIG BOY");
+    var nutImg = document.getElementById('nutImg');
+    var parsedImage = parseImage(nutImg);
+
+    this.setState({
+      embeddedImgSrc: parsedImage
+    });
+  }
+
   render() {
 
     //console.log("Background Image:", darkblack_img.src);
@@ -71,8 +84,8 @@ class Main extends Component {
         </ParallaxLayer>
 
         <ParallaxLayer
-          offset={0.5}
-          speed={2}
+          offset={0.7}
+          speed={.1}
           style={{
             display: 'flex',
             justifyContent: 'center'
@@ -81,8 +94,39 @@ class Main extends Component {
           <Mint />
         </ParallaxLayer>
 
-        <ParallaxLayer offset={1} speed={3}>
-          <Galaxy />
+        <ParallaxLayer offset={1} speed={3} style={{
+          backgroundColor: '#ff6d6d'
+        }}
+        >
+          <div style={{
+            marginLeft: '10px'
+          }}>
+            <h4>
+              <p>In a nutshell, CosmoNuts are pictures with embedded attributes.</p>
+              <p>See current Nuts now or upload your own picture to investigate.</p>
+            </h4>
+
+            <Grid columns={2}>
+              <Grid.Column>
+                <img id='nutImg' src='https://ipfs.io/ipfs/QmTHcV6mGxHGeeXCnYtV129eRiR8Exni4sT8dDikBWBgzY' />
+              </Grid.Column>
+
+              <Grid.Column>
+                <img id='embeddedNutImg' src={this.state.embeddedImgSrc} width="631" height="631" />
+              </Grid.Column>
+            </Grid>
+          </div>
+
+          <div style={{
+            display: 'flex',
+            justifyContent: 'center',
+            marginTop: '20px'
+          }}>
+            <Button
+              content='Interpret Embedded Image'
+              onClick={this.interpretImage}
+            />
+          </div>
         </ParallaxLayer>
 
         <ParallaxLayer offset={2} speed={1} style={{
@@ -93,13 +137,13 @@ class Main extends Component {
         />
 
         <ParallaxLayer
-          offset={1}
+          offset={2}
           speed={1}
           style={{
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
-            color: 'white',
+            color: 'purple',
           }}>
           <List divided relaxed>
             <List.Item>

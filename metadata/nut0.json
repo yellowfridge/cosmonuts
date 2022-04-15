@@ -1,12 +1,16 @@
 {
   "name": "CosmoNut #0",
   "id": "0",
-  "description": "A lone nut wandering the Web3 space looking for its fellow travelers.",
+  "description": "A lone nut wandering the Web3 space, always in-sync with its fellow travelers.",
   "image": "needs to be a URI pointing to IPFS image",
   "attributes": [
     {
       "trait_type": "Type",
       "value":  "Hazelnut"
+    },
+    {
+      "trait_type": "Expression",
+      "value": "Scared"
     },
     {
       "trait_type": "Helmet",
@@ -21,9 +25,9 @@
       "value": "??"
     },
     {
-      "trait_type": "Expression",
-      "value": "Scared"
-    },
+      "trait_type": "Suit Skin",
+      "value": "Psychadelic"
+    }
     {
       "trait_type": "Rope",
       "value": "Torched"

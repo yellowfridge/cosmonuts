@@ -189,7 +189,7 @@ export default function ImageGenerator(props) {
 
   function interpretImage() {
     var embeddedImage = document.getElementById('newImage');
-    var parsedImage = parseImage(embeddedImage) // data:image/png;base64, {base64} (typeof = string)
+    var parsedImage = parseImage(embeddedImage); // data:image/png;base64, {base64} (typeof = string)
     setNewImgSrc(parsedImage);
   }
 

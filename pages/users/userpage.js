@@ -33,6 +33,8 @@ class Userpage extends Component {
     this.setState({
       openMsgSrc: imgURL
     })
+
+    var embeddedImg = document.getElementById('embeddedImg');
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -108,7 +110,7 @@ class Userpage extends Component {
 
         <ParallaxLayer
           offset={0.1}
-          speed={-1.05}
+          speed={-1.01}
           style={{
             display: 'flex',
             justifyContent: 'left'
@@ -136,7 +138,7 @@ class Userpage extends Component {
             <p style={{color: 'black'}}>
               Current Embedded Image
             </p>
-            <img src='blank' width="550" height="550" />
+            <img id='embeddedImg' src='blank' width="550" height="550" />
           </div>
         </ParallaxLayer>
 
