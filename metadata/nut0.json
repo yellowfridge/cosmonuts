@@ -38,5 +38,6 @@
     }
   ],
   "public message": "HOOT HOOT",
-  "public QR": "URI pointing to QR image"
+  "public QR": "URI pointing to QR image",
+  "embedded image": "needs to be a URI pointing to IPFS consolidated image"
 }

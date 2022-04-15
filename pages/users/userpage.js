@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 import Layout from '../../components/layout';
-import ImageGenerator from '../imagegenerator';
+//import ImageGenerator from '../imagegenerator';
 import QRCode from 'react-qr-code';
 import { Parallax, ParallaxLayer } from '@react-spring/parallax';
 import Image from 'next/image';
 import eminemApe from '../../public/images/eminem_boredApe.png';
 import { Container, Form, Button, Grid } from 'semantic-ui-react';
 import Starfield from '../starfield';
+import embedImage from '../../components/helpers/embedimage';
+import { svgAsPngUri } from 'save-svg-as-png';
+import * as IPFS from 'ipfs-core';
 
 class Userpage extends Component {
   constructor(props) {
@@ -15,16 +18,19 @@ class Userpage extends Component {
       openMessage: 'Current open message ...',
       openMsgSrc: 'blank',
       publicMessage: 'Current public message ...',
+      publicMsgSrc: 'blank',
+      publicMsgCid: '',
       groupMessage: 'Current group message ...',
       secretMessage: 'Current secret message ...',
-      secretKey: 'Should be ecnreypted key ...'
+      secretKey: 'Should be ecnreypted key ...',
+      embeddedImgSrc: 'blank'
     };
 
     this.handleOpenMessage = this.handleOpenMessage.bind(this);
     this.handlePublicMessage = this.handlePublicMessage.bind(this);
     this.handleGroupMessage = this.handleGroupMessage.bind(this);
     this.handleSecretMessage = this.handleSecretMessage.bind(this);
-    this.jumpInitiated = this.jumpInitiated.bind(this);
+    this.generateImage = this.generateImage.bind(this);
     this.openImgSrc = this.openImgSrc.bind(this);
   }
 
@@ -34,7 +40,6 @@ class Userpage extends Component {
       openMsgSrc: imgURL
     })
 
-    var embeddedImg = document.getElementById('embeddedImg');
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -84,12 +89,27 @@ class Userpage extends Component {
     })
   }
 
-  jumpInitiated(event) {
-    console.log("FALLING DOWN BOOP BEEP BOOP");
-    console.log("Open Message: ", this.state.openMessage);
-    console.log("Public Message: ", this.state.publicMessage);
-    console.log("Group Message: ", this.state.groupMessage);
-    console.log("Secret Message: ", this.state.secretMessage);
+  async generateImage() {
+    var publicMsgQR = document.getElementById('publicMsgQR');
+    var publicMsgUri = await svgAsPngUri(publicMsgQR);
+
+    var nutImg = document.getElementById('nutImg');
+
+    var publicQRImg = document.getElementById('publicQRImg')
+    publicQRImg.setAttribute("src", publicMsgUri);
+
+    var embeddedImage = embedImage(nutImg, publicQRImg);
+
+    console.log("QR Img:", publicQRImg.src);
+
+    const ipfs = await IPFS.create();
+
+    const { cid } = await ipfs.add(publicQRImg.src);
+    console.log("CID", cid);
+
+    this.setState({
+      embeddedImgSrc: embeddedImage
+    });
   }
 
   render() {
@@ -121,7 +141,7 @@ class Userpage extends Component {
             <p style={{color: 'black'}}>
               Current Selected Avatar
             </p>
-            <img src='https://ipfs.io/ipfs/QmTHcV6mGxHGeeXCnYtV129eRiR8Exni4sT8dDikBWBgzY' />
+            <img id='nutImg' src='https://ipfs.io/ipfs/QmTHcV6mGxHGeeXCnYtV129eRiR8Exni4sT8dDikBWBgzY' />
           </div>
         </ParallaxLayer>
 
@@ -138,7 +158,7 @@ class Userpage extends Component {
             <p style={{color: 'black'}}>
               Current Embedded Image
             </p>
-            <img id='embeddedImg' src='blank' width="550" height="550" />
+            <img id='embeddedImg' src={this.state.embeddedImgSrc} width="550" height="550" />
           </div>
         </ParallaxLayer>
 
@@ -207,7 +227,8 @@ class Userpage extends Component {
                 </Grid.Column>
 
                 <Grid.Column>
-                  <QRCode value={this.state.publicMessage} />
+                  <QRCode id='publicMsgQR' value={this.state.publicMessage} />
+                  <img id='publicQRImg'src={this.state.publicMsgSrc} width='256' height='256' hidden />
                 </Grid.Column>
               </Grid>
 
@@ -302,7 +323,7 @@ class Userpage extends Component {
 
             <Button
               content='***FALL DOWN THE HOLE***'
-              onClick={this.jumpInitiated}
+              onClick={this.generateImage}
             />
 
           </div>

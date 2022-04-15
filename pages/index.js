@@ -55,10 +55,11 @@ class Main extends Component {
       }
     })();
 
+    this.interpretImage();
+
   }
 
   interpretImage() {
-    console.log("HOOT HOOT BIG BOY");
     var nutImg = document.getElementById('nutImg');
     var parsedImage = parseImage(nutImg);
 
@@ -108,7 +109,7 @@ class Main extends Component {
 
             <Grid columns={2}>
               <Grid.Column>
-                <img id='nutImg' src='https://ipfs.io/ipfs/QmTHcV6mGxHGeeXCnYtV129eRiR8Exni4sT8dDikBWBgzY' />
+                <img id='nutImg' src='https://ipfs.io/ipfs/QmTHcV6mGxHGeeXCnYtV129eRiR8Exni4sT8dDikBWBgzY' width='631' height='631' />
               </Grid.Column>
 
               <Grid.Column>
