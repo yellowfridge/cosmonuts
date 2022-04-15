@@ -28,24 +28,28 @@ class Userpage extends Component {
     this.openImgSrc = this.openImgSrc.bind(this);
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidMount() {
+    var imgURL = this.openImgSrc(this.state.openMessage);
+    this.setState({
+      openMsgSrc: imgURL
+    })
+  }
 
+  componentDidUpdate(prevProps, prevState) {
     if (prevState.openMessage !== this.state.openMessage) {
       var imgURL = this.openImgSrc(this.state.openMessage);
       this.setState({
         openMsgSrc: imgURL
       })
-      console.log("IMG URL", imgURL);
     }
 
   }
 
   openImgSrc(msg) {
-    var openMsgImg = document.getElementById('openMsgImg');
     var openMsgCanvas = document.createElement('canvas');
     var openMsgCtx = openMsgCanvas.getContext('2d');
-    openMsgCanvas.width = openMsgImg.width;
-    openMsgCanvas.height = openMsgImg.height;
+    openMsgCanvas.width = '256';
+    openMsgCanvas.height = '256';
 
     openMsgCtx.fillText(msg, 10, 10);
 
@@ -115,9 +119,7 @@ class Userpage extends Component {
             <p style={{color: 'black'}}>
               Current Selected Avatar
             </p>
-            <Image
-              src={eminemApe} width="550" height="550" id="selectedAvatar"
-            />
+            <img src='https://ipfs.io/ipfs/QmTHcV6mGxHGeeXCnYtV129eRiR8Exni4sT8dDikBWBgzY' />
           </div>
         </ParallaxLayer>
 

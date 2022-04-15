@@ -1,0 +1,38 @@
+{
+  "name": "CosmoNut #0",
+  "id": "0",
+  "description": "A lone nut wandering the Web3 space looking for its fellow travelers.",
+  "image": "needs to be a URI pointing to IPFS image",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value":  "Hazelnut"
+    },
+    {
+      "trait_type": "Helmet",
+      "value":  "WWII"
+    },
+    {
+      "trait_type": "Control Module",
+      "value": "??"
+    },
+    {
+      "trait_type": "Life Support",
+      "value": "??"
+    },
+    {
+      "trait_type": "Expression",
+      "value": "Scared"
+    },
+    {
+      "trait_type": "Rope",
+      "value": "Torched"
+    },
+    {
+      "trait_type": "Background",
+      "value": "Will be unique each time message is changed"
+    }
+  ],
+  "public message": "HOOT HOOT",
+  "public QR": "URI pointing to QR image"
+}
