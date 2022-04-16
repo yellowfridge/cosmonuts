@@ -2,7 +2,7 @@
   "name": "CosmoNut #0",
   "id": "0",
   "description": "A lone nut wandering the Web3 space, always in-sync with its fellow travelers.",
-  "image": "needs to be a URI pointing to IPFS image",
+  "image": "https://ipfs.io/ipfs/QmTHcV6mGxHGeeXCnYtV129eRiR8Exni4sT8dDikBWBgzY",
   "attributes": [
     {
       "trait_type": "Type",
@@ -37,7 +37,13 @@
       "value": "Will be unique each time message is changed"
     }
   ],
-  "public message": "HOOT HOOT",
-  "public QR": "URI pointing to QR image",
+  "public message": {
+      "value": "HOOT HOOT NUTCRACKER",
+      "image": "uri image to text file"
+  },
+  "public QR": {
+      "value": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+      "image": "uri image to QR"
+  },
   "embedded image": "needs to be a URI pointing to IPFS consolidated image"
 }

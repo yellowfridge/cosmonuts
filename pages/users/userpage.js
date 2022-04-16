@@ -4,7 +4,6 @@ import Layout from '../../components/layout';
 import QRCode from 'react-qr-code';
 import { Parallax, ParallaxLayer } from '@react-spring/parallax';
 import Image from 'next/image';
-import eminemApe from '../../public/images/eminem_boredApe.png';
 import { Container, Form, Button, Grid } from 'semantic-ui-react';
 import Starfield from '../starfield';
 import embedImage from '../../components/helpers/embedimage';
