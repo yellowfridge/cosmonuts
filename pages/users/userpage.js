@@ -10,6 +10,7 @@ import Starfield from '../starfield';
 import embedImage from '../../components/helpers/embedimage';
 import { svgAsPngUri } from 'save-svg-as-png';
 import * as IPFS from 'ipfs-core';
+import { fromString } from 'uint8arrays/from-string'
 
 class Userpage extends Component {
   constructor(props) {
@@ -100,12 +101,14 @@ class Userpage extends Component {
 
     var embeddedImage = embedImage(nutImg, publicQRImg);
 
-    console.log("QR Img:", publicQRImg.src);
+    console.log("QR Img:", publicQRImg.outerHTML);
 
-    const ipfs = await IPFS.create();
+    //const ipfs = await IPFS.create();
+    //const data = fromString(publicQRImg.src, 'base64');
+    //console.log("data", data);
 
-    const { cid } = await ipfs.add(publicQRImg.src);
-    console.log("CID", cid);
+    //const { cid } = await ipfs.add(data);
+    //console.log("CID", cid);
 
     this.setState({
       embeddedImgSrc: embeddedImage
