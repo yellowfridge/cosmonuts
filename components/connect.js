@@ -43,7 +43,7 @@ export default function Connect(props) {
     } catch (err) {
       console.log(err);
     }
-    window.location.reload(true); // Documnetation suggests a refresh
+    window.location.reload(true); // Documentation suggests a refresh
   }
 
   return (

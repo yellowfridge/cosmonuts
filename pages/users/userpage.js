@@ -90,16 +90,16 @@ class Userpage extends Component {
   }
 
   async generateImage() {
-    var publicMsgQR = document.getElementById('publicMsgQR');
-    var publicMsgUri = await svgAsPngUri(publicMsgQR);
+    var publicMsgQR = document.getElementById('publicMsgQR'); // Grab public message in SVG
+    var publicMsgUri = await svgAsPngUri(publicMsgQR); // Convert SVG to URI
 
-    var nutImg = document.getElementById('nutImg');
+    var nutImg = document.getElementById('nutImg'); // Grab main original image
 
-    var publicQRImg = document.getElementById('publicQRImg')
-    publicQRImg.setAttribute("src", publicMsgUri);
+    var publicQRImg = document.getElementById('publicQRImg') // Hidden image file next to QR code
+    publicQRImg.setAttribute("src", publicMsgUri); // Setting image source code to URI
 
-    var byteString = Buffer.from(publicMsgUri.split(',')[1], 'base64');
-    var publicQRCID = await savetoIPFS(byteString);
+    var byteString = Buffer.from(publicMsgUri.split(',')[1], 'base64'); // Converting URI to buffer data (needed to directly show image on IPFS)
+    var publicQRCID = await savetoIPFS(byteString); // Saving to IPFS and returning CID that can be used to access image
 
     var embeddedImage = embedImage(nutImg, publicQRImg);
     this.setState({
