@@ -7,7 +7,6 @@ import Image from 'next/image';
 import { Container, Form, Button, Grid } from 'semantic-ui-react';
 import Starfield from '../starfield';
 import embedImage from '../../components/helpers/embedimage';
-import savetoIPFS from '../../components/helpers/savetoIPFS';
 import { svgAsPngUri } from 'save-svg-as-png';
 import * as IPFS from 'ipfs-core';
 
@@ -23,7 +22,8 @@ class Userpage extends Component {
       groupMessage: 'Current group message ...',
       secretMessage: 'Current secret message ...',
       secretKey: 'Should be ecnreypted key ...',
-      embeddedImgSrc: 'blank'
+      embeddedImgSrc: 'blank',
+      embeddedImgCid: ''
     };
 
     this.handleOpenMessage = this.handleOpenMessage.bind(this);
@@ -91,20 +91,43 @@ class Userpage extends Component {
 
   async generateImage() {
     var publicMsgQR = document.getElementById('publicMsgQR'); // Grab public message in SVG
+    console.log("Public MSG QR:", publicMsgQR);
     var publicMsgUri = await svgAsPngUri(publicMsgQR); // Convert SVG to URI
-
-    var nutImg = document.getElementById('nutImg'); // Grab main original image
+    console.log("Public MSG URI", publicMsgUri);
 
     var publicQRImg = document.getElementById('publicQRImg') // Hidden image file next to QR code
     publicQRImg.setAttribute("src", publicMsgUri); // Setting image source code to URI
+    console.log("publicQRImg", publicQRImg);
 
-    var byteString = Buffer.from(publicMsgUri.split(',')[1], 'base64'); // Converting URI to buffer data (needed to directly show image on IPFS)
-    var publicQRCID = await savetoIPFS(byteString); // Saving to IPFS and returning CID that can be used to access image
+    var byteStringPubQR = Buffer.from(publicMsgUri.split(',')[1], 'base64'); // Converting URI to buffer data (needed to directly show image on IPFS)
 
-    var embeddedImage = embedImage(nutImg, publicQRImg);
+    var nutImg = document.getElementById('nutImg'); // Grab main original image
+    console.log("Nut Img:", nutImg);
+
+    var embeddedImgURI = await embedImage(nutImg, publicQRImg);
+    console.log("Embedded Img URI:", embeddedImgURI);
+    var byteStringEmbeddedImg = Buffer.from(embeddedImgURI.split(',')[1], 'base64');
+
+    var embeddedImg = document.getElementById('embeddedImg');
+    embeddedImg.setAttribute("src", embeddedImgURI);
+
     this.setState({
-      embeddedImgSrc: embeddedImage
+        embeddedImgSrc: embeddedImg.src
     });
+
+    //var embeddedImage = embedImage(nutImg, publicQRImg); // Creating the combined image
+
+    // Saving items to IPFS
+    //const ipfs = await IPFS.create();
+    //const pubQRIPFS = await ipfs.add(byteStringPubQR);
+    //const embeddedImgIPFS = await ipfs.add(byteStringEmbeddedImg);
+    //console.log("Embedded Img IPFS", embeddedImgIPFS);
+
+    //this.setState({
+    //  embeddedImgSrc: embeddedImage
+    //});
+
+    //window.location.reload(true); // The last item should be refreshing the page and loading from the top
   }
 
   render() {
