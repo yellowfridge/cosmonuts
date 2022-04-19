@@ -3,7 +3,6 @@ import Layout from '../../components/layout';
 //import ImageGenerator from '../imagegenerator';
 import QRCode from 'react-qr-code';
 import { Parallax, ParallaxLayer } from '@react-spring/parallax';
-import Image from 'next/image';
 import { Container, Form, Button, Grid } from 'semantic-ui-react';
 import Starfield from '../starfield';
 import embedImage from '../../components/helpers/embedimage';
@@ -38,9 +37,10 @@ class Userpage extends Component {
     var imgURL = this.openImgSrc(this.state.openMessage);
     this.setState({
       openMsgSrc: imgURL
-    })
+    });
 
   }
+
 
   componentDidUpdate(prevProps, prevState) {
     if (prevState.openMessage !== this.state.openMessage) {
@@ -93,7 +93,7 @@ class Userpage extends Component {
     var publicMsgQR = document.getElementById('publicMsgQR'); // Grab public message in SVG
     console.log("Public MSG QR:", publicMsgQR);
     var publicMsgUri = await svgAsPngUri(publicMsgQR); // Convert SVG to URI
-    console.log("Public MSG URI", publicMsgUri);
+    console.log("Public MSG URI", publicMsgUri, "type of", typeof publicMsgUri);
 
     var publicQRImg = document.getElementById('publicQRImg') // Hidden image file next to QR code
     publicQRImg.setAttribute("src", publicMsgUri); // Setting image source code to URI
@@ -104,15 +104,26 @@ class Userpage extends Component {
     var nutImg = document.getElementById('nutImg'); // Grab main original image
     console.log("Nut Img:", nutImg);
 
-    var embeddedImgURI = await embedImage(nutImg, publicQRImg);
-    console.log("Embedded Img URI:", embeddedImgURI);
-    var byteStringEmbeddedImg = Buffer.from(embeddedImgURI.split(',')[1], 'base64');
+    var embeddedImgURL = await embedImage(nutImg, publicQRImg);
 
-    var embeddedImg = document.getElementById('embeddedImg');
-    embeddedImg.setAttribute("src", embeddedImgURI);
+    //var embeddedImg = document.getElementById('embeddedImg');
+    //embeddedImg.setAttribute("src", embeddedImgURL);
+
+    /*
+    embeddedImg.onload = () => {
+      var canvas = document.createElement('canvas');
+      var ctx = canvas.getContext('2d');
+      canvas.width = '631';
+      canvas.height = '631';
+      ctx.drawImage(embeddedImg, 0, 0);
+    }
+    */
+
+    console.log("Embedded Img:", embeddedImg, "Type:", typeof embeddedImg);
+    var byteStringEmbeddedImg = Buffer.from(embeddedImgURL.split(',')[1], 'base64');
 
     this.setState({
-        embeddedImgSrc: embeddedImg.src
+        embeddedImgSrc: embeddedImgURL
     });
 
     //var embeddedImage = embedImage(nutImg, publicQRImg); // Creating the combined image
@@ -159,7 +170,7 @@ class Userpage extends Component {
             <p style={{color: 'black'}}>
               Current Selected Avatar
             </p>
-            <img id='nutImg' src='https://ipfs.io/ipfs/QmTHcV6mGxHGeeXCnYtV129eRiR8Exni4sT8dDikBWBgzY' />
+            <img id='nutImg' src='https://ipfs.io/ipfs/QmTHcV6mGxHGeeXCnYtV129eRiR8Exni4sT8dDikBWBgzY' width="631" height="631"/>
           </div>
         </ParallaxLayer>
 
@@ -176,7 +187,7 @@ class Userpage extends Component {
             <p style={{color: 'black'}}>
               Current Embedded Image
             </p>
-            <img id='embeddedImg' src={this.state.embeddedImgSrc} width="550" height="550" />
+            <img id='embeddedImg' src={this.state.embeddedImgSrc} width="631" height="631" />
           </div>
         </ParallaxLayer>
 

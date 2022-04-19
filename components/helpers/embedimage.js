@@ -1,21 +1,23 @@
-export default function embedImage(img, imgToEmbed) {
+export default async function embedImage(img, imgToEmbed) {
   img.crossOrigin = 'Anonymous'; // This is because we are grabbing from somewhere else
   var sWidth = img.width;
   var sHeight = img.height;
+  console.log("Image", img);
+  console.log("Image to Embed", imgToEmbed);
 
   var canvas = document.createElement('canvas');
   var ctx = canvas.getContext('2d');
   canvas.width = sWidth;
   canvas.height = sHeight;
 
-  ctx.drawImage(img, 0, 0);
+  await ctx.drawImage(img, 0, 0);
 
   var embedCanvas = document.createElement('canvas');
   var embedCtx = embedCanvas.getContext('2d');
   embedCanvas.width = imgToEmbed.width;
   embedCanvas.height = imgToEmbed.height;
 
-  embedCtx.drawImage(imgToEmbed, 0, 0);
+  await embedCtx.drawImage(imgToEmbed, 0, 0);
 
   var embedData = embedCtx.getImageData(0, 0, embedCanvas.width, embedCanvas.height);
   var origData = ctx.getImageData(0, 0, embedCanvas.width, embedCanvas.height);
