@@ -34,6 +34,14 @@ class Userpage extends Component {
     this.openImgSrc = this.openImgSrc.bind(this);
   }
 
+  // This is grabbing the address from the URL
+  // accessed with this.props.address
+  static async getInitialProps(props) {
+    const { address } = props.query;
+
+    return { address };
+  }
+
   componentDidMount() {
     var imgURL = this.openImgSrc(this.state.openMessage);
     this.setState({
