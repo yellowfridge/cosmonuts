@@ -12,6 +12,7 @@ import { Parallax, ParallaxLayer } from '@react-spring/parallax';
 import Galaxy from './galaxy';
 import colorfulnebula1 from '../public/images/colorfulnebula12.gif';
 import parseImage from '../components/helpers/parseimage';
+import nut from '../metadata/nut0.json';
 
 // Latest deployed CosmoNuts address: 0x66023f6da39cbffd7ad4f287ad4f8b44e0725167
 // https://ropsten.etherscan.io/tx/0xe207cdcc1a558b06f5790d409c222eb5fa1652f22a7a820c41a235b3b3a7094e
@@ -27,7 +28,7 @@ class Main extends Component {
       totalSupply: 'Not Known',
       backgroundSource: null,
       selectedNut: '0',
-      embeddedImgSrc: 'blank'
+      embeddedImgSrc: nut.embedded_image
     };
 
     this.interpretImage = this.interpretImage.bind(this);
@@ -56,7 +57,6 @@ class Main extends Component {
     })();
 
     this.interpretImage();
-
   }
 
   interpretImage() {
@@ -109,7 +109,7 @@ class Main extends Component {
 
             <Grid columns={2}>
               <Grid.Column>
-                <img id='nutImg' src='https://ipfs.io/ipfs/QmTHcV6mGxHGeeXCnYtV129eRiR8Exni4sT8dDikBWBgzY' width='631' height='631' />
+                <img id='nutImg' src='https://ipfs.io/ipfs/QmPChG9e5hguv2pYffPPYfAjpdgVR5M2h68anbXi3afGtV' width='631' height='631' />
               </Grid.Column>
 
               <Grid.Column>
@@ -168,6 +168,9 @@ class Main extends Component {
 }
 
 export default Main
+
+//Original IPFS for Bored Ape Example
+// Source for nutImg src='https://ipfs.io/ipfs/QmTHcV6mGxHGeeXCnYtV129eRiR8Exni4sT8dDikBWBgzY'
 
 //<div style={{ background: '#778fde' }}>
 

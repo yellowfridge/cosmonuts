@@ -22,8 +22,8 @@ class Userpage extends Component {
       groupMessage: 'Current group message ...',
       secretMessage: 'Current secret message ...',
       secretKey: 'Should be ecnreypted key ...',
-      embeddedImgSrc: '',
-      embeddedImgCid: nut.embedded_image
+      embeddedImgSrc: nut.embedded_image,
+      embeddedImgCid: ''
     };
 
     this.handleOpenMessage = this.handleOpenMessage.bind(this);
@@ -221,9 +221,6 @@ class Userpage extends Component {
                   <img id='openMsgImg' src={this.state.openMsgSrc} width="256" height="256" />
                 </Grid.Column>
               </Grid>
-
-
-
             </div>
         </ParallaxLayer>
 
