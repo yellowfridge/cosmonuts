@@ -22,8 +22,8 @@ class Userpage extends Component {
       groupMessage: 'Current group message ...',
       secretMessage: 'Current secret message ...',
       secretKey: 'Should be ecnreypted key ...',
-      embeddedImgSrc: nut.embedded_image,
-      embeddedImgCid: ''
+      embeddedImgSrc: '',
+      embeddedImgCid: nut.embedded_image
     };
 
     this.handleOpenMessage = this.handleOpenMessage.bind(this);
@@ -119,6 +119,10 @@ class Userpage extends Component {
     */
     //embeddedImg.setAttribute("src", embeddedImgURL);
 
+    this.setState({
+      embeddedImgSrc: embeddedImgURL
+    });
+
     console.log("Embedded Img:", embeddedImg, "Type:", typeof embeddedImg);
     var byteStringEmbeddedImg = Buffer.from(embeddedImgURL.split(',')[1], 'base64');
 
@@ -129,7 +133,6 @@ class Userpage extends Component {
     console.log("Embedded Img IPFS", embeddedImgIPFS);
 
     this.setState({
-        embeddedImgSrc: embeddedImgURL,
         publicMsgCid: pubQRIPFS.path,
         embeddedImgCid: embeddedImgIPFS.path
     });
