@@ -27,7 +27,7 @@
     {
       "trait_type": "Suit Skin",
       "value": "Psychadelic"
-    }
+    },
     {
       "trait_type": "Rope",
       "value": "Torched"
@@ -37,13 +37,13 @@
       "value": "Will be unique each time message is changed"
     }
   ],
-  "public message": {
+  "open_message": {
       "value": "HOOT HOOT NUTCRACKER",
       "image": "uri image to text file"
   },
-  "public QR": {
+  "public_message": {
       "value": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
       "image": "uri image to QR"
   },
-  "embedded image": "needs to be a URI pointing to IPFS consolidated image"
+  "embedded_image": "https://ipfs.io/ipfs/QmPChG9e5hguv2pYffPPYfAjpdgVR5M2h68anbXi3afGtV"
 }

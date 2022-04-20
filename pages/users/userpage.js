@@ -8,20 +8,21 @@ import Starfield from '../starfield';
 import embedImage from '../../components/helpers/embedimage';
 import { svgAsPngUri } from 'save-svg-as-png';
 import * as IPFS from 'ipfs-core';
+import nut from '../../metadata/nut0.json';
 
 class Userpage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      openMessage: 'Current open message ...',
+      openMessage: nut.open_message.value,
       openMsgSrc: 'blank',
-      publicMessage: 'Current public message ...',
+      publicMessage: nut.public_message.value,
       publicMsgSrc: 'blank',
       publicMsgCid: '',
       groupMessage: 'Current group message ...',
       secretMessage: 'Current secret message ...',
       secretKey: 'Should be ecnreypted key ...',
-      embeddedImgSrc: 'blank',
+      embeddedImgSrc: nut.embedded_image,
       embeddedImgCid: ''
     };
 
@@ -104,7 +105,7 @@ class Userpage extends Component {
     var nutImg = document.getElementById('nutImg'); // Grab main original image
     console.log("Nut Img:", nutImg);
 
-    var embeddedImgURL = await embedImage(nutImg, publicQRImg);
+    var embeddedImgURL = await embedImage(nutImg, publicQRImg); // Creating the combined image
 
     //var embeddedImg = document.getElementById('embeddedImg');
     /*
@@ -121,21 +122,17 @@ class Userpage extends Component {
     console.log("Embedded Img:", embeddedImg, "Type:", typeof embeddedImg);
     var byteStringEmbeddedImg = Buffer.from(embeddedImgURL.split(',')[1], 'base64');
 
-    this.setState({
-        embeddedImgSrc: embeddedImgURL
-    });
-
-    //var embeddedImage = embedImage(nutImg, publicQRImg); // Creating the combined image
-
     // Saving items to IPFS
-    //const ipfs = await IPFS.create();
-    //const pubQRIPFS = await ipfs.add(byteStringPubQR);
-    //const embeddedImgIPFS = await ipfs.add(byteStringEmbeddedImg);
-    //console.log("Embedded Img IPFS", embeddedImgIPFS);
+    const ipfs = await IPFS.create();
+    const pubQRIPFS = await ipfs.add(byteStringPubQR);
+    const embeddedImgIPFS = await ipfs.add(byteStringEmbeddedImg);
+    console.log("Embedded Img IPFS", embeddedImgIPFS);
 
-    //this.setState({
-    //  embeddedImgSrc: embeddedImage
-    //});
+    this.setState({
+        embeddedImgSrc: embeddedImgURL,
+        publicMsgCid: pubQRIPFS.path,
+        embeddedImgCid: embeddedImgIPFS.path
+    });
 
     //window.location.reload(true); // The last item should be refreshing the page and loading from the top
   }
@@ -210,7 +207,7 @@ class Userpage extends Component {
                 <Grid.Column>
                   <Form>
                     <Form.TextArea
-                      placeholder='Should it display current open message?'
+                      placeholder={this.state.openMessage}
                       onChange={this.handleOpenMessage}
                       rows={13}
                     />
@@ -247,7 +244,7 @@ class Userpage extends Component {
                 <Grid.Column>
                   <Form>
                     <Form.TextArea
-                      placeholder='Should it display current public message?'
+                      placeholder={this.state.publicMessage}
                       onChange={this.handlePublicMessage}
                       rows={13}
                     />
