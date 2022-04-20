@@ -10,17 +10,26 @@ export default async function embedImage(img, imgToEmbed) {
   canvas.width = sWidth;
   canvas.height = sHeight;
 
-  await ctx.drawImage(img, 0, 0);
+  // Instead of waiting like this, it needs to be changed to onload function of the images
+  // error is that images are not loading in time for the drawimage to work
+  const delay = ms => new Promise(resolve => setTimeout(resolve, ms))
+  await delay(1000);
+
+  ctx.drawImage(img, 0, 0);
 
   var embedCanvas = document.createElement('canvas');
   var embedCtx = embedCanvas.getContext('2d');
   embedCanvas.width = imgToEmbed.width;
   embedCanvas.height = imgToEmbed.height;
 
-  await embedCtx.drawImage(imgToEmbed, 0, 0);
+  await delay(1000);
+
+  embedCtx.drawImage(imgToEmbed, 0, 0);
 
   var embedData = embedCtx.getImageData(0, 0, embedCanvas.width, embedCanvas.height);
+  //console.log("QR Image Data", embedData);
   var origData = ctx.getImageData(0, 0, embedCanvas.width, embedCanvas.height);
+  //console.log("Nut Image Data", origData);
 
   var blackCount = 0;
   var whiteCount = 0;

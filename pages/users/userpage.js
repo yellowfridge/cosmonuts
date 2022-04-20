@@ -107,8 +107,6 @@ class Userpage extends Component {
     var embeddedImgURL = await embedImage(nutImg, publicQRImg);
 
     //var embeddedImg = document.getElementById('embeddedImg');
-    //embeddedImg.setAttribute("src", embeddedImgURL);
-
     /*
     embeddedImg.onload = () => {
       var canvas = document.createElement('canvas');
@@ -118,6 +116,7 @@ class Userpage extends Component {
       ctx.drawImage(embeddedImg, 0, 0);
     }
     */
+    //embeddedImg.setAttribute("src", embeddedImgURL);
 
     console.log("Embedded Img:", embeddedImg, "Type:", typeof embeddedImg);
     var byteStringEmbeddedImg = Buffer.from(embeddedImgURL.split(',')[1], 'base64');
