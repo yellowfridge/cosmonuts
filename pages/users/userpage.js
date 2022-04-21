@@ -9,11 +9,14 @@ import embedImage from '../../components/helpers/embedimage';
 import { svgAsPngUri } from 'save-svg-as-png';
 import * as IPFS from 'ipfs-core';
 import nut from '../../metadata/nut0.json';
+import Web3 from 'web3';
+import CosmoNuts from '../../ethereum/build_manual/CosmoNuts_abi.json';
 
 class Userpage extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      nutsHeld: 0,
       openMessage: nut.open_message.value,
       openMsgSrc: 'blank',
       publicMessage: nut.public_message.value,
@@ -42,14 +45,25 @@ class Userpage extends Component {
     return { address };
   }
 
-  componentDidMount() {
+  componentDidMount(props) {
     var imgURL = this.openImgSrc(this.state.openMessage);
     this.setState({
       openMsgSrc: imgURL
     });
 
-  }
+    const web3 = new Web3(window.ethereum);
+    var cosmoNuts = new web3.eth.Contract(CosmoNuts, '0x66023f6da39cbffd7ad4f287ad4f8b44e0725167');
 
+    var numOfNuts = async (address) => {
+      await cosmoNuts.methods.balanceOf(address).call().then((nuts) => {
+        this.setState({
+          nutsHeld: nuts
+        });
+      });
+    }
+    numOfNuts(this.props.address);
+
+  }
 
   componentDidUpdate(prevProps, prevState) {
     if (prevState.openMessage !== this.state.openMessage) {
@@ -177,6 +191,7 @@ class Userpage extends Component {
             <p style={{color: 'black'}}>
               Current Selected Avatar
             </p>
+            <p>Total Number of Nuts Held: {this.state.nutsHeld}</p>
             <img id='nutImg' src='https://ipfs.io/ipfs/QmTHcV6mGxHGeeXCnYtV129eRiR8Exni4sT8dDikBWBgzY' width="631" height="631"/>
           </div>
         </ParallaxLayer>
