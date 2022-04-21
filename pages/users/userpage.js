@@ -17,6 +17,7 @@ class Userpage extends Component {
     super(props);
     this.state = {
       nutsHeld: 0,
+      nuts: [],
       openMessage: nut.open_message.value,
       openMsgSrc: 'blank',
       publicMessage: nut.public_message.value,
@@ -54,14 +55,18 @@ class Userpage extends Component {
     const web3 = new Web3(window.ethereum);
     var cosmoNuts = new web3.eth.Contract(CosmoNuts, '0x66023f6da39cbffd7ad4f287ad4f8b44e0725167');
 
-    var numOfNuts = async (address) => {
-      await cosmoNuts.methods.balanceOf(address).call().then((nuts) => {
+    (async () => {
+      await cosmoNuts.methods.balanceOf(this.props.address).call().then((nuts) => {
+        console.log("NUTS", nuts);
+        for (let n = 0; n < nuts; n++) {
+          console.log("Loop #: ", n);
+        }
+
         this.setState({
           nutsHeld: nuts
         });
       });
-    }
-    numOfNuts(this.props.address);
+    })();
 
   }
 
