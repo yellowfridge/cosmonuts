@@ -56,15 +56,15 @@ class Userpage extends Component {
     var cosmoNuts = new web3.eth.Contract(CosmoNuts, '0x66023f6da39cbffd7ad4f287ad4f8b44e0725167');
 
     (async () => {
-      await cosmoNuts.methods.balanceOf(this.props.address).call().then((nuts) => {
-        console.log("NUTS", nuts);
-        for (let n = 0; n < nuts; n++) {
-          console.log("Loop #: ", n);
+      await cosmoNuts.methods.balanceOf(this.props.address).call().then((numOfNuts) => {
+        this.setState({nutsHeld: numOfNuts});
+        for (let n = 0; n < numOfNuts; n++) {
+          (async () => {
+            await cosmoNuts.methods.tokenOfOwnerByIndex(this.props.address, n).call().then((nut) => {
+              this.setState({ nuts: [...this.state.nuts, nut] });
+            });
+          })();
         }
-
-        this.setState({
-          nutsHeld: nuts
-        });
       });
     })();
 
@@ -193,10 +193,11 @@ class Userpage extends Component {
           <div style={{
             marginLeft: '10%'
           }}>
+            <p>Total Number of Nuts Held: {this.state.nutsHeld}</p>
+            <p>Nut Numbers: {this.state.nuts}</p>
             <p style={{color: 'black'}}>
               Current Selected Avatar
             </p>
-            <p>Total Number of Nuts Held: {this.state.nutsHeld}</p>
             <img id='nutImg' src='https://ipfs.io/ipfs/QmTHcV6mGxHGeeXCnYtV129eRiR8Exni4sT8dDikBWBgzY' width="631" height="631"/>
           </div>
         </ParallaxLayer>
