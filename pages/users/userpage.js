@@ -3,7 +3,7 @@ import Layout from '../../components/layout';
 //import ImageGenerator from '../imagegenerator';
 import QRCode from 'react-qr-code';
 import { Parallax, ParallaxLayer } from '@react-spring/parallax';
-import { Container, Form, Button, Grid } from 'semantic-ui-react';
+import { Container, Form, Button, Grid , Dropdown} from 'semantic-ui-react';
 import Starfield from '../starfield';
 import embedImage from '../../components/helpers/embedimage';
 import { svgAsPngUri } from 'save-svg-as-png';
@@ -18,6 +18,7 @@ class Userpage extends Component {
     this.state = {
       nutsHeld: 0,
       nuts: [],
+      ownedNuts: [],
       openMessage: nut.open_message.value,
       openMsgSrc: 'blank',
       publicMessage: nut.public_message.value,
@@ -55,6 +56,10 @@ class Userpage extends Component {
     const web3 = new Web3(window.ethereum);
     var cosmoNuts = new web3.eth.Contract(CosmoNuts, '0x66023f6da39cbffd7ad4f287ad4f8b44e0725167');
 
+    var ownedNuts = []; // Builds an array to be used for dropdown items
+
+    // Getting total nuts owned and nut ids of each nut
+    //  The way it is written works but order may not always be same e.g. [0,3,1,2] fix?
     (async () => {
       await cosmoNuts.methods.balanceOf(this.props.address).call().then((numOfNuts) => {
         this.setState({nutsHeld: numOfNuts});
@@ -62,6 +67,13 @@ class Userpage extends Component {
           (async () => {
             await cosmoNuts.methods.tokenOfOwnerByIndex(this.props.address, n).call().then((nut) => {
               this.setState({ nuts: [...this.state.nuts, nut] });
+              let object = {
+                key: nut,
+                text: nut,
+                value: nut,
+                image: { avatar: false } // Later put image and enable small picture
+              }
+              this.setState({ ownedNuts: [...this.state.ownedNuts, object] });
             });
           })();
         }
@@ -184,7 +196,30 @@ class Userpage extends Component {
         </ParallaxLayer>
 
         <ParallaxLayer
-          offset={0.1}
+          offset={0.15}
+          speed={.5}
+          style={{
+            zIndex: '1'
+          }}
+        >
+          <div style={{
+            marginLeft: '10%',
+          }}>
+            <Dropdown
+              placeholder='Select your nut'
+              fluid
+              selection
+              options={this.state.ownedNuts}
+              style={{
+                width: '200px',
+                height: 'auto'
+              }}
+            />
+          </div>
+        </ParallaxLayer>
+
+        <ParallaxLayer
+          offset={0.2}
           speed={-1.01}
           style={{
             display: 'flex',
@@ -193,11 +228,6 @@ class Userpage extends Component {
           <div style={{
             marginLeft: '10%'
           }}>
-            <p>Total Number of Nuts Held: {this.state.nutsHeld}</p>
-            <p>Nut Numbers: {this.state.nuts}</p>
-            <p style={{color: 'black'}}>
-              Current Selected Avatar
-            </p>
             <img id='nutImg' src='https://ipfs.io/ipfs/QmTHcV6mGxHGeeXCnYtV129eRiR8Exni4sT8dDikBWBgzY' width="631" height="631"/>
           </div>
         </ParallaxLayer>
