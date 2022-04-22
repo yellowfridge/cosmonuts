@@ -22,7 +22,7 @@ contract CosmoNuts is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
   uint256 public REVEAL_TIMESTAMP;
 
   // Create a mapping of token id to all token uri's
-  mapping(uint256 => string[]) private traveledUniverses;
+  mapping(uint256 => string[]) private traveledURIs;
 
   // Using 1645347572 for saleStart date in tests
   constructor(string memory name, string memory symbol, uint256 maxNFTSupply, uint256 saleStart) ERC721(name, symbol) {
@@ -72,22 +72,22 @@ contract CosmoNuts is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
         _safeMint(msg.sender, mintIndex);
         _setTokenURI(mintIndex, Strings.toString(mintIndex));
         string memory uri = tokenURI(mintIndex);
-        traveledUniverses[mintIndex].push(uri);
+        traveledURIs[mintIndex].push(uri);
       }
     }
 
   }
 
-  // Allows CosmoNuts to change their background
-  function jumpUniverse(uint256 tokenId, string memory new_tokenURI) public {
+  // Allows CosmoNuts to change their URI
+  function changeTokenURI(uint256 tokenId, string memory new_tokenURI) public {
     require(_isApprovedOrOwner(_msgSender(), tokenId), "ERC721: caller is not owner nor approved");
     _setTokenURI(tokenId, new_tokenURI);
     string memory new_uri = tokenURI(tokenId);
-    traveledUniverses[tokenId].push(new_uri);
+    traveledURIs[tokenId].push(new_uri);
   }
 
-  function getUniverses(uint256 tokenId) public view virtual returns (string[] memory) {
-    return traveledUniverses[tokenId];
+  function getURIs(uint256 tokenId) public view virtual returns (string[] memory) {
+    return traveledURIs[tokenId];
   }
 
   // The following functions are overrides required by Solidity.
