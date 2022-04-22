@@ -146,18 +146,6 @@ class Userpage extends Component {
 
     var embeddedImgURL = await embedImage(nutImg, publicQRImg); // Creating the combined image
 
-    //var embeddedImg = document.getElementById('embeddedImg');
-    /*
-    embeddedImg.onload = () => {
-      var canvas = document.createElement('canvas');
-      var ctx = canvas.getContext('2d');
-      canvas.width = '631';
-      canvas.height = '631';
-      ctx.drawImage(embeddedImg, 0, 0);
-    }
-    */
-    //embeddedImg.setAttribute("src", embeddedImgURL);
-
     this.setState({
       embeddedImgSrc: embeddedImgURL
     });
