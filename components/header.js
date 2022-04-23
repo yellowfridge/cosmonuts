@@ -9,6 +9,7 @@ import detectEthereumProvider from '@metamask/detect-provider';
 export default () => {
 
   const [userAddress, setUserAddress] = useState('');
+  const [route, setRoute] = useState('/');
 
   useEffect(() => {
     // You're doing this same thing twice - consider grabbing as props from parent
@@ -21,7 +22,13 @@ export default () => {
         address = provider.selectedAddress;
       }
       setUserAddress(address);
+      if (address == 'None') {
+        setRoute('/');
+      } else {
+        setRoute(`/users/${userAddress}`);
+      }
     })();
+
   });
 
   return (
@@ -37,7 +44,7 @@ export default () => {
 
       <Menu.Menu position='left'>
         <Menu.Item name='userpagelink'>
-          <Link route={`/users/${userAddress}`}>
+          <Link route={route}>
             <a>
               Jump to another Universe ----->
             </a>
