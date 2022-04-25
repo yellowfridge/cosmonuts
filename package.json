@@ -18,6 +18,7 @@
     "@truffle/hdwallet-provider": "^2.0.3",
     "@web3-react/core": "^6.1.9",
     "@web3-react/injected-connector": "^6.0.7",
+    "axios": "^0.27.0",
     "canvg": "^4.0.0",
     "fs-extra": "^10.0.1",
     "ipfs-core": "^0.14.1",
