@@ -4,13 +4,14 @@ import Layout from '../../components/layout';
 import QRCode from 'react-qr-code';
 import { Parallax, ParallaxLayer } from '@react-spring/parallax';
 import { Container, Form, Button, Grid , Dropdown} from 'semantic-ui-react';
-import Starfield from '../starfield';
 import embedImage from '../../components/helpers/embedimage';
 import { svgAsPngUri } from 'save-svg-as-png';
 import * as IPFS from 'ipfs-core';
 import nut from '../../metadata/nut0.json';
 import Web3 from 'web3';
 import CosmoNuts from '../../ethereum/build_manual/CosmoNuts_abi.json';
+import { getSecret, getVerification } from '../../components/helpers/apiRequests';
+import addToIPFS from '../../components/helpers/addtoIPFS';
 
 class Userpage extends Component {
   constructor(props) {
@@ -28,7 +29,8 @@ class Userpage extends Component {
       secretMessage: 'Current secret message ...',
       secretKey: 'Should be ecnreypted key ...',
       embeddedImgSrc: nut.embedded_image,
-      embeddedImgSig: ''
+      embeddedImgSig: '',
+      imgVerification: ''
     };
 
     this.handleOpenMessage = this.handleOpenMessage.bind(this);
@@ -130,78 +132,46 @@ class Userpage extends Component {
   }
 
   async generateImage() {
-    var publicMsgQR = document.getElementById('publicMsgQR'); // Grab public message in SVG
-    console.log("Public MSG QR:", publicMsgQR);
-    var publicMsgUri = await svgAsPngUri(publicMsgQR); // Convert SVG to URI
-    console.log("Public MSG URI", publicMsgUri, "type of", typeof publicMsgUri);
+    var publicMsgQR = document.getElementById('publicMsgQR'); // Grab public message as SVG element
+    var publicMsgUri = await svgAsPngUri(publicMsgQR); // Convert SVG to URI string, data:image/png;base64,...
 
-    var publicQRImg = document.getElementById('publicQRImg') // Hidden image file next to QR code
-    publicQRImg.setAttribute("src", publicMsgUri); // Setting image source code to URI
-    console.log("publicQRImg", publicQRImg);
+    var publicQRImg = document.getElementById('publicQRImg') // Grab hidden image element next to QR code
+    publicQRImg.setAttribute("src", publicMsgUri); // Setting image source code to URI, creates a working element
 
     var byteStringPubQR = Buffer.from(publicMsgUri.split(',')[1], 'base64'); // Converting URI to buffer data (needed to directly show image on IPFS)
 
-    var nutImg = document.getElementById('nutImg'); // Grab main original image
-    console.log("Nut Img:", nutImg);
+    var nutImg = document.getElementById('nutImg'); // Grab main original image element
 
     var embeddedImgURL = await embedImage(nutImg, publicQRImg); // Creating the combined image
 
     this.setState({
       embeddedImgSrc: embeddedImgURL
-    });
+    }); // Creates a working image element
 
-    console.log("Embedded Img:", embeddedImg, "Type:", typeof embeddedImg);
+    // This is the format to be uploaded to IPFS to display image on load of IPFS URL
     var byteStringEmbeddedImg = Buffer.from(embeddedImgURL.split(',')[1], 'base64');
 
     const Hash = require('ipfs-only-hash');
-    const hash = await Hash.of(this.state.embeddedImgSrc);
+    const hash = await Hash.of(byteStringEmbeddedImg); // Create hash function that would be equivalent to one created by IPFS
+    console.log("Hash", hash);
 
-    const getSecret = async (hash) => {
-      console.log("hash", hash);
-
-      const res = await fetch('/api/secret', {
-        method: 'post',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          imgHash: hash
-        })
-      });
-      const signedImage = await res.json();
-      return signedImage;
-    }
-    getSecret(hash).then((res) => {
-      console.log("Res", res);
+    addToIPFS(byteStringPubQR, byteStringEmbeddedImg).then((res) => {
       this.setState({
-        embeddedImgHash: res
+        publicMsgCid: res.img1_cid.path,
+        embeddedImgCid: res.img2_cid.path
       });
-    })
-
-    //console.log("Public Key:", publicKey);
-    console.log("Embedded Img Hash", this.state.embeddedImgHash);
-
-    const getVerification = async (hash) => {
-      //const check = crypto.verify('SHA256', hash, publicKey, this.state.embeddedImgHash);
-      return check;
-    }
-    //getVerification(hash).then((res) => {
-    //  console.log("Ver Res:", res);
-    //});
-
-    // Saving items to IPFS
-    /*
-    const ipfs = await IPFS.create();
-    const pubQRIPFS = await ipfs.add(byteStringPubQR);
-    const embeddedImgIPFS = await ipfs.add(byteStringEmbeddedImg);
-    console.log("Embedded Img IPFS", embeddedImgIPFS);
-
-    this.setState({
-        publicMsgCid: pubQRIPFS.path,
-        embeddedImgCid: embeddedImgIPFS.path
     });
-    */
+
+    getSecret(hash).then((res) => {
+      console.log("Signed Hash:", res.signedImage);
+      getVerification(hash, res.signedImage).then((verification) => {
+        console.log("Verification", verification.verification);
+        this.setState({
+          embeddedImgHash: res.signedImage,
+          imgVerification: 'Verified'
+        });
+      });
+    });
 
     //window.location.reload(true); // The last item should be refreshing the page and loading from the top
   }
@@ -432,6 +402,7 @@ class Userpage extends Component {
             marginRight: '10%'
           }}>
 
+            <p>Testing: {this.state.imgVerification}</p>
             <Button
               content='***FALL DOWN THE HOLE***'
               onClick={this.generateImage}

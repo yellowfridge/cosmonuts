@@ -5,11 +5,13 @@ import Connect from './connect';
 import Userpage from '../pages/users/userpage';
 import { useState, useEffect } from 'react';
 import detectEthereumProvider from '@metamask/detect-provider';
+//import { useRouter } from 'next/router';
 
 export default () => {
 
   const [userAddress, setUserAddress] = useState('');
   const [route, setRoute] = useState('/');
+  //const router = useRouter();
 
   useEffect(() => {
     // You're doing this same thing twice - consider grabbing as props from parent
@@ -24,7 +26,11 @@ export default () => {
       setUserAddress(address);
       if (address == 'None') {
         setRoute('/');
+        //console.log("There is no address");
+        //router.push('/');
+
       } else {
+        //console.log("There is address");
         setRoute(`/users/${userAddress}`);
       }
     })();
