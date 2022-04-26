@@ -4,5 +4,8 @@ node_modules
 # ignore Not_Used items
 Not_Used
 
-$ Ignore next root folder
+# Ignore next root folder
 .next
+
+# Ignore environment variables
+.env.local

@@ -153,7 +153,25 @@ class Userpage extends Component {
     console.log("Embedded Img:", embeddedImg, "Type:", typeof embeddedImg);
     var byteStringEmbeddedImg = Buffer.from(embeddedImgURL.split(',')[1], 'base64');
 
+    const getSecret = async () => {
+      const Hash = require('ipfs-only-hash');
+      const hash = await Hash.of(this.state.embeddedImgSrc);
+      console.log("hash", hash);
+
+      const res = await fetch(`/api/secretimgHash=${hash}`, {
+        headers: {
+          Accept: 'application/json'
+        }
+      });
+      const signedImage = await res.json();
+      return signedImage;
+    }
+    getSecret().then((res) => {
+      console.log("Res", res);
+    })
+
     // Saving items to IPFS
+    /*
     const ipfs = await IPFS.create();
     const pubQRIPFS = await ipfs.add(byteStringPubQR);
     const embeddedImgIPFS = await ipfs.add(byteStringEmbeddedImg);
@@ -163,6 +181,7 @@ class Userpage extends Component {
         publicMsgCid: pubQRIPFS.path,
         embeddedImgCid: embeddedImgIPFS.path
     });
+    */
 
     //window.location.reload(true); // The last item should be refreshing the page and loading from the top
   }
