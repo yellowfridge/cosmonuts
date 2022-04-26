@@ -28,7 +28,7 @@ class Userpage extends Component {
       secretMessage: 'Current secret message ...',
       secretKey: 'Should be ecnreypted key ...',
       embeddedImgSrc: nut.embedded_image,
-      embeddedImgCid: ''
+      embeddedImgSig: ''
     };
 
     this.handleOpenMessage = this.handleOpenMessage.bind(this);
@@ -153,9 +153,10 @@ class Userpage extends Component {
     console.log("Embedded Img:", embeddedImg, "Type:", typeof embeddedImg);
     var byteStringEmbeddedImg = Buffer.from(embeddedImgURL.split(',')[1], 'base64');
 
-    const getSecret = async () => {
-      const Hash = require('ipfs-only-hash');
-      const hash = await Hash.of(this.state.embeddedImgSrc);
+    const Hash = require('ipfs-only-hash');
+    const hash = await Hash.of(this.state.embeddedImgSrc);
+
+    const getSecret = async (hash) => {
       console.log("hash", hash);
 
       const res = await fetch('/api/secret', {
@@ -171,9 +172,23 @@ class Userpage extends Component {
       const signedImage = await res.json();
       return signedImage;
     }
-    getSecret().then((res) => {
+    getSecret(hash).then((res) => {
       console.log("Res", res);
+      this.setState({
+        embeddedImgHash: res
+      });
     })
+
+    //console.log("Public Key:", publicKey);
+    console.log("Embedded Img Hash", this.state.embeddedImgHash);
+
+    const getVerification = async (hash) => {
+      //const check = crypto.verify('SHA256', hash, publicKey, this.state.embeddedImgHash);
+      return check;
+    }
+    //getVerification(hash).then((res) => {
+    //  console.log("Ver Res:", res);
+    //});
 
     // Saving items to IPFS
     /*
