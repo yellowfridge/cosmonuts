@@ -1,13 +1,17 @@
-import axios from 'axios';
-
 export default async function serverSideCall(req, res) {
-  //const {
-  //  query: { imgHash },
-  //} = req;
+  const crypto = require('crypto');
+  const buffer = require('buffer');
 
-  var imgHash = req.body.imgHash;
+  const imgHash = req.body.imgHash;
+  const privateKey = process.env.PRIVATE_KEY;
 
-  //const privateKey = process.env.PRIVATE_KEY;
+  const data = Buffer.from(imgHash); // convert hash to buffer
+  const sign = crypto.sign('SHA256', data, {
+    key: privateKey,
+    format: 'pem'
+  }); // sign the data and return signature in buffer
 
-  res.status(200).json({ signedImage: 'hello' });
+  const signedImage = sign.toString('base64'); // Convert returned buffer to base64
+
+  res.status(200).json({ signedImage: signedImage });
 }

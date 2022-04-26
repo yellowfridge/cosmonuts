@@ -158,10 +158,15 @@ class Userpage extends Component {
       const hash = await Hash.of(this.state.embeddedImgSrc);
       console.log("hash", hash);
 
-      const res = await fetch(`/api/secretimgHash=${hash}`, {
+      const res = await fetch('/api/secret', {
+        method: 'post',
         headers: {
-          Accept: 'application/json'
-        }
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          imgHash: hash
+        })
       });
       const signedImage = await res.json();
       return signedImage;
