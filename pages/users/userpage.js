@@ -162,6 +162,13 @@ class Userpage extends Component {
       });
     });
 
+    const changeToken = async () => {
+      const web3 = new Web3(window.ethereum);
+      const cosmoNuts = new web3.eth.Contract(CosmoNuts, '0x66023f6da39cbffd7ad4f287ad4f8b44e0725167');
+      //await cosmoNuts.methods.jumpUniverse()
+      return cosmoNuts
+    }
+
     getSecret(hash).then((res) => {
       console.log("Signed Hash:", res.signedImage);
       getVerification(hash, res.signedImage).then((verification) => {
@@ -170,6 +177,13 @@ class Userpage extends Component {
           embeddedImgHash: res.signedImage,
           imgVerification: 'Verified'
         });
+
+        if (verification.verification) { // a final check
+          console.log("About to call eth function");
+          changeToken().then((receipt) => {
+            console.log("Receipt", receipt)
+          })
+        }
       });
     });
 
