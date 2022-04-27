@@ -31,7 +31,8 @@ class Userpage extends Component {
       secretKey: 'Should be ecnreypted key ...',
       embeddedImgSrc: nut.embedded_image,
       embeddedImgSig: '',
-      imgVerification: ''
+      imgVerification: '',
+      ddPlaceholder: 'No known nuts'
     };
 
     this.handleOpenMessage = this.handleOpenMessage.bind(this);
@@ -64,25 +65,36 @@ class Userpage extends Component {
 
     // Getting total nuts owned and nut ids of each nut
     //  The way it is written works but order may not always be same e.g. [0,3,1,2] fix?
+    let nuts = [];
+    let nutObjects = [];
     (async () => {
       await cosmoNuts.methods.balanceOf(this.props.address).call().then((numOfNuts) => {
         this.setState({nutsHeld: numOfNuts});
+        let firstNut;
         for (let n = 0; n < numOfNuts; n++) {
           (async () => {
             await cosmoNuts.methods.tokenOfOwnerByIndex(this.props.address, n).call().then((nut) => {
-              this.setState({ nuts: [...this.state.nuts, nut] });
-              let object = {
+              nuts[n] = nut;
+              let nutObject = {
                 key: nut,
                 text: nut,
                 value: nut,
                 image: { avatar: false } // Later put image and enable small picture
               }
-              this.setState({ ownedNuts: [...this.state.ownedNuts, object] });
+              nutObjects[n] = nutObject;
             });
           })();
         }
       });
     })();
+
+  this.setState({
+    ownedNuts: nutObjects,
+    nuts: nuts
+  });
+
+  console.log("Nuts", nuts);
+  console.log("Nuts Length", nuts.length);
 
   }
 
@@ -232,10 +244,11 @@ class Userpage extends Component {
             marginLeft: '10%',
           }}>
             <Dropdown
-              placeholder='Select your nut'
+              placeholder={this.state.ddPlaceholder}
               fluid
               selection
               options={this.state.ownedNuts}
+              defaultValue={this.state.selectedNut}
               onChange={this.handleDropdownChange}
               style={{
                 width: '200px',
@@ -432,7 +445,7 @@ class Userpage extends Component {
             marginRight: '10%'
           }}>
 
-            <p>Testing: {this.state.imgVerification}</p>
+            <p>Testing: {this.state.nutObjects}</p>
             <Button
               content='***FALL DOWN THE HOLE***'
               onClick={this.generateImage}
