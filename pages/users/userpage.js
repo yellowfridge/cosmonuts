@@ -153,9 +153,9 @@ class Userpage extends Component {
 
     const Hash = require('ipfs-only-hash');
     const hash = await Hash.of(byteStringEmbeddedImg); // Create hash function that would be equivalent to one created by IPFS
-    console.log("Hash", hash);
+    console.log("Hash", hash); // This should be location of where IPFS will save as well
 
-    addToIPFS(byteStringPubQR, byteStringEmbeddedImg).then((res) => {
+    addToIPFS(byteStringPubQR, byteStringEmbeddedImg).then((res) => { // components/helpers/
       this.setState({
         publicMsgCid: res.img1_cid.path,
         embeddedImgCid: res.img2_cid.path

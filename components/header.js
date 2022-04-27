@@ -35,7 +35,7 @@ export default () => {
       }
     })();
 
-  }, []);
+  });
 
   return (
     <Menu style={{ marginTop: '10px' }} secondary icon = 'labeled'>
