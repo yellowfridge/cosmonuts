@@ -162,11 +162,16 @@ class Userpage extends Component {
       });
     });
 
-    const changeToken = async () => {
+    const changeToken = async (selectedNut, newTokenURI) => {
       const web3 = new Web3(window.ethereum);
       const cosmoNuts = new web3.eth.Contract(CosmoNuts, '0x66023f6da39cbffd7ad4f287ad4f8b44e0725167');
-      //await cosmoNuts.methods.jumpUniverse()
-      return cosmoNuts
+      await cosmoNuts.methods.jumpUniverse(selectedNut, newTokenURI).send({
+        from: this.props.address
+      }).on('transactionHash', (transactionHash) => {
+        console.log("Transaction Hash:", transactionHash);
+      }).on('receipt', (receipt) => {
+        console.log("Receipt", receipt);
+      });
     }
 
     getSecret(hash).then((res) => {
@@ -178,11 +183,13 @@ class Userpage extends Component {
           imgVerification: 'Verified'
         });
 
-        if (verification.verification) { // a final check
-          console.log("About to call eth function");
-          changeToken().then((receipt) => {
-            console.log("Receipt", receipt)
-          })
+        if (verification.verification) { // a final check - checking if IPFS CID matches signed CID
+          // Needs to be changed to new function when built
+          // Takes in the selected nut, the new image, and eventually secret
+          console.log("Selected Nut:" ); // Need to work on this, which nut is selected
+          changeToken('1', hash).then((receipt) => {
+            console.log("Success!");
+          });
         }
       });
     });

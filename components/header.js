@@ -5,7 +5,7 @@ import Connect from './connect';
 import Userpage from '../pages/users/userpage';
 import { useState, useEffect } from 'react';
 import detectEthereumProvider from '@metamask/detect-provider';
-//import { useRouter } from 'next/router';
+import { useRouter } from 'next/router';
 
 export default () => {
 
@@ -35,7 +35,7 @@ export default () => {
       }
     })();
 
-  });
+  }, []);
 
   return (
     <Menu style={{ marginTop: '10px' }} secondary icon = 'labeled'>
