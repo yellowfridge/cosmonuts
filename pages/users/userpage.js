@@ -20,6 +20,7 @@ class Userpage extends Component {
       nutsHeld: 0,
       nuts: [],
       ownedNuts: [],
+      selectedNut: '',
       openMessage: nut.open_message.value,
       openMsgSrc: 'blank',
       publicMessage: nut.public_message.value,
@@ -37,6 +38,7 @@ class Userpage extends Component {
     this.handlePublicMessage = this.handlePublicMessage.bind(this);
     this.handleGroupMessage = this.handleGroupMessage.bind(this);
     this.handleSecretMessage = this.handleSecretMessage.bind(this);
+    this.handleDropdownChange = this.handleDropdownChange.bind(this);
     this.generateImage = this.generateImage.bind(this);
     this.openImgSrc = this.openImgSrc.bind(this);
   }
@@ -107,28 +109,34 @@ class Userpage extends Component {
     return imgURL;
   }
 
+  handleDropdownChange(event) {
+    this.setState({
+      selectedNut: event.target.innerText // Fro dropdowns, it is under innerText (as opposed to .value)
+    });
+  }
+
   handleOpenMessage(event) {
     this.setState({
       openMessage: event.target.value
-    })
+    });
   }
 
   handlePublicMessage(event) {
     this.setState({
       publicMessage: event.target.value
-    })
+    });
   }
 
   handleGroupMessage(event) {
     this.setState({
       groupMessage: event.target.value
-    })
+    });
   }
 
   handleSecretMessage(event) {
     this.setState({
       secretMessage: event.target.value
-    })
+    });
   }
 
   async generateImage() {
@@ -228,6 +236,7 @@ class Userpage extends Component {
               fluid
               selection
               options={this.state.ownedNuts}
+              onChange={this.handleDropdownChange}
               style={{
                 width: '200px',
                 height: 'auto'
