@@ -12,6 +12,7 @@ import Web3 from 'web3';
 import CosmoNuts from '../../ethereum/build_manual/CosmoNuts_abi.json';
 import { getSecret, getVerification } from '../../components/helpers/apiRequests';
 import addToIPFS from '../../components/helpers/addtoIPFS';
+import detectEthereumProvider from '@metamask/detect-provider';
 
 class Userpage extends Component {
   constructor(props) {
@@ -35,6 +36,7 @@ class Userpage extends Component {
       ddPlaceholder: 'No known nuts'
     };
 
+    this.ddPlaceholderSet = this.ddPlaceholderSet.bind(this);
     this.handleOpenMessage = this.handleOpenMessage.bind(this);
     this.handlePublicMessage = this.handlePublicMessage.bind(this);
     this.handleGroupMessage = this.handleGroupMessage.bind(this);
@@ -42,12 +44,14 @@ class Userpage extends Component {
     this.handleDropdownChange = this.handleDropdownChange.bind(this);
     this.generateImage = this.generateImage.bind(this);
     this.openImgSrc = this.openImgSrc.bind(this);
+
   }
 
   // This is grabbing the address from the URL
   // accessed with this.props.address
   static async getInitialProps(props) {
     const { address } = props.query;
+
 
     return { address };
   }
@@ -67,10 +71,22 @@ class Userpage extends Component {
     //  The way it is written works but order may not always be same e.g. [0,3,1,2] fix?
     let nuts = [];
     let nutObjects = [];
-    (async () => {
+    let firstNut;
+
+    var findFirst = async (n, nut) => {
+      if (n === 0) {
+        return nut
+      } else {
+        return 'Nut first'
+      }
+    }
+
+    var getNuts = async () => {
       await cosmoNuts.methods.balanceOf(this.props.address).call().then((numOfNuts) => {
-        this.setState({nutsHeld: numOfNuts});
-        let firstNut;
+        this.setState({
+          nutsHeld: numOfNuts,
+          ddPlaceholder: 'Loading Nuts'
+        });
         for (let n = 0; n < numOfNuts; n++) {
           (async () => {
             await cosmoNuts.methods.tokenOfOwnerByIndex(this.props.address, n).call().then((nut) => {
@@ -82,19 +98,30 @@ class Userpage extends Component {
                 image: { avatar: false } // Later put image and enable small picture
               }
               nutObjects[n] = nutObject;
+
+              (async () => {
+                await findFirst(n, nut).then((nut1) => {
+                  if (nut1 !== 'Nut first') {
+                    this.setState({ selectedNut: nut1 });
+                    this.ddPlaceholderSet(nut1);
+                  }
+                });
+              })();
+
             });
           })();
         }
       });
+    };
+
+    (async () => {
+      await getNuts().then(() => {
+        this.setState({
+          ownedNuts: nutObjects,
+          nuts: nuts
+        });
+      });
     })();
-
-  this.setState({
-    ownedNuts: nutObjects,
-    nuts: nuts
-  });
-
-  console.log("Nuts", nuts);
-  console.log("Nuts Length", nuts.length);
 
   }
 
@@ -103,7 +130,7 @@ class Userpage extends Component {
       var imgURL = this.openImgSrc(this.state.openMessage);
       this.setState({
         openMsgSrc: imgURL
-      })
+      });
     }
 
   }
@@ -119,6 +146,12 @@ class Userpage extends Component {
     var imgURL = openMsgCanvas.toDataURL();
 
     return imgURL;
+  }
+
+  ddPlaceholderSet(firstNut) {
+    this.setState({
+      ddPlaceholder: firstNut
+    });
   }
 
   handleDropdownChange(event) {
@@ -445,7 +478,7 @@ class Userpage extends Component {
             marginRight: '10%'
           }}>
 
-            <p>Testing: {this.state.nutObjects}</p>
+            <p>Testing: {this.state.selectedNut}</p>
             <Button
               content='***FALL DOWN THE HOLE***'
               onClick={this.generateImage}
