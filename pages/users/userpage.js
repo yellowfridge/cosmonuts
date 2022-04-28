@@ -240,7 +240,7 @@ class Userpage extends Component {
           // Needs to be changed to new function when built
           // Takes in the selected nut, the new image, and eventually secret
           console.log("Selected Nut:" ); // Need to work on this, which nut is selected
-          changeToken('1', hash).then((receipt) => {
+          changeToken(this.state.selectedNut, hash).then((receipt) => {
             console.log("Success!");
           });
         }
