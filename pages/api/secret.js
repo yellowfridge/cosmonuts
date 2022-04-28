@@ -1,17 +1,20 @@
 export default async function getSecret(req, res) {
-  const crypto = require('crypto');
   const buffer = require('buffer');
+  const EthCrypto = require('eth-crypto');
 
   const imgHash = req.body.imgHash;
   const privateKey = process.env.PRIVATE_KEY;
+  const privateKeyEC = process.env.PRIVATE_KEY_EC;
+  console.log("Private Key", privateKeyEC);
 
-  const data = Buffer.from(imgHash); // convert hash to buffer
-  const sign = crypto.sign('SHA256', data, {
-    key: privateKey,
-    format: 'pem'
-  }); // sign the data and return signature in buffer
+  const ethHash = EthCrypto.hash.keccak256(imgHash);
+  console.log("Eth Hash", ethHash);
 
-  const signedImage = sign.toString('base64'); // Convert returned buffer to base64
+  const signature = EthCrypto.sign(
+    privateKey,
+    ethHash
+  );
+  console.log("Signature", signature);
 
-  res.status(200).json({ signedImage: signedImage });
+  res.status(200).json({ signedImage: signature });
 }

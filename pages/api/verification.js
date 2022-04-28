@@ -1,5 +1,6 @@
 export default async function getVerification(req, res) {
   const crypto = require('crypto');
+  const EthCrypto = require('eth-crypto');
 
   const imgHash = req.body.imgHash;
   const signedHash = req.body.signedHash;

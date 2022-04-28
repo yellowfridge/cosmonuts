@@ -14,6 +14,7 @@ import { getSecret, getVerification } from '../../components/helpers/apiRequests
 import addToIPFS from '../../components/helpers/addtoIPFS';
 import detectEthereumProvider from '@metamask/detect-provider';
 import bs58 from 'bs58';
+import EthCrypto from 'eth-crypto';
 
 class Userpage extends Component {
   constructor(props) {
@@ -250,22 +251,22 @@ class Userpage extends Component {
       var hexSignedImg = this.add_0x(hex);
       console.log("Hex Signed Img", hexSignedImg, typeof hexSignedImg);
 
-      getVerification(hash, res.signedImage).then((verification) => {
-        console.log("Verification", verification.verification);
-        this.setState({
-          embeddedImgHash: res.signedImage,
-          imgVerification: 'Verified'
-        });
+    //  getVerification(hash, res.signedImage).then((verification) => {
+    //    console.log("Verification", verification.verification);
+    //    this.setState({
+    //      embeddedImgHash: res.signedImage,
+    //      imgVerification: 'Verified'
+    //    });
 
-        if (verification.verification) { // a final check - checking if IPFS CID matches signed CID
-          // Needs to be changed to new function when built
-          // Takes in the selected nut, the new image, and eventually secret
-          console.log("Selected Nut:" ); // Need to work on this, which nut is selected
-          changeToken(this.state.selectedNut, hash).then((receipt) => {
-            console.log("Success!");
-          });
-        }
-      });
+    //    if (verification.verification) { // a final check - checking if IPFS CID matches signed CID
+    //      // Needs to be changed to new function when built
+    //      // Takes in the selected nut, the new image, and eventually secret
+    //      console.log("Selected Nut:" ); // Need to work on this, which nut is selected
+    //      changeToken(this.state.selectedNut, hash).then((receipt) => {
+    //        console.log("Success!");
+    //      });
+    //    }
+    //  });
     });
 
     //window.location.reload(true); // The last item should be refreshing the page and loading from the top
