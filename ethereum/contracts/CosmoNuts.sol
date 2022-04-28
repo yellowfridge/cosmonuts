@@ -78,6 +78,8 @@ contract CosmoNuts is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
 
   }
 
+  // Starting revisions
+
   // Allows CosmoNuts to change their URI
   function changeTokenURI(uint256 tokenId, string memory new_tokenURI) public {
     require(_isApprovedOrOwner(_msgSender(), tokenId), "ERC721: caller is not owner nor approved");
