@@ -1,15 +1,38 @@
 export default async function getVerification(req, res) {
-  const crypto = require('crypto');
   const EthCrypto = require('eth-crypto');
 
   const imgHash = req.body.imgHash;
-  const signedHash = req.body.signedHash;
+  const signature = req.body.signedHash;
+  const account = process.env.ACCOUNT;
   const publicKey = process.env.PUBLIC_KEY;
 
-  const data = Buffer.from(imgHash); // convert hash to buffer
-  const signature = Buffer.from(signedHash, 'base64'); // convert string to buffer
+  const signerAccount = EthCrypto.recover(
+    signature,
+    EthCrypto.hash.keccak256(imgHash)
+  );
+  //console.log("Signer Account: ", signerAccount);
 
-  const verification = crypto.verify('SHA256', data, publicKey, signature); // Verify the decryption works
+  const signerPublicKey = EthCrypto.recoverPublicKey(
+    signature,
+    EthCrypto.hash.keccak256(imgHash)
+  )
+  //console.log("Signer Public Key", signerPublicKey);
+
+  function verify(account, hash, signature) {
+    if (signerAccount == account) {
+      if (signerPublicKey == publicKey) {
+        console.log("Data is verified.")
+        return true
+      } else {
+        console.log("Account is correct but public key is not.")
+        return false
+      }
+    } else {
+      console.log("Not signed by this account.")
+      return false
+    }
+  }
+  const verification = verify(account, imgHash, signature);
 
   res.status(200).json({ verification: verification });
 }

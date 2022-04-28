@@ -221,6 +221,8 @@ class Userpage extends Component {
     const Hash = require('ipfs-only-hash');
     const hash = await Hash.of(byteStringEmbeddedImg); // Create hash function that would be equivalent to one created by IPFS
     console.log("Hash", hash, typeof hash); // This should be location of where IPFS will save as well
+    const ethHash =  EthCrypto.hash.keccak256(hash);
+    console.log("Eth Hash", ethHash);
 
     // Testing on whether this is the format to be hashed for solidity
     var bytesEmbeddedImg = this.getBytes32FromIPFSHash(hash);
@@ -247,26 +249,26 @@ class Userpage extends Component {
 
     getSecret(hash).then((res) => {
       console.log("Signed Hash:", res.signedImage);
-      let hex = Buffer.from(res.signedImage).toString('hex');
-      var hexSignedImg = this.add_0x(hex);
-      console.log("Hex Signed Img", hexSignedImg, typeof hexSignedImg);
+      //let hex = Buffer.from(res.signedImage).toString('hex');
+      //var hexSignedImg = this.add_0x(hex);
+      //console.log("Hex Signed Img", hexSignedImg, typeof hexSignedImg);
 
-    //  getVerification(hash, res.signedImage).then((verification) => {
-    //    console.log("Verification", verification.verification);
-    //    this.setState({
-    //      embeddedImgHash: res.signedImage,
-    //      imgVerification: 'Verified'
-    //    });
+      getVerification(hash, res.signedImage).then((verification) => {
+        console.log("Verification", verification.verification);
+        this.setState({
+          embeddedImgHash: res.signedImage,
+          imgVerification: 'Verified'
+        });
 
-    //    if (verification.verification) { // a final check - checking if IPFS CID matches signed CID
-    //      // Needs to be changed to new function when built
-    //      // Takes in the selected nut, the new image, and eventually secret
-    //      console.log("Selected Nut:" ); // Need to work on this, which nut is selected
+        if (verification.verification) { // a final check - checking if IPFS CID matches signed CID
+          // Needs to be changed to new function when built
+          // Takes in the selected nut, the new image, and eventually secret
+          console.log("Selected Nut:", this.state.selectedNut); // Need to work on this, which nut is selected
     //      changeToken(this.state.selectedNut, hash).then((receipt) => {
     //        console.log("Success!");
     //      });
-    //    }
-    //  });
+        }
+      });
     });
 
     //window.location.reload(true); // The last item should be refreshing the page and loading from the top

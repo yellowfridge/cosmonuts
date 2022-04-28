@@ -84,12 +84,8 @@ contract CosmoNuts is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
   }
 
   // Verify
-  // hash is IPFS location - cid?
-  // signature is the signed hash?
   function isValidSignature(bytes32 hash, bytes memory signature) public pure returns (address systemAddress) {
-    bytes memory prefix = "\x19Ethereum Signed Message:\n32";
-    bytes32 prefixedHash = keccak256(abi.encodePacked(prefix, hash)); //Is this section needed (need to check on other side)?
-    return prefixedHash.recover(signature);
+    return hash.recover(signature);
   }
 
   // Allows CosmoNuts to change their URI
