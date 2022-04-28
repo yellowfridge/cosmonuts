@@ -5,6 +5,7 @@ import "./ERC721.sol";
 import "../extensions/ERC721Enumerable";
 import "../extensions/ERC721URIStorage.sol";
 import "../access/Ownable.sol";
+import "../utils/cryptography/ECDSA.sol";
 
 /**
   * @title CosmoNuts contract
@@ -21,6 +22,8 @@ contract CosmoNuts is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
   bool public saleIsActive = false;
   uint256 public REVEAL_TIMESTAMP;
 
+  using ECDSA for bytes32;
+
   // Create a mapping of token id to all token uri's
   mapping(uint256 => string[]) private traveledURIs;
 
@@ -32,7 +35,7 @@ contract CosmoNuts is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
 
   // Set Base URI
   function _baseURI() internal pure override returns (string memory) {
-    return "https://baseruri/";
+    return "https://ipfs.io/ipns/";
   }
 
   // Allows developer to withdraw funds
