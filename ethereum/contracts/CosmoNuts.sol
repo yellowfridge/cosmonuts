@@ -83,14 +83,23 @@ contract CosmoNuts is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
 
   }
 
-  // Verify
-  function isValidSignature(bytes32 hash, bytes memory signature) public pure returns (address systemAddress) {
+  // Verify that the signature was signed by the correct address
+  function signerAddress(bytes32 hash, bytes memory signature) internal pure returns (address systemAddress) {
     return hash.recover(signature);
   }
 
+  // Verify that the cidPath being provided is the same as the hash in the signature
+  function isVerified(string memory cidPath, bytes memory signature) private view returns (bool isValid) {
+    bytes32 ethHash = keccak256(abi.encodePacked(cidPath));
+    require(signerAddress(ethHash, signature) == SYSTEM_ADDRESS, "Invalid signature");
+    isValid = true;
+    return isValid;
+  }
+
   // Allows CosmoNuts to change their URI
-  function changeTokenURI(uint256 tokenId, string memory new_tokenURI) public {
+  function changeTokenURI(uint256 tokenId, string memory new_tokenURI, bytes memory signature) public {
     require(_isApprovedOrOwner(_msgSender(), tokenId), "ERC721: caller is not owner nor approved");
+    require(isVerified(new_tokenURI, signature), "Provided data does not match signed hash");
     _setTokenURI(tokenId, new_tokenURI);
     string memory new_uri = tokenURI(tokenId);
     traveledURIs[tokenId].push(new_uri);
