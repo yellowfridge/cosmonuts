@@ -21,6 +21,7 @@ contract CosmoNuts is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
   uint256 public MAX_NUTS;
   bool public saleIsActive = false;
   uint256 public REVEAL_TIMESTAMP;
+  address private SYSTEM_ADDRESS;
 
   using ECDSA for bytes32;
 
@@ -28,9 +29,10 @@ contract CosmoNuts is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
   mapping(uint256 => string[]) private traveledURIs;
 
   // Using 1645347572 for saleStart date in tests
-  constructor(string memory name, string memory symbol, uint256 maxNFTSupply, uint256 saleStart) ERC721(name, symbol) {
-      MAX_NUTS = maxNFTSupply;
+  constructor(string memory name, string memory symbol, uint256 maxNFTSupply, uint256 saleStart, address _systemAddress) ERC721(name, symbol) {
+      MAX_NUTS = maxNFTSupply; // Total number of tokens (traditionally 10,000)
       REVEAL_TIMESTAMP = saleStart + (86400 * 9); // Represents 9 days - from BAYC code (86,400 * 9) - should show exact amount to save gas
+      SYSTEM_ADDRESS = _systemAddress;
   }
 
   // Set Base URI
@@ -81,7 +83,14 @@ contract CosmoNuts is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
 
   }
 
-  // Starting revisions
+  // Verify
+  // hash is IPFS location - cid?
+  // signature is the signed hash?
+  function isValidSignature(bytes32 hash, bytes memory signature) public pure returns (address systemAddress) {
+    bytes memory prefix = "\x19Ethereum Signed Message:\n32";
+    bytes32 prefixedHash = keccak256(abi.encodePacked(prefix, hash)); //Is this section needed (need to check on other side)?
+    return prefixedHash.recover(signature);
+  }
 
   // Allows CosmoNuts to change their URI
   function changeTokenURI(uint256 tokenId, string memory new_tokenURI) public {

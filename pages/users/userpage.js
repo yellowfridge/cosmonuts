@@ -13,6 +13,7 @@ import CosmoNuts from '../../ethereum/build_manual/CosmoNuts_abi.json';
 import { getSecret, getVerification } from '../../components/helpers/apiRequests';
 import addToIPFS from '../../components/helpers/addtoIPFS';
 import detectEthereumProvider from '@metamask/detect-provider';
+import bs58 from 'bs58';
 
 class Userpage extends Component {
   constructor(props) {
@@ -44,6 +45,8 @@ class Userpage extends Component {
     this.handleDropdownChange = this.handleDropdownChange.bind(this);
     this.generateImage = this.generateImage.bind(this);
     this.openImgSrc = this.openImgSrc.bind(this);
+    this.getBytes32FromIPFSHash = this.getBytes32FromIPFSHash.bind(this);
+    this.add_0x = this.add_0x.bind(this);
 
   }
 
@@ -184,6 +187,15 @@ class Userpage extends Component {
     });
   }
 
+  getBytes32FromIPFSHash(ipfsCID) {
+    let hex = bs58.decode(ipfsCID).slice(2).toString('hex');
+    return this.add_0x(hex);
+  }
+
+  add_0x(hex) {
+    return "0x" + hex;
+  }
+
   async generateImage() {
     var publicMsgQR = document.getElementById('publicMsgQR'); // Grab public message as SVG element
     var publicMsgUri = await svgAsPngUri(publicMsgQR); // Convert SVG to URI string, data:image/png;base64,...
@@ -203,10 +215,15 @@ class Userpage extends Component {
 
     // This is the format to be uploaded to IPFS to display image on load of IPFS URL
     var byteStringEmbeddedImg = Buffer.from(embeddedImgURL.split(',')[1], 'base64');
+    console.log("Bytes Embedded Img IPFS", byteStringEmbeddedImg);
 
     const Hash = require('ipfs-only-hash');
     const hash = await Hash.of(byteStringEmbeddedImg); // Create hash function that would be equivalent to one created by IPFS
-    console.log("Hash", hash); // This should be location of where IPFS will save as well
+    console.log("Hash", hash, typeof hash); // This should be location of where IPFS will save as well
+
+    // Testing on whether this is the format to be hashed for solidity
+    var bytesEmbeddedImg = this.getBytes32FromIPFSHash(hash);
+    console.log("Bytes Emb Img Eth", bytesEmbeddedImg);
 
     addToIPFS(byteStringPubQR, byteStringEmbeddedImg).then((res) => { // components/helpers/
       this.setState({
@@ -229,6 +246,10 @@ class Userpage extends Component {
 
     getSecret(hash).then((res) => {
       console.log("Signed Hash:", res.signedImage);
+      let hex = Buffer.from(res.signedImage).toString('hex');
+      var hexSignedImg = this.add_0x(hex);
+      console.log("Hex Signed Img", hexSignedImg, typeof hexSignedImg);
+
       getVerification(hash, res.signedImage).then((verification) => {
         console.log("Verification", verification.verification);
         this.setState({
