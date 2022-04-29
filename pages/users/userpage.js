@@ -219,20 +219,47 @@ class Userpage extends Component {
     console.log("Bytes Final Img IPFS", byteStringFinalImg);
 
     const Hash = require('ipfs-only-hash');
-    const hash = await Hash.of(byteStringFinalImg); // Create hash function that would be equivalent to one created by IPFS
-    console.log("Hash", hash, typeof hash); // This should be location of where IPFS will save as well
-    const ethHash =  EthCrypto.hash.keccak256(hash); // Create a has as it would be done on the ethereum blockchain
-    console.log("Eth Hash", ethHash);
+    const finalImg_cid = await Hash.of(byteStringFinalImg); // Create hash function that would be equivalent to one created by IPFS
+    console.log("Final Img CID", finalImg_cid, typeof finalImg_cid); // This should be location of where IPFS will save as well
+    const finalImg_hash =  EthCrypto.hash.keccak256(finalImg_cid); // Create a hash as it would be done on the ethereum blockchain
+    console.log("Eth Hash", finalImg_hash);
 
-    var bytesFinalImg = this.getBytes32FromIPFSHash(hash); // Format to save image in for IPFS
+    var bytesFinalImg = this.getBytes32FromIPFSHash(finalImg_cid); // Format to save image in for IPFS
     console.log("Bytes Emb Img Eth", bytesFinalImg);
 
-    addToIPFS(byteStringPubQR, byteStringFinalImg).then((res) => { // components/helpers/
-      this.setState({
-        publicMsgCid: res.qrImg_cid.path, // Image of the public QR code in bytes
-        finalImgCid: res.embImg_cid.path // Image of the consolidatedNFT in bytes
+    getSecret(finalImg_hash).then((res) => {
+      console.log("Signed Hash:", res.signedImage);
+      //let hex = Buffer.from(res.signedImage).toString('hex');
+      //var hexSignedImg = this.add_0x(hex);
+      //console.log("Hex Signed Img", hexSignedImg, typeof hexSignedImg);
+
+      getVerification(finalImg_hash, res.signedImage).then((verification) => {
+        console.log("Verification", verification.verification);
+        this.setState({
+          finalImgHash: res.signedImage,
+          imgVerification: 'Verified'
+        });
+
+        if (verification.verification) { // a final check - checking if IPFS CID matches signed CID
+
+          addToIPFS(byteStringPubQR, byteStringFinalImg).then((res) => { // components/helpers/
+            this.setState({
+              publicMsgCid: res.qrImg_cid.path, // Image of the public QR code in bytes
+              finalImgCid: res.finalImg_cid.path // Image of the consolidatedNFT in bytes
+            });
+          });
+
+          // Needs to be changed to new function when built
+          // Takes in the selected nut, the new image, and eventually secret
+          console.log("Selected Nut:", this.state.selectedNut); // Need to work on this, which nut is selected
+    //      changeToken(this.state.selectedNut, finalImg_hash).then((receipt) => {
+    //        console.log("Success!");
+    //      });
+        }
       });
     });
+
+
 
     const changeToken = async (selectedNut, newTokenURI) => {
       const web3 = new Web3(window.ethereum);
@@ -245,30 +272,6 @@ class Userpage extends Component {
         console.log("Receipt", receipt);
       });
     }
-
-    getSecret(hash).then((res) => {
-      console.log("Signed Hash:", res.signedImage);
-      //let hex = Buffer.from(res.signedImage).toString('hex');
-      //var hexSignedImg = this.add_0x(hex);
-      //console.log("Hex Signed Img", hexSignedImg, typeof hexSignedImg);
-
-      getVerification(hash, res.signedImage).then((verification) => {
-        console.log("Verification", verification.verification);
-        this.setState({
-          finalImgHash: res.signedImage,
-          imgVerification: 'Verified'
-        });
-
-        if (verification.verification) { // a final check - checking if IPFS CID matches signed CID
-          // Needs to be changed to new function when built
-          // Takes in the selected nut, the new image, and eventually secret
-          console.log("Selected Nut:", this.state.selectedNut); // Need to work on this, which nut is selected
-    //      changeToken(this.state.selectedNut, hash).then((receipt) => {
-    //        console.log("Success!");
-    //      });
-        }
-      });
-    });
 
     //window.location.reload(true); // The last item should be refreshing the page and loading from the top
   }
