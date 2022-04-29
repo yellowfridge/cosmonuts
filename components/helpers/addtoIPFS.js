@@ -1,12 +1,12 @@
 import * as IPFS from 'ipfs-core';
 
-const addToIPFS = async (img1_byteStr, img2_byteStr) => {
+const addToIPFS = async (qrImg, embImg) => {
   const ipfs = await IPFS.create();
-  const img1_cid = await ipfs.add(img1_byteStr);
-  const img2_cid = await ipfs.add(img2_byteStr);
+  const qrImg_cid = await ipfs.add(qrImg);
+  const embImg_cid = await ipfs.add(embImg);
 
-  console.log("Consolidated Image:", img2_cid);
-  return { img1_cid, img2_cid }
+  console.log("Consolidated Image:", embImg_cid);
+  return { qrImg_cid, embImg_cid }
 }
 
 export default addToIPFS

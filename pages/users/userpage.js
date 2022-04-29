@@ -32,8 +32,8 @@ class Userpage extends Component {
       groupMessage: 'Current group message ...',
       secretMessage: 'Current secret message ...',
       secretKey: 'Should be ecnreypted key ...',
-      embeddedImgSrc: nut.embedded_image,
-      embeddedImgSig: '',
+      finalImgSrc: nut.image,
+      finalImgSig: '',
       imgVerification: '',
       ddPlaceholder: 'No known nuts'
     };
@@ -208,30 +208,29 @@ class Userpage extends Component {
 
     var nutImg = document.getElementById('nutImg'); // Grab main original image element
 
-    var embeddedImgURL = await embedImage(nutImg, publicQRImg); // Creating the combined image
+    var finalImgURL = await embedImage(nutImg, publicQRImg); // Creating the combined image
 
     this.setState({
-      embeddedImgSrc: embeddedImgURL
+      finalImgSrc: finalImgURL
     }); // Creates a working image element
 
     // This is the format to be uploaded to IPFS to display image on load of IPFS URL
-    var byteStringEmbeddedImg = Buffer.from(embeddedImgURL.split(',')[1], 'base64');
-    console.log("Bytes Embedded Img IPFS", byteStringEmbeddedImg);
+    var byteStringFinalImg = Buffer.from(finalImgURL.split(',')[1], 'base64');
+    console.log("Bytes Final Img IPFS", byteStringFinalImg);
 
     const Hash = require('ipfs-only-hash');
-    const hash = await Hash.of(byteStringEmbeddedImg); // Create hash function that would be equivalent to one created by IPFS
+    const hash = await Hash.of(byteStringFinalImg); // Create hash function that would be equivalent to one created by IPFS
     console.log("Hash", hash, typeof hash); // This should be location of where IPFS will save as well
-    const ethHash =  EthCrypto.hash.keccak256(hash);
+    const ethHash =  EthCrypto.hash.keccak256(hash); // Create a has as it would be done on the ethereum blockchain
     console.log("Eth Hash", ethHash);
 
-    // Testing on whether this is the format to be hashed for solidity
-    var bytesEmbeddedImg = this.getBytes32FromIPFSHash(hash);
-    console.log("Bytes Emb Img Eth", bytesEmbeddedImg);
+    var bytesFinalImg = this.getBytes32FromIPFSHash(hash); // Format to save image in for IPFS
+    console.log("Bytes Emb Img Eth", bytesFinalImg);
 
-    addToIPFS(byteStringPubQR, byteStringEmbeddedImg).then((res) => { // components/helpers/
+    addToIPFS(byteStringPubQR, byteStringFinalImg).then((res) => { // components/helpers/
       this.setState({
-        publicMsgCid: res.img1_cid.path,
-        embeddedImgCid: res.img2_cid.path
+        publicMsgCid: res.qrImg_cid.path, // Image of the public QR code in bytes
+        finalImgCid: res.embImg_cid.path // Image of the consolidatedNFT in bytes
       });
     });
 
@@ -256,7 +255,7 @@ class Userpage extends Component {
       getVerification(hash, res.signedImage).then((verification) => {
         console.log("Verification", verification.verification);
         this.setState({
-          embeddedImgHash: res.signedImage,
+          finalImgHash: res.signedImage,
           imgVerification: 'Verified'
         });
 
@@ -340,9 +339,9 @@ class Userpage extends Component {
             marginRight: '10%'
           }}>
             <p style={{color: 'black'}}>
-              Current Embedded Image
+              Current Final Image
             </p>
-            <img id='embeddedImg' src={this.state.embeddedImgSrc} width="631" height="631" />
+            <img id='finalImg' src={this.state.finalImgSrc} width="631" height="631" />
           </div>
         </ParallaxLayer>
 
