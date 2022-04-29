@@ -1,11 +1,11 @@
 {
   "cosmonuts": {
     "key": "cosmonuts",
-    "storage_service": "ipfs/ipns",
+    "storage_key": "ipns",
     "key_type": "rsa",
     "key_size": "2048",
+    "baseURL": "https://ipfs.io/",
     "ipnsCID":"QmX7r9BfGdoav8QSi163to1RWJiaeABBLS8QjvmeSURLNH",
-    "ipfsCID": "QmXQegyaehHDrG29RDN88Y6Y5hqPCLLbi6Sb9mr8R2ARBe",
     "website": "",
     "blockchain": "ethereum",
     "contract_address": "",
@@ -13,34 +13,28 @@
   },
   "nuts": [
     {
-      "id": "0",
       "key": "nut0",
-      "ipnsCID": "QmeqrVUY7oswNXfzRyLg4tzM7q9QNz25qzzWvHSne4mgy2",
-      "ipfsCID": ""
+      "ipnsCID": "QmeqrVUY7oswNXfzRyLg4tzM7q9QNz25qzzWvHSne4mgy2"
     },
     {
-      "id": "1",
       "key": "nut1",
-      "ipnsCID": "QmPjGkEq5YUvNG9z9pp5yAdKJSd2oJ8Sjxa95PGGACZePw",
-      "ipfsCID": ""
+      "ipnsCID": "QmPjGkEq5YUvNG9z9pp5yAdKJSd2oJ8Sjxa95PGGACZePw"
     },
     {
-      "id": "2",
       "key": "nut2",
-      "ipnsCID": "",
-      "ipfsCID": ""
+      "ipnsCID": "QmWXqRKmd7TCWTAiLZ5DdfVfkpxdNC9kUmK22d2oumBvsi"
     },
     {
-      "id": "3",
       "key": "nut3",
-      "ipnsCID": "",
-      "ipfsCID": ""
+      "ipnsCID": "QmeyxxmKd1GVRecBwaHQbG5GNUVewY18pFMhUN3WvCcuAn"
     },
     {
-      "id": "4",
       "key": "nut4",
-      "ipnsCID": "",
-      "ipfsCID":
+      "ipnsCID": "Qmf1cooMXvncpN9Wezepk5RgfXfVkjnUDyBDJnPHDdVCv7"
+    },
+    {
+      "key": "nut5",
+      "ipnsCID": "QmcbnHtbgceqeYuHdmxbANft4Pf4hGH4AozuQARuxVZH81"
     }
   ]
 }

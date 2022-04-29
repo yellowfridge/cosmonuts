@@ -15,11 +15,15 @@ import addToIPFS from '../../components/helpers/addtoIPFS';
 import detectEthereumProvider from '@metamask/detect-provider';
 import bs58 from 'bs58';
 import EthCrypto from 'eth-crypto';
+import getJSONData from '../../components/helpers/getjsondata';
 
 class Userpage extends Component {
   constructor(props) {
     super(props);
+    //console.log("Cosmos JSON", this.props.cosmos); // JSON file with all relevant information for CosmoNuts
+
     this.state = {
+      cosmosPath: 'https://ipfs.io/ipns/QmX7r9BfGdoav8QSi163to1RWJiaeABBLS8QjvmeSURLNH',
       nutsHeld: 0,
       nuts: [],
       ownedNuts: [],
@@ -56,12 +60,19 @@ class Userpage extends Component {
   // accessed with this.props.address
   static async getInitialProps(props) {
     const { address } = props.query;
+    const cosmosURL = 'https://ipfs.io/ipns/QmX7r9BfGdoav8QSi163to1RWJiaeABBLS8QjvmeSURLNH' // need to make it dynamic and request
+    const cosmos = await getJSONData(cosmosURL);
 
+    const baseURL = cosmos.cosmonuts.baseURL;
+    const storageKey = cosmos.cosmonuts.storage_key;
 
-    return { address };
+    const nuts = cosmos.nuts;
+
+    return { address, cosmos, baseURL, storageKey, nuts};
   }
 
   componentDidMount(props) {
+    console.log("Props test", this.props.nuts);
     var imgURL = this.openImgSrc(this.state.openMessage);
     this.setState({
       openMsgSrc: imgURL
@@ -73,12 +84,11 @@ class Userpage extends Component {
     var ownedNuts = []; // Builds an array to be used for dropdown items
 
     // Getting total nuts owned and nut ids of each nut
-    //  The way it is written works but order may not always be same e.g. [0,3,1,2] fix?
     let nuts = [];
     let nutObjects = [];
     let firstNut;
 
-    var findFirst = async (n, nut) => {
+    const findFirst = async (n, nut) => {
       if (n === 0) {
         return nut
       } else {
@@ -94,8 +104,14 @@ class Userpage extends Component {
         });
         for (let n = 0; n < numOfNuts; n++) {
           (async () => {
-            await cosmoNuts.methods.tokenOfOwnerByIndex(this.props.address, n).call().then((nut) => {
-              nuts[n] = nut;
+            await cosmoNuts.methods.tokenOfOwnerByIndex(this.props.address, n).call().then(async (nut) => {
+              nuts[n] = nut; // nut is in string form
+              var nutId = parseInt(nut); // convert string to number type
+              var nut_cid = this.props.nuts[nutId].ipnsCID;
+              var nutURL = (this.props.baseURL + this.props.storageKey + "/" + nut_cid);
+              var nutInfo = await getJSONData(nutURL);
+              console.log("Nut Info", nutInfo);
+
               let nutObject = {
                 key: nut,
                 text: nut,
@@ -107,7 +123,7 @@ class Userpage extends Component {
               (async () => {
                 await findFirst(n, nut).then((nut1) => {
                   if (nut1 !== 'Nut first') {
-                    this.setState({ selectedNut: nut1 });
+                    this.setState({ selectedNut: nut1 }); // this could be an issue
                     this.ddPlaceholderSet(nut1);
                   }
                 });
@@ -230,16 +246,12 @@ class Userpage extends Component {
     var bytesFinalImg = this.getBytes32FromIPFSHash(finalImg_cid); // Format to save image in for IPFS
     console.log("Bytes Emb Img Eth", bytesFinalImg);
 
-    getSecret(finalImg_hash).then((res) => {
-      console.log("Signed Hash:", res.signedImage);
-      //let hex = Buffer.from(res.signedImage).toString('hex');
-      //var hexSignedImg = this.add_0x(hex);
-      //console.log("Hex Signed Img", hexSignedImg, typeof hexSignedImg);
-
-      getVerification(finalImg_hash, res.signedImage).then((verification) => {
+    getSecret(finalImg_hash).then((secret) => {
+      console.log("Signed Hash:", secret.signedImage);
+      getVerification(finalImg_hash, secret.signedImage).then((verification) => {
         console.log("Verification", verification.verification);
         this.setState({
-          finalImgHash: res.signedImage,
+          finalImgHash: secret.signedImage,
           imgVerification: 'Verified'
         });
 
@@ -254,14 +266,14 @@ class Userpage extends Component {
           });
 
           // Change token location on the selected nut, siganture is private key signed with final image CID
-          //changeToken(this.state.selectedNut, this.state.finalImgCid, this.state.finalImgSig).then((receipt) => {
+          //changeTokenURI(this.state.selectedNut, this.state.finalImgCid, this.state.finalImgSig).then((receipt) => {
           //  console.log("Success!");
           //});
         }
       });
     });
 
-    const changeToken = async (selectedNut, newTokenURI) => {
+    const changeTokenURI = async (selectedNut, newTokenURI) => {
       const web3 = new Web3(window.ethereum);
       const cosmoNuts = new web3.eth.Contract(CosmoNuts, '0x66023f6da39cbffd7ad4f287ad4f8b44e0725167');
       await cosmoNuts.methods.jumpUniverse(selectedNut, newTokenURI).send({
