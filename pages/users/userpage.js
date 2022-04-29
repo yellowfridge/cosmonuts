@@ -306,18 +306,28 @@ class Userpage extends Component {
           <div style={{
             marginLeft: '10%',
           }}>
-            <Dropdown
-              placeholder={this.state.ddPlaceholder}
-              fluid
-              selection
-              options={this.state.ownedNuts}
-              defaultValue={this.state.selectedNut}
-              onChange={this.handleDropdownChange}
-              style={{
-                width: '200px',
-                height: 'auto'
-              }}
-            />
+            <Grid columns={2} textAlign='left'>
+              <Grid.Column width={3} style={{
+                marginTop: '8px'
+              }}>
+                <h4>Select your nut ---></h4>
+              </Grid.Column>
+
+              <Grid.Column width={5}>
+                <Dropdown
+                  placeholder={this.state.ddPlaceholder}
+                  fluid
+                  selection
+                  options={this.state.ownedNuts}
+                  defaultValue={this.state.selectedNut}
+                  onChange={this.handleDropdownChange}
+                  style={{
+                    width: '200px',
+                    height: 'auto'
+                  }}
+                />
+              </Grid.Column>
+            </Grid>
           </div>
         </ParallaxLayer>
 
