@@ -39,11 +39,11 @@
   ],
   "open_message": {
       "value": "HOOT HOOT NUTCRACKER",
-      "image": "uri image to text file"
+      "image": "uri-cid image to text file"
   },
   "public_message": {
       "value": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-      "image": "uri image to QR"
+      "image": "uri-cid image to QR"
   },
   "embedded_image": "https://ipfs.io/ipfs/QmPChG9e5hguv2pYffPPYfAjpdgVR5M2h68anbXi3afGtV"
 }

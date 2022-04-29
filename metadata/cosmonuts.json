@@ -1,0 +1,25 @@
+{
+  "cosmonuts": {
+    "key": "cosmonuts",
+    "storage_service": "ipfs",
+    "key_type": "rsa",
+    "key_size": "2048",
+    "location":"QmX7r9BfGdoav8QSi163to1RWJiaeABBLS8QjvmeSURLNH",
+    "website": "",
+    "blockchain": "ethereum",
+    "contract_address": "",
+    "owner_address": "0x1a5B5A096E7c3305931f10C807F2749FA517601e"
+  },
+  "nuts": [
+    {
+      "id": "0",
+      "key": "nut0",
+      "location": "QmeqrVUY7oswNXfzRyLg4tzM7q9QNz25qzzWvHSne4mgy2"
+    },
+    {
+      "id": "1",
+      "key": "nut1",
+      "location": "QmPjGkEq5YUvNG9z9pp5yAdKJSd2oJ8Sjxa95PGGACZePw"
+    }
+  ]
+}
