@@ -253,17 +253,13 @@ class Userpage extends Component {
             });
           });
 
-          // Needs to be changed to new function when built
-          // Takes in the selected nut, the new image, and eventually secret
-          console.log("Selected Nut:", this.state.selectedNut); // Need to work on this, which nut is selected
-    //      changeToken(this.state.selectedNut, finalImg_hash).then((receipt) => {
-    //        console.log("Success!");
-    //      });
+          // Change token location on the selected nut, siganture is private key signed with final image CID
+          //changeToken(this.state.selectedNut, this.state.finalImgCid, this.state.finalImgSig).then((receipt) => {
+          //  console.log("Success!");
+          //});
         }
       });
     });
-
-
 
     const changeToken = async (selectedNut, newTokenURI) => {
       const web3 = new Web3(window.ethereum);
@@ -307,13 +303,14 @@ class Userpage extends Component {
             marginLeft: '10%',
           }}>
             <Grid columns={2} textAlign='left'>
-              <Grid.Column width={3} style={{
-                marginTop: '8px'
+              <Grid.Column style={{
+                marginTop: '8px',
+                width: '170px'
               }}>
                 <h4>Select your nut ---></h4>
               </Grid.Column>
 
-              <Grid.Column width={5}>
+              <Grid.Column>
                 <Dropdown
                   placeholder={this.state.ddPlaceholder}
                   fluid
@@ -355,9 +352,6 @@ class Userpage extends Component {
           <div style={{
             marginRight: '10%'
           }}>
-            <p style={{color: 'black'}}>
-              Current Final Image
-            </p>
             <img id='finalImg' src={this.state.finalImgSrc} width="631" height="631" />
           </div>
         </ParallaxLayer>
