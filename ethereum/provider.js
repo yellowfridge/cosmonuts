@@ -9,7 +9,7 @@ async function getProvider() {
   }
 }
 
-export default getProvider
+export default provider
 
 /*
 const [account, setAccount] = useState(null);

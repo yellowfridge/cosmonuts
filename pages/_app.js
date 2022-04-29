@@ -10,6 +10,8 @@ function getLibrary(provider) {
 
 function MyApp({ Component, pageProps }) {
 
+  console.log("My App _app file");
+
   /*
   const Web3React = () => {
     const [hasMounted, setHasMounted] = React.useState(false);

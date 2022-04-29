@@ -13,6 +13,8 @@ import Galaxy from './galaxy';
 import colorfulnebula1 from '../public/images/colorfulnebula12.gif';
 import parseImage from '../components/helpers/parseimage';
 import nut from '../metadata/nut0.json';
+//import web3_inf from '../ethereum/web3_inf';
+//import cosmonuts from '../ethereum/cosmonuts';
 
 // Latest deployed CosmoNuts address: 0x66023f6da39cbffd7ad4f287ad4f8b44e0725167
 // https://ropsten.etherscan.io/tx/0xe207cdcc1a558b06f5790d409c222eb5fa1652f22a7a820c41a235b3b3a7094e
@@ -21,6 +23,9 @@ import nut from '../metadata/nut0.json';
 class Main extends Component {
   constructor(props) {
     super(props);
+    console.log("In Main Component");
+    //console.log("Testing props", web3_inf);
+
     this.state = {
       isUserConnected: null,
       currentAccount: null,
@@ -34,11 +39,19 @@ class Main extends Component {
     this.interpretImage = this.interpretImage.bind(this);
   }
 
+  //static async getInitialProps(props) {
+    //const web3 = 'test';
+    //const web3;
+
+    //return { web3_inf }
+  //}
+
   async componentDidMount() {
     //document.body.style.backgroundImage = `url(${darkblack_img.src})`;
     //var starfield = <Starfield />;
     //console.log("Starfield", starfield);
     //document.body.style.backgroundSize = 'cover';
+    //console.log("web3", this.props.web3);
 
     var provider = await detectEthereumProvider();
 
@@ -57,6 +70,9 @@ class Main extends Component {
     })();
 
     this.interpretImage();
+
+    //const web3 = new Web3(window.ethereum);
+
   }
 
   interpretImage() {

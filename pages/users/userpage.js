@@ -96,6 +96,54 @@ class Userpage extends Component {
       }
     }
 
+    const getNuts = async() => {
+      await cosmoNuts.methods.balanceOf(this.props.address).call().then((numNuts) => {
+        this.setState({
+          nutsHeld: numNuts,
+          ddPlaceholder: 'Loading Nuts'
+        });
+        return numNuts
+      });
+    }
+    const numNuts = getNuts();
+    //console.log("Nuts", numNuts);
+
+    const collectNuts = async(numNuts) => {
+
+      for (let n = 0; n < numNuts; n++) {
+        await cosmoNuts.methods.tokenOfOwnerByIndex(this.props.address, n).call().then((nut) => {
+          console.log("Nut Id", nut, typeof nut);
+
+          let nutObject = {
+            key: nut,
+            text: nut,
+            value: nut,
+            image: { avatar: false } // Later put image and enable small picture
+          }
+          nutObjects[n] = nutObject;
+        });
+      }
+      return nutObjects;
+    }
+    const collectedNuts = collectNuts(numNuts)
+    console.log("Collected Nuts", collectedNuts);
+
+
+
+    /*
+    var numNuts = async () => {
+      await cosmoNuts.methods.balanceOf(this.props.address).call().then((numOfNuts) => {
+        this.setState({
+          nutsHeld: numOfNuts,
+          ddPlaceholder: 'Loading Nuts'
+        });
+        console.log("Total Nuts", numOfNuts);
+        return numNuts;
+      });
+    }
+    */
+
+    /*
     var getNuts = async () => {
       await cosmoNuts.methods.balanceOf(this.props.address).call().then((numOfNuts) => {
         this.setState({
@@ -109,7 +157,9 @@ class Userpage extends Component {
               var nutId = parseInt(nut); // convert string to number type
               var nut_cid = this.props.nuts[nutId].ipnsCID;
               var nutURL = (this.props.baseURL + this.props.storageKey + "/" + nut_cid);
-              var nutInfo = await getJSONData(nutURL);
+              var nutInfo = await getJSONData(nutURL).catch((error) => {
+                console.log("Could not retrieve data on nut id:", nutId);
+              });
               console.log("Nut Info", nutInfo);
 
               let nutObject = {
@@ -135,6 +185,7 @@ class Userpage extends Component {
       });
     };
 
+
     (async () => {
       await getNuts().then(() => {
         this.setState({
@@ -143,6 +194,7 @@ class Userpage extends Component {
         });
       });
     })();
+    */
 
   }
 
