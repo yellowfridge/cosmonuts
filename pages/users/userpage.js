@@ -26,6 +26,7 @@ class Userpage extends Component {
       selectedNut: '',
       openMessage: nut.open_message.value,
       openMsgSrc: 'blank',
+      openMsgCid: '',
       publicMessage: nut.public_message.value,
       publicMsgSrc: 'blank',
       publicMsgCid: '',
@@ -198,32 +199,34 @@ class Userpage extends Component {
   }
 
   async generateImage() {
-    var publicMsgQR = document.getElementById('publicMsgQR'); // Grab public message as SVG element
-    var publicMsgUri = await svgAsPngUri(publicMsgQR); // Convert SVG to URI string, data:image/png;base64,...
+    const Hash = require('ipfs-only-hash'); // Used to cread CID paths that are equivalent to those created by IPFS
 
+    var openMsgImg = document.getElementById('openMsgImg') // Grabs open message as image element
+    var byteStringOpenMsgImg = Buffer.from(openMsgImg.src.split(',')[1], 'base64'); // Convert image to bytes for IPFS format
+    console.log("Open Msg Bytes", byteStringOpenMsgImg);
+    var openMsg_cid = await Hash.of(byteStringOpenMsgImg); // Open message CID path
+    console.log("Open Msg CID", openMsg_cid);
+
+    var publicMsgQR = document.getElementById('publicMsgQR'); // Grab public QR message as SVG element
+    var publicMsgUri = await svgAsPngUri(publicMsgQR); // Convert SVG to URI string, data:image/png;base64,...
     var publicQRImg = document.getElementById('publicQRImg') // Grab hidden image element next to QR code
     publicQRImg.setAttribute("src", publicMsgUri); // Setting image source code to URI, creates a working element
 
     var byteStringPubQR = Buffer.from(publicMsgUri.split(',')[1], 'base64'); // Converting URI to buffer data (needed to directly show image on IPFS)
+    var publicQR_cid = await Hash.of(byteStringPubQR); // Public QR image CID path
+    console.log("Public QR CID", publicQR_cid);
 
     var nutImg = document.getElementById('nutImg'); // Grab main original image element
-
     var finalImgURL = await embedImage(nutImg, publicQRImg); // Creating the combined image
-
-    this.setState({
-      finalImgSrc: finalImgURL
-    }); // Creates a working image element
+    this.setState({ finalImgSrc: finalImgURL }); // Creates a working image element
 
     // This is the format to be uploaded to IPFS to display image on load of IPFS URL
     var byteStringFinalImg = Buffer.from(finalImgURL.split(',')[1], 'base64');
     console.log("Bytes Final Img IPFS", byteStringFinalImg);
-
-    const Hash = require('ipfs-only-hash');
-    const finalImg_cid = await Hash.of(byteStringFinalImg); // Create hash function that would be equivalent to one created by IPFS
-    console.log("Final Img CID", finalImg_cid, typeof finalImg_cid); // This should be location of where IPFS will save as well
+    const finalImg_cid = await Hash.of(byteStringFinalImg); // Final image CID path
+    console.log("Final Img CID", finalImg_cid, typeof finalImg_cid);
     const finalImg_hash =  EthCrypto.hash.keccak256(finalImg_cid); // Create a hash as it would be done on the ethereum blockchain
     console.log("Eth Hash", finalImg_hash);
-
     var bytesFinalImg = this.getBytes32FromIPFSHash(finalImg_cid); // Format to save image in for IPFS
     console.log("Bytes Emb Img Eth", bytesFinalImg);
 
@@ -242,10 +245,11 @@ class Userpage extends Component {
 
         if (verification.verification) { // a final check - checking if IPFS CID matches signed CID
 
-          addToIPFS(byteStringPubQR, byteStringFinalImg).then((res) => { // components/helpers/
+          addToIPFS(byteStringOpenMsgImg, byteStringPubQR, byteStringFinalImg).then((paths) => { // components/helpers/
             this.setState({
-              publicMsgCid: res.qrImg_cid.path, // Image of the public QR code in bytes
-              finalImgCid: res.finalImg_cid.path // Image of the consolidatedNFT in bytes
+              openMsgCid: paths.openImg_cid.path, // Image of the open message in bytes
+              publicMsgCid: paths.qrImg_cid.path, // Image of the public QR code in bytes
+              finalImgCid: paths.finalImg_cid.path // Image of the consolidatedNFT in bytes
             });
           });
 

@@ -39,11 +39,11 @@
   ],
   "open_message": {
       "value": "HOOT HOOT NUTCRACKER",
-      "image": "uri-cid image to text file"
+      "image": "https://ipfs.io/ipfs/QmWGKBvLzdpSXhgxoecRzpRUz8jjyasJoBf7ygYii1SKBE"
   },
   "public_message": {
       "value": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-      "image": "uri-cid image to QR"
+      "image": "https://ipfs.io/ipfs/QmcRvzYzoGpNk7jyjRLBWRqa8WazCE72YvkM1bLB7rrgku"
   },
-  "embedded_image": "https://ipfs.io/ipfs/QmPChG9e5hguv2pYffPPYfAjpdgVR5M2h68anbXi3afGtV"
+  "embedded_image": "https://ipfs.io/ipfs/QmcRvzYzoGpNk7jyjRLBWRqa8WazCE72YvkM1bLB7rrgku"
 }
