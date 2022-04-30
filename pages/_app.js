@@ -3,7 +3,6 @@ import Web3 from 'web3';
 import { Web3ReactProvider } from '@web3-react/core';
 //import detectEthereumProvider from '@metamask/detect-provider';
 //import './semantic.min.css';
-//import provider from '../ethereum/provider';
 
 function getWeb3Library(provider) {
   return new Web3(provider)
@@ -12,8 +11,6 @@ function getWeb3Library(provider) {
 export default function MyApp({ Component, pageProps }) {
 
   console.log("My App _app file");
-
-  //console.log("Provider", provider);
 
   /*
   const Web3React = () => {
