@@ -1,16 +1,19 @@
 import React from 'react';
 import Web3 from 'web3';
-import { Web3ReactProvider} from '@web3-react/core';
-import detectEthereumProvider from '@metamask/detect-provider';
+import { Web3ReactProvider } from '@web3-react/core';
+//import detectEthereumProvider from '@metamask/detect-provider';
 //import './semantic.min.css';
+//import provider from '../ethereum/provider';
 
-function getLibrary(provider) {
+function getWeb3Library(provider) {
   return new Web3(provider)
 }
 
-function MyApp({ Component, pageProps }) {
+export default function MyApp({ Component, pageProps }) {
 
   console.log("My App _app file");
+
+  //console.log("Provider", provider);
 
   /*
   const Web3React = () => {
@@ -28,10 +31,9 @@ function MyApp({ Component, pageProps }) {
 
 
   return (
-    <Web3ReactProvider getLibrary={getLibrary}>
+    <Web3ReactProvider getWeb3Library={getWeb3Library}>
       <Component {...pageProps} />
     </Web3ReactProvider>
   )
-}
 
-export default MyApp
+}

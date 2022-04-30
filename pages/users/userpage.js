@@ -16,11 +16,16 @@ import detectEthereumProvider from '@metamask/detect-provider';
 import bs58 from 'bs58';
 import EthCrypto from 'eth-crypto';
 import getJSONData from '../../components/helpers/getjsondata';
+import provider from '../../ethereum/provider';
 
 class Userpage extends Component {
   constructor(props) {
     super(props);
     //console.log("Cosmos JSON", this.props.cosmos); // JSON file with all relevant information for CosmoNuts
+    console.log("In Userpage");
+    //provider.then((res) => {
+    //  console.log("Provider in Userpage Constructor", res);
+    //});
 
     this.state = {
       cosmosPath: 'https://ipfs.io/ipns/QmX7r9BfGdoav8QSi163to1RWJiaeABBLS8QjvmeSURLNH',
@@ -59,6 +64,12 @@ class Userpage extends Component {
   // This is grabbing the address from the URL
   // accessed with this.props.address
   static async getInitialProps(props) {
+    console.log("In getInitialProps of UserPage")
+    provider.then((res) => {
+      console.log("Provider in Userpage Initial Props", res);
+    });
+
+
     const { address } = props.query;
     const cosmosURL = 'https://ipfs.io/ipns/QmX7r9BfGdoav8QSi163to1RWJiaeABBLS8QjvmeSURLNH' // need to make it dynamic and request
     const cosmos = await getJSONData(cosmosURL);

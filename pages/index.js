@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Button, List, Divider, Container, Grid } from 'semantic-ui-react';
 import Layout from '../components/layout';
-import detectEthereumProvider from '@metamask/detect-provider';
+//import detectEthereumProvider from '@metamask/detect-provider';
 //import ImageGenerator from './imagegenerator';
 import QRCode from 'react-qr-code';
 import Mint from './mint';
@@ -15,6 +15,8 @@ import parseImage from '../components/helpers/parseimage';
 import nut from '../metadata/nut0.json';
 //import web3_inf from '../ethereum/web3_inf';
 //import cosmonuts from '../ethereum/cosmonuts';
+import provider from '../ethereum/provider';
+import { getWeb3Library } from './_app';
 
 // Latest deployed CosmoNuts address: 0x66023f6da39cbffd7ad4f287ad4f8b44e0725167
 // https://ropsten.etherscan.io/tx/0xe207cdcc1a558b06f5790d409c222eb5fa1652f22a7a820c41a235b3b3a7094e
@@ -23,12 +25,26 @@ import nut from '../metadata/nut0.json';
 class Main extends Component {
   constructor(props) {
     super(props);
-    console.log("In Main Component");
-    //console.log("Testing props", web3_inf);
+    console.log("IN: Main Component of Index");
+    provider.then((provider) => {
+      console.log("Provider Address in index", provider.selectedAddress);
+    });
+
+    if (provider.selectedAddress === null) {
+      this.state = {
+        currentAccount: '',
+        isUserConnected: 'No'
+      };
+    } else {
+      this.state = {
+        currentAccount: provider.selectedAddress,
+        isUserConnected: 'Yes'
+      };
+    }
 
     this.state = {
-      isUserConnected: null,
-      currentAccount: null,
+      //isUserConnected: null,
+      //currentAccount: null,
       isSaleActive: 'Not Known',
       totalSupply: 'Not Known',
       backgroundSource: null,
@@ -39,12 +55,16 @@ class Main extends Component {
     this.interpretImage = this.interpretImage.bind(this);
   }
 
-  //static async getInitialProps(props) {
-    //const web3 = 'test';
-    //const web3;
+  static async getInitialProps(props) {
+    console.log("IN: Initial Props of Index");
+    const test = "1"
+    const web3 = new Web3(provider);
+    //const web3 = this.getWeb3Library(provider);
 
-    //return { web3_inf }
-  //}
+    //console.log("Web3 in intial props", web3);
+
+    return { test }
+  }
 
   async componentDidMount() {
     //document.body.style.backgroundImage = `url(${darkblack_img.src})`;
@@ -53,8 +73,11 @@ class Main extends Component {
     //document.body.style.backgroundSize = 'cover';
     //console.log("web3", this.props.web3);
 
-    var provider = await detectEthereumProvider();
+    //var provider = await detectEthereumProvider();
 
+    console.log("web3 component did mount",web3);
+
+    /*
     (() => {
       if (provider.selectedAddress === null) {
         this.setState({
@@ -68,10 +91,9 @@ class Main extends Component {
         });
       }
     })();
+    */
 
-    this.interpretImage();
-
-    //const web3 = new Web3(window.ethereum);
+    //this.interpretImage();
 
   }
 
