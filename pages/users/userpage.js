@@ -107,6 +107,7 @@ class Userpage extends Component {
       }
     }
 
+    /*
     const getNuts = async() => {
       await cosmoNuts.methods.balanceOf(this.props.address).call().then((numNuts) => {
         this.setState({
@@ -138,10 +139,8 @@ class Userpage extends Component {
     }
     const collectedNuts = collectNuts(numNuts)
     console.log("Collected Nuts", collectedNuts);
+    */
 
-
-
-    /*
     var numNuts = async () => {
       await cosmoNuts.methods.balanceOf(this.props.address).call().then((numOfNuts) => {
         this.setState({
@@ -152,9 +151,7 @@ class Userpage extends Component {
         return numNuts;
       });
     }
-    */
 
-    /*
     var getNuts = async () => {
       await cosmoNuts.methods.balanceOf(this.props.address).call().then((numOfNuts) => {
         this.setState({
@@ -205,7 +202,7 @@ class Userpage extends Component {
         });
       });
     })();
-    */
+  
 
   }
 
