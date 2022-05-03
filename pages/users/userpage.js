@@ -102,17 +102,12 @@ class Userpage extends Component {
       }
     }
 
-    //const collectNuts = async(totalNuts) => {
-    //
-    //}
-
     var getNuts = async () => {
       await cosmoNuts.methods.balanceOf(this.props.address).call().then((numOfNuts) => {
         this.setState({
           nutsHeld: numOfNuts,
           ddPlaceholder: 'Loading Nuts'
         });
-
         for (let n = 0; n < numOfNuts; n++) {
           (async () => {
             await cosmoNuts.methods.tokenOfOwnerByIndex(this.props.address, n).call().then(async (nut) => {
@@ -143,10 +138,8 @@ class Userpage extends Component {
               })();
 
             });
-
           })();
         }
-
       });
     };
 
