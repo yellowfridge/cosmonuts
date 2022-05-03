@@ -32,10 +32,16 @@ export default async function getInitialNutData(req, res) {
   //console.log("Cosmo Nuts", cosmoNuts);
 
   let isActive = await cosmoNuts.methods.saleIsActive().call();
+  let maxNuts = await cosmoNuts.methods.MAX_NUTS().call();
+  let nutPrice = await cosmoNuts.methods.nutPrice().call();
+  let maxNutPurchase = await cosmoNuts.methods.maxNutPurchase().call();
 
   // Won't work because serverProvider is not valid - what do you need from here???
   res.status(200).json({
-    isActive: isActive
+    isActive: isActive,
+    maxNuts: maxNuts,
+    nutPrice: nutPrice,
+    maxNutPurchase: maxNutPurchase
   });
 
 }

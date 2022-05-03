@@ -26,12 +26,20 @@ class Main extends Component {
   constructor(props) {
     super(props);
     console.log("IN: Main Component of Index");
-    //console.log("Testing Variable -- props cosmonuts", this.props.cosmoNuts);
+    console.log("Testing Variable -- isActive cosmonuts", this.props.isActive);
+
+    const isSaleActive = () => {
+      if (this.props.isActive) {
+        return 'Yes';
+      } else {
+        return 'No';
+      }
+    }
 
     this.state = {
       isUserConnected: null,
       currentAccount: null,
-      isSaleActive: 'Not Known',
+      isSaleActive: (() => { return isSaleActive() })(),
       totalSupply: 'Not Known',
       backgroundSource: null,
       selectedNut: '0',
@@ -44,17 +52,21 @@ class Main extends Component {
   static async getInitialProps(props) {
     console.log("IN: Initial Props of Index");
 
-    getInitialNutData().then((res) => {
-      console.log("Get Initial Nut Data in Index Props", res);
+    getInitialNutData().then((nutData) => {
+      return nutData;
     });
-    //console.log("Nut Data", nutData);
+    const nutData = await getInitialNutData();
 
-    const cosmoCID = cosmos.cosmonuts.ipnsCID;
-    const cosmoContractAddress = cosmos.cosmonuts.contract_address;
-    const cosmoOwnerAddress = cosmos.cosmonuts.owner_address;
-    const cosmoNuts = cosmos.nuts;
-
-    return { cosmoCID, cosmoContractAddress, cosmoOwnerAddress, cosmoNuts }
+    return {
+      cosmoCID: cosmos.cosmonuts.ipnsCID,
+      cosmoContractAddress: cosmos.cosmonuts.contract_address,
+      cosmoOwnerAddress: cosmos.cosmonuts.owner_address,
+      cosmoNuts: cosmos.nuts,
+      isActive: nutData.isActive,
+      maxNuts: nutData.maxNuts,
+      nutPrices: nutData.nutPrices,
+      maxNutPurchase: nutData.maxNutPurchase
+    }
   }
 
   async componentDidMount() {

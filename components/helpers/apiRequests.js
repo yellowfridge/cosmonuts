@@ -30,6 +30,7 @@ const getVerification = async (hash, signedHash) => {
 }
 
 const getInitialNutData = async () => {
+  // Need to create a dynamic server (possible with $ syntax)
   const res = await fetch ('http://localhost:3000/api/initialnutdata', {
     method: 'post',
     headers: {
