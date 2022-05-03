@@ -29,4 +29,14 @@ const getVerification = async (hash, signedHash) => {
   return verification;
 }
 
-export { getSecret, getVerification }
+const getServerProvider = async () => {
+  const res = await fetch ('/api/serverprovider', {
+    method: 'post',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    }
+  });
+}
+
+export { getSecret, getVerification, getServerProvider }
