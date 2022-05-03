@@ -30,12 +30,15 @@ const getVerification = async (hash, signedHash) => {
 }
 
 const getServerProvider = async () => {
-  const res = await fetch ('http://localhost:3000/api/serverprovider', {
+  const res = await fetch ('/api/serverprovider', {
     method: 'post',
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json'
-    }
+    },
+    body: JSON.stringify({
+      filler: 'boom'
+    })
   });
 }
 

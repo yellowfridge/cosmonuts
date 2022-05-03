@@ -10,7 +10,12 @@ export default async function getServerProvider(req, res) {
   //);
 
   // Code to enable for infura connection
-  const serverProvider = new HDWalletProvider(infuraKey, "https://rinkeby.infura.io/v3/1d5e3588363b4f5a91ca15573760408c");
+  let serverProvider = new HDWalletProvider({
+    mnemonic: { phrase: infuraKey },
+    providerOrUrl: "https://rinkeby.infura.io/v3/1d5e3588363b4f5a91ca15573760408c"
+  });
+  console.log("Server Provider", serverProvider);
 
+  // Won't work because serverProvider is not valid - what do you need from here???
   res.status(200).json({ provider: serverProvider });
 }
