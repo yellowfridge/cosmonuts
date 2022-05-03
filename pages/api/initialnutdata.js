@@ -7,8 +7,6 @@ export default async function getInitialNutData(req, res) {
   const privateKey = process.env.PRIVATE_KEY;
   const infuraKey = process.env.infura_mnemonic;
 
-  const filler = req.body.filler;
-
   // Code to enable local connection (not working poll tracked - updating blocks?)
   //const serverProvider = new HDWalletProvider(
   //  privateKey,

@@ -43,9 +43,8 @@ class Main extends Component {
 
   static async getInitialProps(props) {
     console.log("IN: Initial Props of Index");
-    var filler = 'wooow';
 
-    getInitialNutData(filler).then((res) => {
+    getInitialNutData().then((res) => {
       console.log("Get Initial Nut Data in Index Props", res);
     });
     //console.log("Nut Data", nutData);

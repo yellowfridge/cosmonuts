@@ -29,16 +29,13 @@ const getVerification = async (hash, signedHash) => {
   return verification;
 }
 
-const getInitialNutData = async (filler) => {
+const getInitialNutData = async () => {
   const res = await fetch ('http://localhost:3000/api/initialnutdata', {
     method: 'post',
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      filler: filler
-    })
+    }
   });
   const isActive = await res.json();
   return isActive;
