@@ -46,8 +46,7 @@ class Userpage extends Component {
       finalImgSrc: nut.image,
       finalImgSig: '',
       imgVerification: '',
-      ddPlaceholder: 'No known nuts',
-      ddLoad: true
+      ddPlaceholder: 'No known nuts'
     };
 
     this.ddPlaceholderSet = this.ddPlaceholderSet.bind(this);
@@ -143,7 +142,6 @@ class Userpage extends Component {
       });
     };
 
-
     (async () => {
       await getNuts().then(() => {
         this.setState({
@@ -152,7 +150,6 @@ class Userpage extends Component {
         });
       });
 
-      this.setState({ ddLoad: false });
     })();
 
   }
@@ -338,7 +335,6 @@ class Userpage extends Component {
                   placeholder={this.state.ddPlaceholder}
                   fluid
                   selection
-                  loading={this.state.ddLoad}
                   options={this.state.ownedNuts}
                   defaultValue={this.state.selectedNut}
                   onChange={this.handleDropdownChange}
