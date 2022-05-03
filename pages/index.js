@@ -28,6 +28,7 @@ class Main extends Component {
     super(props);
     console.log("IN: Main Component of Index");
 
+    console.log("Provider", provider);
     provider.then((provider) => {
       console.log("Provider Address in index", provider.selectedAddress);
     });
@@ -122,6 +123,9 @@ class Main extends Component {
           }}
         >
           <Layout />
+          <h2>Testing features and loading capabilities</h2>
+          <h3>Is User Connected -- {this.state.isUserConnected} --</h3>
+          <h3>Current Account -- {this.state.currentAccount} --</h3>
         </ParallaxLayer>
 
         <ParallaxLayer

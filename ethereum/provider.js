@@ -1,16 +1,27 @@
 //import Web3 from 'web3';
 import detectEthereumProvider from '@metamask/detect-provider';
+import { getServerProvider } from '../components/helpers/apiRequests';
+
 console.log("In Provider");
 
 async function getProvider() {
   try {
+    console.log("In try");
     return await detectEthereumProvider();
   } catch (error) {
+    console.log("In error");
     return (new Error("Error getting provider."));
+  } finally {
+    console.log("In finally")
+    //getServerProvider().then((res) => {
+    //  console.log("In get server provider");
+    //  return res;
+    //});
+    }
   }
-}
 
 var provider = getProvider();
+console.log("Provider in Provider", provider);
 
 export default provider
 
