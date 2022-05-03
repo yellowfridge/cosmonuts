@@ -16,6 +16,7 @@ import nut from '../metadata/nut0.json';
 //import cosmonuts from '../ethereum/cosmonuts';
 //import provider from '../ethereum/provider';
 import cosmos from '../metadata/cosmonuts.json';
+import { getInitialNutData } from '../components/helpers/apiRequests';
 
 // Latest deployed CosmoNuts address: 0x66023f6da39cbffd7ad4f287ad4f8b44e0725167
 // https://ropsten.etherscan.io/tx/0xe207cdcc1a558b06f5790d409c222eb5fa1652f22a7a820c41a235b3b3a7094e
@@ -25,7 +26,7 @@ class Main extends Component {
   constructor(props) {
     super(props);
     console.log("IN: Main Component of Index");
-    console.log("Testing Variable -- props cosmonuts", this.props.cosmoNuts);
+    //console.log("Testing Variable -- props cosmonuts", this.props.cosmoNuts);
 
     this.state = {
       isUserConnected: null,
@@ -42,6 +43,13 @@ class Main extends Component {
 
   static async getInitialProps(props) {
     console.log("IN: Initial Props of Index");
+    var filler = 'wooow';
+
+    getInitialNutData(filler).then((res) => {
+      console.log("Get Initial Nut Data in Index Props", res);
+    });
+    //console.log("Nut Data", nutData);
+
     const cosmoCID = cosmos.cosmonuts.ipnsCID;
     const cosmoContractAddress = cosmos.cosmonuts.contract_address;
     const cosmoOwnerAddress = cosmos.cosmonuts.owner_address;

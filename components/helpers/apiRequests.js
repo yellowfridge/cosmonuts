@@ -29,17 +29,19 @@ const getVerification = async (hash, signedHash) => {
   return verification;
 }
 
-const getServerProvider = async () => {
-  const res = await fetch ('/api/serverprovider', {
+const getInitialNutData = async (filler) => {
+  const res = await fetch ('http://localhost:3000/api/initialnutdata', {
     method: 'post',
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      filler: 'boom'
+      filler: filler
     })
   });
+  const isActive = await res.json();
+  return isActive;
 }
 
-export { getSecret, getVerification, getServerProvider }
+export { getSecret, getVerification, getInitialNutData }
