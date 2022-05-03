@@ -17,7 +17,6 @@ import nut from '../metadata/nut0.json';
 //import cosmonuts from '../ethereum/cosmonuts';
 import provider from '../ethereum/provider';
 //import { getWeb3Library } from './_app';
-//import Web3ReactProvider from './_app';
 
 // Latest deployed CosmoNuts address: 0x66023f6da39cbffd7ad4f287ad4f8b44e0725167
 // https://ropsten.etherscan.io/tx/0xe207cdcc1a558b06f5790d409c222eb5fa1652f22a7a820c41a235b3b3a7094e
@@ -44,8 +43,6 @@ class Main extends Component {
   //static async getInitialProps(props) {
     //console.log("IN: Initial Props of Index");
     //const test = "1"
-    //const web3 = <Web3ReactProvider getWeb3Library={provider} />
-    //const web3 = this.getWeb3Library(provider);
     //console.log("Web3 in intial props", web3);
 
 
