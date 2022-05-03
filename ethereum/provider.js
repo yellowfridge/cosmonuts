@@ -11,17 +11,12 @@ async function getProvider() {
   } catch (error) {
     console.log("In error");
     return (new Error("Error getting provider."));
-  } finally {
-    console.log("In finally")
-    //getServerProvider().then((res) => {
-    //  console.log("In get server provider");
-    //  return res;
-    //});
     }
   }
 
 var provider = getProvider();
 console.log("Provider in Provider", provider);
+
 
 export default provider
 

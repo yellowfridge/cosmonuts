@@ -65,21 +65,17 @@ class Userpage extends Component {
   // accessed with this.props.address
   static async getInitialProps(props) {
     console.log("In getInitialProps of UserPage")
-    provider.then((res) => {
-      console.log("Provider in Userpage Initial Props", res);
-    });
-
 
     const { address } = props.query;
-    const cosmosURL = 'https://ipfs.io/ipns/QmX7r9BfGdoav8QSi163to1RWJiaeABBLS8QjvmeSURLNH' // need to make it dynamic and request
-    const cosmos = await getJSONData(cosmosURL);
+    //const cosmosURL = 'https://ipfs.io/ipns/QmX7r9BfGdoav8QSi163to1RWJiaeABBLS8QjvmeSURLNH' // need to make it dynamic and request
+    //const cosmos = await getJSONData(cosmosURL);
 
-    const baseURL = cosmos.cosmonuts.baseURL;
-    const storageKey = cosmos.cosmonuts.storage_key;
+    //const baseURL = cosmos.cosmonuts.baseURL;
+    //const storageKey = cosmos.cosmonuts.storage_key;
 
-    const nuts = cosmos.nuts;
+    //const nuts = cosmos.nuts;
 
-    return { address, cosmos, baseURL, storageKey, nuts};
+    return { address };
   }
 
   componentDidMount(props) {
@@ -202,7 +198,7 @@ class Userpage extends Component {
         });
       });
     })();
-  
+
 
   }
 

@@ -15,8 +15,7 @@ import parseImage from '../components/helpers/parseimage';
 import nut from '../metadata/nut0.json';
 //import web3_inf from '../ethereum/web3_inf';
 //import cosmonuts from '../ethereum/cosmonuts';
-import provider from '../ethereum/provider';
-//import { getWeb3Library } from './_app';
+//import provider from '../ethereum/provider';
 
 // Latest deployed CosmoNuts address: 0x66023f6da39cbffd7ad4f287ad4f8b44e0725167
 // https://ropsten.etherscan.io/tx/0xe207cdcc1a558b06f5790d409c222eb5fa1652f22a7a820c41a235b3b3a7094e
@@ -58,17 +57,15 @@ class Main extends Component {
 
     //var provider = await detectEthereumProvider();
 
-    console.log("web3 component did mount",web3);
-
     (() => {
-      if (provider.selectedAddress === null) {
+      if (ethereum.selectedAddress === null) {
         this.setState({
-          currentAccount: '',
+          currentAccount: 'Not Known',
           isUserConnected: 'No'
         });
       } else {
         this.setState({
-          currentAccount: provider.selectedAddress,
+          currentAccount: ethereum.selectedAddress,
           isUserConnected: 'Yes'
         });
       }

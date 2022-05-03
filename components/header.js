@@ -4,7 +4,7 @@ import { Link, Router } from '../routes';
 import Connect from './connect';
 import Userpage from '../pages/users/userpage';
 import { useState, useEffect } from 'react';
-import detectEthereumProvider from '@metamask/detect-provider';
+//import detectEthereumProvider from '@metamask/detect-provider';
 
 export default () => {
 
@@ -15,11 +15,11 @@ export default () => {
     // You're doing this same thing twice - consider grabbing as props from parent
     (async () => {
       let address;
-      const provider = await detectEthereumProvider();
-      if (provider.selectedAddress === null) {
+      //const provider = await detectEthereumProvider();
+      if (ethereum.selectedAddress === null) {
         address = 'None';
       } else {
-        address = provider.selectedAddress;
+        address = ethereum.selectedAddress;
       }
       setUserAddress(address);
       if (address == 'None') {
