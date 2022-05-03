@@ -46,7 +46,8 @@ class Userpage extends Component {
       finalImgSrc: nut.image,
       finalImgSig: '',
       imgVerification: '',
-      ddPlaceholder: 'No known nuts'
+      ddPlaceholder: 'No known nuts',
+      ddLoad: true
     };
 
     this.ddPlaceholderSet = this.ddPlaceholderSet.bind(this);
@@ -101,12 +102,17 @@ class Userpage extends Component {
       }
     }
 
+    //const collectNuts = async(totalNuts) => {
+    //
+    //}
+
     var getNuts = async () => {
       await cosmoNuts.methods.balanceOf(this.props.address).call().then((numOfNuts) => {
         this.setState({
           nutsHeld: numOfNuts,
           ddPlaceholder: 'Loading Nuts'
         });
+
         for (let n = 0; n < numOfNuts; n++) {
           (async () => {
             await cosmoNuts.methods.tokenOfOwnerByIndex(this.props.address, n).call().then(async (nut) => {
@@ -137,8 +143,10 @@ class Userpage extends Component {
               })();
 
             });
+
           })();
         }
+
       });
     };
 
@@ -147,11 +155,10 @@ class Userpage extends Component {
       await getNuts().then(() => {
         this.setState({
           ownedNuts: nutObjects,
-          nuts: nuts
+          nuts: nuts,
         });
       });
     })();
-
 
   }
 
@@ -336,6 +343,7 @@ class Userpage extends Component {
                   placeholder={this.state.ddPlaceholder}
                   fluid
                   selection
+                  loading={this.state.ddLoad}
                   options={this.state.ownedNuts}
                   defaultValue={this.state.selectedNut}
                   onChange={this.handleDropdownChange}

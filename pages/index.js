@@ -13,7 +13,6 @@ import Galaxy from './galaxy';
 import colorfulnebula1 from '../public/images/colorfulnebula12.gif';
 import parseImage from '../components/helpers/parseimage';
 import nut from '../metadata/nut0.json';
-//import web3_inf from '../ethereum/web3_inf';
 //import cosmonuts from '../ethereum/cosmonuts';
 //import provider from '../ethereum/provider';
 import cosmos from '../metadata/cosmonuts.json';
