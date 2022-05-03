@@ -151,6 +151,8 @@ class Userpage extends Component {
           nuts: nuts,
         });
       });
+
+      this.setState({ ddLoad: false });
     })();
 
   }
