@@ -16,6 +16,7 @@ import nut from '../metadata/nut0.json';
 //import web3_inf from '../ethereum/web3_inf';
 //import cosmonuts from '../ethereum/cosmonuts';
 //import provider from '../ethereum/provider';
+import cosmos from '../metadata/cosmonuts.json';
 
 // Latest deployed CosmoNuts address: 0x66023f6da39cbffd7ad4f287ad4f8b44e0725167
 // https://ropsten.etherscan.io/tx/0xe207cdcc1a558b06f5790d409c222eb5fa1652f22a7a820c41a235b3b3a7094e
@@ -25,6 +26,7 @@ class Main extends Component {
   constructor(props) {
     super(props);
     console.log("IN: Main Component of Index");
+    console.log("Testing Variable -- props cosmonuts", this.props.cosmoNuts);
 
     this.state = {
       isUserConnected: null,
@@ -39,14 +41,15 @@ class Main extends Component {
     this.interpretImage = this.interpretImage.bind(this);
   }
 
-  //static async getInitialProps(props) {
-    //console.log("IN: Initial Props of Index");
-    //const test = "1"
-    //console.log("Web3 in intial props", web3);
+  static async getInitialProps(props) {
+    console.log("IN: Initial Props of Index");
+    const cosmoCID = cosmos.cosmonuts.ipnsCID;
+    const cosmoContractAddress = cosmos.cosmonuts.contract_address;
+    const cosmoOwnerAddress = cosmos.cosmonuts.owner_address;
+    const cosmoNuts = cosmos.nuts;
 
-
-    //return { web3 }
-  //}
+    return { cosmoCID, cosmoContractAddress, cosmoOwnerAddress, cosmoNuts }
+  }
 
   async componentDidMount() {
     //document.body.style.backgroundImage = `url(${darkblack_img.src})`;
@@ -101,6 +104,7 @@ class Main extends Component {
           <h2>Testing features and loading capabilities</h2>
           <h3>Is User Connected -- {this.state.isUserConnected} --</h3>
           <h3>Current Account -- {this.state.currentAccount} --</h3>
+          <h3>Testing Variable -- {this.props.cosmoCID} --</h3>
         </ParallaxLayer>
 
         <ParallaxLayer
@@ -180,6 +184,7 @@ class Main extends Component {
 
           </List>
         </ParallaxLayer>
+
       </Parallax>
 
     );

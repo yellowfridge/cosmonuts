@@ -17,6 +17,7 @@ import bs58 from 'bs58';
 import EthCrypto from 'eth-crypto';
 import getJSONData from '../../components/helpers/getjsondata';
 import provider from '../../ethereum/provider';
+import cosmos from '../../metadata/cosmonuts.json';
 
 class Userpage extends Component {
   constructor(props) {
@@ -64,7 +65,7 @@ class Userpage extends Component {
   // This is grabbing the address from the URL
   // accessed with this.props.address
   static async getInitialProps(props) {
-    console.log("In getInitialProps of UserPage")
+    console.log("In getInitialProps of UserPage");
 
     const { address } = props.query;
     //const cosmosURL = 'https://ipfs.io/ipns/QmX7r9BfGdoav8QSi163to1RWJiaeABBLS8QjvmeSURLNH' // need to make it dynamic and request
@@ -75,11 +76,13 @@ class Userpage extends Component {
 
     //const nuts = cosmos.nuts;
 
-    return { address };
+    const cosmoNuts = cosmos.nuts;
+
+    return { address, cosmoNuts };
   }
 
   componentDidMount(props) {
-    console.log("Props test", this.props.nuts);
+    console.log("Props test", this.props.cosmoNuts);
     var imgURL = this.openImgSrc(this.state.openMessage);
     this.setState({
       openMsgSrc: imgURL
@@ -159,7 +162,7 @@ class Userpage extends Component {
             await cosmoNuts.methods.tokenOfOwnerByIndex(this.props.address, n).call().then(async (nut) => {
               nuts[n] = nut; // nut is in string form
               var nutId = parseInt(nut); // convert string to number type
-              var nut_cid = this.props.nuts[nutId].ipnsCID;
+              var nut_cid = this.props.cosmoNuts[nutId].ipnsCID;
               var nutURL = (this.props.baseURL + this.props.storageKey + "/" + nut_cid);
               var nutInfo = await getJSONData(nutURL).catch((error) => {
                 console.log("Could not retrieve data on nut id:", nutId);
