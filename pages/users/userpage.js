@@ -67,22 +67,17 @@ class Userpage extends Component {
   static async getInitialProps(props) {
     console.log("In getInitialProps of UserPage");
 
-    const { address } = props.query;
-    //const cosmosURL = 'https://ipfs.io/ipns/QmX7r9BfGdoav8QSi163to1RWJiaeABBLS8QjvmeSURLNH' // need to make it dynamic and request
-    //const cosmos = await getJSONData(cosmosURL);
+    const { address } = props.query; // Grabbing the address in the URL (user account)
 
-    //const baseURL = cosmos.cosmonuts.baseURL;
-    //const storageKey = cosmos.cosmonuts.storage_key;
+    const baseURL = cosmos.cosmonuts.baseURL; // https://ipfs.io/
+    const storageKey = cosmos.cosmonuts.storage_key; // ipns
+    const nutsCID = cosmos.nuts; // Contains JSON array data of ipnsCIDs of each nut
 
-    //const nuts = cosmos.nuts;
-
-    const cosmoNuts = cosmos.nuts;
-
-    return { address, cosmoNuts };
+    return { address, baseURL, storageKey, nutsCID };
   }
 
   componentDidMount(props) {
-    console.log("Props test", this.props.cosmoNuts);
+    console.log("Props test", this.props.nutsCID);
     var imgURL = this.openImgSrc(this.state.openMessage);
     this.setState({
       openMsgSrc: imgURL
@@ -106,51 +101,6 @@ class Userpage extends Component {
       }
     }
 
-    /*
-    const getNuts = async() => {
-      await cosmoNuts.methods.balanceOf(this.props.address).call().then((numNuts) => {
-        this.setState({
-          nutsHeld: numNuts,
-          ddPlaceholder: 'Loading Nuts'
-        });
-        return numNuts
-      });
-    }
-    const numNuts = getNuts();
-    //console.log("Nuts", numNuts);
-
-    const collectNuts = async(numNuts) => {
-
-      for (let n = 0; n < numNuts; n++) {
-        await cosmoNuts.methods.tokenOfOwnerByIndex(this.props.address, n).call().then((nut) => {
-          console.log("Nut Id", nut, typeof nut);
-
-          let nutObject = {
-            key: nut,
-            text: nut,
-            value: nut,
-            image: { avatar: false } // Later put image and enable small picture
-          }
-          nutObjects[n] = nutObject;
-        });
-      }
-      return nutObjects;
-    }
-    const collectedNuts = collectNuts(numNuts)
-    console.log("Collected Nuts", collectedNuts);
-    */
-
-    var numNuts = async () => {
-      await cosmoNuts.methods.balanceOf(this.props.address).call().then((numOfNuts) => {
-        this.setState({
-          nutsHeld: numOfNuts,
-          ddPlaceholder: 'Loading Nuts'
-        });
-        console.log("Total Nuts", numOfNuts);
-        return numNuts;
-      });
-    }
-
     var getNuts = async () => {
       await cosmoNuts.methods.balanceOf(this.props.address).call().then((numOfNuts) => {
         this.setState({
@@ -162,7 +112,7 @@ class Userpage extends Component {
             await cosmoNuts.methods.tokenOfOwnerByIndex(this.props.address, n).call().then(async (nut) => {
               nuts[n] = nut; // nut is in string form
               var nutId = parseInt(nut); // convert string to number type
-              var nut_cid = this.props.cosmoNuts[nutId].ipnsCID;
+              var nut_cid = this.props.nutsCID[nutId].ipnsCID;
               var nutURL = (this.props.baseURL + this.props.storageKey + "/" + nut_cid);
               var nutInfo = await getJSONData(nutURL).catch((error) => {
                 console.log("Could not retrieve data on nut id:", nutId);
