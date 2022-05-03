@@ -28,26 +28,9 @@ class Main extends Component {
     super(props);
     console.log("IN: Main Component of Index");
 
-    console.log("Provider", provider);
-    provider.then((provider) => {
-      console.log("Provider Address in index", provider.selectedAddress);
-    });
-
-    if (provider.selectedAddress === null) {
-      this.state = {
-        currentAccount: '',
-        isUserConnected: 'No'
-      };
-    } else {
-      this.state = {
-        currentAccount: provider.selectedAddress,
-        isUserConnected: 'Yes'
-      };
-    }
-
     this.state = {
-      //isUserConnected: null,
-      //currentAccount: null,
+      isUserConnected: null,
+      currentAccount: null,
       isSaleActive: 'Not Known',
       totalSupply: 'Not Known',
       backgroundSource: null,
@@ -80,7 +63,6 @@ class Main extends Component {
 
     console.log("web3 component did mount",web3);
 
-    /*
     (() => {
       if (provider.selectedAddress === null) {
         this.setState({
@@ -94,7 +76,6 @@ class Main extends Component {
         });
       }
     })();
-    */
 
     //this.interpretImage();
 
