@@ -26,7 +26,7 @@ class Main extends Component {
   constructor(props) {
     super(props);
     console.log("IN: Main Component of Index");
-    console.log("Testing Variable -- isActive cosmonuts", this.props.isActive);
+    //console.log("Testing Variable -- isActive cosmonuts", this.props.isActive);
 
     const isSaleActive = () => {
       if (this.props.isActive) {
@@ -75,8 +75,6 @@ class Main extends Component {
     //console.log("Starfield", starfield);
     //document.body.style.backgroundSize = 'cover';
     //console.log("web3", this.props.web3);
-
-    //var provider = await detectEthereumProvider();
 
     (() => {
       if (ethereum.selectedAddress === null) {
