@@ -140,7 +140,7 @@ class Main extends Component {
         </ParallaxLayer>
 
         <ParallaxLayer
-          offset={0.4}
+          offset={0.35}
           speed={.5}
           style={{
             display: 'flex',
@@ -179,6 +179,29 @@ class Main extends Component {
             </Grid>
           </Container>
         </ParallaxLayer>
+
+        <ParallaxLayer
+          offset={0.55}
+          speed={.7}
+          style={{
+            display: 'flex',
+            marginLeft: '10%'
+          }}
+        >
+        <Container>
+          <Grid columns={2} style={{
+            width: '500px'
+          }}>
+            <Grid.Column>
+              <h3>How much for a nut?</h3>
+            </Grid.Column>
+
+            <Grid.Column>
+              <h3>{this.props.nutPrice / 1000000000000000000} eth</h3>
+            </Grid.Column>
+          </Grid>
+        </Container>
+      </ParallaxLayer>
 
         <ParallaxLayer
           offset={0.7}
