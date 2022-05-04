@@ -39,12 +39,17 @@ export default function Connect(props) {
   const connectClicked = async () => {
     setLoad(true);
     try {
+      // Will attempt to get accounts and prompt user if not available
       await ethereum.request({ method: 'eth_requestAccounts' });
     } catch (err) {
       console.log(err);
     }
+
     window.location.reload(true); // Documentation suggests a refresh
   }
+
+  // Need to send over a new web3 and cosmonuts instance to userpage
+  // Will use this data to determine is user has nuts and can naviage to userpage
 
   return (
     <div>

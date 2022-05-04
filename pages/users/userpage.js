@@ -5,6 +5,7 @@ import QRCode from 'react-qr-code';
 import { Parallax, ParallaxLayer } from '@react-spring/parallax';
 import { Container, Form, Button, Grid , Dropdown} from 'semantic-ui-react';
 import embedImage from '../../components/helpers/embedimage';
+import parseImage from '../../components/helpers/parseimage';
 import { svgAsPngUri } from 'save-svg-as-png';
 import * as IPFS from 'ipfs-core';
 import nut from '../../metadata/nut0.json';
@@ -62,8 +63,6 @@ class Userpage extends Component {
 
   }
 
-  // This is grabbing the address from the URL
-  // accessed with this.props.address
   static async getInitialProps(props) {
     console.log("In getInitialProps of UserPage");
 
@@ -77,13 +76,15 @@ class Userpage extends Component {
   }
 
   componentDidMount(props) {
-    console.log("Props test", this.props.nutsCID);
+    console.log("Props test in component did mount", this.props.nutsCID);
+
+    //Creates a url of the written message converted to a picture
     var imgURL = this.openImgSrc(this.state.openMessage);
     this.setState({
       openMsgSrc: imgURL
     });
 
-    const web3 = new Web3(window.ethereum);
+    const web3 = new Web3(window.ethereum); // Create a new instance of web3 with the embedded metamask provider
     var cosmoNuts = new web3.eth.Contract(CosmoNuts, '0x66023f6da39cbffd7ad4f287ad4f8b44e0725167');
 
     var ownedNuts = []; // Builds an array to be used for dropdown items
@@ -92,7 +93,9 @@ class Userpage extends Component {
     let nuts = [];
     let nutObjects = [];
     let firstNut;
+    let firstNutInfo;
 
+    // Function to find the first nut
     const findFirst = async (n, nut) => {
       if (n === 0) {
         return nut
@@ -101,12 +104,15 @@ class Userpage extends Component {
       }
     }
 
+    // Get all the nut info
     var getNuts = async () => {
+      // First get the total number of nuts owned by this account
       await cosmoNuts.methods.balanceOf(this.props.address).call().then((numOfNuts) => {
         this.setState({
           nutsHeld: numOfNuts,
           ddPlaceholder: 'Loading Nuts'
         });
+        // Go through each one and grab the relevant information
         for (let n = 0; n < numOfNuts; n++) {
           (async () => {
             await cosmoNuts.methods.tokenOfOwnerByIndex(this.props.address, n).call().then(async (nut) => {
@@ -119,20 +125,33 @@ class Userpage extends Component {
               });
               console.log("Nut Info", nutInfo);
 
+              const checkImgURL = () => {
+                try {
+                  return nutInfo.image;
+                } catch {
+                  return '';
+                }
+              }
+              var nutImgURL = checkImgURL();
+
               let nutObject = {
                 key: nut,
-                text: nut,
+                text: 'Nut ' + nut,
                 value: nut,
-                image: { avatar: false } // Later put image and enable small picture
+                image: { avatar: true, src: nutImgURL} // Enables a small picture next to dropdown
               }
               nutObjects[n] = nutObject;
 
               (async () => {
                 await findFirst(n, nut).then((nut1) => {
                   if (nut1 !== 'Nut first') {
-                    this.setState({ selectedNut: nut1 }); // this could be an issue
+                    this.setState({
+                      selectedNut: nut1
+                    }); // this could be an issue
+
                     this.ddPlaceholderSet(nut1);
                   }
+
                 });
               })();
 
@@ -246,13 +265,13 @@ class Userpage extends Component {
 
     // This is the format to be uploaded to IPFS to display image on load of IPFS URL
     var byteStringFinalImg = Buffer.from(finalImgURL.split(',')[1], 'base64');
-    console.log("Bytes Final Img IPFS", byteStringFinalImg);
+    //console.log("Bytes Final Img IPFS", byteStringFinalImg);
     const finalImg_cid = await Hash.of(byteStringFinalImg); // Final image CID path
     console.log("Final Img CID", finalImg_cid, typeof finalImg_cid);
     const finalImg_hash =  EthCrypto.hash.keccak256(finalImg_cid); // Create a hash as it would be done on the ethereum blockchain
-    console.log("Eth Hash", finalImg_hash);
+    console.log("Final Img Hash", finalImg_hash);
     var bytesFinalImg = this.getBytes32FromIPFSHash(finalImg_cid); // Format to save image in for IPFS
-    console.log("Bytes Emb Img Eth", bytesFinalImg);
+    //console.log("Bytes Emb Img Eth", bytesFinalImg);
 
     getSecret(finalImg_hash).then((secret) => {
       console.log("Signed Hash:", secret.signedImage);
