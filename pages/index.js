@@ -63,8 +63,9 @@ class Main extends Component {
       cosmoOwnerAddress: cosmos.cosmonuts.owner_address,
       cosmoNuts: cosmos.nuts,
       isActive: nutData.isActive,
+      totalSupply: nutData.totalSupply,
       maxNuts: nutData.maxNuts,
-      nutPrices: nutData.nutPrices,
+      nutPrice: nutData.nutPrice,
       maxNutPurchase: nutData.maxNutPurchase
     }
   }
@@ -117,11 +118,66 @@ class Main extends Component {
           }}
         >
           <Layout />
-          <h2>Testing features and loading capabilities</h2>
-          <h3>Is Sale Active -- {this.state.isSaleActive} --</h3>
-          <h3>Is User Connected -- {this.state.isUserConnected} --</h3>
-          <h3>Current Account -- {this.state.currentAccount} --</h3>
-          <h3>Testing Variable -- {this.props.cosmoCID} --</h3>
+        </ParallaxLayer>
+
+        <ParallaxLayer
+          offset={0.2}
+          speed={.3}
+        >
+          <Container>
+            <Grid columns={2} style={{
+              width: '600px'
+            }}>
+              <Grid.Column>
+                <h3>Am I able to mint my nuts?</h3>
+              </Grid.Column>
+
+              <Grid.Column>
+                <h3>{this.state.isSaleActive}</h3>
+              </Grid.Column>
+            </Grid>
+          </Container>
+        </ParallaxLayer>
+
+        <ParallaxLayer
+          offset={0.4}
+          speed={.5}
+          style={{
+            display: 'flex',
+            marginLeft: '50%'
+          }}
+        >
+          <Container>
+            <Grid textAlign='center' columns={3} style={{
+              width: '500px'
+            }}>
+              <Grid.Column>
+                <Grid.Row>
+                  <h3>Total Minted</h3>
+                </Grid.Row>
+
+                <Grid.Row>
+                  <h3>{this.props.totalSupply}</h3>
+                </Grid.Row>
+              </Grid.Column>
+
+              <Grid.Column verticalAlign='middle' style={{
+                width: '50px'
+              }}>
+                <h1>/</h1>
+              </Grid.Column>
+
+              <Grid.Column>
+                <Grid.Row>
+                  <h3>Total Available</h3>
+                </Grid.Row>
+
+                <Grid.Row>
+                  <h3>{this.props.maxNuts}</h3>
+                </Grid.Row>
+              </Grid.Column>
+            </Grid>
+          </Container>
         </ParallaxLayer>
 
         <ParallaxLayer
