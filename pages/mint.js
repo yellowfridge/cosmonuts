@@ -66,6 +66,9 @@ export default function Mint(props) {
     });
 
     setLoad(false);
+
+    // Reloading the page to grab all new props after your mint
+    window.location.reload(true);
   }
 
   return (
