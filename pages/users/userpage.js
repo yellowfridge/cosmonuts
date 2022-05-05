@@ -6,6 +6,7 @@ import { Parallax, ParallaxLayer } from '@react-spring/parallax';
 import { Container, Form, Button, Grid , Dropdown} from 'semantic-ui-react';
 import embedImage from '../../components/helpers/embedimage';
 import parseImage from '../../components/helpers/parseimage';
+import generateNutMetadata from '../../components/helpers/generatenutmetadata';
 import { svgAsPngUri } from 'save-svg-as-png';
 import * as IPFS from 'ipfs-core';
 import nut from '../../metadata/nut0.json';
@@ -35,6 +36,8 @@ class Userpage extends Component {
       nuts: [],
       ownedNuts: [],
       selectedNut: '',
+      selectedNutInfo: '',
+      selectedNutCID: '',
       openMessage: nut.open_message.value,
       openMsgSrc: 'blank',
       openMsgCid: '',
@@ -146,7 +149,9 @@ class Userpage extends Component {
                 await findFirst(n, nut).then((nut1) => {
                   if (nut1 !== 'Nut first') {
                     this.setState({
-                      selectedNut: nut1
+                      selectedNut: nut1,
+                      finalImgSrc: nutInfo.image,
+                      selectedNutInfo: JSON.stringify(nutInfo)
                     }); // this could be an issue
 
                     this.ddPlaceholderSet(nut1);
@@ -273,6 +278,10 @@ class Userpage extends Component {
     var bytesFinalImg = this.getBytes32FromIPFSHash(finalImg_cid); // Format to save image in for IPFS
     //console.log("Bytes Emb Img Eth", bytesFinalImg);
 
+    // Generating nut metadata section
+    const nutMetadata = generateNutMetadata(publicQR_cid);
+    console.log("Nut Metadata", nutMetadata);
+
     getSecret(finalImg_hash).then((secret) => {
       console.log("Signed Hash:", secret.signedImage);
       getVerification(finalImg_hash, secret.signedImage).then((verification) => {
@@ -282,6 +291,7 @@ class Userpage extends Component {
           imgVerification: 'Verified'
         });
 
+        /* TEMPORARY - WORKING SECTION - JUST NOT TO SAVE IPFS - SAVING TIME
         if (verification.verification) { // a final check - checking if IPFS CID matches signed CID
 
           addToIPFS(byteStringOpenMsgImg, byteStringPubQR, byteStringFinalImg).then((paths) => { // components/helpers/
@@ -297,6 +307,7 @@ class Userpage extends Component {
           //  console.log("Success!");
           //});
         }
+        */
       });
     });
 
@@ -329,6 +340,7 @@ class Userpage extends Component {
           }}
         >
           <Layout />
+          <h3>Testing items here: {this.state.selectedNutInfo}</h3>
         </ParallaxLayer>
 
         <ParallaxLayer
