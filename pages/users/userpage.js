@@ -288,10 +288,12 @@ class Userpage extends Component {
     var newNutMetadata_cid = await Hash.of(JSON.stringify(newNutMeta.data));
     console.log("New Nut Metadata CID path", newNutMetadata_cid);
 
+    /*/// Blocking this part out for now
     const ipfs = await IPFS.create(); // Initialize IPFS
     var newNutMeta_str = JSON.stringify(newNutMeta.data); // This string is not formatted and does not look good when opened
     var newNut_cid = await ipfs.add(newNutMeta_str);
     console.log("NewNut CID:", newNut_cid);
+    */ ///Block out end
 
     getSecret(finalImg_hash).then((secret) => {
       console.log("Signed Hash:", secret.signedImage);

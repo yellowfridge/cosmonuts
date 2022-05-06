@@ -15,13 +15,14 @@ export default function getMetadataJSON(req, res) {
   let newQRMsgCID = req.body.qrMsgCID;
   let finalImgCID = req.body.finalImgCID;
 
-  /* /// Maybethe way to block out is by saving as json file?
+  /*/// Maybethe way to block out is by saving as json file?
   let nutId = transNutData.id;
   let fileName = "Nut" + nutId + ".json";
   let dir = 'metadata';
   let filePath = path.join(dir, fileName);
   console.log("File Path", filePath);
-  //fs.writeFile()
+
+  //fs.writeFileSync(filePath, transNutData)
   */ /// Block out code end
 
   transNutData.open_message.value = newOpenMsg;
