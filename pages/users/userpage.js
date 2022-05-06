@@ -13,11 +13,9 @@ import Web3 from 'web3';
 import CosmoNuts from '../../ethereum/build_manual/CosmoNuts_abi.json';
 import { getSecret, getVerification, getMetadataJSON } from '../../components/helpers/apiRequests';
 import addToIPFS from '../../components/helpers/addtoIPFS';
-import detectEthereumProvider from '@metamask/detect-provider';
 import bs58 from 'bs58';
 import EthCrypto from 'eth-crypto';
 import getJSONData from '../../components/helpers/getjsondata';
-import provider from '../../ethereum/provider';
 import cosmos from '../../metadata/cosmonuts.json';
 
 class Userpage extends Component {
@@ -25,9 +23,6 @@ class Userpage extends Component {
     super(props);
     //console.log("Cosmos JSON", this.props.cosmos); // JSON file with all relevant information for CosmoNuts
     console.log("In Userpage");
-    //provider.then((res) => {
-    //  console.log("Provider in Userpage Constructor", res);
-    //});
 
     this.state = {
       cosmosPath: 'https://ipfs.io/ipns/QmX7r9BfGdoav8QSi163to1RWJiaeABBLS8QjvmeSURLNH',
