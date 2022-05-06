@@ -31,6 +31,7 @@ const getVerification = async (hash, signedHash) => {
 
 const getInitialNutData = async () => {
   // Need to create a dynamic server (possible with $ syntax)
+  // This is the only one that has this issue (maybe client-server connection issue)
   const res = await fetch ('http://localhost:3000/api/initialnutdata', {
     method: 'post',
     headers: {
@@ -42,7 +43,7 @@ const getInitialNutData = async () => {
   return isActive;
 }
 
-const getMetadataJSON = async (oldNut, openMsg, openMsgCID, qrMsg, qrMsgCID) => {
+const getMetadataJSON = async (oldNut, openMsg, openMsgCID, qrMsg, qrMsgCID, finalImgCID) => {
   const res = await fetch('/api/newnutmetadata', {
     method: 'post',
     headers: {
@@ -54,7 +55,8 @@ const getMetadataJSON = async (oldNut, openMsg, openMsgCID, qrMsg, qrMsgCID) => 
       openMsg: openMsg,
       openMsgCID: openMsgCID,
       qrMsg: qrMsg,
-      qrMsgCID: qrMsgCID
+      qrMsgCID: qrMsgCID,
+      finalImgCID: finalImgCID
     })
   });
   const metadata = await res.json();

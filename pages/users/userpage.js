@@ -280,8 +280,8 @@ class Userpage extends Component {
     // Generating nut metadata section
     var oldMetaInfo = JSON.parse(this.state.selectedNutInfo);
     var newNutMeta = await getMetadataJSON(
-      oldMetaInfo, this.state.openMessage, this.openMessageCid,
-      this.state.publicMessage, this.state.publicMsgCid
+      oldMetaInfo, this.state.openMessage, openMsg_cid,
+      this.state.publicMessage, publicQR_cid, finalImg_cid
     );
     console.log("New Nut Metadata", newNutMeta.data, typeof newNutMeta.data);
 
@@ -291,7 +291,6 @@ class Userpage extends Component {
     const ipfs = await IPFS.create(); // Initialize IPFS
     var newNutMeta_str = JSON.stringify(newNutMeta.data); // This string is not formatted and does not look good when opened
     var newNut_cid = await ipfs.add(newNutMeta_str);
-
     console.log("NewNut CID:", newNut_cid);
 
     getSecret(finalImg_hash).then((secret) => {

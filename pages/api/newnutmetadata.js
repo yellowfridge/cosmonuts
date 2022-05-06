@@ -10,11 +10,13 @@ export default function getMetadataJSON(req, res) {
   let newOpenMsgCID = req.body.openMsgCID;
   let newQRMsg = req.body.qrMsg;
   let newQRMsgCID = req.body.qrMsgCID;
+  let finalImgCID = req.body.finalImgCID;
 
   transNutData.open_message.value = newOpenMsg;
   transNutData.open_message.image = baseURL + newOpenMsgCID;
   transNutData.public_message.value = newQRMsg;
   transNutData.public_message.image = baseURL + newQRMsgCID;
+  transNutData.image = baseURL + finalImgCID;
 
   let transNutData_str = JSON.stringify(transNutData);
 
