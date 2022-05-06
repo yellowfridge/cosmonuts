@@ -42,4 +42,23 @@ const getInitialNutData = async () => {
   return isActive;
 }
 
-export { getSecret, getVerification, getInitialNutData }
+const getMetadataJSON = async (oldNut, openMsg, openMsgCID, qrMsg, qrMsgCID) => {
+  const res = await fetch('/api/newnutmetadata', {
+    method: 'post',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      oldNut: oldNut,
+      openMsg: openMsg,
+      openMsgCID: openMsgCID,
+      qrMsg: qrMsg,
+      qrMsgCID: qrMsgCID
+    })
+  });
+  const metadata = await res.json();
+  return metadata;
+}
+
+export { getSecret, getVerification, getInitialNutData, getMetadataJSON }

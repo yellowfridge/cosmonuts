@@ -6,13 +6,12 @@ import { Parallax, ParallaxLayer } from '@react-spring/parallax';
 import { Container, Form, Button, Grid , Dropdown} from 'semantic-ui-react';
 import embedImage from '../../components/helpers/embedimage';
 import parseImage from '../../components/helpers/parseimage';
-import generateNutMetadata from '../../components/helpers/generatenutmetadata';
 import { svgAsPngUri } from 'save-svg-as-png';
 import * as IPFS from 'ipfs-core';
 import nut from '../../metadata/nut0.json';
 import Web3 from 'web3';
 import CosmoNuts from '../../ethereum/build_manual/CosmoNuts_abi.json';
-import { getSecret, getVerification } from '../../components/helpers/apiRequests';
+import { getSecret, getVerification, getMetadataJSON } from '../../components/helpers/apiRequests';
 import addToIPFS from '../../components/helpers/addtoIPFS';
 import detectEthereumProvider from '@metamask/detect-provider';
 import bs58 from 'bs58';
@@ -149,8 +148,8 @@ class Userpage extends Component {
                 await findFirst(n, nut).then((nut1) => {
                   if (nut1 !== 'Nut first') {
                     this.setState({
-                      selectedNut: nut1,
-                      finalImgSrc: nutInfo.image,
+                      selectedNut: nut1, // Can't make it load the whole object at once
+                      finalImgSrc: nutImgURL,
                       selectedNutInfo: JSON.stringify(nutInfo)
                     }); // this could be an issue
 
@@ -279,8 +278,21 @@ class Userpage extends Component {
     //console.log("Bytes Emb Img Eth", bytesFinalImg);
 
     // Generating nut metadata section
-    const nutMetadata = generateNutMetadata(publicQR_cid);
-    console.log("Nut Metadata", nutMetadata);
+    var oldMetaInfo = JSON.parse(this.state.selectedNutInfo);
+    var newNutMeta = await getMetadataJSON(
+      oldMetaInfo, this.state.openMessage, this.openMessageCid,
+      this.state.publicMessage, this.state.publicMsgCid
+    );
+    console.log("New Nut Metadata", newNutMeta.data, typeof newNutMeta.data);
+
+    var newNutMetadata_cid = await Hash.of(JSON.stringify(newNutMeta.data));
+    console.log("New Nut Metadata CID path", newNutMetadata_cid);
+
+    const ipfs = await IPFS.create(); // Initialize IPFS
+    var newNutMeta_str = JSON.stringify(newNutMeta.data); // This string is not formatted and does not look good when opened
+    var newNut_cid = await ipfs.add(newNutMeta_str);
+
+    console.log("NewNut CID:", newNut_cid);
 
     getSecret(finalImg_hash).then((secret) => {
       console.log("Signed Hash:", secret.signedImage);
@@ -340,7 +352,7 @@ class Userpage extends Component {
           }}
         >
           <Layout />
-          <h3>Testing items here: {this.state.selectedNutInfo}</h3>
+          <h3>Testing items here: -- -- </h3>
         </ParallaxLayer>
 
         <ParallaxLayer
