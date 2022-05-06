@@ -302,7 +302,7 @@ class Userpage extends Component {
           imgVerification: 'Verified'
         });
 
-        /* TEMPORARY - WORKING SECTION - JUST NOT TO SAVE IPFS - SAVING TIME
+        /*/// - Put block out code here if needed - TEMPORARY - WORKING SECTION - JUST NOT TO SAVE IPFS - SAVING TIME
         if (verification.verification) { // a final check - checking if IPFS CID matches signed CID
 
           addToIPFS(byteStringOpenMsgImg, byteStringPubQR, byteStringFinalImg).then((paths) => { // components/helpers/
@@ -318,7 +318,7 @@ class Userpage extends Component {
           //  console.log("Success!");
           //});
         }
-        */
+        */// Put block out code here to stop IPFS feature
       });
     });
 

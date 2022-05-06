@@ -1,3 +1,6 @@
+var fs = require('fs');
+//var path = require('path');
+
 export default function getMetadataJSON(req, res) {
   console.log("In Generating Nut Meta Data");
 
@@ -11,6 +14,15 @@ export default function getMetadataJSON(req, res) {
   let newQRMsg = req.body.qrMsg;
   let newQRMsgCID = req.body.qrMsgCID;
   let finalImgCID = req.body.finalImgCID;
+
+  /* /// Maybethe way to block out is by saving as json file?
+  let nutId = transNutData.id;
+  let fileName = "Nut" + nutId + ".json";
+  let dir = 'metadata';
+  let filePath = path.join(dir, fileName);
+  console.log("File Path", filePath);
+  //fs.writeFile()
+  */ /// Block out code end
 
   transNutData.open_message.value = newOpenMsg;
   transNutData.open_message.image = baseURL + newOpenMsgCID;
