@@ -145,7 +145,7 @@ class Userpage extends Component {
                 await findFirst(n, nut).then((nut1) => {
                   if (nut1 !== 'Nut first') {
                     this.setState({
-                      selectedNut: nut1, // Can't make it load the whole object at once
+                      selectedNut: nut1,
                       finalImgSrc: nutImgURL,
                       selectedNutInfo: JSON.stringify(nutInfo)
                     }); // this could be an issue
@@ -199,7 +199,7 @@ class Userpage extends Component {
 
   ddPlaceholderSet(firstNut) {
     this.setState({
-      ddPlaceholder: firstNut
+      ddPlaceholder: 'Nut ' + firstNut
     });
   }
 
@@ -503,7 +503,7 @@ class Userpage extends Component {
 
                 <Grid.Column>
                   <QRCode id='publicMsgQR' value={this.state.publicMessage} />
-                  <img id='publicQRImg'src={this.state.publicMsgSrc} />
+                  <img id='publicQRImg'src={this.state.publicMsgSrc} hidden/>
                 </Grid.Column>
               </Grid>
 
