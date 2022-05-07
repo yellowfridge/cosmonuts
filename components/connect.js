@@ -49,7 +49,7 @@ export default function Connect(props) {
   const checkNuts = async (account) => {
     console.log("Nut checking ...");
     const web3 = new Web3(window.ethereum);
-    var cosmoNuts = new web3.eth.Contract(CosmoNuts, '0x66023f6da39cbffd7ad4f287ad4f8b44e0725167');
+    var cosmoNuts = new web3.eth.Contract(CosmoNuts, process.env.COSMONUTS_ADDRESS);
 
 
     await cosmoNuts.methods.balanceOf(account).call().then((numNuts) => {

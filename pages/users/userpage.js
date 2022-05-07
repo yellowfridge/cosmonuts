@@ -84,7 +84,7 @@ class Userpage extends Component {
     });
 
     const web3 = new Web3(window.ethereum); // Create a new instance of web3 with the embedded metamask provider
-    var cosmoNuts = new web3.eth.Contract(CosmoNuts, '0x66023f6da39cbffd7ad4f287ad4f8b44e0725167');
+    var cosmoNuts = new web3.eth.Contract(CosmoNuts, process.env.COSMONUTS_ADDRESS);
 
     var ownedNuts = []; // Builds an array to be used for dropdown items
 
@@ -346,7 +346,7 @@ class Userpage extends Component {
 
     const changeTokenURI = async (selectedNut, newTokenURI) => {
       const web3 = new Web3(window.ethereum);
-      const cosmoNuts = new web3.eth.Contract(CosmoNuts, '0x66023f6da39cbffd7ad4f287ad4f8b44e0725167');
+      const cosmoNuts = new web3.eth.Contract(CosmoNuts, process.env.COSMONUTS_ADDRESS);
       await cosmoNuts.methods.jumpUniverse(selectedNut, newTokenURI).send({
         from: this.props.address
       }).on('transactionHash', (transactionHash) => {

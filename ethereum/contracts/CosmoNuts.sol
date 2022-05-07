@@ -93,6 +93,7 @@ contract CosmoNuts is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
   // Verify that the cidPath being provided is the same as the hash in the signature
   function isVerified(string memory cidPath, bytes memory signature) private view returns (bool isValid) {
     bytes32 ethHash = keccak256(abi.encodePacked(cidPath));
+    // Don't think we need SYSTEM_ADDRESS - isn't it simply the owner public address
     require(signerAddress(ethHash, signature) == SYSTEM_ADDRESS, "Invalid signature");
     isValid = true;
     return isValid;

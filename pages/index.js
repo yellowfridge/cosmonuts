@@ -18,8 +18,7 @@ import nut from '../metadata/nut0.json';
 import cosmos from '../metadata/cosmonuts.json';
 import { getInitialNutData } from '../components/helpers/apiRequests';
 
-// Latest deployed CosmoNuts address: 0x66023f6da39cbffd7ad4f287ad4f8b44e0725167
-// https://ropsten.etherscan.io/tx/0xe207cdcc1a558b06f5790d409c222eb5fa1652f22a7a820c41a235b3b3a7094e
+// Latest deployed CosmoNuts address: 0xb97C6312F412b58cCfac2c0E63609df0c2599CAa
 // Deployed on Ropsten(3) network
 
 class Main extends Component {
@@ -51,13 +50,22 @@ class Main extends Component {
 
   static async getInitialProps(props) {
     console.log("IN: Initial Props of Index");
+    const baseURL = "https//ipfs/ipns/";
 
     getInitialNutData().then((nutData) => {
       return nutData;
+    }).catch((err) => {
+      new Error('Error in getting nuts ...', err);
     });
     const nutData = await getInitialNutData();
 
+    const cosmoCID = nutData.cosmoCID;
+    const cosmoMetaPath = baseURL + cosmoCID;
+    console.log("Cosmo Meta Path", cosmoMetaPath);
+
     return {
+      cosmoCID: cosmoCID,
+      cosmosMetaPath: cosmoMetaPath,
       cosmoCID: cosmos.cosmonuts.ipnsCID,
       cosmoContractAddress: cosmos.cosmonuts.contract_address,
       cosmoOwnerAddress: cosmos.cosmonuts.owner_address,
@@ -66,7 +74,8 @@ class Main extends Component {
       totalSupply: nutData.totalSupply,
       maxNuts: nutData.maxNuts,
       nutPrice: nutData.nutPrice,
-      maxNutPurchase: nutData.maxNutPurchase
+      maxNutPurchase: nutData.maxNutPurchase,
+      revealTimeStamp: nutData.revealTimeStamp,
     }
   }
 

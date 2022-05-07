@@ -3,3 +3,13 @@ Ethereum Addresses - Used while in development
 Ropsten Test Network
 Account 1:
   0x1a5B5A096E7c3305931f10C807F2749FA517601e
+
+First Deployed Smart Contract on Ropsten Test Network
+Contract Address: 0x66023f6da39cbffd7ad4f287ad4f8b44e0725167
+Transaction Hash: 0xe207cdcc1a558b06f5790d409c222eb5fa1652f22a7a820c41a235b3b3a7094e
+Owner Address: 0x1a5B5A096E7c3305931f10C807F2749FA517601e
+
+Second Deployed Smart Contract on Ropsten Test Network
+Contract Address: 0xb97C6312F412b58cCfac2c0E63609df0c2599CAa
+Transaction Hash: 0x9772cc41eaa60c79c66cb314be6cedb57e16cb600cd9fb71acdbee740c62a617
+Owner Address: 0x5B38Da6a701c568545dCfcB03FcB875f56beddC4

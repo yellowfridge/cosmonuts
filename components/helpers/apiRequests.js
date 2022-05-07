@@ -39,8 +39,8 @@ const getInitialNutData = async () => {
       'Content-Type': 'application/json'
     }
   });
-  const isActive = await res.json();
-  return isActive;
+  const nutData = await res.json();
+  return nutData;
 }
 
 const getMetadataJSON = async (oldNut, openMsg, openMsgCID, qrMsg, qrMsgCID, finalImgCID) => {
