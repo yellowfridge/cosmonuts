@@ -67,16 +67,19 @@ class Userpage extends Component {
 
     const { address } = props.query; // Grabbing the address in the URL (user account)
 
+    const cosmoNutsAddress = process.env.COSMONUTS_ADDRESS;
+    console.log("Cosmo Nuts Address", cosmoNutsAddress, typeof cosmoNutsAddress);
+
     const baseURL = cosmos.cosmonuts.baseURL; // https://ipfs.io/
     const storageKey = cosmos.cosmonuts.storage_key; // ipns
     const nutsCID = cosmos.nuts; // Contains JSON array data of ipnsCIDs of each nut
-    const cosmoNutsAddress = process.env.COSMONUTS_ADDRESS;
 
-    return { address, baseURL, storageKey, nutsCID, cosmoNutsAddress };
+
+    return { address, cosmoNutsAddress, baseURL, storageKey, nutsCID };
   }
 
   componentDidMount(props) {
-    console.log("Props test in component did mount", this.props.nutsCID);
+    console.log("Props test in component did mount", this.props.cosmoNutsAddress);
 
     //Creates a url of the written message converted to a picture
     var imgURL = this.openImgSrc(this.state.openMessage);
@@ -86,6 +89,7 @@ class Userpage extends Component {
 
     const web3 = new Web3(window.ethereum); // Create a new instance of web3 with the embedded metamask provider
     var cosmoNuts = new web3.eth.Contract(CosmoNuts, this.props.cosmoNutsAddress);
+    console.log("cosmonuts", cosmoNuts);
 
     var ownedNuts = []; // Builds an array to be used for dropdown items
 
