@@ -44,7 +44,8 @@ class Userpage extends Component {
       finalImgSrc: nut.image,
       finalImgSig: '',
       imgVerification: '',
-      ddPlaceholder: 'No known nuts'
+      ddPlaceholder: 'No known nuts',
+      metadataCID: ''
     };
 
     this.ddPlaceholderSet = this.ddPlaceholderSet.bind(this);
@@ -278,11 +279,8 @@ class Userpage extends Component {
     var nutImg = document.getElementById('nutImg'); // Grab main original image element
     var finalImg = document.getElementById('finalImg'); // Grab the final image element
 
-    console.log("Before Embedding Image Function in userPage - generateImage");
     var finalImgURI = await embedImage(nutImg, publicQRImg); // Creating the combined image
-    console.log("Final Image URI", finalImgURI);
     finalImg.setAttribute('src', finalImgURI);
-
     console.log("Final Image", finalImg);
     // Need to consider where to put this
     this.setState({ finalImgSrc: finalImgURI }); // Creates a working image element
@@ -308,7 +306,7 @@ class Userpage extends Component {
     var newNutMetadata_cid = await Hash.of(JSON.stringify(newNutMeta.data));
     console.log("New Nut Metadata CID path", newNutMetadata_cid);
 
-    /*/// Blocking this part out for now
+    /*/// Start blocking from here when needed
     const ipfs = await IPFS.create(); // Initialize IPFS
     var newNutMeta_str = JSON.stringify(newNutMeta.data); // This string is not formatted and does not look good when opened
     var newNut_cid = await ipfs.add(newNutMeta_str);
@@ -324,14 +322,15 @@ class Userpage extends Component {
           imgVerification: 'Verified'
         });
 
-        /*/// - Put block out code here if needed - TEMPORARY - WORKING SECTION - JUST NOT TO SAVE IPFS - SAVING TIME
+        //// - Put block out code here if needed - TEMPORARY - WORKING SECTION - JUST NOT TO SAVE IPFS - SAVING TIME
         if (verification.verification) { // a final check - checking if IPFS CID matches signed CID
 
-          addToIPFS(byteStringOpenMsgImg, byteStringPubQR, byteStringFinalImg).then((paths) => { // components/helpers/
+          addToIPFS(byteStringOpenMsgImg, byteStringPubQR, byteStringFinalImg, newNutMeta.data).then((paths) => { // components/helpers/
             this.setState({
               openMsgCid: paths.openImg_cid.path, // Image of the open message in bytes
               publicMsgCid: paths.qrImg_cid.path, // Image of the public QR code in bytes
-              finalImgCid: paths.finalImg_cid.path // Image of the consolidatedNFT in bytes
+              finalImgCid: paths.finalImg_cid.path, // Image of the consolidatedNFT in bytes
+              metadataCID: paths.nutMetadata_cid.path
             });
           });
 
@@ -340,7 +339,7 @@ class Userpage extends Component {
           //  console.log("Success!");
           //});
         }
-        */// Put block out code here to stop IPFS feature
+        /// Put block out code here to stop IPFS feature
       });
     });
 
