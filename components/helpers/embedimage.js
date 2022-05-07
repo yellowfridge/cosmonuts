@@ -3,6 +3,9 @@ export default async function embedImage(img, imgToEmbed) {
   console.log("Original Image:", img);
   console.log("Image to Embed:", imgToEmbed);
 
+  var embImgCordX = 50;
+  var embImgCordY = 50;
+
   var sWidth = img.width; // Width of original image
   var sHeight = img.height; // height of original image
 
@@ -34,7 +37,7 @@ export default async function embedImage(img, imgToEmbed) {
 
   var embedData = embedCtx.getImageData(0, 0, embedCanvas.width, embedCanvas.height);
   console.log("QR Image Data", embedData);
-  var origData = ctx.getImageData(50, 50, embedCanvas.width, embedCanvas.height);
+  var origData = ctx.getImageData(embImgCordX, embImgCordY, embedCanvas.width, embedCanvas.height);
   console.log("Nut Image Data", origData);
 
   //console.log("Delay 4: Reminder to get rid of.");
@@ -75,7 +78,7 @@ export default async function embedImage(img, imgToEmbed) {
     }
   }
 
-  ctx.putImageData(embedData, 50, 50);
+  ctx.putImageData(embedData, embImgCordX, embImgCordY);
 
   //console.log("Delay 5: Reminder to get rid of.");
   //await delay(1000);

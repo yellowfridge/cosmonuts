@@ -278,7 +278,6 @@ class Userpage extends Component {
     var nutImg = document.getElementById('nutImg'); // Grab main original image element
     var finalImg = document.getElementById('finalImg'); // Grab the final image element
 
-
     console.log("Before Embedding Image Function in userPage - generateImage");
     var finalImgURI = await embedImage(nutImg, publicQRImg); // Creating the combined image
     console.log("Final Image URI", finalImgURI);
