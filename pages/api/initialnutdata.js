@@ -32,6 +32,7 @@ export default async function getInitialNutData(req, res) {
   let maxNutPurchase = await cosmoNuts.methods.maxNutPurchase().call();
   let revealTimeStamp = await cosmoNuts.methods.REVEAL_TIMESTAMP().call();
   let totalSupply = await cosmoNuts.methods.totalSupply().call();
+  //let cosmosCID = await cosmoNuts.methods.COSMOS_METADATA().call(); // Not yet put on new contract
 
   // Won't work because serverProvider is not valid - what do you need from here???
   res.status(200).json({
@@ -41,6 +42,7 @@ export default async function getInitialNutData(req, res) {
     nutPrice: nutPrice,
     maxNutPurchase: maxNutPurchase,
     revealTimeStamp: revealTimeStamp
+    //cosmosCID: cosmosCID
   });
 
 }
