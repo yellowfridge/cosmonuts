@@ -263,9 +263,9 @@ class Userpage extends Component {
 
     var openMsgImg = document.getElementById('openMsgImg') // Grabs open message as image element
     var byteStringOpenMsgImg = Buffer.from(openMsgImg.src.split(',')[1], 'base64'); // Convert image to bytes for IPFS format
-    console.log("Open Msg Bytes", byteStringOpenMsgImg);
+    //console.log("Open Msg Bytes", byteStringOpenMsgImg);
     var openMsg_cid = await Hash.of(byteStringOpenMsgImg); // Open message CID path
-    console.log("Open Msg CID", openMsg_cid);
+    //console.log("Open Msg CID", openMsg_cid);
 
     var publicMsgQR = document.getElementById('publicMsgQR'); // Grab public QR message as SVG element
     var publicMsgUri = await svgAsPngUri(publicMsgQR); // Convert SVG to URI string, data:image/png;base64,...
@@ -274,14 +274,15 @@ class Userpage extends Component {
 
     var byteStringPubQR = Buffer.from(publicMsgUri.split(',')[1], 'base64'); // Converting URI to buffer data (needed to directly show image on IPFS)
     var publicQR_cid = await Hash.of(byteStringPubQR); // Public QR image CID path
-    console.log("Public QR CID", publicQR_cid);
+    //console.log("Public QR CID", publicQR_cid);
 
     var nutImg = document.getElementById('nutImg'); // Grab main original image element
     var finalImg = document.getElementById('finalImg'); // Grab the final image element
 
     var finalImgURI = await embedImage(nutImg, publicQRImg); // Creating the combined image
     finalImg.setAttribute('src', finalImgURI);
-    console.log("Final Image", finalImg);
+    //console.log("Final Image", finalImg);
+
     // Need to consider where to put this
     this.setState({ finalImgSrc: finalImgURI }); // Creates a working image element
 

@@ -4,6 +4,8 @@ import Header from './header';
 import { Router } from '../routes';
 import { useState, useEffect } from 'react';
 import detectEthereumProvider from '@metamask/detect-provider';
+import CosmoNuts from '../ethereum/build_manual/CosmoNuts_abi.json';
+import Web3 from 'web3';
 
 export default function Connect(props) {
 
@@ -12,6 +14,8 @@ export default function Connect(props) {
   const [userAddress, setUserAddress] = useState('');
   const [isConnected, setIsConnected] = useState(false);
   const [helperMessage, setHelperMessage] = useState('');
+  const [numNuts, setNumNuts] = useState(0);
+  const [hasNuts, setHasNuts] = useState(false);
 
   async function getInitialStates() {
     let address;
@@ -42,16 +46,36 @@ export default function Connect(props) {
     getInitialStates();
   }, []); // Putting the empty array makes it fire only once
 
+  const checkNuts = async (account) => {
+    console.log("Nut checking ...");
+    const web3 = new Web3(window.ethereum);
+    var cosmoNuts = new web3.eth.Contract(CosmoNuts, '0x66023f6da39cbffd7ad4f287ad4f8b44e0725167');
+
+
+    await cosmoNuts.methods.balanceOf(account).call().then((numNuts) => {
+      if (numNuts > 0) {
+        console.log("You've got nuts, son!");
+        setHasNuts(true);
+        setNumNuts(numNuts);
+      }
+
+    });
+  }
+
   const connectClicked = async () => {
     setLoad(true);
     try {
       // Will attempt to get accounts and prompt user if not available
-      await ethereum.request({ method: 'eth_requestAccounts' });
+      await ethereum.request({ method: 'eth_requestAccounts' }).then((accounts) => {
+        console.log("Connected Account", accounts[0]);
+        checkNuts(accounts[0]);
+
+      });
     } catch (err) {
       console.log(err);
     }
 
-    window.location.reload(true); // Documentation suggests a refresh
+    setLoad(false);
   }
 
   // Need to send over a new web3 and cosmonuts instance to userpage

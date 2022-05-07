@@ -1,7 +1,7 @@
 export default async function embedImage(img, imgToEmbed) {
   img.crossOrigin = 'Anonymous'; // This is because we are grabbing from somewhere else
-  console.log("Original Image:", img);
-  console.log("Image to Embed:", imgToEmbed);
+  //console.log("Original Image:", img);
+  //console.log("Image to Embed:", imgToEmbed);
 
   var embImgCordX = 50;
   var embImgCordY = 50;
@@ -36,9 +36,9 @@ export default async function embedImage(img, imgToEmbed) {
   //await delay(1000);
 
   var embedData = embedCtx.getImageData(0, 0, embedCanvas.width, embedCanvas.height);
-  console.log("QR Image Data", embedData);
+  //console.log("QR Image Data", embedData);
   var origData = ctx.getImageData(embImgCordX, embImgCordY, embedCanvas.width, embedCanvas.height);
-  console.log("Nut Image Data", origData);
+  //console.log("Nut Image Data", origData);
 
   //console.log("Delay 4: Reminder to get rid of.");
   //await delay(1000);
