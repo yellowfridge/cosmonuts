@@ -66,7 +66,7 @@ class Main extends Component {
     return {
       cosmoCID: cosmoCID,
       cosmosMetaPath: cosmoMetaPath,
-      cosmoCID: cosmos.cosmonuts.ipnsCID,
+      //cosmoCID: cosmos.cosmonuts.ipnsCID,
       cosmoContractAddress: cosmos.cosmonuts.contract_address,
       cosmoOwnerAddress: cosmos.cosmonuts.owner_address,
       cosmoNuts: cosmos.nuts,
