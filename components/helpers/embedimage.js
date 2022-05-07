@@ -3,42 +3,42 @@ export default async function embedImage(img, imgToEmbed) {
   console.log("Original Image:", img);
   console.log("Image to Embed:", imgToEmbed);
 
-  var sWidth = img.width;
-  var sHeight = img.height;
+  var sWidth = img.width; // Width of original image
+  var sHeight = img.height; // height of original image
 
   var canvas = document.createElement('canvas');
   var ctx = canvas.getContext('2d');
-  canvas.width = sWidth;
-  canvas.height = sHeight;
+  canvas.width = sWidth; // Set equal to original image width
+  canvas.height = sHeight; // Set equal to original image height
 
   // Instead of waiting like this, it needs to be changed to onload function of the images
   // error is that images are not loading in time for the drawimage to work
   const delay = ms => new Promise(resolve => setTimeout(resolve, ms))
   console.log("Delay 1: Reminder to get rid of.");
-  await delay(10000);
+  await delay(1000);
 
-  ctx.drawImage(img, 0, 0);
+  ctx.drawImage(img, 0, 0);  // Draw the original image to the canvas
 
   var embedCanvas = document.createElement('canvas');
   var embedCtx = embedCanvas.getContext('2d');
   embedCanvas.width = imgToEmbed.width;
   embedCanvas.height = imgToEmbed.height;
 
-  console.log("Delay 2: Reminder to get rid of.");
-  await delay(10000);
+  //console.log("Delay 2: Reminder to get rid of.");
+  //await delay(1000);
 
   embedCtx.drawImage(imgToEmbed, 0, 0);
 
-  console.log("Delay 3: Reminder to get rid of.");
-  await delay(10000);
+  //console.log("Delay 3: Reminder to get rid of.");
+  //await delay(1000);
 
   var embedData = embedCtx.getImageData(0, 0, embedCanvas.width, embedCanvas.height);
-  //console.log("QR Image Data", embedData);
-  var origData = ctx.getImageData(0, 0, embedCanvas.width, embedCanvas.height);
-  //console.log("Nut Image Data", origData);
+  console.log("QR Image Data", embedData);
+  var origData = ctx.getImageData(50, 50, embedCanvas.width, embedCanvas.height);
+  console.log("Nut Image Data", origData);
 
-  console.log("Delay 4: Reminder to get rid of.");
-  await delay(10000);
+  //console.log("Delay 4: Reminder to get rid of.");
+  //await delay(1000);
 
   var blackCount = 0;
   var whiteCount = 0;
@@ -74,10 +74,11 @@ export default async function embedImage(img, imgToEmbed) {
       embedData.data[idx + 2] = fixedPixel[2];
     }
   }
-  ctx.putImageData(embedData, 0, 0);
 
-  console.log("Delay 5: Reminder to get rid of.");
-  await delay(10000);
+  ctx.putImageData(embedData, 50, 50);
+
+  //console.log("Delay 5: Reminder to get rid of.");
+  //await delay(1000);
 
   return canvas.toDataURL()
 }

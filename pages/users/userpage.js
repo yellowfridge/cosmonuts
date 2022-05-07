@@ -57,6 +57,7 @@ class Userpage extends Component {
     this.openImgSrc = this.openImgSrc.bind(this);
     this.getBytes32FromIPFSHash = this.getBytes32FromIPFSHash.bind(this);
     this.add_0x = this.add_0x.bind(this);
+    this.buildFinalImg = this.buildFinalImg.bind(this);
 
   }
 
@@ -185,8 +186,8 @@ class Userpage extends Component {
   openImgSrc(msg) {
     var openMsgCanvas = document.createElement('canvas');
     var openMsgCtx = openMsgCanvas.getContext('2d');
-    openMsgCanvas.width = '256';
-    openMsgCanvas.height = '256';
+    openMsgCanvas.width = '230'; // Likely should not hardcode these
+    openMsgCanvas.height = '230'; // Likely should not hardcode these
 
     openMsgCtx.fillText(msg, 10, 10);
 
@@ -240,6 +241,22 @@ class Userpage extends Component {
     return "0x" + hex;
   }
 
+  buildFinalImg(src, width, height) {
+    var image = new Image();
+    image.setAttribute('src', src);
+
+    var canvas = document.createElement('canvas');
+    var ctx = canvas.getContext('2d');
+    canvas.width = width;
+    canvas.height = height;
+
+    image.onload = function() {
+      ctx.drawImage(image, 0, 0);
+    }
+
+    return image;
+  }
+
   async generateImage() {
     const Hash = require('ipfs-only-hash'); // Used to cread CID paths that are equivalent to those created by IPFS
 
@@ -259,11 +276,20 @@ class Userpage extends Component {
     console.log("Public QR CID", publicQR_cid);
 
     var nutImg = document.getElementById('nutImg'); // Grab main original image element
-    var finalImgURL = await embedImage(nutImg, publicQRImg); // Creating the combined image
-    this.setState({ finalImgSrc: finalImgURL }); // Creates a working image element
+    var finalImg = document.getElementById('finalImg'); // Grab the final image element
+
+
+    console.log("Before Embedding Image Function in userPage - generateImage");
+    var finalImgURI = await embedImage(nutImg, publicQRImg); // Creating the combined image
+    console.log("Final Image URI", finalImgURI);
+    finalImg.setAttribute('src', finalImgURI);
+
+    console.log("Final Image", finalImg);
+    // Need to consider where to put this
+    this.setState({ finalImgSrc: finalImgURI }); // Creates a working image element
 
     // This is the format to be uploaded to IPFS to display image on load of IPFS URL
-    var byteStringFinalImg = Buffer.from(finalImgURL.split(',')[1], 'base64');
+    var byteStringFinalImg = Buffer.from(finalImgURI.split(',')[1], 'base64');
     //console.log("Bytes Final Img IPFS", byteStringFinalImg);
     const finalImg_cid = await Hash.of(byteStringFinalImg); // Final image CID path
     console.log("Final Img CID", finalImg_cid, typeof finalImg_cid);
@@ -443,7 +469,7 @@ class Userpage extends Component {
                 </Grid.Column>
 
                 <Grid.Column>
-                  <img id='openMsgImg' src={this.state.openMsgSrc} width="256" height="256" />
+                  <img id='openMsgImg' src={this.state.openMsgSrc} />
                 </Grid.Column>
               </Grid>
             </div>
@@ -478,7 +504,7 @@ class Userpage extends Component {
 
                 <Grid.Column>
                   <QRCode id='publicMsgQR' value={this.state.publicMessage} />
-                  <img id='publicQRImg'src={this.state.publicMsgSrc} width='256' height='256' hidden />
+                  <img id='publicQRImg'src={this.state.publicMsgSrc} />
                 </Grid.Column>
               </Grid>
 
