@@ -25,7 +25,7 @@ class Main extends Component {
   constructor(props) {
     super(props);
     console.log("IN: Main Component of Index");
-    //console.log("Testing Variable -- isActive cosmonuts", this.props.isActive);
+    console.log("Testing Variable -- cosmosMetaPath", this.props.cosmosMetaPath);
 
     const isSaleActive = () => {
       if (this.props.isActive) {
@@ -50,7 +50,7 @@ class Main extends Component {
 
   static async getInitialProps(props) {
     console.log("IN: Initial Props of Index");
-    const baseURL = "https//ipfs/ipns/";
+    const baseURL = "https://ipfs.io/ipns/";
 
     getInitialNutData().then((nutData) => {
       return nutData;

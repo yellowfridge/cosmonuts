@@ -49,9 +49,11 @@ export default function Connect(props) {
   const checkNuts = async (account) => {
     console.log("Nut checking ...");
     const web3 = new Web3(window.ethereum);
-    var cosmoNuts = new web3.eth.Contract(CosmoNuts, process.env.COSMONUTS_ADDRESS);
+    // THIS ADDRESS NEEDS TO BE BECOME DYNAMIC
+    var cosmoNuts = new web3.eth.Contract(CosmoNuts, '0xb97C6312F412b58cCfac2c0E63609df0c2599CAa');
 
-
+    // *** ERROR *** THIS DOESNT WORK -- THERE IS NO ADDRESS FROM ABOVE
+    // if using process.env.COSMONUTS_ADDRESS
     await cosmoNuts.methods.balanceOf(account).call().then((numNuts) => {
       if (numNuts > 0) {
         console.log("You've got nuts, son!");
