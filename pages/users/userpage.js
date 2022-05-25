@@ -125,7 +125,7 @@ class Userpage extends Component {
               var nut_cid = this.props.nutsCID[nutId].ipnsCID;
               var nutURL = (this.props.baseURL + this.props.storageKey + "/" + nut_cid);
               var nutInfo = await getJSONData(nutURL).catch((error) => {
-                console.log("Could not retrieve data on nut id:", nutId);
+                console.log("Could nut retrieve data on nut id:", nutId);
               });
               console.log("Nut Info", nutInfo);
 

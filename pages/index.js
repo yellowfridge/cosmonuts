@@ -17,6 +17,7 @@ import nut from '../metadata/nut0.json';
 //import provider from '../ethereum/provider';
 import cosmos from '../metadata/cosmonuts.json';
 import { getInitialNutData } from '../components/helpers/apiRequests';
+import getJSONData from '../components/helpers/getjsondata';
 
 // Latest deployed CosmoNuts address: 0xb97C6312F412b58cCfac2c0E63609df0c2599CAa
 // Deployed on Ropsten(3) network
@@ -25,7 +26,7 @@ class Main extends Component {
   constructor(props) {
     super(props);
     console.log("IN: Main Component of Index");
-    console.log("Testing Variable -- cosmosMetaPath", this.props.cosmosMetaPath);
+    console.log("Testing Variable -- cosmosMetaPath", this.props.cosmoNuts[0].ipnsCID);
 
     const isSaleActive = () => {
       if (this.props.isActive) {
@@ -42,6 +43,7 @@ class Main extends Component {
       totalSupply: 'Not Known',
       backgroundSource: null,
       selectedNut: '0',
+      nut0Img: '',
       embeddedImgSrc: nut.embedded_image
     };
 
@@ -84,7 +86,29 @@ class Main extends Component {
     //var starfield = <Starfield />;
     //console.log("Starfield", starfield);
     //document.body.style.backgroundSize = 'cover';
-    //console.log("web3", this.props.web3);
+    console.log("Testing Component Did Mount", this.state.nut0Img);
+
+    const getFirstNutData = async () => {
+      const baseURL = "https://ipfs.io/ipns/";
+      var nut0CID = this.props.cosmoNuts[0].ipnsCID;
+      var nut0URL = baseURL + nut0CID;
+      var nut0Data = await getJSONData(nut0URL).catch((error) => {
+        console.log("Could nut retrive data on first nut.");
+      });
+      console.log("Nut 0 Data inside function", nut0Data);
+      return nut0Data;
+    }
+
+    const getNut0URL = async () => {
+      var nut0Data = await getFirstNutData();
+      var nut0Img = nut0Data.image;
+      console.log("Nut 0 img", nut0Img);
+      return nut0Img;
+    }
+
+    getNut0URL().then((img) => {
+      this.setState({ nut0Img: img });
+    });
 
     (() => {
       if (ethereum.selectedAddress === null) {
@@ -237,7 +261,7 @@ class Main extends Component {
 
             <Grid columns={2}>
               <Grid.Column>
-                <img id='nutImg' src='https://ipfs.io/ipfs/QmPChG9e5hguv2pYffPPYfAjpdgVR5M2h68anbXi3afGtV' width='631' height='631' />
+                <img id='nutImg' src={this.state.nut0Img} width='631' height='631' />
               </Grid.Column>
 
               <Grid.Column>
