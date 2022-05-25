@@ -44,7 +44,7 @@ class Main extends Component {
       backgroundSource: null,
       selectedNut: '0',
       nut0Img: '',
-      embeddedImgSrc: nut.embedded_image
+      embeddedImgSrc: ''
     };
 
     this.interpretImage = this.interpretImage.bind(this);
@@ -106,8 +106,19 @@ class Main extends Component {
       return nut0Img;
     }
 
+    const getNut0EmbedImg = async () => {
+      var nut0Data = await getFirstNutData();
+      var nut0EmbedImg = nut0Data.embedded_image;
+      console.log("Nut 0 Embedded Img", nut0EmbedImg);
+      return nut0EmbedImg;
+    }
+
     getNut0URL().then((img) => {
       this.setState({ nut0Img: img });
+    });
+
+    getNut0EmbedImg().then((embedImg) => {
+      this.setState({ embeddedImgSrc: embedImg });
     });
 
     (() => {
