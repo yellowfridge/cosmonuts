@@ -26,7 +26,7 @@ class Main extends Component {
   constructor(props) {
     super(props);
     console.log("IN: Main Component of Index");
-    console.log("Testing Variable -- cosmosMetaPath", this.props.cosmoNuts[0].ipnsCID);
+    //console.log("Testing Variable -- cosmosMetaPath", this.props.cosmoNuts[0].ipnsCID);
 
     const isSaleActive = () => {
       if (this.props.isActive) {
@@ -86,7 +86,7 @@ class Main extends Component {
     //var starfield = <Starfield />;
     //console.log("Starfield", starfield);
     //document.body.style.backgroundSize = 'cover';
-    console.log("Testing Component Did Mount", this.state.nut0Img);
+    //console.log("Testing Component Did Mount", this.state.nut0Img);
 
     const getFirstNutData = async () => {
       const baseURL = "https://ipfs.io/ipns/";
@@ -95,21 +95,21 @@ class Main extends Component {
       var nut0Data = await getJSONData(nut0URL).catch((error) => {
         console.log("Could nut retrive data on first nut.");
       });
-      console.log("Nut 0 Data inside function", nut0Data);
+      //console.log("Nut 0 Data inside function", nut0Data);
       return nut0Data;
     }
 
     const getNut0URL = async () => {
       var nut0Data = await getFirstNutData();
       var nut0Img = nut0Data.image;
-      console.log("Nut 0 img", nut0Img);
+      //console.log("Nut 0 img", nut0Img);
       return nut0Img;
     }
 
     const getNut0EmbedImg = async () => {
       var nut0Data = await getFirstNutData();
       var nut0EmbedImg = nut0Data.embedded_image;
-      console.log("Nut 0 Embedded Img", nut0EmbedImg);
+      //console.log("Nut 0 Embedded Img", nut0EmbedImg);
       return nut0EmbedImg;
     }
 
