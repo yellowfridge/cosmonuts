@@ -23,11 +23,29 @@ const addToIPFS = async (openImg, qrImg, finalImg, nutMetadata) => {
   console.log("Publishing to IPNS...");
   var nutPath = '/ipfs/' + nutMetadata_cid.path;
   console.log("Path", nutPath);
-  ipfs.name.publish(nutPath, {
-    key: 'nut0' // It does not recognize this
-  });
+  //ipfs.name.publish(nutPath, {
+  //  key: 'nut0' // It does not recognize this
+  //});
 
   return { openImg_cid, qrImg_cid, finalImg_cid, nutMetadata_cid }
 }
 
-export default addToIPFS
+// HOW DO WE GET RID OF ANY LOCKED FILES ????
+export default async function getIPFSPaths(req, res) {
+  const ipfsPrivateKey = process.env.IPFS_PRIVATE_KEY;
+
+  const openImg = req.body.openImg;
+  const pubQR = req.body.pubQR;
+  const finalImg = req.body.finalImg;
+  const newNutMeta = req.body.newNutMeta;
+
+  const nutMetadata = addToIPFS(openImg, pubQR, finalImg, newNutMeta).then((paths) => {
+    console.log("Paths Add to IPFS - new Nut Meta: ", paths.newNutMeta);
+    return paths.newNutMeta;
+  });
+
+  res.status(200).json({ nutMetaCID: nutMetadata });
+}
+
+// This is old code below - to be deleted after
+//export default addToIPFS

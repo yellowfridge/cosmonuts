@@ -11,8 +11,8 @@ import * as IPFS from 'ipfs-core';
 import nut from '../../metadata/nut0.json';
 import Web3 from 'web3';
 import CosmoNuts from '../../ethereum/build_manual/CosmoNuts_abi.json';
-import { getSecret, getVerification, getMetadataJSON } from '../../components/helpers/apiRequests';
-import addToIPFS from '../../components/helpers/addtoIPFS';
+import { getSecret, getVerification, getMetadataJSON, getIPFSPaths } from '../../components/helpers/apiRequests';
+//import addToIPFS from '../../components/helpers/addtoIPFS';
 import bs58 from 'bs58';
 import EthCrypto from 'eth-crypto';
 import getJSONData from '../../components/helpers/getjsondata';
@@ -331,6 +331,13 @@ class Userpage extends Component {
         //// - Put block out code here if needed - TEMPORARY - WORKING SECTION - JUST NOT TO SAVE IPFS - SAVING TIME
         if (verification.verification) { // a final check - checking if IPFS CID matches signed CID
 
+          // NEW CODE HERE THAT WILL BE AN API REQUEST FOR THIS
+          getIPFSPaths(byteStringOpenMsgImg, byteStringPubQR, byteStringFinalImg, newNutMeta.data).then((res) => {
+            console.log("IPFS Paths - Res", res);
+          })
+
+          // OLD CODE BELOW THAT WE ARE REVISING - BLOCKED OUT FOR NOW AND TO BE DELETED AFTER --
+          /*
           addToIPFS(byteStringOpenMsgImg, byteStringPubQR, byteStringFinalImg, newNutMeta.data).then((paths) => { // components/helpers/
             this.setState({
               openMsgCid: paths.openImg_cid.path, // Image of the open message in bytes
@@ -339,6 +346,8 @@ class Userpage extends Component {
               metadataCID: paths.nutMetadata_cid.path
             });
           });
+          */
+          // END OF BLOCKED OUT OLD CODE
 
           // Change token location on the selected nut, siganture is private key signed with final image CID
           //changeTokenURI(this.state.selectedNut, this.state.finalImgCid, this.state.finalImgSig).then((receipt) => {

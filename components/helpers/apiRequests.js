@@ -63,4 +63,20 @@ const getMetadataJSON = async (oldNut, openMsg, openMsgCID, qrMsg, qrMsgCID, fin
   return metadata;
 }
 
-export { getSecret, getVerification, getInitialNutData, getMetadataJSON }
+const getIPFSPaths = async (openImg, pubQR, finalImg, newNutMeta) => {
+  const res = await fetch('/api/addtoIPFS', {
+    method: 'post',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      openImg: openImg,
+      pubQR: pubQR,
+      finalImg: finalImg,
+      newNutMeta: newNutMeta
+    })
+  });
+}
+
+export { getSecret, getVerification, getInitialNutData, getMetadataJSON, getIPFSPaths }
