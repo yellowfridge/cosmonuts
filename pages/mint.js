@@ -43,7 +43,7 @@ export default function Mint(props) {
     web3 = new Web3(provider);
     var cosmonuts = new web3.eth.Contract(
       CosmoNuts,
-      process.env.COSMONUTS_ADDRESS
+      '0xb97C6312F412b58cCfac2c0E63609df0c2599CAa' // Need to set this in one place
     );
 
     const isSaleActive = await cosmonuts.methods.saleIsActive().call();

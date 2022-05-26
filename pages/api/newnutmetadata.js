@@ -4,7 +4,7 @@ var fs = require('fs');
 export default function getMetadataJSON(req, res) {
   console.log("In Generating Nut Meta Data");
 
-  let baseURL = "https://ipfs.io/ipfs";
+  let baseURL = "https://ipfs.io/ipfs/";
 
   //console.log("First Request", req.body.oldNut);
   //let transNutData = JSON.parse(req.body.oldNut);

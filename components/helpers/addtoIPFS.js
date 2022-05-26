@@ -17,6 +17,16 @@ const addToIPFS = async (openImg, qrImg, finalImg, nutMetadata) => {
   const nutMetadata_cid = await ipfs.add(metadata_str);
   console.log("Nut Metadata CID:", nutMetadata_cid);
 
+  // Publishing to IPNS
+  // Need to identify which nut is being changed
+  // for now set at Nut0
+  console.log("Publishing to IPNS...");
+  var nutPath = '/ipfs/' + nutMetadata_cid.path;
+  console.log("Path", nutPath);
+  ipfs.name.publish(nutPath, {
+    key: 'nut0' // It does not recognize this
+  });
+
   return { openImg_cid, qrImg_cid, finalImg_cid, nutMetadata_cid }
 }
 

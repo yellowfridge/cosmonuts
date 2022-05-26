@@ -67,19 +67,19 @@ class Userpage extends Component {
 
     const { address } = props.query; // Grabbing the address in the URL (user account)
 
-    const cosmoNutsAddress = process.env.COSMONUTS_ADDRESS;
-    console.log("Cosmo Nuts Address", cosmoNutsAddress, typeof cosmoNutsAddress);
+    //const cosmoNutsAddress = process.env.COSMONUTS_ADDRESS;
+    //console.log("Cosmo Nuts Address", cosmoNutsAddress, typeof cosmoNutsAddress);
 
     const baseURL = cosmos.cosmonuts.baseURL; // https://ipfs.io/
     const storageKey = cosmos.cosmonuts.storage_key; // ipns
     const nutsCID = cosmos.nuts; // Contains JSON array data of ipnsCIDs of each nut
 
 
-    return { address, cosmoNutsAddress, baseURL, storageKey, nutsCID };
+    return { address, baseURL, storageKey, nutsCID };
   }
 
   componentDidMount(props) {
-    console.log("Props test in component did mount", this.props.cosmoNutsAddress);
+    console.log("Props test in component did mount", '0xb97C6312F412b58cCfac2c0E63609df0c2599CAa');
 
     //Creates a url of the written message converted to a picture
     var imgURL = this.openImgSrc(this.state.openMessage);
@@ -88,7 +88,7 @@ class Userpage extends Component {
     });
 
     const web3 = new Web3(window.ethereum); // Create a new instance of web3 with the embedded metamask provider
-    var cosmoNuts = new web3.eth.Contract(CosmoNuts, this.props.cosmoNutsAddress);
+    var cosmoNuts = new web3.eth.Contract(CosmoNuts, '0xb97C6312F412b58cCfac2c0E63609df0c2599CAa');
     console.log("cosmonuts", cosmoNuts);
 
     var ownedNuts = []; // Builds an array to be used for dropdown items
@@ -210,7 +210,7 @@ class Userpage extends Component {
 
   handleDropdownChange(event) {
     this.setState({
-      selectedNut: event.target.innerText // Fro dropdowns, it is under innerText (as opposed to .value)
+      selectedNut: event.target.innerText // For dropdowns, it is under innerText (as opposed to .value)
     });
   }
 
@@ -349,9 +349,10 @@ class Userpage extends Component {
       });
     });
 
+    // BELOW NEEDS TO BE UPDATED WITH NEW SOLIDITY CODE
     const changeTokenURI = async (selectedNut, newTokenURI) => {
       const web3 = new Web3(window.ethereum);
-      const cosmoNuts = new web3.eth.Contract(CosmoNuts, this.props.cosmoNutsAddress);
+      const cosmoNuts = new web3.eth.Contract(CosmoNuts, '0xb97C6312F412b58cCfac2c0E63609df0c2599CAa');
       await cosmoNuts.methods.jumpUniverse(selectedNut, newTokenURI).send({
         from: this.props.address
       }).on('transactionHash', (transactionHash) => {
