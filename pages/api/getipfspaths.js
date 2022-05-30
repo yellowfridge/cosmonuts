@@ -3,6 +3,8 @@ import * as IPFS from 'ipfs-core';
 const addToIPFS = async (openImg, qrImg, finalImg, nutMetadata) => {
   console.log("Adding files to IPFS...");
   const ipfsPrivateKey = process.env.IPFS_PRIVATE_KEY;
+
+  // Need to figure out IPFS issue
   const ipfs = await IPFS.create();
   //const ipfs = await IPFS.create({
   //  privateKey: ipfsPrivateKey
