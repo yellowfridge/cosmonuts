@@ -55,6 +55,7 @@ class Main extends Component {
     const baseURL = "https://ipfs.io/ipns/";
 
     getInitialNutData().then((nutData) => {
+      console.log("Nut Data - getInitialNutData:", nutData);
       return nutData;
     }).catch((err) => {
       new Error('Error in getting nuts ...', err);

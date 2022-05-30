@@ -6,7 +6,8 @@ export default async function getInitialNutData(req, res) {
   console.log("Get initial nut data");
   const privateKey = process.env.PRIVATE_KEY;
   const infuraKey = process.env.INFURA_MNEMONIC;
-  const contractAddress = process.env.COSMONUTS_ADDRESS;
+  // BELOW NEEDS TO BE DYNAMIC - EVERYWHERE
+  const contractAddress = '0xb97C6312F412b58cCfac2c0E63609df0c2599CAa';
 
   const infuraID = "https://ropsten.infura.io/v3/74359b5dcb78433cbf58438ae3625b64"
 

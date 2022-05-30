@@ -32,7 +32,7 @@ const getVerification = async (hash, signedHash) => {
 const getInitialNutData = async () => {
   // Need to create a dynamic server (possible with $ syntax)
   // This is the only one that has this issue (maybe client-server connection issue)
-  const res = await fetch ('http://localhost:3000/api/initialnutdata', {
+  const res = await fetch ('http://localhost:3000/api/getinitialnutdata', {
     method: 'post',
     headers: {
       'Accept': 'application/json',
@@ -64,7 +64,7 @@ const getMetadataJSON = async (oldNut, openMsg, openMsgCID, qrMsg, qrMsgCID, fin
 }
 
 const getIPFSPaths = async (openImg, pubQR, finalImg, newNutMeta) => {
-  const res = await fetch('/api/addtoIPFS', {
+  const res = await fetch('/api/getipfspaths', {
     method: 'post',
     headers: {
       'Accept': 'application/json',
@@ -77,6 +77,8 @@ const getIPFSPaths = async (openImg, pubQR, finalImg, newNutMeta) => {
       newNutMeta: newNutMeta
     })
   });
+  const nut_cids = await res.json();
+  return nut_cids;
 }
 
 export { getSecret, getVerification, getInitialNutData, getMetadataJSON, getIPFSPaths }

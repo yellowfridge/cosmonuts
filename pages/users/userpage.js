@@ -49,6 +49,7 @@ class Userpage extends Component {
     };
 
     this.ddPlaceholderSet = this.ddPlaceholderSet.bind(this);
+    this.firstNutSet = this.firstNutSet.bind(this);
     this.handleOpenMessage = this.handleOpenMessage.bind(this);
     this.handlePublicMessage = this.handlePublicMessage.bind(this);
     this.handleGroupMessage = this.handleGroupMessage.bind(this);
@@ -79,7 +80,7 @@ class Userpage extends Component {
   }
 
   componentDidMount(props) {
-    console.log("Props test in component did mount", '0xb97C6312F412b58cCfac2c0E63609df0c2599CAa');
+    console.log("Props test in component did mount", 'Nothing Right Now');
 
     //Creates a url of the written message converted to a picture
     var imgURL = this.openImgSrc(this.state.openMessage);
@@ -89,7 +90,6 @@ class Userpage extends Component {
 
     const web3 = new Web3(window.ethereum); // Create a new instance of web3 with the embedded metamask provider
     var cosmoNuts = new web3.eth.Contract(CosmoNuts, '0xb97C6312F412b58cCfac2c0E63609df0c2599CAa');
-    console.log("cosmonuts", cosmoNuts);
 
     var ownedNuts = []; // Builds an array to be used for dropdown items
 
@@ -114,7 +114,7 @@ class Userpage extends Component {
       await cosmoNuts.methods.balanceOf(this.props.address).call().then((numOfNuts) => {
         this.setState({
           nutsHeld: numOfNuts,
-          ddPlaceholder: 'Loading Nuts'
+          ddPlaceholder: 'Loading nuts . . .'
         });
         // Go through each one and grab the relevant information
         for (let n = 0; n < numOfNuts; n++) {
@@ -149,11 +149,12 @@ class Userpage extends Component {
               (async () => {
                 await findFirst(n, nut).then((nut1) => {
                   if (nut1 !== 'Nut first') {
-                    this.setState({
-                      selectedNut: nut1,
-                      finalImgSrc: nutImgURL,
-                      selectedNutInfo: JSON.stringify(nutInfo)
-                    }); // this could be an issue
+                    this.firstNutSet(nut1, nutImgURL, nutInfo); // this could be an issue
+                    //this.setState({
+                    //  selectedNut: nut1,
+                    //  finalImgSrc: nutImgURL,
+                    //  selectedNutInfo: JSON.stringify(nutInfo)
+                    //});
 
                     this.ddPlaceholderSet(nut1);
                   }
@@ -200,6 +201,14 @@ class Userpage extends Component {
     var imgURL = openMsgCanvas.toDataURL();
 
     return imgURL;
+  }
+
+  firstNutSet(nut1, nut1ImgURL, nut1Info) {
+    this.setState({
+      selectedNut: nut1,
+      finalImgSrc: nut1ImgURL,
+      selectedNutInfo: JSON.stringify(nut1Info)
+    });
   }
 
   ddPlaceholderSet(firstNut) {
@@ -332,9 +341,30 @@ class Userpage extends Component {
         if (verification.verification) { // a final check - checking if IPFS CID matches signed CID
 
           // NEW CODE HERE THAT WILL BE AN API REQUEST FOR THIS
-          getIPFSPaths(byteStringOpenMsgImg, byteStringPubQR, byteStringFinalImg, newNutMeta.data).then((res) => {
-            console.log("IPFS Paths - Res", res);
-          })
+          /*
+          const getNutCID = async () => {
+            var nutMeta_cid = await getIPFSPaths(byteStringOpenMsgImg, byteStringPubQR, byteStringFinalImg, newNutMeta.data);
+            console.log("Nut meta CID in get nut", nutMeta_cid);
+            return nutMeta_cid;
+          }
+
+          var nutMeta_cid = getNutCID().then((res) => {
+            console.log("Nut Meta Res", res);
+            return res;
+          });
+          */
+
+          getIPFSPaths(byteStringOpenMsgImg, byteStringPubQR, byteStringFinalImg, newNutMeta.data).then((nut_cids) => {
+            console.log("Nut Open Img CID", nut_cids.openImg);
+            console.log("Nut Res Cid", nut_cids.nutMeta);
+            //return cids;
+            this.setState({
+              openMsgCid: nut_cids.openImg,
+              publicMsgCid: nut_cids.qrImg,
+              finalImgCid: nut_cids.finalImg,
+              metadataCID: nut_cids.nutMeta
+            });
+          });
 
           // OLD CODE BELOW THAT WE ARE REVISING - BLOCKED OUT FOR NOW AND TO BE DELETED AFTER --
           /*
@@ -611,7 +641,7 @@ class Userpage extends Component {
             marginRight: '10%'
           }}>
 
-            <p>Testing: {this.state.selectedNut}</p>
+            <p>Testing: {this.state.metadataCID}</p>
             <Button
               content='***FALL DOWN THE HOLE***'
               onClick={this.generateImage}
