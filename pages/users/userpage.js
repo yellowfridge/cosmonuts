@@ -11,11 +11,11 @@ import * as IPFS from 'ipfs-core';
 import nut from '../../metadata/nut0.json';
 import Web3 from 'web3';
 import CosmoNuts from '../../ethereum/build_manual/CosmoNuts_abi.json';
-import { getSecret, getVerification, getMetadataJSON } from '../../components/helpers/apiRequests';
+import { getSecret, getVerification, getMetadataJSON, publishToIPNS } from '../../components/helpers/apiRequests';
 import bs58 from 'bs58';
 import EthCrypto from 'eth-crypto';
 import getJSONData from '../../components/helpers/getjsondata';
-import publishToIPNS from '../../components/helpers/publishtoipns';
+//import publishToIPNS from '../../components/helpers/publishtoipns';
 import cosmos from '../../metadata/cosmonuts.json';
 
 class Userpage extends Component {
@@ -364,6 +364,11 @@ class Userpage extends Component {
               publicMsgCid: cids.qrImg_cid.path,
               finalImgCid: cids.finalImg_cid.path,
               metadataCID: cids.nutMetadata_cid.path
+            });
+
+            publishToIPNS(cids.nutMetadata_cid.path).then((cid) => {
+              console.log("Nut Metadata IPNS", cid.nutIPNS);
+              // Need to do check to see if it matches, and if so, display success
             });
 
             // Sometimes changing locations

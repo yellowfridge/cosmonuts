@@ -63,4 +63,19 @@ const getMetadataJSON = async (oldNut, openMsg, openMsgCID, qrMsg, qrMsgCID, fin
   return metadata;
 }
 
-export { getSecret, getVerification, getInitialNutData, getMetadataJSON }
+const publishToIPNS = async (nutMeta_cid) => {
+  const res = await fetch('/api/publishtoipns', {
+    method: 'post',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      nutMeta_cid: nutMeta_cid
+    })
+  });
+  const nutIPNS = await res.json();
+  return nutIPNS;
+}
+
+export { getSecret, getVerification, getInitialNutData, getMetadataJSON, publishToIPNS }
