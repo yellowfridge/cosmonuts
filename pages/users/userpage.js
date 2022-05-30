@@ -369,6 +369,7 @@ class Userpage extends Component {
             });
           });
 
+
           /*
           getIPFSPaths(byteStringOpenMsgImg, byteStringPubQR, byteStringFinalImg, newNutMeta.data).then((nut_cids) => {
             console.log("Nut Metadata CID", nut_cids.nutMeta);
