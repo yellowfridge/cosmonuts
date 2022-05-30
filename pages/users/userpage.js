@@ -358,7 +358,6 @@ class Userpage extends Component {
 
           this.addToIPFS(byteStringOpenMsgImg, byteStringPubQR, byteStringFinalImg, newNutMeta.data).then((cids) => {
             console.log("CIDS", cids);
-            console.log("CIDS metadata", cids.nutMetadata_cid.path);
             this.setState({
               openMsgCid: cids.openImg_cid.path,
               publicMsgCid: cids.qrImg_cid.path,
