@@ -11,12 +11,13 @@ import * as IPFS from 'ipfs-core';
 import nut from '../../metadata/nut0.json';
 import Web3 from 'web3';
 import CosmoNuts from '../../ethereum/build_manual/CosmoNuts_abi.json';
-import { getSecret, getVerification, getMetadataJSON, getIPFSPaths } from '../../components/helpers/apiRequests';
+import { getSecret, getVerification, getMetadataJSON } from '../../components/helpers/apiRequests';
 //import addToIPFS from '../../components/helpers/addtoIPFS';
 import bs58 from 'bs58';
 import EthCrypto from 'eth-crypto';
 import getJSONData from '../../components/helpers/getjsondata';
 import publishToIPNS from '../../components/helpers/publishtoipns';
+//import addToIPFS from '../../components/helpers/addtoipfs';
 import cosmos from '../../metadata/cosmonuts.json';
 
 class Userpage extends Component {
@@ -51,6 +52,7 @@ class Userpage extends Component {
 
     this.ddPlaceholderSet = this.ddPlaceholderSet.bind(this);
     this.firstNutSet = this.firstNutSet.bind(this);
+    this.addToIPFS = this.addToIPFS.bind(this);
     this.handleOpenMessage = this.handleOpenMessage.bind(this);
     this.handlePublicMessage = this.handlePublicMessage.bind(this);
     this.handleGroupMessage = this.handleGroupMessage.bind(this);
@@ -204,6 +206,21 @@ class Userpage extends Component {
     return imgURL;
   }
 
+  async addToIPFS(openImg, qrImg, finalImg, nutMetadata) {
+    console.log("Adding to IPFS ...");
+
+    const ipfs = await IPFS.create();
+
+    const openImg_cid = await ipfs.add(openImg);
+    const qrImg_cid = await ipfs.add(qrImg);
+    const finalImg_cid = await ipfs.add(finalImg);
+
+    const metadata_str = JSON.stringify(nutMetadata);
+    const nutMetadata_cid = await ipfs.add(metadata_str);
+
+    return { openImg_cid, qrImg_cid, finalImg_cid, nutMetadata_cid }
+  }
+
   firstNutSet(nut1, nut1ImgURL, nut1Info) {
     this.setState({
       selectedNut: nut1,
@@ -341,6 +358,18 @@ class Userpage extends Component {
         //// - Put block out code here if needed - TEMPORARY - WORKING SECTION - JUST NOT TO SAVE IPFS - SAVING TIME
         if (verification.verification) { // a final check - checking if IPFS CID matches signed CID
 
+          this.addToIPFS(byteStringOpenMsgImg, byteStringPubQR, byteStringFinalImg, newNutMeta.data).then((cids) => {
+            console.log("CIDS", cids);
+            console.log("CIDS metadata", cids.nutMetadata_cid.path);
+            this.setState({
+              openMsgCid: cids.openImg_cid.path,
+              publicMsgCid: cids.qrImg_cid.path,
+              finalImgCid: cids.finalImg_cid.path,
+              metadataCID: cids.nutMetadata_cid.path
+            });
+          });
+
+          /*
           getIPFSPaths(byteStringOpenMsgImg, byteStringPubQR, byteStringFinalImg, newNutMeta.data).then((nut_cids) => {
             console.log("Nut Metadata CID", nut_cids.nutMeta);
             this.setState({
@@ -353,6 +382,7 @@ class Userpage extends Component {
             // Sometimes changing locations
             //window.location.reload(true); // The last item should be refreshing the page and loading from the top
           });
+          */
 
           // Change token location on the selected nut, siganture is private key signed with final image CID
           //changeTokenURI(this.state.selectedNut, this.state.finalImgCid, this.state.finalImgSig).then((receipt) => {

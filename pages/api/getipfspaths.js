@@ -1,16 +1,19 @@
 import * as IPFS from 'ipfs-core';
 import { create } from 'ipfs-http-client';
-import publishToIPNS from '../../components/helpers/publishtoipns';
+//import publishToIPNS from '../../components/helpers/publishtoipns';
 
 const addToIPFS = async (openImg, qrImg, finalImg, nutMetadata) => {
   console.log("Adding files to IPFS...");
 
+  let ipfs;
   try {
     // It will create an IPFS instance, if one does not exist already
-    var ipfs = await IPFS.create();
-  } catch {
+    ipfs = await IPFS.create();
+  } catch (error) {
+    console.log("IPFS Error", error);
     // If one exists, it will connect to intialized IPFS
-    var ipfs = create('http://127.0.0.1:5002');
+    // This is likely not right
+    //var ipfs = create('http://127.0.0.1:5002');
   }
 
   //const ipfs = await IPFS.create();
@@ -37,9 +40,9 @@ const addToIPFS = async (openImg, qrImg, finalImg, nutMetadata) => {
   // Publishing to IPNS
   // Need to identify which nut is being changed
   // for now set at Nut0
-  var nutPath = '/ipfs/' + nutMetadata_cid.path;
-  console.log("Path", nutPath);
-  publishToIPNS();
+  //var nutPath = '/ipfs/' + nutMetadata_cid.path;
+  //console.log("Path", nutPath);
+  //publishToIPNS();
 
   //ipfs.name.publish(nutPath, {
   //  key: 'nut0' // It does not recognize this
