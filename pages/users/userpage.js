@@ -15,7 +15,6 @@ import { getSecret, getVerification, getMetadataJSON, publishToIPNS } from '../.
 import bs58 from 'bs58';
 import EthCrypto from 'eth-crypto';
 import getJSONData from '../../components/helpers/getjsondata';
-//import publishToIPNS from '../../components/helpers/publishtoipns';
 import cosmos from '../../metadata/cosmonuts.json';
 
 class Userpage extends Component {
@@ -151,11 +150,6 @@ class Userpage extends Component {
                 await findFirst(n, nut).then((nut1) => {
                   if (nut1 !== 'Nut first') {
                     this.firstNutSet(nut1, nutImgURL, nutInfo); // this could be an issue
-                    //this.setState({
-                    //  selectedNut: nut1,
-                    //  finalImgSrc: nutImgURL,
-                    //  selectedNutInfo: JSON.stringify(nutInfo)
-                    //});
 
                     this.ddPlaceholderSet(nut1);
                   }
@@ -336,13 +330,6 @@ class Userpage extends Component {
 
     var newNutMetadata_cid = await Hash.of(JSON.stringify(newNutMeta.data));
     console.log("New Nut Metadata CID path", newNutMetadata_cid);
-
-    /*/// Start blocking from here when needed
-    const ipfs = await IPFS.create(); // Initialize IPFS
-    var newNutMeta_str = JSON.stringify(newNutMeta.data); // This string is not formatted and does not look good when opened
-    var newNut_cid = await ipfs.add(newNutMeta_str);
-    console.log("NewNut CID:", newNut_cid);
-    */ ///Block out end
 
     getSecret(finalImg_hash).then((secret) => {
       console.log("Signed Hash:", secret.signedImage);
