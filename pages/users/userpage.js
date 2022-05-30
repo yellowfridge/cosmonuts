@@ -149,7 +149,7 @@ class Userpage extends Component {
               (async () => {
                 await findFirst(n, nut).then((nut1) => {
                   if (nut1 !== 'Nut first') {
-                    this.firstNutSet(nut1, nutImgURL, nutInfo); // this could be an issue
+                    this.firstNutSet(nut1, nutImgURL, nutInfo, nut_cid); // this could be an issue
 
                     this.ddPlaceholderSet(nut1);
                   }
@@ -213,11 +213,12 @@ class Userpage extends Component {
     return { openImg_cid, qrImg_cid, finalImg_cid, nutMetadata_cid }
   }
 
-  firstNutSet(nut1, nut1ImgURL, nut1Info) {
+  firstNutSet(nut1, nut1ImgURL, nut1Info, nut_cid) {
     this.setState({
       selectedNut: nut1,
       finalImgSrc: nut1ImgURL,
-      selectedNutInfo: JSON.stringify(nut1Info)
+      selectedNutInfo: JSON.stringify(nut1Info),
+      selectedNutCID: nut_cid
     });
   }
 
@@ -228,6 +229,8 @@ class Userpage extends Component {
   }
 
   handleDropdownChange(event) {
+    // Need to put in selectedNutCID when someone selects another Nut
+    // To be added later and tested
     this.setState({
       selectedNut: event.target.innerText // For dropdowns, it is under innerText (as opposed to .value)
     });
@@ -353,11 +356,11 @@ class Userpage extends Component {
             });
 
             publishToIPNS(cids.nutMetadata_cid.path).then((cid) => {
-              console.log("Nut Metadata IPNS", cid.nutIPNS);
-              var nut_cid = this.props.nutsCID[0].ipnsCID;
+              //console.log("Nut Metadata IPNS", cid.nutIPNS);
+              //console.log("Set Nut Metadata IPNS", this.state.selectedNutCID);
 
-              if (nut_cid === cid.nutIPNS) {
-                console.log("Success!");
+              if (this.state.selectedNutCID === cid.nutIPNS) {
+                console.log("Successfully published to correct IPNS CID!");
               } else {
                 console.log("Error: Does not match recorded IPNS CID.");
               }
