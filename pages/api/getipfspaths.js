@@ -1,5 +1,6 @@
 import * as IPFS from 'ipfs-core';
 import { create } from 'ipfs-http-client';
+import publishToIPNS from '../../components/helpers/publishtoipns';
 
 const addToIPFS = async (openImg, qrImg, finalImg, nutMetadata) => {
   console.log("Adding files to IPFS...");
@@ -36,7 +37,7 @@ const addToIPFS = async (openImg, qrImg, finalImg, nutMetadata) => {
   // Publishing to IPNS
   // Need to identify which nut is being changed
   // for now set at Nut0
-  console.log("Publishing to IPNS...");
+  publishToIPNS();
   var nutPath = '/ipfs/' + nutMetadata_cid.path;
   console.log("Path", nutPath);
   //ipfs.name.publish(nutPath, {
