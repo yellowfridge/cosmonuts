@@ -354,16 +354,23 @@ class Userpage extends Component {
 
             publishToIPNS(cids.nutMetadata_cid.path).then((cid) => {
               console.log("Nut Metadata IPNS", cid.nutIPNS);
-              // Need to do check to see if it matches, and if so, display success
+              var nut_cid = this.props.nutsCID[0].ipnsCID;
+
+              if (nut_cid === cid.nutIPNS) {
+                console.log("Success!");
+              } else {
+                console.log("Error: Does not match recorded IPNS CID.");
+              }
+
             });
 
-            // Sometimes changing locations
-            //window.location.reload(true); // The last item should be refreshing the page and loading from the top
           });
 
           // Change token location on the selected nut, siganture is private key signed with final image CID
           //changeTokenURI(this.state.selectedNut, this.state.finalImgCid, this.state.finalImgSig).then((receipt) => {
           //  console.log("Success!");
+          // Sometimes changing locations
+          //  window.location.reload(true); // The last item should be refreshing the page and loading from the top
           //});
         }
         /// Put block out code here to stop IPFS feature
