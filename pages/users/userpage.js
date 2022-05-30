@@ -16,6 +16,7 @@ import { getSecret, getVerification, getMetadataJSON, getIPFSPaths } from '../..
 import bs58 from 'bs58';
 import EthCrypto from 'eth-crypto';
 import getJSONData from '../../components/helpers/getjsondata';
+import publishToIPNS from '../../components/helpers/publishtoipns';
 import cosmos from '../../metadata/cosmonuts.json';
 
 class Userpage extends Component {
@@ -348,6 +349,9 @@ class Userpage extends Component {
               finalImgCid: nut_cids.finalImg,
               metadataCID: nut_cids.nutMeta
             });
+
+            // Sometimes changing locations
+            //window.location.reload(true); // The last item should be refreshing the page and loading from the top
           });
 
           // Change token location on the selected nut, siganture is private key signed with final image CID
@@ -372,7 +376,6 @@ class Userpage extends Component {
       });
     }
 
-    //window.location.reload(true); // The last item should be refreshing the page and loading from the top
   }
 
   render() {

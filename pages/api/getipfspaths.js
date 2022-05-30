@@ -1,11 +1,18 @@
 import * as IPFS from 'ipfs-core';
+import { create } from 'ipfs-http-client';
 
 const addToIPFS = async (openImg, qrImg, finalImg, nutMetadata) => {
   console.log("Adding files to IPFS...");
-  const ipfsPrivateKey = process.env.IPFS_PRIVATE_KEY;
 
-  // Need to figure out IPFS issue
-  const ipfs = await IPFS.create();
+  try {
+    // It will create an IPFS instance, if one does not exist already
+    var ipfs = await IPFS.create();
+  } catch {
+    // If one exists, it will connect to intialized IPFS
+    var ipfs = create('http://127.0.0.1:5002');
+  }
+
+  //const ipfs = await IPFS.create();
   //const ipfs = await IPFS.create({
   //  privateKey: ipfsPrivateKey
   //}); // Initialize IPFS
