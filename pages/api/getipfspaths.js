@@ -37,9 +37,10 @@ const addToIPFS = async (openImg, qrImg, finalImg, nutMetadata) => {
   // Publishing to IPNS
   // Need to identify which nut is being changed
   // for now set at Nut0
-  publishToIPNS();
   var nutPath = '/ipfs/' + nutMetadata_cid.path;
   console.log("Path", nutPath);
+  publishToIPNS();
+
   //ipfs.name.publish(nutPath, {
   //  key: 'nut0' // It does not recognize this
   //});
