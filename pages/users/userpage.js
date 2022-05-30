@@ -340,24 +340,8 @@ class Userpage extends Component {
         //// - Put block out code here if needed - TEMPORARY - WORKING SECTION - JUST NOT TO SAVE IPFS - SAVING TIME
         if (verification.verification) { // a final check - checking if IPFS CID matches signed CID
 
-          // NEW CODE HERE THAT WILL BE AN API REQUEST FOR THIS
-          /*
-          const getNutCID = async () => {
-            var nutMeta_cid = await getIPFSPaths(byteStringOpenMsgImg, byteStringPubQR, byteStringFinalImg, newNutMeta.data);
-            console.log("Nut meta CID in get nut", nutMeta_cid);
-            return nutMeta_cid;
-          }
-
-          var nutMeta_cid = getNutCID().then((res) => {
-            console.log("Nut Meta Res", res);
-            return res;
-          });
-          */
-
           getIPFSPaths(byteStringOpenMsgImg, byteStringPubQR, byteStringFinalImg, newNutMeta.data).then((nut_cids) => {
-            console.log("Nut Open Img CID", nut_cids.openImg);
-            console.log("Nut Res Cid", nut_cids.nutMeta);
-            //return cids;
+            console.log("Nut Metadata CID", nut_cids.nutMeta);
             this.setState({
               openMsgCid: nut_cids.openImg,
               publicMsgCid: nut_cids.qrImg,
@@ -365,19 +349,6 @@ class Userpage extends Component {
               metadataCID: nut_cids.nutMeta
             });
           });
-
-          // OLD CODE BELOW THAT WE ARE REVISING - BLOCKED OUT FOR NOW AND TO BE DELETED AFTER --
-          /*
-          addToIPFS(byteStringOpenMsgImg, byteStringPubQR, byteStringFinalImg, newNutMeta.data).then((paths) => { // components/helpers/
-            this.setState({
-              openMsgCid: paths.openImg_cid.path, // Image of the open message in bytes
-              publicMsgCid: paths.qrImg_cid.path, // Image of the public QR code in bytes
-              finalImgCid: paths.finalImg_cid.path, // Image of the consolidatedNFT in bytes
-              metadataCID: paths.nutMetadata_cid.path
-            });
-          });
-          */
-          // END OF BLOCKED OUT OLD CODE
 
           // Change token location on the selected nut, siganture is private key signed with final image CID
           //changeTokenURI(this.state.selectedNut, this.state.finalImgCid, this.state.finalImgSig).then((receipt) => {

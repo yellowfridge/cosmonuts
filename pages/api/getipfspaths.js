@@ -51,24 +51,11 @@ export default async function getIPFSPaths(req, res) {
   //console.log("new Nut Meta", newNutMeta);
 
   const getNutMetadata = async () => {
-    //addToIPFS(openImg, pubQR, finalImg, newNutMeta).then(({openImg_cid, qrImg_cid, finalImg_cid, nutMetadata_cid}) => {
-    //  console.log("Paths Add to IPFS - new Nut Meta: ", nutMetadata_cid);
-    //  console.log("Paths Add to IPFS - new Nut Meta Path: ", nutMetadata_cid.path);
-    //  return nutMetadata_cid.path;
-    //});
     const cids = await addToIPFS(openImg, pubQR, finalImg, newNutMeta);
-    console.log("Nut CIds", cids);
-    console.log("Nut CIds Metapath", cids.nutMetadata_cid.path);
-    //return ( cids.openImg_cid.path, cids.qrImg_cid.path, cids.finalImg_cid.path, cids.nutMetadata_cid.path );
+    //console.log("Nut CIDS", cids);
     return cids;
   }
 
-  /*
-  const nutMetadata = getNutMetadata().then((nutMetaCID) => {
-    console.log("Inside Nutmetadata then", nutMetaCID);
-    return nutMetaCID;
-  });
-  */
   getNutMetadata().then((cids) => {
     res.status(200).json({
       openImg: cids.openImg_cid.path,
@@ -78,17 +65,4 @@ export default async function getIPFSPaths(req, res) {
     });
   });
 
-  /*
-  const nutMetadata = addToIPFS(openImg, pubQR, finalImg, newNutMeta).then(({openImg_cid, qrImg_cid, finalImg_cid, nutMetadata_cid}) => {
-    console.log("Paths Add to IPFS - new Nut Meta: ", nutMetadata_cid);
-    console.log("Paths Add to IPFS - new Nut Meta Path: ", nutMetadata_cid.path);
-    return nutMetadata_cid.path;
-  });
-  */
-  //console.log("Nut Metadata:", nutMetadata);
-
-  //res.status(200).json({ nutMetaCID: nutMetadata });
 }
-
-// This is old code below - to be deleted after
-//export default addToIPFS
