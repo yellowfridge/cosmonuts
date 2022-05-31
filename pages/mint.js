@@ -4,7 +4,6 @@ import detectEthereumProvider from '@metamask/detect-provider';
 import Web3 from 'web3';
 import CosmoNuts from '../ethereum/build_manual/CosmoNuts_abi.json';
 
-
 export default function Mint(props) {
 
   const [load, setLoad] = useState(false);
