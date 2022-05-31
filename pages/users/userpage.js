@@ -76,7 +76,7 @@ class Userpage extends Component {
     const storageKey = cosmos.cosmonuts.storage_key; // ipns
     const nutsCID = cosmos.nuts; // Contains JSON array data of ipnsCIDs of each nut
 
-    return { address, baseURL, storageKey, nutsCID, cosmoNutsAddress };
+    return { address, baseURL, storageKey, nutsCID };
   }
 
   componentDidMount(props) {
