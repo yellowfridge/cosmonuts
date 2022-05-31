@@ -31,6 +31,7 @@ export default function Mint(props) {
     setHelperMessage(message);
   }
 
+  // Could we potentially move down below (getInitialStates to mintClicked??)
   useEffect(() => {
     getInitialStates();
   });
@@ -40,6 +41,7 @@ export default function Mint(props) {
     const provider = await detectEthereumProvider();
     let web3;
     web3 = new Web3(provider);
+
     var cosmonuts = new web3.eth.Contract(
       CosmoNuts,
       '0xb97C6312F412b58cCfac2c0E63609df0c2599CAa' // Need to set this in one place

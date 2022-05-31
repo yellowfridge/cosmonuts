@@ -3,7 +3,7 @@ import Web3 from 'web3';
 import CosmoNuts from '../../ethereum/build_manual/CosmoNuts_abi.json';
 
 export default async function getInitialNutData(req, res) {
-  console.log("Get initial nut data");
+  //console.log("Get initial nut data");
   const privateKey = process.env.PRIVATE_KEY;
   const infuraKey = process.env.INFURA_MNEMONIC;
   // BELOW NEEDS TO BE DYNAMIC - EVERYWHERE

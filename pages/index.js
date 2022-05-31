@@ -54,8 +54,11 @@ class Main extends Component {
     console.log("IN: Initial Props of Index");
     const baseURL = "https://ipfs.io/ipns/";
 
+    const cosmoNutsAddress = process.env.COSMONUTS_ADDRESS;
+    //console.log("CosmoNuts Smart Contract Address", cosmoNutsAddress);
+
     getInitialNutData().then((nutData) => {
-      console.log("Nut Data - getInitialNutData:", nutData);
+      //console.log("Nut Data - getInitialNutData:", nutData);
       return nutData;
     }).catch((err) => {
       new Error('Error in getting nuts ...', err);
@@ -64,9 +67,10 @@ class Main extends Component {
 
     const cosmoCID = nutData.cosmoCID;
     const cosmoMetaPath = baseURL + cosmoCID;
-    console.log("Cosmo Meta Path", cosmoMetaPath);
+    //console.log("Cosmo Meta Path", cosmoMetaPath);
 
     return {
+      cosmoNutsAddress: cosmoNutsAddress,
       cosmoCID: cosmoCID,
       cosmosMetaPath: cosmoMetaPath,
       //cosmoCID: cosmos.cosmonuts.ipnsCID,
