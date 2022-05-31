@@ -4,6 +4,7 @@ export default async function publishToIPNS(req, res) {
   console.log("Publishing to IPNS ...");
 
   const ipfsPrivateKey = process.env.IPFS_PRIVATE_KEY;
+  const nutKey = req.body.nutKey;
   const nutMeta_cid = req.body.nutMeta_cid;
   //console.log("Nut Meta_cid", nutMeta_cid);
 
@@ -15,11 +16,8 @@ export default async function publishToIPNS(req, res) {
   //console.log("Nut Path:", nutPath);
 
   // Publishing to IPNS
-  // Need to identify which nut is being changed
-  // for now set at Nut0
-
   ipfsServer.name.publish(nutPath, {
-    key: 'nut0'
+    key: nutKey
   }).then((publishedCID) => {
     console.log("Published CID", publishedCID);
 

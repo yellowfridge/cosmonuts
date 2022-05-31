@@ -63,7 +63,7 @@ const getMetadataJSON = async (oldNut, openMsg, openMsgCID, qrMsg, qrMsgCID, fin
   return metadata;
 }
 
-const publishToIPNS = async (nutMeta_cid) => {
+const publishToIPNS = async (nutKey, nutMeta_cid) => {
   const res = await fetch('/api/publishtoipns', {
     method: 'post',
     headers: {
@@ -71,6 +71,7 @@ const publishToIPNS = async (nutMeta_cid) => {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
+      nutKey: nutKey,
       nutMeta_cid: nutMeta_cid
     })
   });

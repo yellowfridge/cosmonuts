@@ -29,6 +29,7 @@ class Userpage extends Component {
       nuts: [],
       ownedNuts: [],
       selectedNut: '',
+      selectedNutId: '',
       selectedNutInfo: '',
       selectedNutCID: '',
       openMessage: nut.open_message.value,
@@ -48,7 +49,7 @@ class Userpage extends Component {
     };
 
     this.ddPlaceholderSet = this.ddPlaceholderSet.bind(this);
-    this.firstNutSet = this.firstNutSet.bind(this);
+    this.setFirstNut = this.setFirstNut.bind(this);
     this.addToIPFS = this.addToIPFS.bind(this);
     this.handleOpenMessage = this.handleOpenMessage.bind(this);
     this.handlePublicMessage = this.handlePublicMessage.bind(this);
@@ -80,7 +81,7 @@ class Userpage extends Component {
   }
 
   componentDidMount(props) {
-    console.log("Props test in component did mount", '0xb97C6312F412b58cCfac2c0E63609df0c2599CAa');
+    console.log("Props test in component did mount", this.state.selectedNut);
 
     //Creates a url of the written message converted to a picture
     var imgURL = this.openImgSrc(this.state.openMessage);
@@ -149,7 +150,7 @@ class Userpage extends Component {
               (async () => {
                 await findFirst(n, nut).then((nut1) => {
                   if (nut1 !== 'Nut first') {
-                    this.firstNutSet(nut1, nutImgURL, nutInfo, nut_cid); // this could be an issue
+                    this.setFirstNut(n, nut1, nutImgURL, nutInfo, nut_cid); // this could be an issue
 
                     this.ddPlaceholderSet(nut1);
                   }
@@ -213,11 +214,12 @@ class Userpage extends Component {
     return { openImg_cid, qrImg_cid, finalImg_cid, nutMetadata_cid }
   }
 
-  firstNutSet(nut1, nut1ImgURL, nut1Info, nut_cid) {
+  setFirstNut(nutId, nutText, nutImgURL, nutInfo, nut_cid) {
     this.setState({
-      selectedNut: nut1,
-      finalImgSrc: nut1ImgURL,
-      selectedNutInfo: JSON.stringify(nut1Info),
+      selectedNutId: nutId,
+      selectedNut: nutText,
+      finalImgSrc: nutImgURL,
+      selectedNutInfo: JSON.stringify(nutInfo),
       selectedNutCID: nut_cid
     });
   }
@@ -234,6 +236,7 @@ class Userpage extends Component {
     this.setState({
       selectedNut: event.target.innerText // For dropdowns, it is under innerText (as opposed to .value)
     });
+    // Make sure to also change value
   }
 
   handleOpenMessage(event) {
@@ -306,6 +309,8 @@ class Userpage extends Component {
     var nutImg = document.getElementById('nutImg'); // Grab main original image element
     var finalImg = document.getElementById('finalImg'); // Grab the final image element
 
+    // Right now the final image is only the public QR Code
+    // Need to think what else and how to embed
     var finalImgURI = await embedImage(nutImg, publicQRImg); // Creating the combined image
     finalImg.setAttribute('src', finalImgURI);
     //console.log("Final Image", finalImg);
@@ -355,7 +360,10 @@ class Userpage extends Component {
               metadataCID: cids.nutMetadata_cid.path
             });
 
-            publishToIPNS(cids.nutMetadata_cid.path).then((cid) => {
+            let nutKey = "nut" + this.state.selectedNutId
+            console.log("Trying to get some nuts", nutKey);
+
+            publishToIPNS(nutKey, cids.nutMetadata_cid.path).then((cid) => {
               //console.log("Nut Metadata IPNS", cid.nutIPNS);
               //console.log("Set Nut Metadata IPNS", this.state.selectedNutCID);
 
