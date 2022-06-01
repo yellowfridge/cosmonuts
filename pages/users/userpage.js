@@ -256,6 +256,9 @@ class Userpage extends Component {
     var nutImgURL = ownedNuts[nutId].image.src;
     var embeddedImgURL = this.state.ownedNutsInfo[nutId].embeddedImage;
 
+    // NEED to include other elements on userpage that should also change
+    // only embeddedImage change was implemented, others need to be added 
+
     this.setState({
       selectedNutId: nutId,
       selectedNut: ddText,
