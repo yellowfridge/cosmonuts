@@ -65,7 +65,7 @@ class Userpage extends Component {
     this.openImgSrc = this.openImgSrc.bind(this);
     this.getBytes32FromIPFSHash = this.getBytes32FromIPFSHash.bind(this);
     this.add_0x = this.add_0x.bind(this);
-    this.buildFinalImg = this.buildFinalImg.bind(this);
+    this.buildImg = this.buildImg.bind(this);
     this.buildParsedImage = this.buildParsedImage.bind(this);
 
   }
@@ -156,7 +156,7 @@ class Userpage extends Component {
               (async () => {
                 await findFirst(n, nut).then((nut1) => {
                   if (nut1 !== 'Nut first') {
-                    this.setFirstNut(n, nut1, nutImgURL, nutInfo, nut_cid); // this could be an issue
+                    this.setFirstNut(n, nut1, nutImgURL, nutInfo.embedded_image, nutInfo, nut_cid); // this could be an issue
 
                     this.ddPlaceholderSet(nut1);
                   }
@@ -221,12 +221,12 @@ class Userpage extends Component {
     return { openImg_cid, qrImg_cid, finalImg_cid, nutMetadata_cid }
   }
 
-  setFirstNut(nutId, nutText, nutImgURL, nutInfo, nut_cid) {
+  setFirstNut(nutId, nutText, nutImgURL, embeddedImgURL, nutInfo, nut_cid) {
     this.setState({
       selectedNutId: nutId,
       selectedNut: nutText,
       selectedNutURL: nutImgURL,
-      finalImgSrc: nutImgURL,
+      embeddedImgSrc: embeddedImgURL,
       selectedNutInfo: JSON.stringify(nutInfo),
       selectedNutCID: nut_cid
     });
@@ -283,7 +283,7 @@ class Userpage extends Component {
     return "0x" + hex;
   }
 
-  buildFinalImg(src, width, height) {
+  buildImg(src, width, height) {
     var image = new Image();
     image.setAttribute('src', src);
 
@@ -302,10 +302,9 @@ class Userpage extends Component {
   buildParsedImage(imgToParse) {
     console.log("Image to Parse", imgToParse);
     var parsedImage = parseImage(imgToParse);
-    console.log("Parsed Image", parsedImage);
 
     this.setState({
-      finalImgSrc: parsedImage
+      embeddedImgSrc: parsedImage
     });
 
     return parsedImage;
@@ -332,16 +331,14 @@ class Userpage extends Component {
     var nutImg = document.getElementById('nutImg'); // Grab main original image element
     var finalImg = document.getElementById('finalImg'); // Grab the final image element
 
-    // Right now the final image is only the public QR Code
+    // Right now the final image contains only the public QR Code
     // Need to think what else and how to embed
     var finalImgURI = await embedImage(nutImg, publicQRImg); // Creating the combined image
     finalImg.setAttribute('src', finalImgURI);
-    console.log("Final Image", finalImg);
+    this.setState({ finalImgSrc: finalImgURI });
 
-    // Need to consider where to put this
-    this.setState({ finalImgSrc: finalImgURI }); // Creates a working image element
-
-    this.buildParsedImage(finalImg);
+    var parsedImg = this.buildParsedImage(finalImg);
+    console.log("Parsed Image", parsedImg);
 
     // This is the format to be uploaded to IPFS to display image on load of IPFS URL
     var byteStringFinalImg = Buffer.from(finalImgURI.split(',')[1], 'base64');
@@ -514,7 +511,7 @@ class Userpage extends Component {
           <div style={{
             marginRight: '10%'
           }}>
-            <img id='finalImg' src={this.state.finalImgSrc} width="631" height="631" />
+            <img id='embeddedImg' src={this.state.embeddedImgSrc} width="631" height="631" />
           </div>
         </ParallaxLayer>
 
@@ -675,6 +672,7 @@ class Userpage extends Component {
           }}>
 
             <p>Testing: {this.state.metadataCID}</p>
+            <img id='finalImg' src={this.state.finalImgSrc} width="631" height="631" hidden/>
             <Button
               content='***FALL DOWN THE HOLE***'
               onClick={this.generateImage}
