@@ -243,11 +243,14 @@ class Userpage extends Component {
     var ddTextArray = ddText.split(" "); // Creating an array split by spaces in the string
     var nutId = ddTextArray[ddTextArray.length - 1]; // Grabbing the last element in the array
 
+    var ownedNuts = this.state.ownedNuts;
+    var nutImgURL = ownedNuts[nutId].image.src;
+
     this.setState({
       selectedNutId: nutId,
-      selectedNut: ddText
+      selectedNut: ddText,
+      selectedNutURL: nutImgURL
     });
-    console.log("Testing Dropdown Changes:", nutId);
   }
 
   handleOpenMessage(event) {
