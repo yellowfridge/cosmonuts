@@ -1,4 +1,4 @@
-export default function parseImage(image) {
+export default async function parseImage(image) {
   image.crossOrigin = 'Anonymous'; // This is because we are grabbing from somewhere else
   var sWidth = image.width;
   var sHeight = image.height;
@@ -7,6 +7,12 @@ export default function parseImage(image) {
   var ctx = canvas.getContext('2d');
   canvas.width = sWidth;
   canvas.height = sHeight;
+
+  // Instead of waiting like this, it needs to be changed to onload function of the images
+  // error is that images are not loading in time for the drawimage to work
+  const delay = ms => new Promise(resolve => setTimeout(resolve, ms))
+  console.log("Delay 1: Reminder to get rid of.");
+  await delay(1000);
 
   ctx.drawImage(image, 0, 0);
 

@@ -301,11 +301,14 @@ class Userpage extends Component {
   }
 
   buildParsedImage(imgToParse) {
-    console.log("Image to Parse", imgToParse);
-    var parsedImage = parseImage(imgToParse);
+    //console.log("Image to Parse", imgToParse);
+    var parsedImage = parseImage(imgToParse).then((uri) => {
+      //console.log("Parsed Image in Build in then", uri);
+      this.setState({
+        embeddedImgSrc: uri
+      });
 
-    this.setState({
-      embeddedImgSrc: parsedImage
+      return uri
     });
 
     return parsedImage;
@@ -335,10 +338,11 @@ class Userpage extends Component {
     // Right now the final image contains only the public QR Code
     // Need to think what else and how to embed
     var finalImgURI = await embedImage(nutImg, publicQRImg); // Creating the combined image
+    console.log("Final Img URI",finalImgURI);
     finalImg.setAttribute('src', finalImgURI);
     this.setState({ finalImgSrc: finalImgURI });
 
-    var parsedImgURI = this.buildParsedImage(finalImg);
+    var parsedImgURI = await this.buildParsedImage(finalImg);
     console.log("Parsed Image", parsedImgURI);
 
     // This is the format to be uploaded to IPFS to display image on load of IPFS URL
@@ -374,7 +378,7 @@ class Userpage extends Component {
           imgVerification: 'Verified'
         });
 
-        /* /// - Put block out code here if needed - TEMPORARY - WORKING SECTION - JUST NOT TO SAVE IPFS - SAVING TIME
+        //// - Put block out code here if needed - TEMPORARY - WORKING SECTION - JUST NOT TO SAVE IPFS - SAVING TIME
         if (verification.verification) { // a final check - checking if IPFS CID matches signed CID
 
           this.addToIPFS(byteStringOpenMsgImg, byteStringPubQR, byteStringFinalImg, byteStringEmbeddedImg, newNutMeta.data).then((cids) => {
@@ -420,7 +424,7 @@ class Userpage extends Component {
             });
           });
         }
-        */// Put block out code here to stop IPFS feature
+        /// Put block out code here to stop IPFS feature
       });
     });
 
