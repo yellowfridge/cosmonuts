@@ -200,8 +200,9 @@ class Userpage extends Component {
   }
 
   async addToIPFS(openImg, qrImg, finalImg, nutMetadata) {
-    console.log("Adding to IPFS ...");
+    console.log("Adding to IPFS...");
 
+    console.log("Creating IPFS Instance..");
     const ipfs = await IPFS.create();
 
     const openImg_cid = await ipfs.add(openImg);
@@ -344,7 +345,7 @@ class Userpage extends Component {
       getVerification(finalImg_hash, secret.signedImage).then((verification) => {
         console.log("Verification", verification.verification);
         this.setState({
-          finalImgHash: secret.signedImage,
+          finalImgSig: secret.signedImage,
           imgVerification: 'Verified'
         });
 
@@ -365,6 +366,7 @@ class Userpage extends Component {
             let nutKey = "nut" + this.state.selectedNutId
 
             // Publish the IPFS CID to the above IPNS identified key
+            console.log("Publishing to IPNS ...");
             publishToIPNS(nutKey, cids.nutMetadata_cid.path).then((cid) => {
               //console.log("Nut Metadata IPNS", cid.nutIPNS);
               //console.log("Set Nut Metadata IPNS", this.state.selectedNutCID);
@@ -372,31 +374,34 @@ class Userpage extends Component {
               // Checking to see if returned IPNS CID matches the CID on Metadata
               if (this.state.selectedNutCID === cid.nutIPNS) {
                 console.log("Successfully published to correct IPNS CID!");
+
+                // Sending info to Ethereum to be verified on blockchain
+                // Change token location on the selected nut
+                changeTokenURI(this.state.selectedNutId, finalImg_hash, this.state.finalImgSig).then(() => {
+                  console.log("Success!");
+                }).catch((error) => {
+                  console.log("Error: Was not able to change token URI on blockchain.", error);
+                });
+
+                //After changing token URI - it likely makes sense to refresh the page
+                // Blcked out for now during R&D
+                //window.location.reload(true); // The last item should be refreshing the page and loading from the top
+
               } else {
                 console.log("Error: Does not match recorded IPNS CID.");
               }
 
             });
-
           });
-
-          // Change token location on the selected nut, signature is private key signed with final image CID
-          //changeTokenURI(this.state.selectedNut, this.state.finalImgCid, this.state.finalImgSig).then((receipt) => {
-          //  console.log("Success!");
-
-          //  Sometimes changing locations
-          //  window.location.reload(true); // The last item should be refreshing the page and loading from the top
-          //});
         }
         /// Put block out code here to stop IPFS feature
       });
     });
 
-    // BELOW NEEDS TO BE UPDATED WITH NEW SOLIDITY CODE
-    const changeTokenURI = async (selectedNut, newTokenURI) => {
+    const changeTokenURI = async (selectedNut, newTokenURI, signature) => {
       const web3 = new Web3(window.ethereum);
       const cosmoNuts = new web3.eth.Contract(CosmoNuts, '0xb97C6312F412b58cCfac2c0E63609df0c2599CAa');
-      await cosmoNuts.methods.jumpUniverse(selectedNut, newTokenURI).send({
+      await cosmoNuts.methods.changeTokenURI(selectedNut, newTokenURI, signature).send({
         from: this.props.address
       }).on('transactionHash', (transactionHash) => {
         console.log("Transaction Hash:", transactionHash);
