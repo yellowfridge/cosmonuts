@@ -23,6 +23,9 @@ class Userpage extends Component {
     //console.log("Cosmos JSON", this.props.cosmos); // JSON file with all relevant information for CosmoNuts
     console.log("In Userpage");
 
+    //Original Image -- to be deleted later -- testing purposes only
+    //'https://ipfs.io/ipfs/QmTHcV6mGxHGeeXCnYtV129eRiR8Exni4sT8dDikBWBgzY'
+
     this.state = {
       cosmosPath: 'https://ipfs.io/ipns/QmX7r9BfGdoav8QSi163to1RWJiaeABBLS8QjvmeSURLNH',
       nutsHeld: 0,
@@ -30,6 +33,7 @@ class Userpage extends Component {
       ownedNuts: [],
       selectedNut: '',
       selectedNutId: '',
+      selectedNutURL: 'https://ipfs.io/ipfs/QmTHcV6mGxHGeeXCnYtV129eRiR8Exni4sT8dDikBWBgzY',
       selectedNutInfo: '',
       selectedNutCID: '',
       openMessage: nut.open_message.value,
@@ -41,6 +45,7 @@ class Userpage extends Component {
       groupMessage: 'Current group message ...',
       secretMessage: 'Current secret message ...',
       secretKey: 'Should be ecnreypted key ...',
+      embeddedImgSrc: '',
       finalImgSrc: nut.image,
       finalImgSig: '',
       imgVerification: '',
@@ -61,6 +66,7 @@ class Userpage extends Component {
     this.getBytes32FromIPFSHash = this.getBytes32FromIPFSHash.bind(this);
     this.add_0x = this.add_0x.bind(this);
     this.buildFinalImg = this.buildFinalImg.bind(this);
+    this.buildParsedImage = this.buildParsedImage.bind(this);
 
   }
 
@@ -81,7 +87,7 @@ class Userpage extends Component {
   }
 
   componentDidMount(props) {
-    console.log("Props test in component did mount", this.state.selectedNut);
+    console.log("Props test in component did mount", this.state.selectedNutInfo);
 
     //Creates a url of the written message converted to a picture
     var imgURL = this.openImgSrc(this.state.openMessage);
@@ -219,6 +225,7 @@ class Userpage extends Component {
     this.setState({
       selectedNutId: nutId,
       selectedNut: nutText,
+      selectedNutURL: nutImgURL,
       finalImgSrc: nutImgURL,
       selectedNutInfo: JSON.stringify(nutInfo),
       selectedNutCID: nut_cid
@@ -292,6 +299,18 @@ class Userpage extends Component {
     return image;
   }
 
+  buildParsedImage(imgToParse) {
+    console.log("Image to Parse", imgToParse);
+    var parsedImage = parseImage(imgToParse);
+    console.log("Parsed Image", parsedImage);
+
+    this.setState({
+      finalImgSrc: parsedImage
+    });
+
+    return parsedImage;
+  }
+
   async generateImage() {
     const Hash = require('ipfs-only-hash'); // Used to cread CID paths that are equivalent to those created by IPFS
 
@@ -317,10 +336,12 @@ class Userpage extends Component {
     // Need to think what else and how to embed
     var finalImgURI = await embedImage(nutImg, publicQRImg); // Creating the combined image
     finalImg.setAttribute('src', finalImgURI);
-    //console.log("Final Image", finalImg);
+    console.log("Final Image", finalImg);
 
     // Need to consider where to put this
     this.setState({ finalImgSrc: finalImgURI }); // Creates a working image element
+
+    this.buildParsedImage(finalImg);
 
     // This is the format to be uploaded to IPFS to display image on load of IPFS URL
     var byteStringFinalImg = Buffer.from(finalImgURI.split(',')[1], 'base64');
@@ -352,7 +373,7 @@ class Userpage extends Component {
           imgVerification: 'Verified'
         });
 
-        //// - Put block out code here if needed - TEMPORARY - WORKING SECTION - JUST NOT TO SAVE IPFS - SAVING TIME
+        /* /// - Put block out code here if needed - TEMPORARY - WORKING SECTION - JUST NOT TO SAVE IPFS - SAVING TIME
         if (verification.verification) { // a final check - checking if IPFS CID matches signed CID
 
           this.addToIPFS(byteStringOpenMsgImg, byteStringPubQR, byteStringFinalImg, newNutMeta.data).then((cids) => {
@@ -397,10 +418,11 @@ class Userpage extends Component {
             });
           });
         }
-        /// Put block out code here to stop IPFS feature
+        */ // Put block out code here to stop IPFS feature
       });
     });
 
+    // Function to change token URI on the ethereum blockchain
     const changeTokenURI = async (selectedNut, newTokenURI, signature) => {
       const web3 = new Web3(window.ethereum);
       const cosmoNuts = new web3.eth.Contract(CosmoNuts, '0xb97C6312F412b58cCfac2c0E63609df0c2599CAa');
@@ -478,7 +500,7 @@ class Userpage extends Component {
           <div style={{
             marginLeft: '10%'
           }}>
-            <img id='nutImg' src='https://ipfs.io/ipfs/QmTHcV6mGxHGeeXCnYtV129eRiR8Exni4sT8dDikBWBgzY' width="631" height="631"/>
+            <img id='nutImg' src={this.state.selectedNutURL} width="631" height="631"/>
           </div>
         </ParallaxLayer>
 
