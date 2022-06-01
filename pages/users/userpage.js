@@ -31,6 +31,7 @@ class Userpage extends Component {
       nutsHeld: 0,
       nuts: [],
       ownedNuts: [],
+      ownedNutsInfo: [],
       selectedNut: '',
       selectedNutId: '',
       selectedNutURL: 'https://ipfs.io/ipfs/QmTHcV6mGxHGeeXCnYtV129eRiR8Exni4sT8dDikBWBgzY',
@@ -103,7 +104,7 @@ class Userpage extends Component {
     let nuts = [];
     let nutObjects = [];
     let firstNut;
-    let firstNutInfo;
+    let nutsInfo = [];
 
     // Function to find the first nut
     const findFirst = async (n, nut) => {
@@ -152,6 +153,13 @@ class Userpage extends Component {
               }
               nutObjects[n] = nutObject;
 
+              let onNutInfo = {
+                id: nut,
+                image: nutImgURL,
+                embeddedImage: nutInfo.embedded_image
+              }
+              nutsInfo[n] = onNutInfo;
+
               (async () => {
                 await findFirst(n, nut).then((nut1) => {
                   if (nut1 !== 'Nut first') {
@@ -174,6 +182,7 @@ class Userpage extends Component {
         this.setState({
           ownedNuts: nutObjects,
           nuts: nuts,
+          ownedNutsInfo: nutsInfo
         });
       });
 
@@ -245,11 +254,13 @@ class Userpage extends Component {
 
     var ownedNuts = this.state.ownedNuts;
     var nutImgURL = ownedNuts[nutId].image.src;
+    var embeddedImgURL = this.state.ownedNutsInfo[nutId].embeddedImage;
 
     this.setState({
       selectedNutId: nutId,
       selectedNut: ddText,
-      selectedNutURL: nutImgURL
+      selectedNutURL: nutImgURL,
+      embeddedImgSrc: embeddedImgURL
     });
   }
 
