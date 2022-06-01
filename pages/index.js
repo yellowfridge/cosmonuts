@@ -120,10 +120,14 @@ class Main extends Component {
 
     getNut0URL().then((img) => {
       this.setState({ nut0Img: img });
+    }).catch((error) => {
+      console.log("Error in getting the first nut URL.", error);
     });
 
     getNut0EmbedImg().then((embedImg) => {
       this.setState({ embeddedImgSrc: embedImg });
+    }).catch((error) => {
+      console.log("Error in getting the first nut image.", error);
     });
 
     (() => {

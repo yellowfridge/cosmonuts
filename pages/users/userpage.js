@@ -136,6 +136,7 @@ class Userpage extends Component {
               });
               console.log("Nut Info", nutInfo);
 
+              // This is to blank out if it can't find main image
               const checkImgURL = () => {
                 try {
                   return nutInfo.image;
@@ -153,17 +154,27 @@ class Userpage extends Component {
               }
               nutObjects[n] = nutObject;
 
+              // This is to blank out if it can't find embedded image
+              const checkEmbeddedImgURL = () => {
+                try {
+                  return nutInfo.embedded_image;
+                } catch {
+                  return '';
+                }
+              }
+              var nutEmbeddedImgURL = checkEmbeddedImgURL();
+
               let onNutInfo = {
                 id: nut,
                 image: nutImgURL,
-                embeddedImage: nutInfo.embedded_image
+                embeddedImage: nutEmbeddedImgURL
               }
               nutsInfo[n] = onNutInfo;
 
               (async () => {
                 await findFirst(n, nut).then((nut1) => {
                   if (nut1 !== 'Nut first') {
-                    this.setFirstNut(n, nut1, nutImgURL, nutInfo.embedded_image, nutInfo, nut_cid); // this could be an issue
+                    this.setFirstNut(n, nut1, nutImgURL, nutEmbeddedImgURL, nutInfo, nut_cid); // this could be an issue
 
                     this.ddPlaceholderSet(nut1);
                   }
@@ -257,7 +268,7 @@ class Userpage extends Component {
     var embeddedImgURL = this.state.ownedNutsInfo[nutId].embeddedImage;
 
     // NEED to include other elements on userpage that should also change
-    // only embeddedImage change was implemented, others need to be added 
+    // only embeddedImage change was implemented, others need to be added
 
     this.setState({
       selectedNutId: nutId,
