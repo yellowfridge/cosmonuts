@@ -65,7 +65,6 @@ class Userpage extends Component {
     this.openImgSrc = this.openImgSrc.bind(this);
     this.getBytes32FromIPFSHash = this.getBytes32FromIPFSHash.bind(this);
     this.add_0x = this.add_0x.bind(this);
-    this.buildImg = this.buildImg.bind(this);
     this.buildParsedImage = this.buildParsedImage.bind(this);
 
   }
@@ -282,22 +281,6 @@ class Userpage extends Component {
 
   add_0x(hex) {
     return "0x" + hex;
-  }
-
-  buildImg(src, width, height) {
-    var image = new Image();
-    image.setAttribute('src', src);
-
-    var canvas = document.createElement('canvas');
-    var ctx = canvas.getContext('2d');
-    canvas.width = width;
-    canvas.height = height;
-
-    image.onload = function() {
-      ctx.drawImage(image, 0, 0);
-    }
-
-    return image;
   }
 
   buildParsedImage(imgToParse) {
