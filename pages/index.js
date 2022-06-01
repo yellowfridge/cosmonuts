@@ -146,10 +146,11 @@ class Main extends Component {
 
   interpretImage() {
     var nutImg = document.getElementById('nutImg');
-    var parsedImage = parseImage(nutImg);
+    var parsedImage = parseImage(nutImg).then((uri) => {
+      this.setState({
+        embeddedImgSrc: uri
+      });
 
-    this.setState({
-      embeddedImgSrc: parsedImage
     });
   }
 
