@@ -46,7 +46,6 @@ export default function Connect(props) {
     getInitialStates();
   }, []); // Putting the empty array makes it fire only once
 
-  // NEED TO KNOW WHEN THERE IS ZERO NUTS - OTHERWISE STUCK
   const checkNuts = async (account) => {
     console.log("Nut checking ...");
     const web3 = new Web3(window.ethereum);

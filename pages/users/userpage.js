@@ -360,13 +360,16 @@ class Userpage extends Component {
               metadataCID: cids.nutMetadata_cid.path
             });
 
+            // These are the keys for the IPNS links
+            // nut0, nut1, nut2, ...
             let nutKey = "nut" + this.state.selectedNutId
-            console.log("Trying to get some nuts", nutKey);
 
+            // Publish the IPFS CID to the above IPNS identified key
             publishToIPNS(nutKey, cids.nutMetadata_cid.path).then((cid) => {
               //console.log("Nut Metadata IPNS", cid.nutIPNS);
               //console.log("Set Nut Metadata IPNS", this.state.selectedNutCID);
 
+              // Checking to see if returned IPNS CID matches the CID on Metadata
               if (this.state.selectedNutCID === cid.nutIPNS) {
                 console.log("Successfully published to correct IPNS CID!");
               } else {
@@ -377,10 +380,11 @@ class Userpage extends Component {
 
           });
 
-          // Change token location on the selected nut, siganture is private key signed with final image CID
+          // Change token location on the selected nut, signature is private key signed with final image CID
           //changeTokenURI(this.state.selectedNut, this.state.finalImgCid, this.state.finalImgSig).then((receipt) => {
           //  console.log("Success!");
-          // Sometimes changing locations
+
+          //  Sometimes changing locations
           //  window.location.reload(true); // The last item should be refreshing the page and loading from the top
           //});
         }
