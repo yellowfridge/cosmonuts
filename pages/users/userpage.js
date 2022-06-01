@@ -232,12 +232,15 @@ class Userpage extends Component {
   }
 
   handleDropdownChange(event) {
-    // Need to put in selectedNutCID when someone selects another Nut
-    // To be added later and tested
+    var ddText = event.target.innerText; // For dropdowns, it is under innerText (as opposed to .value)
+    var ddTextArray = ddText.split(" "); // Creating an array split by spaces in the string
+    var nutId = ddTextArray[ddTextArray.length - 1]; // Grabbing the last element in the array
+
     this.setState({
-      selectedNut: event.target.innerText // For dropdowns, it is under innerText (as opposed to .value)
+      selectedNutId: nutId,
+      selectedNut: ddText
     });
-    // Make sure to also change value
+    console.log("Testing Dropdown Changes:", nutId);
   }
 
   handleOpenMessage(event) {
