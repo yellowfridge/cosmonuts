@@ -205,7 +205,7 @@ class Userpage extends Component {
     return imgURL;
   }
 
-  async addToIPFS(openImg, qrImg, finalImg, nutMetadata) {
+  async addToIPFS(openImg, qrImg, finalImg, embeddedImg, nutMetadata) {
     console.log("Adding to IPFS...");
 
     console.log("Creating IPFS Instance..");
@@ -214,11 +214,12 @@ class Userpage extends Component {
     const openImg_cid = await ipfs.add(openImg);
     const qrImg_cid = await ipfs.add(qrImg);
     const finalImg_cid = await ipfs.add(finalImg);
+    const embeddedImg_cid = await ipfs.add(embeddedImg);
 
     const metadata_str = JSON.stringify(nutMetadata);
     const nutMetadata_cid = await ipfs.add(metadata_str);
 
-    return { openImg_cid, qrImg_cid, finalImg_cid, nutMetadata_cid }
+    return { openImg_cid, qrImg_cid, finalImg_cid, embeddedImg_cid, nutMetadata_cid }
   }
 
   setFirstNut(nutId, nutText, nutImgURL, embeddedImgURL, nutInfo, nut_cid) {
@@ -337,8 +338,8 @@ class Userpage extends Component {
     finalImg.setAttribute('src', finalImgURI);
     this.setState({ finalImgSrc: finalImgURI });
 
-    var parsedImg = this.buildParsedImage(finalImg);
-    console.log("Parsed Image", parsedImg);
+    var parsedImgURI = this.buildParsedImage(finalImg);
+    console.log("Parsed Image", parsedImgURI);
 
     // This is the format to be uploaded to IPFS to display image on load of IPFS URL
     var byteStringFinalImg = Buffer.from(finalImgURI.split(',')[1], 'base64');
@@ -350,11 +351,14 @@ class Userpage extends Component {
     var bytesFinalImg = this.getBytes32FromIPFSHash(finalImg_cid); // Format to save image in for IPFS
     //console.log("Bytes Emb Img Eth", bytesFinalImg);
 
+    var byteStringEmbeddedImg = Buffer.from(parsedImgURI.split(',')[1], 'base64');
+    var embeddedImg_cid = await Hash.of(byteStringEmbeddedImg);
+
     // Generating nut metadata section
     var oldMetaInfo = JSON.parse(this.state.selectedNutInfo);
     var newNutMeta = await getMetadataJSON(
       oldMetaInfo, this.state.openMessage, openMsg_cid,
-      this.state.publicMessage, publicQR_cid, finalImg_cid
+      this.state.publicMessage, publicQR_cid, finalImg_cid, embeddedImg_cid
     );
     console.log("New Nut Metadata", newNutMeta.data, typeof newNutMeta.data);
 
@@ -373,12 +377,13 @@ class Userpage extends Component {
         /* /// - Put block out code here if needed - TEMPORARY - WORKING SECTION - JUST NOT TO SAVE IPFS - SAVING TIME
         if (verification.verification) { // a final check - checking if IPFS CID matches signed CID
 
-          this.addToIPFS(byteStringOpenMsgImg, byteStringPubQR, byteStringFinalImg, newNutMeta.data).then((cids) => {
+          this.addToIPFS(byteStringOpenMsgImg, byteStringPubQR, byteStringFinalImg, byteStringEmbeddedImg, newNutMeta.data).then((cids) => {
             console.log("CIDS", cids);
             this.setState({
               openMsgCid: cids.openImg_cid.path,
               publicMsgCid: cids.qrImg_cid.path,
               finalImgCid: cids.finalImg_cid.path,
+              embeddedImgCID: cids.embeddedImg_cid.path,
               metadataCID: cids.nutMetadata_cid.path
             });
 
@@ -415,7 +420,7 @@ class Userpage extends Component {
             });
           });
         }
-        */ // Put block out code here to stop IPFS feature
+        */// Put block out code here to stop IPFS feature
       });
     });
 

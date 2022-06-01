@@ -14,6 +14,7 @@ export default function getMetadataJSON(req, res) {
   let newQRMsg = req.body.qrMsg;
   let newQRMsgCID = req.body.qrMsgCID;
   let finalImgCID = req.body.finalImgCID;
+  let embeddedImgCID = req.body.embeddedImgCID;
 
   /*/// Maybethe way to block out is by saving as json file?
   let nutId = transNutData.id;
@@ -30,6 +31,7 @@ export default function getMetadataJSON(req, res) {
   transNutData.public_message.value = newQRMsg;
   transNutData.public_message.image = baseURL + newQRMsgCID;
   transNutData.image = baseURL + finalImgCID;
+  transNutData.embedded_image = baseURL + embeddedImgCID;
 
   let transNutData_str = JSON.stringify(transNutData);
 

@@ -43,7 +43,7 @@ const getInitialNutData = async () => {
   return nutData;
 }
 
-const getMetadataJSON = async (oldNut, openMsg, openMsgCID, qrMsg, qrMsgCID, finalImgCID) => {
+const getMetadataJSON = async (oldNut, openMsg, openMsgCID, qrMsg, qrMsgCID, finalImgCID, embeddedImgCID) => {
   const res = await fetch('/api/newnutmetadata', {
     method: 'post',
     headers: {
@@ -56,7 +56,8 @@ const getMetadataJSON = async (oldNut, openMsg, openMsgCID, qrMsg, qrMsgCID, fin
       openMsgCID: openMsgCID,
       qrMsg: qrMsg,
       qrMsgCID: qrMsgCID,
-      finalImgCID: finalImgCID
+      finalImgCID: finalImgCID,
+      embeddedImgCID: embeddedImgCID
     })
   });
   const metadata = await res.json();
