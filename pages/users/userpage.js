@@ -3,7 +3,7 @@ import Layout from '../../components/layout';
 //import ImageGenerator from '../imagegenerator';
 import QRCode from 'react-qr-code';
 import { Parallax, ParallaxLayer } from '@react-spring/parallax';
-import { Container, Form, Button, Grid , Dropdown} from 'semantic-ui-react';
+import { Container, Form, Button, Grid, Dropdown, Popup} from 'semantic-ui-react';
 import embedImage from '../../components/helpers/embedimage';
 import parseImage from '../../components/helpers/parseimage';
 import { svgAsPngUri } from 'save-svg-as-png';
@@ -51,7 +51,8 @@ class Userpage extends Component {
       finalImgSig: '',
       imgVerification: '',
       ddPlaceholder: 'No known nuts',
-      metadataCID: ''
+      metadataCID: '',
+      buttonLoad: false
     };
 
     this.ddPlaceholderSet = this.ddPlaceholderSet.bind(this);
@@ -336,6 +337,8 @@ class Userpage extends Component {
   }
 
   async generateImage() {
+    this.setState({ buttonLoad: true }); // Set loading on button to true
+
     const Hash = require('ipfs-only-hash'); // Used to cread CID paths that are equivalent to those created by IPFS
 
     var openMsgImg = document.getElementById('openMsgImg') // Grabs open message as image element
@@ -418,6 +421,8 @@ class Userpage extends Component {
 
             // Publish the IPFS CID to the above IPNS identified key
             console.log("Publishing to IPNS ...");
+
+            // What happens when it is slow and can't upload??
             publishToIPNS(nutKey, cids.nutMetadata_cid.path).then((cid) => {
               //console.log("Nut Metadata IPNS", cid.nutIPNS);
               //console.log("Set Nut Metadata IPNS", this.state.selectedNutCID);
@@ -459,6 +464,7 @@ class Userpage extends Component {
         console.log("Transaction Hash:", transactionHash);
       }).on('receipt', (receipt) => {
         console.log("Receipt", receipt);
+        this.setState({ buttonLoad: true }); // Set loading on button to true
       });
     }
 
@@ -706,6 +712,7 @@ class Userpage extends Component {
             <Button
               content='***FALL DOWN THE HOLE***'
               onClick={this.generateImage}
+              loading={this.state.buttonLoad}
             />
 
           </div>
