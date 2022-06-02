@@ -231,8 +231,8 @@ class Userpage extends Component {
 
   async addToIPFS(openImg, qrImg, finalImg, embeddedImg, nutMetadata) {
     console.log("Adding to IPFS...");
+    console.log("Please wait as this part can take a while.");
 
-    console.log("Creating IPFS Instance..");
     const ipfs = await IPFS.create();
 
     const openImg_cid = await ipfs.add(openImg);
@@ -364,12 +364,12 @@ class Userpage extends Component {
     // Right now the final image contains only the public QR Code
     // Need to think what else and how to embed
     var finalImgURI = await embedImage(nutImg, publicQRImg); // Creating the combined image
-    console.log("Final Img URI",finalImgURI);
+    // Final Img URI TYPE: data:image/png;base64, iVBOR......
     finalImg.setAttribute('src', finalImgURI);
     this.setState({ finalImgSrc: finalImgURI });
 
     var parsedImgURI = await this.buildParsedImage(finalImg);
-    console.log("Parsed Image", parsedImgURI);
+    // Parsed Imf URI TYPE: data:image/png;base64,iVBORw0......
 
     // This is the format to be uploaded to IPFS to display image on load of IPFS URL
     var byteStringFinalImg = Buffer.from(finalImgURI.split(',')[1], 'base64');
@@ -423,7 +423,7 @@ class Userpage extends Component {
 
             // Publish the IPFS CID to the above IPNS identified key
             console.log("Publishing to IPNS ...");
-
+            console.log("Please wait as this part can take a while.");
             // What happens when it is slow and can't upload??
             publishToIPNS(nutKey, cids.nutMetadata_cid.path).then((cid) => {
               //console.log("Nut Metadata IPNS", cid.nutIPNS);
@@ -440,6 +440,8 @@ class Userpage extends Component {
                 }).catch((error) => {
                   console.log("Error: Was not able to change token URI on blockchain.", error);
                 });
+
+                this.setState({ buttonLoad: true }); // Set loading on button to true
 
                 //After changing token URI - it likely makes sense to refresh the page
                 // Blcked out for now during R&D
@@ -472,7 +474,6 @@ class Userpage extends Component {
         console.log("Transaction Hash:", transactionHash);
       }).on('receipt', (receipt) => {
         console.log("Receipt", receipt);
-        this.setState({ buttonLoad: true }); // Set loading on button to true
       });
     }
 
