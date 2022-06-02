@@ -445,6 +445,7 @@ class Userpage extends Component {
 
               } else {
                 console.log("Error: Does not match recorded IPNS CID.");
+                this.setState({ buttonLoad: false }); // Reset button - process did not work
               }
 
             });
@@ -709,10 +710,16 @@ class Userpage extends Component {
 
             <p>Testing: {this.state.metadataCID}</p>
             <img id='finalImg' src={this.state.finalImgSrc} width="631" height="631" hidden/>
-            <Button
-              content='***FALL DOWN THE HOLE***'
-              onClick={this.generateImage}
-              loading={this.state.buttonLoad}
+
+            <Popup
+              content='Please wait to fully complete process!  App will only ask for payment when all systems are go.'
+              trigger={
+                <Button
+                  content='***FALL DOWN THE HOLE***'
+                  onClick={this.generateImage}
+                  loading={this.state.buttonLoad}
+                />
+              }
             />
 
           </div>
