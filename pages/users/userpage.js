@@ -404,7 +404,7 @@ class Userpage extends Component {
           imgVerification: 'Verified'
         });
 
-        //// - Put block out code here if needed - TEMPORARY - WORKING SECTION - JUST NOT TO SAVE IPFS - SAVING TIME
+        /* /// - Put block out code here if needed - TEMPORARY - WORKING SECTION - JUST NOT TO SAVE IPFS - SAVING TIME
         if (verification.verification) { // a final check - checking if IPFS CID matches signed CID
 
           this.addToIPFS(byteStringOpenMsgImg, byteStringPubQR, byteStringFinalImg, byteStringEmbeddedImg, newNutMeta.data).then((cids) => {
@@ -460,7 +460,7 @@ class Userpage extends Component {
             });
           });
         }
-        /// Put block out code here to stop IPFS feature
+        */// Put block out code here to stop IPFS feature
       });
     });
 
