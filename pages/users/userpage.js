@@ -445,6 +445,11 @@ class Userpage extends Component {
 
               } else {
                 console.log("Error: Does not match recorded IPNS CID.");
+                console.log("-----LOG NOTES-----");
+                console.log("Nut CID Key:", nutKey);
+                console.log("Selected Nut IPNS CID:", this.state.selectedNutCID);
+                console.log("Received IPNS CID:", cid.nutIPNS);
+
                 this.setState({ buttonLoad: false }); // Reset button - process did not work
               }
 
