@@ -16,6 +16,7 @@ import bs58 from 'bs58';
 import EthCrypto from 'eth-crypto';
 import getJSONData from '../../components/helpers/getjsondata';
 import cosmos from '../../metadata/cosmonuts.json';
+import combineImages from '../../components/helpers/combineimages';
 
 class Userpage extends Component {
   constructor(props) {
@@ -46,6 +47,7 @@ class Userpage extends Component {
       groupMessage: 'Current group message ...',
       secretMessage: 'Current secret message ...',
       secretKey: 'Should be ecnreypted key ...',
+      combinedImgSrc: '',
       embeddedImgSrc: '',
       finalImgSrc: nut.image,
       finalImgSig: '',
@@ -222,7 +224,8 @@ class Userpage extends Component {
     openMsgCanvas.width = '230'; // Likely should not hardcode these
     openMsgCanvas.height = '230'; // Likely should not hardcode these
 
-    openMsgCtx.fillText(msg, 10, 10);
+    openMsgCtx.font = "bold 16px Arial";
+    openMsgCtx.fillText(msg, 10, 20);
 
     var imgURL = openMsgCanvas.toDataURL();
 
@@ -363,7 +366,17 @@ class Userpage extends Component {
 
     // Right now the final image contains only the public QR Code
     // Need to think what else and how to embed
-    var finalImgURI = await embedImage(nutImg, publicQRImg); // Creating the combined image
+    // ** WORKING ON COMBINING IMAGES
+    var combinedImg = document.getElementById('combinedImg'); // Grab the combined image element
+    var combinedImgURI = combineImages(openMsgImg, publicQRImg).then((uri) => {
+      this.setState({ combinedImgSrc: uri });
+      combinedImg.setAttribute('src', uri);
+    });
+    //console.log("Combined Img URI", combinedImgURI);
+
+    //var finalImgURI = await embedImage(nutImg, publicQRImg); // Creating the combined image [original with just qrcode]
+    var finalImgURI = await embedImage(nutImg, combinedImg); // Creating the combined image
+
     // Final Img URI TYPE: data:image/png;base64, iVBOR......
     finalImg.setAttribute('src', finalImgURI);
     this.setState({ finalImgSrc: finalImgURI });
@@ -404,7 +417,7 @@ class Userpage extends Component {
           imgVerification: 'Verified'
         });
 
-        /* /// - Put block out code here if needed - TEMPORARY - WORKING SECTION - JUST NOT TO SAVE IPFS - SAVING TIME
+        //// - Put block out code here if needed - TEMPORARY - WORKING SECTION - JUST NOT TO SAVE IPFS - SAVING TIME
         if (verification.verification) { // a final check - checking if IPFS CID matches signed CID
 
           this.addToIPFS(byteStringOpenMsgImg, byteStringPubQR, byteStringFinalImg, byteStringEmbeddedImg, newNutMeta.data).then((cids) => {
@@ -441,9 +454,9 @@ class Userpage extends Component {
                   console.log("Error: Was not able to change token URI on blockchain.", error);
                 });
 
-                this.setState({ buttonLoad: true }); // Set loading on button to true
+                this.setState({ buttonLoad: false }); // Set loading on button to false - task is complete
 
-                //After changing token URI - it likely makes sense to refresh the page
+                //After changing token URI - it likely makes sense to refresh the page - maybe?
                 // Blcked out for now during R&D
                 //window.location.reload(true); // The last item should be refreshing the page and loading from the top
 
@@ -460,7 +473,7 @@ class Userpage extends Component {
             });
           });
         }
-        */// Put block out code here to stop IPFS feature
+        /// Put block out code here to stop IPFS feature
       });
     });
 
@@ -717,6 +730,7 @@ class Userpage extends Component {
           }}>
 
             <p>Testing: {this.state.metadataCID}</p>
+            <img id='combinedImg' src={this.state.combinedImgSrc} width="570" height="300" hidden />
             <img id='finalImg' src={this.state.finalImgSrc} width="631" height="631" hidden/>
 
             <Popup
