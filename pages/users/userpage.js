@@ -167,7 +167,11 @@ class Userpage extends Component {
               let onNutInfo = {
                 id: nut,
                 image: nutImgURL,
-                embeddedImage: nutEmbeddedImgURL
+                embeddedImage: nutEmbeddedImgURL,
+                openMsg: nutInfo.open_message.value,
+                openMsgImg: nutInfo.open_message.image,
+                publicMsg: nutInfo.public_message.value,
+                publicMsgImg: nutInfo.public_message.image
               }
               nutsInfo[n] = onNutInfo;
 
@@ -265,16 +269,22 @@ class Userpage extends Component {
 
     var ownedNuts = this.state.ownedNuts;
     var nutImgURL = ownedNuts[nutId].image.src;
-    var embeddedImgURL = this.state.ownedNutsInfo[nutId].embeddedImage;
 
-    // NEED to include other elements on userpage that should also change
-    // only embeddedImage change was implemented, others need to be added
+    var embeddedImgURL = this.state.ownedNutsInfo[nutId].embeddedImage;
+    var openMsg = this.state.ownedNutsInfo[nutId].openMsg;
+    var openMsgImg = this.state.ownedNutsInfo[nutId].openMsgImg;
+    var publicMsg = this.state.ownedNutsInfo[nutId].publicMsg;
+    var publicMsgImg = this.state.ownedNutsInfo[nutId].publicMsgImg;
 
     this.setState({
       selectedNutId: nutId,
       selectedNut: ddText,
       selectedNutURL: nutImgURL,
-      embeddedImgSrc: embeddedImgURL
+      embeddedImgSrc: embeddedImgURL,
+      openMessage: openMsg,
+      openMsgSrc: openMsgImg,
+      publicMessage: publicMsg,
+      publicMsgSrc: publicMsgImg
     });
   }
 
