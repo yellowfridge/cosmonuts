@@ -40,10 +40,10 @@ class Userpage extends Component {
       selectedNutCID: '',
       openMessage: nut.open_message.value,
       openMsgSrc: 'blank',
-      openMsgCid: '',
+      openMsgCID: '',
       publicMessage: nut.public_message.value,
       publicMsgSrc: 'blank',
-      publicMsgCid: '',
+      publicMsgCID: '',
       groupMessage: 'Current group message ...',
       secretMessage: 'Current secret message ...',
       secretKey: 'Should be ecnreypted key ...',
@@ -137,7 +137,6 @@ class Userpage extends Component {
               var nutInfo = await getJSONData(nutURL).catch((error) => {
                 console.log("Could nut retrieve data on nut id:", nutId);
               });
-              console.log("Nut Info", nutInfo);
 
               // This is to blank out if it can't find main image
               const checkImgURL = () => {
@@ -169,6 +168,7 @@ class Userpage extends Component {
 
               let onNutInfo = {
                 id: nut,
+                info: nutInfo,
                 image: nutImgURL,
                 embeddedImage: nutEmbeddedImgURL,
                 openMsg: nutInfo.open_message.value,
@@ -280,12 +280,14 @@ class Userpage extends Component {
     var openMsgImg = this.state.ownedNutsInfo[nutId].openMsgImg;
     var publicMsg = this.state.ownedNutsInfo[nutId].publicMsg;
     var publicMsgImg = this.state.ownedNutsInfo[nutId].publicMsgImg;
+    var nutInfo = this.state.ownedNutsInfo[nutId].info;
 
     this.setState({
       selectedNutId: nutId,
       selectedNutCID: nut_cid,
       selectedNut: ddText,
       selectedNutURL: nutImgURL,
+      selectedNutInfo: JSON.stringify(nutInfo),
       embeddedImgSrc: embeddedImgURL,
       openMessage: openMsg,
       openMsgSrc: openMsgImg,
@@ -423,9 +425,9 @@ class Userpage extends Component {
           this.addToIPFS(byteStringOpenMsgImg, byteStringPubQR, byteStringFinalImg, byteStringEmbeddedImg, newNutMeta.data).then((cids) => {
             console.log("CIDS", cids);
             this.setState({
-              openMsgCid: cids.openImg_cid.path,
-              publicMsgCid: cids.qrImg_cid.path,
-              finalImgCid: cids.finalImg_cid.path,
+              openMsgCID: cids.openImg_cid.path,
+              publicMsgCID: cids.qrImg_cid.path,
+              finalImgCID: cids.finalImg_cid.path,
               embeddedImgCID: cids.embeddedImg_cid.path,
               metadataCID: cids.nutMetadata_cid.path
             });
@@ -438,6 +440,7 @@ class Userpage extends Component {
             console.log("Publishing to IPNS ...");
             console.log("Please wait as this part can take a while.");
             // What happens when it is slow and can't upload??
+            // Need an average timeout and maybe ask user to try again?
             publishToIPNS(nutKey, cids.nutMetadata_cid.path).then((cid) => {
               //console.log("Nut Metadata IPNS", cid.nutIPNS);
               //console.log("Set Nut Metadata IPNS", this.state.selectedNutCID);
@@ -450,11 +453,10 @@ class Userpage extends Component {
                 // Change token location on the selected nut
                 changeTokenURI(this.state.selectedNutId, finalImg_hash, this.state.finalImgSig).then(() => {
                   console.log("Success!");
+                  this.setState({ buttonLoad: false }); // Set loading on button to false - task is complete
                 }).catch((error) => {
                   console.log("Error: Was not able to change token URI on blockchain.", error);
                 });
-
-                this.setState({ buttonLoad: false }); // Set loading on button to false - task is complete
 
                 //After changing token URI - it likely makes sense to refresh the page - maybe?
                 // Blcked out for now during R&D

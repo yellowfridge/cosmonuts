@@ -183,7 +183,7 @@ class Main extends Component {
               width: '600px'
             }}>
               <Grid.Column>
-                <h3>Am I able to mint my nuts?</h3>
+                <h3>Is the sale still active?</h3>
               </Grid.Column>
 
               <Grid.Column>

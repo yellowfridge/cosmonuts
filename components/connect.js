@@ -16,6 +16,9 @@ export default function Connect(props) {
   const [helperMessage, setHelperMessage] = useState('');
   const [numNuts, setNumNuts] = useState(0);
   const [hasNuts, setHasNuts] = useState(false);
+  const [firstNutId, setFirstNutId] = useState(''); // Not yet complete
+  // Need to work on this where the first nut info is sent to user page
+  // Instead of first nut on userpage, it should be figured out here
 
   async function getInitialStates() {
     let address;
@@ -26,6 +29,7 @@ export default function Connect(props) {
     if (provider.selectedAddress === null) { // If it can not find a provider
       if (currentPath.includes('/users')) { // If in users already, push to index
         Router.push('/'); // Still takes a bit time as userpage loads
+        // NEED to find a better way to restrict access to this page
       }
 
       address = 'None';
