@@ -168,6 +168,7 @@ class Userpage extends Component {
 
               let onNutInfo = {
                 id: nut,
+                cid: nut_cid,
                 info: nutInfo,
                 image: nutImgURL,
                 embeddedImage: nutEmbeddedImgURL,
@@ -270,7 +271,8 @@ class Userpage extends Component {
     var ddText = event.target.innerText; // For dropdowns, it is under innerText (as opposed to .value)
     var ddTextArray = ddText.split(" "); // Creating an array split by spaces in the string
     var nutId = ddTextArray[ddTextArray.length - 1]; // Grabbing the last element in the array
-    var nut_cid = this.props.nutsCID[nutId].ipnsCID; // Grabbing the IPNS CID of the nut
+    //var nut_cid = this.props.nutsCID[nutId].ipnsCID; // Grabbing the IPNS CID of the nut
+    var nut_cid = this.state.ownedNutsInfo[nutId].cid; // Trying this as top not working sometimes
 
     var ownedNuts = this.state.ownedNuts;
     var nutImgURL = ownedNuts[nutId].image.src;
