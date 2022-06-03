@@ -443,6 +443,7 @@ class Userpage extends Component {
             console.log("Please wait as this part can take a while.");
             // What happens when it is slow and can't upload??
             // Need an average timeout and maybe ask user to try again?
+            // MAJOR ISSUE: Publishing needs to likely be done after changing token URI
             publishToIPNS(nutKey, cids.nutMetadata_cid.path).then((cid) => {
               //console.log("Nut Metadata IPNS", cid.nutIPNS);
               //console.log("Set Nut Metadata IPNS", this.state.selectedNutCID);
