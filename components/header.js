@@ -1,5 +1,5 @@
 import React from "react";
-import { Menu, Button, Icon, Popup } from 'semantic-ui-react';
+import { Menu, Label, Icon, Popup } from 'semantic-ui-react';
 import { Link, Router } from '../routes';
 import Connect from './connect';
 import Userpage from '../pages/users/userpage';
@@ -36,18 +36,30 @@ export default () => {
         <a className="item">
           <Menu.Item name='home'>
             <Icon name='bitcoin' />
-            Cosmo Nuts
+              Cosmo Nuts
           </Menu.Item>
         </a>
       </Link>
 
       <Menu.Menu position='left'>
-        <Menu.Item name='userpagelink'>
-          <Link route={route}>
-            <a>
-              Jump to another Universe ----->
-            </a>
-          </Link>
+        <Link route={route}>
+          <a className="item">
+            <Menu.Item name='changeEmbeddedImageLink'>
+              <Label basic circular
+                content='Change Embedded Image'
+                color = 'blue'
+                size = 'large'
+              />
+            </Menu.Item>
+          </a>
+        </Link>
+
+        <Menu.Item name='learnNuts'>
+          <Label basic circular
+            content='Learn More About These Nuts'
+            color = 'blue'
+            size = 'large'
+          />
         </Menu.Item>
       </Menu.Menu>
 
