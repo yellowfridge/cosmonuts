@@ -10,6 +10,8 @@ export default () => {
 
   const [userAddress, setUserAddress] = useState('');
   const [route, setRoute] = useState('/');
+  const [buttonImgMsg, setButtonImgMsg] = useState(''); // Not used yet
+  // Needs to come from connect when enabled or disabled = similar to Connect
 
   useEffect(() => {
     // You're doing this same thing twice - consider grabbing as props from parent
