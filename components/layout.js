@@ -3,7 +3,6 @@ import { Container } from 'semantic-ui-react';
 import Head from 'next/head';
 import Header from './header';
 import darkblack_img from '../public/images/darkblack_flatring.jpg';
-import Starfield from '../pages/starfield';
 
 export default (props) => {
   return (

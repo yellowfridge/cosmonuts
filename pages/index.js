@@ -1,19 +1,12 @@
 import React, { Component } from 'react';
 import { Button, List, Divider, Container, Grid, Dropdown } from 'semantic-ui-react';
 import Layout from '../components/layout';
-//import detectEthereumProvider from '@metamask/detect-provider';
 import QRCode from 'react-qr-code';
 import Mint from './mint';
-//import Web3 from 'web3';
 import CosmoNuts from '../ethereum/build_manual/CosmoNuts_abi.json';
-import Image from 'next/image';
 import { Parallax, ParallaxLayer } from '@react-spring/parallax';
-import Galaxy from './galaxy';
 import colorfulnebula1 from '../public/images/colorfulnebula12.gif';
 import parseImage from '../components/helpers/parseimage';
-import nut from '../metadata/nut0.json';
-//import cosmonuts from '../ethereum/cosmonuts';
-//import provider from '../ethereum/provider';
 import cosmos from '../metadata/cosmonuts.json';
 import { getInitialNutData } from '../components/helpers/apiRequests';
 import getJSONData from '../components/helpers/getjsondata';
@@ -74,7 +67,6 @@ class Main extends Component {
       cosmoNutsAddress: cosmoNutsAddress,
       cosmoCID: cosmoCID,
       cosmosMetaPath: cosmoMetaPath,
-      //cosmoCID: cosmos.cosmonuts.ipnsCID,
       cosmoContractAddress: cosmos.cosmonuts.contract_address,
       cosmoOwnerAddress: cosmos.cosmonuts.owner_address,
       cosmoNuts: cosmos.nuts,
@@ -101,7 +93,7 @@ class Main extends Component {
       var nut0Data = await getJSONData(nut0URL).catch((error) => {
         console.log("Could nut retrive data on first nut.");
       });
-      //console.log("Nut 0 Data inside function", nut0Data);
+
       return nut0Data;
     }
 
@@ -369,9 +361,6 @@ class Main extends Component {
 }
 
 export default Main
-
-//Original IPFS for Bored Ape Example
-// Source for nutImg src='https://ipfs.io/ipfs/QmTHcV6mGxHGeeXCnYtV129eRiR8Exni4sT8dDikBWBgzY'
 
 //<div style={{ background: '#778fde' }}>
 
