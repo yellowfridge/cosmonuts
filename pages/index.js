@@ -162,10 +162,15 @@ class Main extends Component {
   }
 
   dropdownOptions() {
-    var ddOptions = [
-      { key: 100, text: '100', value: 100 },
-      { key: 200, text: '200', value: 200 }
-    ]
+    let ddOptions = [];
+    for (let n = 0; n < this.props.totalSupply; n++) {
+      let ddOption = {
+        key: n,
+        text: 'Nut ' + n,
+        value: n
+      }
+      ddOptions[n] = ddOption;
+    }
 
     this.setState({ ddOptions: ddOptions });
   }
@@ -292,11 +297,15 @@ class Main extends Component {
             </h4>
 
             <Dropdown
-              search
-              searchInput={{ type: 'number' }}
+              placeholder='Nut 0'
+              fluid
               selection
               options={this.state.ddOptions}
-              placeholder='0'
+              style={{
+                width: '200px',
+                height: 'auto',
+                marginBottom: '20px'
+              }}
             />
 
             <Grid columns={2}>
