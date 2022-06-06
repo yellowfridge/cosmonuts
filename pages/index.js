@@ -42,14 +42,15 @@ class Main extends Component {
       isSaleActive: (() => { return isSaleActive() })(),
       totalSupply: 'Not Known',
       backgroundSource: null,
-      selectedNut: '0',
-      nut0Img: '',
+      selectedNut: 0,
+      nutImgSrc: '',
       embeddedImgSrc: '',
       ddOptions: []
     };
 
     this.interpretImage = this.interpretImage.bind(this);
     this.dropdownOptions = this.dropdownOptions.bind(this);
+    this.handleDDChange = this.handleDDChange.bind(this);
   }
 
   static async getInitialProps(props) {
@@ -93,7 +94,7 @@ class Main extends Component {
     //var starfield = <Starfield />;
     //console.log("Starfield", starfield);
     //document.body.style.backgroundSize = 'cover';
-    //console.log("Testing Component Did Mount", this.state.nut0Img);
+    //console.log("Testing Component Did Mount", this.state.nutImgSrc);
 
     const getFirstNutData = async () => {
       const baseURL = "https://ipfs.io/ipns/";
@@ -121,7 +122,7 @@ class Main extends Component {
     }
 
     getNut0URL().then((img) => {
-      this.setState({ nut0Img: img });
+      this.setState({ nutImgSrc: img });
     }).catch((error) => {
       console.log("Error in getting the first nut URL.", error);
     });
@@ -173,6 +174,26 @@ class Main extends Component {
     }
 
     this.setState({ ddOptions: ddOptions });
+  }
+
+  async handleDDChange(event) {
+    var ddText = event.target.innerText; // For dropdowns, it is under innerText (as opposed to .value)
+    var ddTextArray = ddText.split(" "); // Creating an array split by spaces in the string
+    var nutId = ddTextArray[ddTextArray.length - 1]; // Grabbing the last element in the array
+
+    var nut_cid = this.props.cosmoNuts[nutId].ipnsCID;
+    const baseURL = "https://ipfs.io/ipns/";
+    var nutURL = baseURL + nut_cid;
+    var nutData = await getJSONData(nutURL).catch((error) => {
+      console.log("Could nut retrive data on nut #: ", nutId);
+    });
+    //console.log("Nut Data", nutData);
+
+    this.setState({
+      selectedNut: nutId,
+      nutImgSrc: nutData.image,
+      embeddedImgSrc: nutData.embedded_image
+    });
   }
 
   render() {
@@ -301,6 +322,8 @@ class Main extends Component {
               fluid
               selection
               options={this.state.ddOptions}
+              defaultValue={this.state.selectedNut}
+              onChange={this.handleDDChange}
               style={{
                 width: '200px',
                 height: 'auto',
@@ -310,7 +333,7 @@ class Main extends Component {
 
             <Grid columns={2}>
               <Grid.Column>
-                <img id='nutImg' src={this.state.nut0Img} width='631' height='631' />
+                <img id='nutImg' src={this.state.nutImgSrc} width='631' height='631' />
               </Grid.Column>
 
               <Grid.Column>
