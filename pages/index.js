@@ -48,7 +48,6 @@ class Main extends Component {
       ddOptions: []
     };
 
-    this.interpretImage = this.interpretImage.bind(this);
     this.dropdownOptions = this.dropdownOptions.bind(this);
     this.handleDDChange = this.handleDDChange.bind(this);
   }
@@ -147,19 +146,8 @@ class Main extends Component {
       }
     })();
 
-    //this.interpretImage();
     this.dropdownOptions();
 
-  }
-
-  interpretImage() {
-    var nutImg = document.getElementById('nutImg');
-    var parsedImage = parseImage(nutImg).then((uri) => {
-      this.setState({
-        embeddedImgSrc: uri
-      });
-
-    });
   }
 
   dropdownOptions() {
@@ -340,17 +328,6 @@ class Main extends Component {
                 <img id='embeddedNutImg' src={this.state.embeddedImgSrc} width="631" height="631" />
               </Grid.Column>
             </Grid>
-          </div>
-
-          <div style={{
-            display: 'flex',
-            justifyContent: 'center',
-            marginTop: '20px'
-          }}>
-            <Button
-              content='Interpret Embedded Image'
-              onClick={this.interpretImage}
-            />
           </div>
         </ParallaxLayer>
 
