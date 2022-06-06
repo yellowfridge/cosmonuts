@@ -1,0 +1,49 @@
+{
+  "name": "CosmoNut #9",
+  "id": "9",
+  "description": "A lone nut wandering the Web3 space, always in-sync with its fellow travelers.",
+  "image": "https://ipfs.io/ipfs/QmNMAsXWtQS7nLwLw44oLdDWewqYscisR25YL3taRDkkFh",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value":  "Brazilian"
+    },
+    {
+      "trait_type": "Expression",
+      "value": "Angry"
+    },
+    {
+      "trait_type": "Helmet",
+      "value":  "Tron"
+    },
+    {
+      "trait_type": "Control Module",
+      "value": "??"
+    },
+    {
+      "trait_type": "Life Support",
+      "value": "??"
+    },
+    {
+      "trait_type": "Suit Skin",
+      "value": "Tron"
+    },
+    {
+      "trait_type": "Rope",
+      "value": "Glowing"
+    },
+    {
+      "trait_type": "Background",
+      "value": "Will be unique each time message is changed"
+    }
+  ],
+  "open_message": {
+      "value": "9 now",
+      "image": ""
+  },
+  "public_message": {
+      "value": "",
+      "image": ""
+  },
+  "embedded_image": "https://ipfs.io/ipfs/QmNMAsXWtQS7nLwLw44oLdDWewqYscisR25YL3taRDkkFh"
+}
