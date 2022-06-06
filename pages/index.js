@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, List, Divider, Container, Grid } from 'semantic-ui-react';
+import { Button, List, Divider, Container, Grid, Dropdown } from 'semantic-ui-react';
 import Layout from '../components/layout';
 //import detectEthereumProvider from '@metamask/detect-provider';
 //import ImageGenerator from './imagegenerator';
@@ -44,10 +44,12 @@ class Main extends Component {
       backgroundSource: null,
       selectedNut: '0',
       nut0Img: '',
-      embeddedImgSrc: ''
+      embeddedImgSrc: '',
+      ddOptions: []
     };
 
     this.interpretImage = this.interpretImage.bind(this);
+    this.dropdownOptions = this.dropdownOptions.bind(this);
   }
 
   static async getInitialProps(props) {
@@ -145,6 +147,7 @@ class Main extends Component {
     })();
 
     //this.interpretImage();
+    this.dropdownOptions();
 
   }
 
@@ -156,6 +159,15 @@ class Main extends Component {
       });
 
     });
+  }
+
+  dropdownOptions() {
+    var ddOptions = [
+      { key: 100, text: '100', value: 100 },
+      { key: 200, text: '200', value: 200 }
+    ]
+
+    this.setState({ ddOptions: ddOptions });
   }
 
   render() {
@@ -277,8 +289,15 @@ class Main extends Component {
           }}>
             <h4>
               <p>In a nutshell, CosmoNuts are pictures with embedded attributes.</p>
-              <p>See current Nuts now or upload your own picture to investigate.</p>
             </h4>
+
+            <Dropdown
+              search
+              searchInput={{ type: 'number' }}
+              selection
+              options={this.state.ddOptions}
+              placeholder='0'
+            />
 
             <Grid columns={2}>
               <Grid.Column>
