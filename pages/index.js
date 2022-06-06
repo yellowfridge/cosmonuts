@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Button, List, Divider, Container, Grid, Dropdown } from 'semantic-ui-react';
 import Layout from '../components/layout';
 //import detectEthereumProvider from '@metamask/detect-provider';
-//import ImageGenerator from './imagegenerator';
 import QRCode from 'react-qr-code';
 import Mint from './mint';
 //import Web3 from 'web3';

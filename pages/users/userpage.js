@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Layout from '../../components/layout';
-//import ImageGenerator from '../imagegenerator';
 import QRCode from 'react-qr-code';
 import { Parallax, ParallaxLayer } from '@react-spring/parallax';
 import { Container, Form, Button, Grid, Dropdown, Popup} from 'semantic-ui-react';
