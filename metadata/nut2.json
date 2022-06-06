@@ -1,0 +1,49 @@
+{
+  "name": "CosmoNut #2",
+  "id": "2",
+  "description": "A lone nut wandering the Web3 space, always in-sync with its fellow travelers.",
+  "image": "https://ipfs.io/ipfs/QmNN7AkgoEZBBAvegQc9qGSDmomneftpFvcATY9LwSJxXe",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value":  "Hazelnut"
+    },
+    {
+      "trait_type": "Expression",
+      "value": "Sad"
+    },
+    {
+      "trait_type": "Helmet",
+      "value":  "Cyborg"
+    },
+    {
+      "trait_type": "Control Module",
+      "value": "??"
+    },
+    {
+      "trait_type": "Life Support",
+      "value": "??"
+    },
+    {
+      "trait_type": "Suit Skin",
+      "value": "Rainbow"
+    },
+    {
+      "trait_type": "Rope",
+      "value": "Fruit Loops"
+    },
+    {
+      "trait_type": "Background",
+      "value": "Will be unique each time message is changed"
+    }
+  ],
+  "open_message": {
+      "value": "SANTI KLAUS",
+      "image": ""
+  },
+  "public_message": {
+      "value": "",
+      "image": ""
+  },
+  "embedded_image": "https://ipfs.io/ipfs/QmNN7AkgoEZBBAvegQc9qGSDmomneftpFvcATY9LwSJxXe"
+}

@@ -10,6 +10,7 @@ export default function Mint(props) {
   const [userAddress, setUserAddress] = useState('');
   const [isConnected, setIsConnected] = useState(false);
   const [helperMessage, setHelperMessage] = useState('');
+  const [mintMessage, setMintMessage] = useState('');
 
   async function getInitialStates() {
     let address;
@@ -61,9 +62,11 @@ export default function Mint(props) {
       console.log("Transaction Hash:", hash);
     }).on('receipt', function(receipt) {
       console.log("Receipt", receipt);
+      alert("SUCCESS!");
     }).on('error', function(error, receipt) {
       console.log("Error:", error);
       console.log("Receipt", receipt);
+      alert("Error!");
     });
 
     setLoad(false);
