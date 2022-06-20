@@ -56,13 +56,17 @@ export default () => {
           </a>
         </Link>
 
-        <Menu.Item name='learnNuts'>
-          <Label basic circular
-            content='Learn More About These Nuts'
-            color = 'blue'
-            size = 'large'
-          />
-        </Menu.Item>
+        <Link route={'/learnmore'}>
+          <a className="item">
+            <Menu.Item name='learnNuts'>
+              <Label basic circular
+                content='Learn More About These Nuts'
+                color = 'blue'
+                size = 'large'
+              />
+            </Menu.Item>
+          </a>
+        </Link>
       </Menu.Menu>
 
       <Menu.Menu position='right' icon='labeled'>

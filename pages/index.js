@@ -186,7 +186,7 @@ class Main extends Component {
 
     this.setState({
       selectedNut: nutId,
-      nutImgSrc: checkNutImg(), // Error here when it can't read image
+      nutImgSrc: checkNutImg(),
       embeddedImgSrc: checkEmbImg()
     });
   }
