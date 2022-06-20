@@ -168,10 +168,26 @@ class Main extends Component {
     });
     //console.log("Nut Data", nutData);
 
+    const checkNutImg = () => {
+      try {
+        return nutData.image;
+      } catch {
+        return '';
+      }
+    }
+
+    const checkEmbImg = () => {
+      try {
+        return nutData.embedded_image;
+      } catch {
+        return '';
+      }
+    }
+
     this.setState({
       selectedNut: nutId,
-      nutImgSrc: nutData.image,
-      embeddedImgSrc: nutData.embedded_image
+      nutImgSrc: checkNutImg(), // Error here when it can't read image
+      embeddedImgSrc: checkEmbImg()
     });
   }
 
