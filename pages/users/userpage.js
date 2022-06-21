@@ -249,6 +249,7 @@ class Userpage extends Component {
     return { openImg_cid, qrImg_cid, finalImg_cid, embeddedImg_cid, nutMetadata_cid }
   }
 
+  // Getting errors here sometimes
   setFirstNut(nutId, nutText, nutImgURL, embeddedImgURL, nutInfo, nut_cid) {
     this.setState({
       selectedNutId: nutId,
@@ -443,7 +444,14 @@ class Userpage extends Component {
             // What happens when it is slow and can't upload??
             // Need an average timeout and maybe ask user to try again?
             // MAJOR ISSUE: Publishing needs to likely be done after changing token URI
-            publishToIPNS(nutKey, cids.nutMetadata_cid.path).then((cid) => {
+            publishToIPNS(
+              nutKey,
+              cids.nutMetadata_cid.path,
+              cids.openImg_cid.path,
+              cids.qrImg_cid.path,
+              cids.finalImg_cid.path,
+              cids.embeddedImg_cid.path
+            ).then((cid) => {
               //console.log("Nut Metadata IPNS", cid.nutIPNS);
               //console.log("Set Nut Metadata IPNS", this.state.selectedNutCID);
 
