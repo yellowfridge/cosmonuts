@@ -273,6 +273,7 @@ class Userpage extends Component {
     var nutId = ddTextArray[ddTextArray.length - 1]; // Grabbing the last element in the array
     //var nut_cid = this.props.nutsCID[nutId].ipnsCID; // Grabbing the IPNS CID of the nut
     var nut_cid = this.state.ownedNutsInfo[nutId].cid; // Trying this as top not working sometimes
+    // Above also not working - causing errors (likely when something hasn't loaded?)
 
     var ownedNuts = this.state.ownedNuts;
     var nutImgURL = ownedNuts[nutId].image.src;
@@ -466,6 +467,11 @@ class Userpage extends Component {
                   this.setState({ buttonLoad: false }); // Set loading on button to false - task is complete
                 }).catch((error) => {
                   console.log("Error: Was not able to change token URI on blockchain.", error);
+                  // ISSUE!!
+                  // YOU ARE HERE BUT HAVEN'T FILES BEEN PUBLISHED TO IPNS ALREADY???
+
+                  this.setState({ buttonLoad: false }); // Set loading on button to false
+                  // Task is not complete - but the button should be free again to indicate usage
                 });
 
                 //After changing token URI - it likely makes sense to refresh the page - maybe?
