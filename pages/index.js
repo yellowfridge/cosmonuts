@@ -196,10 +196,12 @@ class Main extends Component {
     //console.log("Background Image:", darkblack_img.src);
 
     return (
-      <Parallax pages={3}>
+      <Parallax pages={2} style={{
+        backgroundColor: '#060919'
+      }}>
 
         <ParallaxLayer
-          sticky={{ start: 0, end: 3 }}
+          sticky={{ start: 0, end: 2 }}
           style={{
             height: 'auto'
           }}
@@ -216,11 +218,15 @@ class Main extends Component {
               width: '600px'
             }}>
               <Grid.Column>
-                <h3>Is the sale still active?</h3>
+                <h3 style={{ color: 'white' }}>
+                  Is the sale still active?
+                </h3>
               </Grid.Column>
 
               <Grid.Column>
-                <h3>{this.state.isSaleActive}</h3>
+                <h3 style={{ color: 'white' }}>
+                  {this.state.isSaleActive}
+                </h3>
               </Grid.Column>
             </Grid>
           </Container>
@@ -240,27 +246,29 @@ class Main extends Component {
             }}>
               <Grid.Column>
                 <Grid.Row>
-                  <h3>Total Minted</h3>
+                  <h3 style={{ color: 'white' }}>
+                    Total Minted
+                  </h3>
                 </Grid.Row>
 
                 <Grid.Row>
-                  <h3>{this.props.totalSupply}</h3>
+                  <h3 style={{ color: 'white' }}>{this.props.totalSupply}</h3>
                 </Grid.Row>
               </Grid.Column>
 
               <Grid.Column verticalAlign='middle' style={{
                 width: '50px'
               }}>
-                <h1>/</h1>
+                <h1 style={{ color: 'white' }}>/</h1>
               </Grid.Column>
 
               <Grid.Column>
                 <Grid.Row>
-                  <h3>Total Available</h3>
+                  <h3 style={{ color: 'white' }}>Total Available</h3>
                 </Grid.Row>
 
                 <Grid.Row>
-                  <h3>{this.props.maxNuts}</h3>
+                  <h3 style={{ color: 'white' }}>{this.props.maxNuts}</h3>
                 </Grid.Row>
               </Grid.Column>
             </Grid>
@@ -280,18 +288,18 @@ class Main extends Component {
             width: '500px'
           }}>
             <Grid.Column>
-              <h3>How much for a nut?</h3>
+              <h3 style={{ color: 'white' }}>How much for a nut?</h3>
             </Grid.Column>
 
             <Grid.Column>
-              <h3>{this.props.nutPrice / 1000000000000000000} eth</h3>
+              <h3 style={{ color: 'white' }}>{this.props.nutPrice / 1000000000000000000} eth</h3>
             </Grid.Column>
           </Grid>
         </Container>
       </ParallaxLayer>
 
         <ParallaxLayer
-          offset={0.7}
+          offset={0.8}
           speed={.1}
           style={{
             display: 'flex',
@@ -301,16 +309,19 @@ class Main extends Component {
           <Mint />
         </ParallaxLayer>
 
-        <ParallaxLayer offset={1} speed={3} style={{
-          backgroundColor: '#ff6d6d'
+        <ParallaxLayer
+          offset={1.1}
+          speed={3}
+          style={{
+          zIndex: '1'
         }}
         >
           <div style={{
             marginLeft: '10px'
           }}>
-            <h4>
+            <h3 style={{ color: 'white' }}>
               <p>In a nutshell, CosmoNuts are pictures with embedded attributes.</p>
-            </h4>
+            </h3>
 
             <Dropdown
               placeholder='Nut 0'
@@ -338,37 +349,12 @@ class Main extends Component {
           </div>
         </ParallaxLayer>
 
-        <ParallaxLayer offset={2} speed={1} style={{
+        <ParallaxLayer offset={1} speed={3} style={{
           backgroundImage: `url(${colorfulnebula1.src})`,
           backgroundSize: 'cover',
           opacity: 0.3
         }}
         />
-
-        <ParallaxLayer
-          offset={2}
-          speed={1}
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            color: 'purple',
-          }}>
-          <List divided relaxed>
-            <List.Item>
-              <h3>Let's get cracking. Showing all the data we are pulling below.</h3>
-            </List.Item>
-            <List.Item>
-              <h4>
-                <p>Is User Connected? {this.state.isUserConnected}</p>
-                <p>User Account Number: {this.state.currentAccount}</p>
-                <p>Is Sale Active: {this.state.isSaleActive}</p>
-                <p>Supply Status: {this.state.totalSupply}</p>
-              </h4>
-            </List.Item>
-
-          </List>
-        </ParallaxLayer>
 
       </Parallax>
 

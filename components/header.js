@@ -38,7 +38,9 @@ export default () => {
         <a className="item">
           <Menu.Item name='home'>
             <Icon name='bitcoin' />
-              Cosmo Nuts
+              <b style={{ color: 'white' }}>
+                Cosmo Nuts
+              </b>
           </Menu.Item>
         </a>
       </Link>
