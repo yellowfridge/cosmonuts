@@ -52,6 +52,7 @@ class Userpage extends Component {
       finalImgSig: '',
       imgVerification: '',
       ddPlaceholder: 'No known nuts',
+      ddDisabled: true,
       metadataCID: '',
       buttonLoad: false
     };
@@ -204,9 +205,11 @@ class Userpage extends Component {
               }
               nutsInfo[n] = onNutInfo;
 
+              // This section below is just wrong
+              // TypeError: Cannot read properties of undefined (reading 'value') on this.
               if (n === 0) {
                 this.ddPlaceholderSet(nut);
-                this.setFirstNut(n, nut, nutImgURL, nutEmbeddedImgURL, nutInfo, nut_cid); // this could be an issue
+                this.setFirstNut(n, nut, nutImgURL, nutEmbeddedImgURL, nutInfo, nut_cid);
               }
 
             });
@@ -282,7 +285,8 @@ class Userpage extends Component {
 
   ddPlaceholderSet(firstNut) {
     this.setState({
-      ddPlaceholder: 'Nut ' + firstNut
+      ddPlaceholder: 'Nut ' + firstNut,
+      ddDisabled: false
     });
   }
 
@@ -576,6 +580,7 @@ class Userpage extends Component {
                     width: '200px',
                     height: 'auto'
                   }}
+                  disabled={this.state.ddDisabled}
                 />
               </Grid.Column>
             </Grid>
