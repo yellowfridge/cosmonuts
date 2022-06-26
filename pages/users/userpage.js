@@ -56,7 +56,7 @@ class Userpage extends Component {
       buttonLoad: false
     };
 
-    //this.ddPlaceholderSet = this.ddPlaceholderSet.bind(this);
+    this.ddPlaceholderSet = this.ddPlaceholderSet.bind(this);
     this.setFirstNut = this.setFirstNut.bind(this);
     this.addToIPFS = this.addToIPFS.bind(this);
     this.handleOpenMessage = this.handleOpenMessage.bind(this);
@@ -105,17 +105,7 @@ class Userpage extends Component {
     // Getting total nuts owned and nut ids of each nut
     let nuts = [];
     let nutObjects = [];
-    let firstNut;
     let nutsInfo = [];
-
-    // Function to find the first nut
-    const findFirst = async (n, nut) => {
-      if (n === 0) {
-        return nut
-      } else {
-        return 'Nut first'
-      }
-    }
 
     // Get all the nut info
     var getNuts = async () => {
@@ -214,37 +204,10 @@ class Userpage extends Component {
               }
               nutsInfo[n] = onNutInfo;
 
-              if (nut == 0) {
-                //this.ddPlaceholderSet(nut);
-                //this.setState({
-                //  ddPlaceholder: 'Nut ' + nut
-                //});
-
+              if (n === 0) {
+                this.ddPlaceholderSet(nut);
                 this.setFirstNut(n, nut, nutImgURL, nutEmbeddedImgURL, nutInfo, nut_cid); // this could be an issue
               }
-
-              /*
-              findFirst(n, nut).then((nut1) => {
-                if (nut1 !== 'Nut first') {
-                  this.ddPlaceholderSet(nut1);
-
-                  this.setFirstNut(n, nut1, nutImgURL, nutEmbeddedImgURL, nutInfo, nut_cid); // this could be an issue
-                }
-              });
-              */
-
-              /*
-              (async () => {
-                await findFirst(n, nut).then((nut1) => {
-                  if (nut1 !== 'Nut first') {
-                    this.ddPlaceholderSet(nut1);
-
-                    this.setFirstNut(n, nut1, nutImgURL, nutEmbeddedImgURL, nutInfo, nut_cid); // this could be an issue
-                  }
-
-                });
-              })();
-              */
 
             });
           })();
@@ -269,13 +232,6 @@ class Userpage extends Component {
       var imgURL = this.openImgSrc(this.state.openMessage);
       this.setState({
         openMsgSrc: imgURL
-      });
-    }
-
-    if (prevState.ownedNutsInfo !== this.state.ownedNutsInfo & this.state.ownedNutsInfo[0] !== undefined) {
-      console.log(this.state.ownedNutsInfo[0]);
-      this.setState({
-        ddPlaceholder: 'Nut ' + this.state.ownedNutsInfo[0].id
       });
     }
 
@@ -324,13 +280,11 @@ class Userpage extends Component {
     });
   }
 
-  /*
   ddPlaceholderSet(firstNut) {
     this.setState({
       ddPlaceholder: 'Nut ' + firstNut
     });
   }
-  */
 
   handleDropdownChange(event) {
     var ddText = event.target.innerText; // For dropdowns, it is under innerText (as opposed to .value)
