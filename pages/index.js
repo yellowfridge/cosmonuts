@@ -198,7 +198,8 @@ class Main extends Component {
     return (
       <Parallax pages={2} style={{
         backgroundColor: '#060919'
-      }}>
+      }}
+      >
 
         <ParallaxLayer
           sticky={{ start: 0, end: 2 }}

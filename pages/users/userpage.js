@@ -117,8 +117,6 @@ class Userpage extends Component {
           ddPlaceholder: 'Loading nuts . . .'
         });
 
-        // TESTING GIT BRANCHES
-
         // Go through each nut and grab the relevant information
         const loopyNuts = async () => {
           for (let n = 0; n < numOfNuts; n++) {
@@ -250,6 +248,7 @@ class Userpage extends Component {
     openMsgCanvas.height = '230'; // Likely should not hardcode these
 
     openMsgCtx.font = "bold 16px Arial";
+    openMsgCtx.fillStyle = "white";
     openMsgCtx.fillText(msg, 10, 20);
 
     var imgURL = openMsgCanvas.toDataURL();
@@ -540,7 +539,9 @@ class Userpage extends Component {
 
     return (
 
-      <Parallax pages={4}
+      <Parallax pages={4} style={{
+        backgroundColor: '#060919'
+      }}
       >
 
         <ParallaxLayer
@@ -550,7 +551,6 @@ class Userpage extends Component {
           }}
         >
           <Layout />
-          <h3>Testing items here: -- -- </h3>
         </ParallaxLayer>
 
         <ParallaxLayer
@@ -568,7 +568,9 @@ class Userpage extends Component {
                 marginTop: '8px',
                 width: '170px'
               }}>
-                <h4>Select your nut ---></h4>
+                <h4 style={{ color: 'white' }}>
+                  Select your nut --->
+                </h4>
               </Grid.Column>
 
               <Grid.Column>
@@ -630,7 +632,7 @@ class Userpage extends Component {
             <div style={{
               marginRight: '10%'
             }}>
-              <p style={{color: 'black'}}>
+              <p style={{color: 'white'}}>
                 Change Open Message
               </p>
 
@@ -664,7 +666,7 @@ class Userpage extends Component {
             <div style={{
               marginRight: '10%'
             }}>
-              <p style={{color: 'black'}}>
+              <p style={{color: 'white'}}>
                 Change Public Message
               </p>
 
@@ -700,7 +702,7 @@ class Userpage extends Component {
           <div style={{
             marginRight: '10%'
           }}>
-            <p style={{color: 'black'}}>
+            <p style={{color: 'white'}}>
               Change Group Message
             </p>
 
@@ -735,7 +737,7 @@ class Userpage extends Component {
           <div style={{
             marginRight: '10%'
           }}>
-            <p style={{color: 'black'}}>
+            <p style={{color: 'white'}}>
               Change Private Message
             </p>
 
@@ -774,7 +776,6 @@ class Userpage extends Component {
             marginRight: '10%'
           }}>
 
-            <p>Testing: {this.state.metadataCID}</p>
             <img id='combinedImg' src={this.state.combinedImgSrc} width="570" height="300" hidden />
             <img id='finalImg' src={this.state.finalImgSrc} width="631" height="631" hidden/>
 
@@ -808,10 +809,4 @@ export default Userpage
     <ImageGenerator />
   </div>
 </Layout>
-
-// Old form code (without semantic)
-sticky={{ start: 0, end: 3 }}
-style={{
-  height: 'auto'
-}}
 */
