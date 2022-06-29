@@ -116,7 +116,10 @@ class Userpage extends Component {
           nutsHeld: numOfNuts,
           ddPlaceholder: 'Loading nuts . . .'
         });
-        // Go through each one and grab the relevant information
+        // Go through each nut and grab the relevant information
+        //const loopyNuts = async () => {
+        //
+        //}
         for (let n = 0; n < numOfNuts; n++) {
           (async () => {
             await cosmoNuts.methods.tokenOfOwnerByIndex(this.props.address, n).call().then(async (nut) => {
