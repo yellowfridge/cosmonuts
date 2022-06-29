@@ -116,12 +116,10 @@ class Userpage extends Component {
           nutsHeld: numOfNuts,
           ddPlaceholder: 'Loading nuts . . .'
         });
+
         // Go through each nut and grab the relevant information
-        //const loopyNuts = async () => {
-        //
-        //}
-        for (let n = 0; n < numOfNuts; n++) {
-          (async () => {
+        const loopyNuts = async () => {
+          for (let n = 0; n < numOfNuts; n++) {
             await cosmoNuts.methods.tokenOfOwnerByIndex(this.props.address, n).call().then(async (nut) => {
               nuts[n] = nut; // nut is in string form
               var nutId = parseInt(nut); // convert string to number type
@@ -216,8 +214,10 @@ class Userpage extends Component {
               }
 
             });
-          })();
+          }
         }
+
+        loopyNuts();
       });
     };
 
