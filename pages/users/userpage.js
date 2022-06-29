@@ -206,8 +206,6 @@ class Userpage extends Component {
               }
               nutsInfo[n] = onNutInfo;
 
-              // This section below is just wrong
-              // TypeError: Cannot read properties of undefined (reading 'value') on this.
               if (n === 0) {
                 this.ddPlaceholderSet(nut);
                 this.setFirstNut(n, nut, nutImgURL, nutEmbeddedImgURL, nutInfo, nut_cid);
