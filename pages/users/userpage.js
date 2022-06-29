@@ -117,6 +117,8 @@ class Userpage extends Component {
           ddPlaceholder: 'Loading nuts . . .'
         });
 
+        // TESTING GIT BRANCHES
+
         // Go through each nut and grab the relevant information
         const loopyNuts = async () => {
           for (let n = 0; n < numOfNuts; n++) {
