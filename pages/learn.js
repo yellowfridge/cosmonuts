@@ -9,7 +9,9 @@ class LearnNuts extends Component {
   render() {
     return (
 
-      <Parallax pages={1}
+      <Parallax pages={1} style={{
+        backgroundColor: '#060919'
+      }}
       >
 
         <ParallaxLayer
@@ -25,10 +27,10 @@ class LearnNuts extends Component {
           offset={0.2}
         >
           <Container>
-            <h3>Who created these nuts?</h3>
-            <h3>Where did these nuts come from?</h3>
-            <h3>How many of these nuts are there</h3>
-            <h3>How much does it cost to get a nut?</h3>
+            <h3 style={{ color: 'white' }}>Who created these nuts?</h3>
+            <h3 style={{ color: 'white' }}>Where did these nuts come from?</h3>
+            <h3 style={{ color: 'white' }}>How many of these nuts are there</h3>
+            <h3 style={{ color: 'white' }}>How much does it cost to get a nut?</h3>
           </Container>
         </ParallaxLayer>
 
