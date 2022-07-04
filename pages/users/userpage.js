@@ -16,6 +16,7 @@ import EthCrypto from 'eth-crypto';
 import getJSONData from '../../components/helpers/getjsondata';
 import cosmos from '../../metadata/cosmonuts.json';
 import combineImages from '../../components/helpers/combineimages';
+import loadingBackground from '../../public/images/greyLoading.png';
 
 class Userpage extends Component {
   constructor(props) {
@@ -34,7 +35,7 @@ class Userpage extends Component {
       ownedNutsInfo: [],
       selectedNut: '',
       selectedNutId: '',
-      selectedNutURL: 'https://ipfs.io/ipfs/QmTHcV6mGxHGeeXCnYtV129eRiR8Exni4sT8dDikBWBgzY',
+      selectedNutURL: loadingBackground.src,
       selectedNutInfo: '',
       selectedNutCID: '',
       openMessage: nut.open_message.value,
@@ -47,7 +48,7 @@ class Userpage extends Component {
       secretMessage: 'Current secret message ...',
       secretKey: 'Should be ecnreypted key ...',
       combinedImgSrc: '',
-      embeddedImgSrc: '',
+      embeddedImgSrc: loadingBackground.src,
       finalImgSrc: nut.image,
       finalImgSig: '',
       imgVerification: '',

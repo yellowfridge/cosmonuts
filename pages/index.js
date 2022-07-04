@@ -5,6 +5,7 @@ import QRCode from 'react-qr-code';
 import Mint from './mint';
 import CosmoNuts from '../ethereum/build_manual/CosmoNuts_abi.json';
 import { Parallax, ParallaxLayer } from '@react-spring/parallax';
+import loadingBackground from '../public/images/greyLoading.png';
 import colorfulnebula1 from '../public/images/colorfulnebula12.gif';
 import parseImage from '../components/helpers/parseimage';
 import cosmos from '../metadata/cosmonuts.json';
@@ -33,10 +34,9 @@ class Main extends Component {
       currentAccount: null,
       isSaleActive: (() => { return isSaleActive() })(),
       totalSupply: 'Not Known',
-      backgroundSource: null,
       selectedNut: 0,
-      nutImgSrc: '',
-      embeddedImgSrc: '',
+      nutImgSrc: loadingBackground.src,
+      embeddedImgSrc: loadingBackground.src,
       ddOptions: []
     };
 
@@ -156,6 +156,9 @@ class Main extends Component {
   }
 
   async handleDDChange(event) {
+    this.setState({ nutImgSrc: loadingBackground.src });
+    this.setState({ embeddedImgSrc: loadingBackground.src });
+
     var ddText = event.target.innerText; // For dropdowns, it is under innerText (as opposed to .value)
     var ddTextArray = ddText.split(" "); // Creating an array split by spaces in the string
     var nutId = ddTextArray[ddTextArray.length - 1]; // Grabbing the last element in the array

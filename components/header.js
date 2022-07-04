@@ -4,6 +4,7 @@ import { Link, Router } from '../routes';
 import Connect from './connect';
 import Userpage from '../pages/users/userpage';
 import { useState, useEffect } from 'react';
+import cosmonutshelmet from './cosmonutshelmet.png';
 //import detectEthereumProvider from '@metamask/detect-provider';
 
 export default () => {
@@ -33,22 +34,26 @@ export default () => {
   });
 
   return (
-    <Menu style={{ marginTop: '10px' }} secondary icon = 'labeled'>
+    <Menu
+      secondary
+      style={{ marginTop: '10px', marginLeft: '10px' }}
+    >
+
       <Link route="/">
-        <a className="item">
-          <Menu.Item name='home'>
-            <Icon name='bitcoin' />
-              <b style={{ color: 'white' }}>
-                Cosmo Nuts
-              </b>
+        <a>
+          <Menu.Item >
+            <img src={cosmonutshelmet.src} style={{
+              width: '100px',
+              height: 'auto'
+            }} />
           </Menu.Item>
         </a>
       </Link>
 
       <Menu.Menu position='left'>
         <Link route={route}>
-          <a className="item">
-            <Menu.Item name='changeEmbeddedImageLink'>
+          <a className='item' >
+            <Menu.Item>
               <Label basic circular
                 content='Change Embedded Image'
                 color = 'blue'
@@ -59,8 +64,8 @@ export default () => {
         </Link>
 
         <Link route={'/learnmore'}>
-          <a className="item">
-            <Menu.Item name='learnNuts'>
+          <a className='item' >
+            <Menu.Item>
               <Label basic circular
                 content='Learn More About These Nuts'
                 color = 'blue'
@@ -72,7 +77,7 @@ export default () => {
       </Menu.Menu>
 
       <Menu.Menu position='right' icon='labeled'>
-        <Menu.Item name='connect'>
+        <Menu.Item>
           <Connect />
         </Menu.Item>
       </Menu.Menu>
