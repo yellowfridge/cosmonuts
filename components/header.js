@@ -5,7 +5,6 @@ import Connect from './connect';
 import Userpage from '../pages/users/userpage';
 import { useState, useEffect } from 'react';
 import cosmonutshelmet from './cosmonutshelmet.png';
-//import detectEthereumProvider from '@metamask/detect-provider';
 
 export default () => {
 
