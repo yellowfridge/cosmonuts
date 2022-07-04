@@ -274,7 +274,6 @@ class Userpage extends Component {
     return { openImg_cid, qrImg_cid, finalImg_cid, embeddedImg_cid, nutMetadata_cid }
   }
 
-  // Getting errors here sometimes
   setFirstNut(nutId, nutText, nutImgURL, embeddedImgURL, nutInfo, nut_cid) {
     this.setState({
       selectedNutId: nutId,
