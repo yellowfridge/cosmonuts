@@ -8,7 +8,7 @@ export default async function combineImages(img1, img2) {
   cvs.width = 570;
   cvs.height = 300;
 
-  ctx.fillStyle = "white";
+  ctx.fillStyle = "black";
   ctx.fillRect(0, 0, cvs.width, cvs.height);
 
   ctx.drawImage(img1, 10, 0);

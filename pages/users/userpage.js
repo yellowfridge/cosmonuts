@@ -55,7 +55,9 @@ class Userpage extends Component {
       ddPlaceholder: 'No known nuts',
       ddDisabled: true,
       metadataCID: '',
-      buttonLoad: false
+      buttonLoad: false,
+      mainQRCode: '',
+      mainQRImg: ''
     };
 
     this.ddPlaceholderSet = this.ddPlaceholderSet.bind(this);
@@ -245,8 +247,8 @@ class Userpage extends Component {
   openImgSrc(msg) {
     var openMsgCanvas = document.createElement('canvas');
     var openMsgCtx = openMsgCanvas.getContext('2d');
-    openMsgCanvas.width = '230'; // Likely should not hardcode these
-    openMsgCanvas.height = '230'; // Likely should not hardcode these
+    openMsgCanvas.width = '256'; // Likely should not hardcode these
+    openMsgCanvas.height = '256'; // Likely should not hardcode these
 
     openMsgCtx.font = "bold 16px Arial";
     openMsgCtx.fillStyle = "white";
@@ -377,6 +379,7 @@ class Userpage extends Component {
     const Hash = require('ipfs-only-hash'); // Used to cread CID paths that are equivalent to those created by IPFS
 
     var openMsgImg = document.getElementById('openMsgImg') // Grabs open message as image element
+    //console.log("Open Msg Image", openMsgImg);
     var byteStringOpenMsgImg = Buffer.from(openMsgImg.src.split(',')[1], 'base64'); // Convert image to bytes for IPFS format
     //console.log("Open Msg Bytes", byteStringOpenMsgImg);
     var openMsg_cid = await Hash.of(byteStringOpenMsgImg); // Open message CID path
@@ -384,8 +387,9 @@ class Userpage extends Component {
 
     var publicMsgQR = document.getElementById('publicMsgQR'); // Grab public QR message as SVG element
     var publicMsgUri = await svgAsPngUri(publicMsgQR); // Convert SVG to URI string, data:image/png;base64,...
-    var publicQRImg = document.getElementById('publicQRImg') // Grab hidden image element next to QR code
+    var publicQRImg = document.getElementById('publicQRImg'); // Grab hidden image element next to QR code
     publicQRImg.setAttribute("src", publicMsgUri); // Setting image source code to URI, creates a working element
+    //console.log("Public QR Image:", publicQRImg);
 
     var byteStringPubQR = Buffer.from(publicMsgUri.split(',')[1], 'base64'); // Converting URI to buffer data (needed to directly show image on IPFS)
     var publicQR_cid = await Hash.of(byteStringPubQR); // Public QR image CID path
@@ -398,9 +402,21 @@ class Userpage extends Component {
     // Need to think what else and how to embed
     // ** WORKING ON COMBINING IMAGES
     var combinedImg = document.getElementById('combinedImg'); // Grab the combined image element
-    var combinedImgURI = combineImages(openMsgImg, publicQRImg).then((uri) => {
+    var combinedImgURI = combineImages(openMsgImg, publicQRImg).then(async (uri) => {
       this.setState({ combinedImgSrc: uri });
       combinedImg.setAttribute('src', uri);
+
+      // Working on creating a QR code for main image
+      var byteStringCombinedImg = Buffer.from(uri.split(',')[1], 'base64');
+      var combinedImg_cid = await Hash.of(byteStringCombinedImg);
+      var combinedImgURL = this.props.baseURL + "ipfs/" + combinedImg_cid;
+      //console.log("Combined Image URL", combinedImgURL);
+      this.setState({ mainQRCode: combinedImgURL });
+
+      var mainQR = document.getElementById('mainQR');
+      var mainQRUri = await svgAsPngUri(mainQR);
+      var mainQRImg = document.getElementById('mainQRImg');
+      mainQRImg.setAttribute("src", mainQRUri);
     });
     //console.log("Combined Img URI", combinedImgURI);
 
@@ -447,7 +463,7 @@ class Userpage extends Component {
           imgVerification: 'Verified'
         });
 
-        //// - Put block out code here if needed - TEMPORARY - WORKING SECTION - JUST NOT TO SAVE IPFS - SAVING TIME
+        /*/// - Put block out code here if needed - TEMPORARY - WORKING SECTION - JUST NOT TO SAVE IPFS - SAVING TIME
         if (verification.verification) { // a final check - checking if IPFS CID matches signed CID
 
           this.addToIPFS(byteStringOpenMsgImg, byteStringPubQR, byteStringFinalImg, byteStringEmbeddedImg, newNutMeta.data).then((cids) => {
@@ -516,7 +532,7 @@ class Userpage extends Component {
             });
           });
         }
-        /// Put block out code here to stop IPFS feature
+        */// Put block out code here to stop IPFS feature
       });
     });
 
@@ -603,6 +619,8 @@ class Userpage extends Component {
             marginLeft: '10%'
           }}>
             <img id='nutImg' src={this.state.selectedNutURL} width="631" height="631"/>
+            <QRCode id='mainQR' value={this.state.mainQRCode} />
+            <img id='mainQRImg' value={this.state.mainQRImg} width="256" height="256"/>
           </div>
         </ParallaxLayer>
 
