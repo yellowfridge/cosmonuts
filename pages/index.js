@@ -346,11 +346,11 @@ class Main extends Component {
 
             <Grid columns={2}>
               <Grid.Column>
-                <img id='nutImg' src={this.state.nutImgSrc} width='631' height='631' />
+                <img id='nutImg' src={this.state.nutImgSrc} width='631' height='631' crossOrigin="anonymous" />
               </Grid.Column>
 
               <Grid.Column>
-                <img id='embeddedNutImg' src={this.state.embeddedImgSrc} width="631" height="631" />
+                <img id='embeddedNutImg' src={this.state.embeddedImgSrc} width="631" height="631" crossOrigin="anonymous" />
               </Grid.Column>
             </Grid>
           </div>

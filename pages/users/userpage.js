@@ -419,12 +419,11 @@ class Userpage extends Component {
       var mainQRUri = await svgAsPngUri(mainQR);
       var mainQRImg = document.getElementById('mainQRImg');
       mainQRImg.setAttribute("src", mainQRUri);
-    });
-    //console.log("Combined Img URI", combinedImgURI);
 
-    // Adding QR code to the original nut image
-    var newNutImage = addQRtoImage(nutImg, mainQRImg);
-    console.log("New Nut Image", newNutImage);
+      var newNutURI = await addQRtoImage(nutImg, mainQRImg);
+      this.setState({ selectedNutURL: newNutURI });
+
+    });
 
     //var finalImgURI = await embedImage(nutImg, publicQRImg); // Creating the combined image [original with just qrcode]
     var finalImgURI = await embedImage(nutImg, combinedImg); // Creating the combined image
@@ -440,9 +439,9 @@ class Userpage extends Component {
     var byteStringFinalImg = Buffer.from(finalImgURI.split(',')[1], 'base64');
     //console.log("Bytes Final Img IPFS", byteStringFinalImg);
     const finalImg_cid = await Hash.of(byteStringFinalImg); // Final image CID path
-    console.log("Final Img CID", finalImg_cid, typeof finalImg_cid);
+    //console.log("Final Img CID", finalImg_cid, typeof finalImg_cid);
     const finalImg_hash =  EthCrypto.hash.keccak256(finalImg_cid); // Create a hash as it would be done on the ethereum blockchain
-    console.log("Final Img Hash", finalImg_hash);
+    //console.log("Final Img Hash", finalImg_hash);
     var bytesFinalImg = this.getBytes32FromIPFSHash(finalImg_cid); // Format to save image in for IPFS
     //console.log("Bytes Emb Img Eth", bytesFinalImg);
 
@@ -624,9 +623,9 @@ class Userpage extends Component {
           <div style={{
             marginLeft: '10%'
           }}>
-            <img id='nutImg' src={this.state.selectedNutURL} width="631" height="631"/>
-            <QRCode id='mainQR' value={this.state.mainQRCode} />
-            <img id='mainQRImg' value={this.state.mainQRImg} width="256" height="256"/>
+            <img id='nutImg' src={this.state.selectedNutURL} width="631" height="631" crossOrigin="anonymous" />
+            <QRCode id='mainQR' value={this.state.mainQRCode} hidden />
+            <img id='mainQRImg' value={this.state.mainQRImg} width="256" height="256" hidden />
           </div>
         </ParallaxLayer>
 
@@ -801,7 +800,7 @@ class Userpage extends Component {
           }}>
 
             <img id='combinedImg' src={this.state.combinedImgSrc} width="570" height="300" hidden />
-            <img id='finalImg' src={this.state.finalImgSrc} width="631" height="631" hidden/>
+            <img id='finalImg' src={this.state.finalImgSrc} width="631" height="631" crossOrigin="anonymous" hidden />
 
             <Popup
               content='Please wait to fully complete process!  App will only ask for payment when all systems are go.'
