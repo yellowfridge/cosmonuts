@@ -6,6 +6,7 @@ import Mint from './mint';
 import CosmoNuts from '../ethereum/build_manual/CosmoNuts_abi.json';
 import { Parallax, ParallaxLayer } from '@react-spring/parallax';
 import loadingBackground from '../public/images/greyLoading.png';
+import notLoad from '../public/images/notload.png';
 import colorfulnebula1 from '../public/images/colorfulnebula12.gif';
 import parseImage from '../components/helpers/parseimage';
 import cosmos from '../metadata/cosmonuts.json';
@@ -115,12 +116,14 @@ class Main extends Component {
       this.setState({ nutImgSrc: img });
     }).catch((error) => {
       console.log("Error in getting the first nut URL.", error);
+      this.setState({ nutImgSrc: notLoad.src });
     });
 
     getNut0EmbedImg().then((embedImg) => {
       this.setState({ embeddedImgSrc: embedImg });
     }).catch((error) => {
       console.log("Error in getting the first nut image.", error);
+      this.setState({ nutImgSrc: notLoad.src });
     });
 
     (() => {
@@ -175,7 +178,7 @@ class Main extends Component {
       try {
         return nutData.image;
       } catch {
-        return '';
+        return notLoad.src;
       }
     }
 
@@ -183,7 +186,7 @@ class Main extends Component {
       try {
         return nutData.embedded_image;
       } catch {
-        return '';
+        return notLoad.src;
       }
     }
 

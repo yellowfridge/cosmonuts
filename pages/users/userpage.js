@@ -16,7 +16,9 @@ import EthCrypto from 'eth-crypto';
 import getJSONData from '../../components/helpers/getjsondata';
 import cosmos from '../../metadata/cosmonuts.json';
 import combineImages from '../../components/helpers/combineimages';
+import addQRtoImage from '../../components/helpers/addQRtoimage';
 import loadingBackground from '../../public/images/greyLoading.png';
+import notLoad from '../../public/images/notload.png';
 
 class Userpage extends Component {
   constructor(props) {
@@ -137,7 +139,7 @@ class Userpage extends Component {
                 try {
                   return nutInfo.image;
                 } catch {
-                  return '';
+                  return notLoad.src;
                 }
               }
               var nutImgURL = checkImgURL();
@@ -155,7 +157,7 @@ class Userpage extends Component {
                 try {
                   return nutInfo.embedded_image;
                 } catch {
-                  return '';
+                  return notLoad.src;
                 }
               }
               var nutEmbeddedImgURL = checkEmbeddedImgURL();
@@ -419,6 +421,10 @@ class Userpage extends Component {
       mainQRImg.setAttribute("src", mainQRUri);
     });
     //console.log("Combined Img URI", combinedImgURI);
+
+    // Adding QR code to the original nut image
+    var newNutImage = addQRtoImage(nutImg, mainQRImg);
+    console.log("New Nut Image", newNutImage);
 
     //var finalImgURI = await embedImage(nutImg, publicQRImg); // Creating the combined image [original with just qrcode]
     var finalImgURI = await embedImage(nutImg, combinedImg); // Creating the combined image
