@@ -297,9 +297,12 @@ class Userpage extends Component {
   }
 
   handleDropdownChange(event) {
+    console.log("Props NutsCid", this.props.nutsCID);
     var ddText = event.target.innerText; // For dropdowns, it is under innerText (as opposed to .value)
+    console.log("DD Text", ddText);
     var ddTextArray = ddText.split(" "); // Creating an array split by spaces in the string
     var nutId = ddTextArray[ddTextArray.length - 1]; // Grabbing the last element in the array
+    console.log("Nut Id:", nutId);
     var nut_cid = this.props.nutsCID[nutId].ipnsCID; // Grabbing the IPNS CID of the nut
     //var nut_cid = this.state.ownedNutsInfo[nutId].cid; // Trying this as top not working sometimes
     // Above also not working - causing errors (likely when something hasn't loaded?)
