@@ -422,8 +422,11 @@ class Userpage extends Component {
 
       var newNutURI = await addQRtoImage(nutImg, mainQRImg);
       this.setState({ selectedNutURL: newNutURI });
+      nutImg.setAttribute('src', newNutURI);
 
     });
+    //console.log("New Nut Img", nutImg);
+    //console.log("Combined Img", combinedImg);
 
     //var finalImgURI = await embedImage(nutImg, publicQRImg); // Creating the combined image [original with just qrcode]
     var finalImgURI = await embedImage(nutImg, combinedImg); // Creating the combined image
@@ -431,6 +434,7 @@ class Userpage extends Component {
     // Final Img URI TYPE: data:image/png;base64, iVBOR......
     finalImg.setAttribute('src', finalImgURI);
     this.setState({ finalImgSrc: finalImgURI });
+    //console.log("Final Image", finalImg);
 
     var parsedImgURI = await this.buildParsedImage(finalImg);
     // Parsed Imf URI TYPE: data:image/png;base64,iVBORw0......
@@ -639,7 +643,7 @@ class Userpage extends Component {
           <div style={{
             marginRight: '10%'
           }}>
-            <img id='embeddedImg' src={this.state.embeddedImgSrc} width="631" height="631" />
+            <img id='embeddedImg' src={this.state.embeddedImgSrc} width="631" height="631" crossOrigin="anonymous" />
           </div>
         </ParallaxLayer>
 
@@ -671,7 +675,7 @@ class Userpage extends Component {
                 </Grid.Column>
 
                 <Grid.Column>
-                  <img id='openMsgImg' src={this.state.openMsgSrc} />
+                  <img id='openMsgImg' src={this.state.openMsgSrc} crossOrigin="anonymous" />
                 </Grid.Column>
               </Grid>
             </div>
@@ -706,7 +710,7 @@ class Userpage extends Component {
 
                 <Grid.Column>
                   <QRCode id='publicMsgQR' value={this.state.publicMessage} />
-                  <img id='publicQRImg'src={this.state.publicMsgSrc} hidden/>
+                  <img id='publicQRImg'src={this.state.publicMsgSrc} hidden />
                 </Grid.Column>
               </Grid>
 

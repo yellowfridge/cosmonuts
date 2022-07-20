@@ -8,13 +8,13 @@ export default async function getVerification(req, res) {
 
   const signerAccount = EthCrypto.recover(
     signature,
-    EthCrypto.hash.keccak256(imgHash)
+    EthCrypto.hash.keccak256(imgHash) //Is this needed?
   );
   //console.log("Signer Account: ", signerAccount);
 
   const signerPublicKey = EthCrypto.recoverPublicKey(
     signature,
-    EthCrypto.hash.keccak256(imgHash)
+    EthCrypto.hash.keccak256(imgHash) // is this needed?
   )
   //console.log("Signer Public Key", signerPublicKey);
 

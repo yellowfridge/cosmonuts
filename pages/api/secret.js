@@ -6,6 +6,12 @@ export default async function getSecret(req, res) {
   const privateKey = process.env.PRIVATE_KEY;
   const privateKeyEC = process.env.PRIVATE_KEY_EC;
 
+  console.log("Image Hash:", imgHash);
+
+  // This was in old code - but is it needed??
+  // Tried blocking out but did not work-
+  // -- likely related to code in solidity contract not matching
+  // -- needs review
   const ethHash = EthCrypto.hash.keccak256(imgHash);
   console.log("Eth Hash", ethHash);
 

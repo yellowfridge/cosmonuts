@@ -27,6 +27,16 @@ export default async function publishToIPNS(req, res) {
   //console.log("Nut Path:", nutPath);
 
   console.log("Publishing to IPNS ...");
+  const nutIPNS = await ipfsServer.name.publish(nutPath, {
+    key: nutKey
+  });
+
+  res.status(200).json({
+    nutIPNS: nutIPNS.name
+  });
+
+  // Old Code - sometimes working - can take long and never work
+  /* // Put start block out code here
   ipfsServer.name.publish(nutPath, {
     key: nutKey
   }).then((publishedCID) => {
@@ -37,5 +47,6 @@ export default async function publishToIPNS(req, res) {
     });
 
   });
+  */// Put end block here to block out code
 
 }
