@@ -129,18 +129,12 @@ class Userpage extends Component {
               nuts[n] = nut; // nut is in string form
               var nutId = parseInt(nut); // convert string to number type
               var nut_cid = this.props.nutsCID[nutId].ipnsCID;
-              var nutURL = (this.props.baseURL + this.props.storageKey + "/" + nut_cid);
 
-              //Testing here getting file directly from local node
               var retrievedNut = await retrieveFromIPNS(nut_cid).catch((error) => {
                 console.log("Could not retrieve data on nut id:", nutId);
               });
-              console.log("Nut Info", retrievedNut.data);
+              //console.log("Nut Info", retrievedNut.data);
               var nutInfo = retrievedNut.data;
-
-              //var nutInfo = await getJSONData(nutURL).catch((error) => {
-              //  console.log("Could nut retrieve data on nut id:", nutId);
-              //});
 
               let imageURL = nutInfo.image;
               const urlArray = imageURL.split("/");
