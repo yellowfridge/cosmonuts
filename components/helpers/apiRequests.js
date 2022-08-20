@@ -84,4 +84,34 @@ const publishToIPNS = async (nutKey, nutMeta_cid, openImg_cid, qrImg_cid, finalI
   return nutIPNS;
 }
 
-export { getSecret, getVerification, getInitialNutData, getMetadataJSON, publishToIPNS }
+const retrieveFromIPNS = async (ipnsCID) => {
+  const res = await fetch('/api/retrievefromipns', {
+    method: 'post',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      ipnsCID: ipnsCID
+    })
+  });
+  const nutData = await res.json();
+  return nutData;
+}
+
+const retrieveFromIPFS = async (ipfsCID) => {
+  const res = await fetch('/api/retrievefromipfs', {
+    method: 'post',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      ipfsCID: ipfsCID
+    })
+  });
+  const nutInfo = await res.json();
+  return nutInfo;
+}
+
+export { getSecret, getVerification, getInitialNutData, getMetadataJSON, publishToIPNS, retrieveFromIPNS, retrieveFromIPFS }

@@ -10,7 +10,7 @@ import * as IPFS from 'ipfs-core';
 import nut from '../../metadata/nut0.json';
 import Web3 from 'web3';
 import CosmoNuts from '../../ethereum/build_manual/CosmoNuts_abi.json';
-import { getSecret, getVerification, getMetadataJSON, publishToIPNS } from '../../components/helpers/apiRequests';
+import { getSecret, getVerification, getMetadataJSON, publishToIPNS, retrieveFromIPNS, retrieveFromIPFS } from '../../components/helpers/apiRequests';
 import bs58 from 'bs58';
 import EthCrypto from 'eth-crypto';
 import getJSONData from '../../components/helpers/getjsondata';
@@ -130,14 +130,31 @@ class Userpage extends Component {
               var nutId = parseInt(nut); // convert string to number type
               var nut_cid = this.props.nutsCID[nutId].ipnsCID;
               var nutURL = (this.props.baseURL + this.props.storageKey + "/" + nut_cid);
-              var nutInfo = await getJSONData(nutURL).catch((error) => {
-                console.log("Could nut retrieve data on nut id:", nutId);
+
+              //Testing here getting file directly from local node
+              var retrievedNut = await retrieveFromIPNS(nut_cid).catch((error) => {
+                console.log("Could not retrieve data on nut id:", nutId);
               });
+              console.log("Nut Info", retrievedNut.data);
+              var nutInfo = retrievedNut.data;
+
+              //var nutInfo = await getJSONData(nutURL).catch((error) => {
+              //  console.log("Could nut retrieve data on nut id:", nutId);
+              //});
+
+              let imageURL = nutInfo.image;
+              const urlArray = imageURL.split("/");
+              const imageCID = urlArray[4]; // The fourth and last item in the array is the IPFS CID
+              const ipfsData = await retrieveFromIPFS(imageCID)
+              const mainImage_base64 = ipfsData.item;
+              const mainImage_src = "data:image/png;base64," + mainImage_base64;
+              //console.log("Main Image Src", mainImage_src);
 
               // This is to blank out if it can't find main image
               const checkImgURL = () => {
                 try {
-                  return nutInfo.image;
+                  //return mainImage.src;
+                  return mainImage_src;
                 } catch {
                   return notLoad.src;
                 }
