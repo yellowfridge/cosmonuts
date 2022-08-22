@@ -99,7 +99,7 @@ const retrieveFromIPNS = async (ipnsCID) => {
   return nutData;
 }
 
-const retrieveFromIPFS = async (ipfsCID) => {
+const retrieveFromIPFS = async (ipfsCID, type) => {
   const res = await fetch('/api/retrievefromipfs', {
     method: 'post',
     headers: {
@@ -107,7 +107,8 @@ const retrieveFromIPFS = async (ipfsCID) => {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      ipfsCID: ipfsCID
+      ipfsCID: ipfsCID,
+      type: type
     })
   });
   const nutInfo = await res.json();

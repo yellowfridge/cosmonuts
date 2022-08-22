@@ -133,21 +133,20 @@ class Userpage extends Component {
               var retrievedNut = await retrieveFromIPNS(nut_cid).catch((error) => {
                 console.log("Could not retrieve data on nut id:", nutId);
               });
-              //console.log("Nut Info", retrievedNut.data);
+              console.log("Nut Info", retrievedNut.data);
               var nutInfo = retrievedNut.data;
 
               let imageURL = nutInfo.image;
-              const urlArray = imageURL.split("/");
-              const imageCID = urlArray[4]; // The fourth and last item in the array is the IPFS CID
-              const ipfsData = await retrieveFromIPFS(imageCID)
-              const mainImage_base64 = ipfsData.item;
-              const mainImage_src = "data:image/png;base64," + mainImage_base64;
+              var urlImgArray = imageURL.split("/");
+              var imageCID = urlImgArray[4]; // The fourth and last item in the array is the IPFS CID
+              var ipfsData = await retrieveFromIPFS(imageCID, "image");
+              var mainImage_base64 = ipfsData.item;
+              var mainImage_src = "data:image/png;base64," + mainImage_base64;
               //console.log("Main Image Src", mainImage_src);
 
               // This is to blank out if it can't find main image
               const checkImgURL = () => {
                 try {
-                  //return mainImage.src;
                   return mainImage_src;
                 } catch {
                   return notLoad.src;
@@ -163,10 +162,19 @@ class Userpage extends Component {
               }
               nutObjects[n] = nutObject;
 
+              let embeddedImageURL = nutInfo.embedded_image;
+              var urlEmbeddedImgArray = embeddedImageURL.split("/");
+              var embeddedImageCID = urlEmbeddedImgArray[4];
+              var ipfsData = await retrieveFromIPFS(embeddedImageCID, "image");
+              var embeddedImage_base64 = ipfsData.item;
+              var embeddedImage_src = "data:image/png;base64," + embeddedImage_base64;
+              //console.log("Embedded Image Src", embeddedImage_src);
+
               // This is to blank out if it can't find embedded image
               const checkEmbeddedImgURL = () => {
                 try {
-                  return nutInfo.embedded_image;
+                  return embeddedImage_src;
+                  //return nutInfo.embedded_image;
                 } catch {
                   return notLoad.src;
                 }
@@ -182,9 +190,19 @@ class Userpage extends Component {
               }
               var openMsgURL = checkOpenMsgURL();
 
+              // Uncommenting below for some reason messes up Nut 3
+              //let openMessageImageURL = nutInfo.open_message.image;
+              //var urlOpenMessageImageArray = openMessageImageURL.split("/");
+              //var openMessageImageCID = urlOpenMessageImageArray[4];
+              //var ipfsData = await retrieveFromIPFS(openMessageImageCID, "image");
+              //var openMessageImage_base64 = ipfsData.item;
+              //var openMessageImage_src = "data:image/png;base64," + openMessageImage_base64;
+              //console.log("Open Message Image src", openMessageImage_src);
+
               const checkOpenMsgImgURL = () => {
                 try {
-                  return nutInfo.open_message.image;
+                  //return openMessageImage_src;
+                  return nutInfo.open_message.image
                 } catch {
                   return '';
                 }
@@ -200,9 +218,17 @@ class Userpage extends Component {
               }
               var publicMsgURL = checkPublicMsgURL();
 
+              //let publicMessageImageURL = nutInfo.public_message.image;
+              //const urlPublicMessageImageArray = publicMessageImageURL.split("/");
+              //const publicMessageImageCID = urlPublicMessageImageArray[4];
+              //var ipfsData = await retrieveFromIPFS(publicMessageImageCID, "image");
+              //const publicMessageImage_base64 = ipfsData.item;
+              //const publicMessageImage_src = "data:image/png;base64," + publicMessageImage_base64;
+
               const checkPublicMsgImgURL = () => {
                 try {
                   return nutInfo.public_message.image;
+                  //return publicMessageImage_src;
                 } catch {
                   return '';
                 }
@@ -321,6 +347,9 @@ class Userpage extends Component {
 
     var ownedNuts = this.state.ownedNuts;
     var nutImgURL = ownedNuts[nutId].image.src;
+
+    console.log("Owned Info:", this.state.ownedNutsInfo);
+    console.log("Owned Info Selected Nut:", this.state.ownedNutsInfo[nutId]);
 
     var embeddedImgURL = this.state.ownedNutsInfo[nutId].embeddedImage;
     var openMsg = this.state.ownedNutsInfo[nutId].openMsg;
