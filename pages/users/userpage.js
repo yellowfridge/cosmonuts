@@ -191,6 +191,7 @@ class Userpage extends Component {
               var openMsgURL = checkOpenMsgURL();
 
               // Uncommenting below for some reason messes up Nut 3
+              // Could be the Buffer format in retrievefromIPFS
               //let openMessageImageURL = nutInfo.open_message.image;
               //var urlOpenMessageImageArray = openMessageImageURL.split("/");
               //var openMessageImageCID = urlOpenMessageImageArray[4];
@@ -218,6 +219,8 @@ class Userpage extends Component {
               }
               var publicMsgURL = checkPublicMsgURL();
 
+              // Blocked code for same reason above
+              // Works fine without it but may need it later
               //let publicMessageImageURL = nutInfo.public_message.image;
               //const urlPublicMessageImageArray = publicMessageImageURL.split("/");
               //const publicMessageImageCID = urlPublicMessageImageArray[4];
