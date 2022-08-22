@@ -351,9 +351,6 @@ class Userpage extends Component {
     var ownedNuts = this.state.ownedNuts;
     var nutImgURL = ownedNuts[nutId].image.src;
 
-    console.log("Owned Info:", this.state.ownedNutsInfo);
-    console.log("Owned Info Selected Nut:", this.state.ownedNutsInfo[nutId]);
-
     var embeddedImgURL = this.state.ownedNutsInfo[nutId].embeddedImage;
     var openMsg = this.state.ownedNutsInfo[nutId].openMsg;
     var openMsgImg = this.state.ownedNutsInfo[nutId].openMsgImg;
