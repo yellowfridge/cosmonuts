@@ -3,8 +3,8 @@ export default async function embedImage(img, imgToEmbed) {
   //console.log("Original Image:", img);
   //console.log("Image to Embed:", imgToEmbed);
 
-  var embImgCordX = 30;
-  var embImgCordY = 50;
+  var embImgCordX = 10;
+  var embImgCordY = 10;
 
   var sWidth = img.width; // Width of original image
   var sHeight = img.height; // height of original image
