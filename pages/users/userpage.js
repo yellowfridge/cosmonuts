@@ -49,7 +49,6 @@ class Userpage extends Component {
       groupMessage: 'Current group message ...',
       secretMessage: 'Current secret message ...',
       secretKey: 'Should be ecnreypted key ...',
-      combinedImgSrc: '',
       embeddedImgSrc: loadingBackground.src,
       finalImgSrc: nut.image,
       finalImgSig: '',
@@ -449,9 +448,6 @@ class Userpage extends Component {
     // ** WORKING ON COMBINING IMAGES
     var combinedImg = document.getElementById('combinedImg'); // Grab the combined image element
     var combinedImgURI = combineImages(openMsgImg, publicQRImg).then(async (uri) => {
-      this.setState({ combinedImgSrc: uri });
-      combinedImg.setAttribute('src', uri);
-
       this.setState({ embeddedImgSrc: uri });
       embeddedImg.setAttribute('src', uri);
 
@@ -486,8 +482,6 @@ class Userpage extends Component {
 
     //var parsedImgURI = await this.buildParsedImage(finalImg);
     // Parsed Imf URI TYPE: data:image/png;base64,iVBORw0......
-    //var parsedImgURI = this.state.combinedImgSrc;
-    //console.log("Parsed Image", parsedImgURI);
 
     // This is the format to be uploaded to IPFS to display image on load of IPFS URL
     var byteStringFinalImg = Buffer.from(finalImgURI.split(',')[1], 'base64');
@@ -499,7 +493,7 @@ class Userpage extends Component {
     var bytesFinalImg = this.getBytes32FromIPFSHash(finalImg_cid); // Format to save image in for IPFS
     //console.log("Bytes Emb Img Eth", bytesFinalImg);
 
-    var byteStringEmbeddedImg = Buffer.from(combinedImg.src.split(',')[1], 'base64');
+    var byteStringEmbeddedImg = Buffer.from(embeddedImg.src.split(',')[1], 'base64');
     var embeddedImg_cid = await Hash.of(byteStringEmbeddedImg);
 
     // Generating nut metadata section
@@ -522,7 +516,7 @@ class Userpage extends Component {
           imgVerification: 'Verified'
         });
 
-        /* /// - Put block out code here if needed - TEMPORARY - WORKING SECTION - JUST NOT TO SAVE IPFS - SAVING TIME
+        //// - Put block out code here if needed - TEMPORARY - WORKING SECTION - JUST NOT TO SAVE IPFS - SAVING TIME
         if (verification.verification) { // a final check - checking if IPFS CID matches signed CID
 
           this.addToIPFS(byteStringOpenMsgImg, byteStringPubQR, byteStringFinalImg, byteStringEmbeddedImg, newNutMeta.data).then((cids) => {
@@ -591,7 +585,7 @@ class Userpage extends Component {
             });
           });
         }
-        */// Put block out code here to stop IPFS feature
+        /// Put block out code here to stop IPFS feature
       });
     });
 
@@ -853,7 +847,6 @@ class Userpage extends Component {
             marginRight: '10%'
           }}>
 
-            <img id='combinedImg' src={this.state.combinedImgSrc} width="610" height="610" hidden />
             <img id='finalImg' src={this.state.finalImgSrc} width="631" height="631" crossOrigin="anonymous" hidden />
 
             <Popup
