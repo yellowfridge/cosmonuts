@@ -463,7 +463,7 @@ class Userpage extends Component {
       var mainQRImg = document.getElementById('mainQRImg');
       mainQRImg.setAttribute("src", mainQRUri);
 
-      var newNutURI = await addQRtoImage(this.state.selectedNutId, nutImg, mainQRImg);
+      var newNutURI = await addToImage(this.state.selectedNutId, nutImg, mainQRImg);
       this.setState({ selectedNutURL: newNutURI });
       nutImg.setAttribute('src', newNutURI);
 

@@ -12,8 +12,8 @@ export default async function combineImages(img1, img2) {
   ctx.fillStyle = "black"; // Testing showed QR codes easier to read
   ctx.fillRect(0, 0, cvs.width, cvs.height); // Fill background with black
 
-  ctx.drawImage(img1, 10, 0); // Draws the open message (text)
-  ctx.drawImage(img2, 350, 0); // Draws the public message (QR)
+  ctx.drawImage(img1, 10, 10); // Draws the open message (text)
+  ctx.drawImage(img2, 350, 10); // Draws the public message (QR)
 
   var cvsURI = cvs.toDataURL();
   //console.log("Combined Img URL", cvsURL);
