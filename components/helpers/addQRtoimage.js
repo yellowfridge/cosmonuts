@@ -8,8 +8,8 @@ export default async function addQRtoImage(img, qr) {
   cvs.width = 631;
   cvs.height = 631;
 
-  await ctx.drawImage(img, 0, 0);
-  await ctx.drawImage(qr, 360,380);
+  await ctx.drawImage(img, 0, 0); // Draws the original nut image
+  await ctx.drawImage(qr, 500,500, 100, 100); // Draws the QR code on the bottom right side
 
   var cvsURI = cvs.toDataURL();
 
