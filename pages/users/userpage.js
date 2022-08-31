@@ -16,7 +16,7 @@ import EthCrypto from 'eth-crypto';
 import getJSONData from '../../components/helpers/getjsondata';
 import cosmos from '../../metadata/cosmonuts.json';
 import combineImages from '../../components/helpers/combineimages';
-import addQRtoImage from '../../components/helpers/addQRtoimage';
+import addToImage from '../../components/helpers/addtoimage';
 import loadingBackground from '../../public/images/greyLoading.png';
 import notLoad from '../../public/images/notload.png';
 
@@ -463,7 +463,7 @@ class Userpage extends Component {
       var mainQRImg = document.getElementById('mainQRImg');
       mainQRImg.setAttribute("src", mainQRUri);
 
-      var newNutURI = await addQRtoImage(nutImg, mainQRImg);
+      var newNutURI = await addQRtoImage(this.state.selectedNutId, nutImg, mainQRImg);
       this.setState({ selectedNutURL: newNutURI });
       nutImg.setAttribute('src', newNutURI);
 
