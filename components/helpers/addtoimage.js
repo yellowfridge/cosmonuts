@@ -11,6 +11,9 @@ export default async function addToImage(nutId, img, qr) {
   cvs.height = 631; // Reconsider - Hardcoding seemed to work better
 
   await ctx.drawImage(img, 0, 0); // Draws the original nut image
+  //await ctx.drawImage(qr, 30, 30, 100, 100); // Draws the QR code on the top left side
+  //await ctx.drawImage(qr, 500, 30, 100, 100); // Draws the QR code on the top right side
+  //await ctx.drawImage(qr, 30, 500, 100, 100); // Draws the QR code on the bottom left side
   await ctx.drawImage(qr, 500,500, 100, 100); // Draws the QR code on the bottom right side
 
   // Creating the number id image to place on canvas
