@@ -447,7 +447,7 @@ class Userpage extends Component {
     // Need to think what else and how to embed
     // ** WORKING ON COMBINING IMAGES
     var combinedImg = document.getElementById('combinedImg'); // Grab the combined image element
-    var combinedImgURI = combineImages(openMsgImg, publicQRImg).then(async (uri) => {
+    var combinedImgURI = combineImages(this.state.selectedNutId, openMsgImg, publicQRImg).then(async (uri) => {
       this.setState({ embeddedImgSrc: uri });
       embeddedImg.setAttribute('src', uri);
 
@@ -468,8 +468,8 @@ class Userpage extends Component {
       nutImg.setAttribute('src', newNutURI);
 
     });
-    console.log("New Nut Img", nutImg);
-    console.log("Combined Img", combinedImg);
+    //console.log("New Nut Img", nutImg);
+    //console.log("Combined Img", combinedImg);
 
     //var finalImgURI = await embedImage(nutImg, publicQRImg); // Creating the combined image [original with just qrcode]
     //var finalImgURI = await embedImage(nutImg, combinedImg); // Creating the combined image
