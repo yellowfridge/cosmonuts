@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, List, Divider, Container, Grid, Dropdown } from 'semantic-ui-react';
+import { Button, List, Divider, Container, Grid, Dropdown, Input } from 'semantic-ui-react';
 import Layout from '../components/layout';
 import QRCode from 'react-qr-code';
 import Mint from './mint';
@@ -38,11 +38,14 @@ class Main extends Component {
       selectedNut: 0,
       nutImgSrc: loadingBackground.src,
       embeddedImgSrc: loadingBackground.src,
-      ddOptions: []
+      ddOptions: [],
+      findNutId: 0
     };
 
     this.dropdownOptions = this.dropdownOptions.bind(this);
     this.handleDDChange = this.handleDDChange.bind(this);
+    this.findNutClick = this.findNutClick.bind(this);
+    this.findNutChange = this.findNutChange.bind(this);
   }
 
   static async getInitialProps(props) {
@@ -195,6 +198,16 @@ class Main extends Component {
       nutImgSrc: checkNutImg(),
       embeddedImgSrc: checkEmbImg()
     });
+  }
+
+  findNutChange(event) {
+    //console.log("Event", event.target.value);
+    // Need to make sure only numbers can be input here
+    this.setState({ findNutId: event.target.value })
+  }
+
+  findNutClick() {
+    console.log("Find Nut ID Value", this.state.findNutId);
   }
 
   render() {
@@ -354,6 +367,22 @@ class Main extends Component {
               </Grid.Column>
             </Grid>
           </div>
+
+          <div style={{
+            marginLeft: '10px',
+            marginTop: '10px'
+          }}>
+            <Input
+              action={{
+                icon: 'search',
+                onClick: () => this.findNutClick()
+              }}
+              label='#'
+              defaultValue={this.state.findNutId}
+              onChange={this.findNutChange}
+            />
+          </div>
+
         </ParallaxLayer>
 
         <ParallaxLayer offset={1} speed={3} style={{
