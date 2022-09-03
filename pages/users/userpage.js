@@ -447,7 +447,7 @@ class Userpage extends Component {
     // Need to think what else and how to embed
     // ** WORKING ON COMBINING IMAGES
     var combinedImg = document.getElementById('combinedImg'); // Grab the combined image element
-    var combinedImgURI = combineImages(this.state.selectedNutId, openMsgImg, publicQRImg).then(async (uri) => {
+    var combinedImgURI = await combineImages(this.state.selectedNutId, openMsgImg, publicQRImg).then(async (uri) => {
       this.setState({ embeddedImgSrc: uri });
       embeddedImg.setAttribute('src', uri);
 
@@ -473,7 +473,7 @@ class Userpage extends Component {
 
     //var finalImgURI = await embedImage(nutImg, publicQRImg); // Creating the combined image [original with just qrcode]
     //var finalImgURI = await embedImage(nutImg, combinedImg); // Creating the combined image
-    var finalImgURI = nutImg.src;
+    //var finalImgURI = nutImg.src;
 
     // Final Img URI TYPE: data:image/png;base64, iVBOR......
     //finalImg.setAttribute('src', finalImgURI);
@@ -484,7 +484,8 @@ class Userpage extends Component {
     // Parsed Imf URI TYPE: data:image/png;base64,iVBORw0......
 
     // This is the format to be uploaded to IPFS to display image on load of IPFS URL
-    var byteStringFinalImg = Buffer.from(finalImgURI.split(',')[1], 'base64');
+    //var byteStringFinalImg = Buffer.from(finalImgURI.split(',')[1], 'base64');
+    var byteStringFinalImg = Buffer.from(nutImg.src.split(',')[1], 'base64');
     //console.log("Bytes Final Img IPFS", byteStringFinalImg);
     const finalImg_cid = await Hash.of(byteStringFinalImg); // Final image CID path
     //console.log("Final Img CID", finalImg_cid, typeof finalImg_cid);
