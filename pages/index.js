@@ -48,6 +48,7 @@ class Main extends Component {
     this.handleDDChange = this.handleDDChange.bind(this);
     this.findNutClick = this.findNutClick.bind(this);
     this.findNutChange = this.findNutChange.bind(this);
+    this.getMethodChange = this.getMethodChange.bind(this);
   }
 
   static async getInitialProps(props) {
@@ -205,30 +206,80 @@ class Main extends Component {
   findNutChange(event) {
     //console.log("Event", event.target.value);
     // Need to make sure only numbers can be input here
-    this.setState({ findNutId: event.target.value })
+    this.setState({ findNutId: event.target.value });
+  }
+
+  getMethodChange(event) {
+    //console.log("Event", event.target.innerText);
+    this.setState({ getMethod: event.target.innerText });
   }
 
   async findNutClick() {
-    this.setState({ findNutLoad: true });
-
-    //console.log("Find Nut ID Value", this.state.findNutId);
-    var nut_cid = this.props.cosmoNuts[this.state.findNutId].ipnsCID;
-    var retrievedNut = await retrieveFromIPNS(nut_cid).catch((error) => {
-      console.log("Could not retrieve data on nut id:", this.state.findNutId);
+    this.setState({
+      findNutLoad: true,
+      nutImgSrc: loadingBackground.src,
+      embeddedImgSrc: loadingBackground.src
     });
-    //console.log("Nut Info", retrievedNut.data);
-    var nutInfo = retrievedNut.data;
 
-    let imageURL = nutInfo.image;
-    var urlImgArray = imageURL.split("/");
-    var imageCID = urlImgArray[4]; // The fourth and last item in the array is the IPFS CID
-    var ipfsData = await retrieveFromIPFS(imageCID, "image");
-    var mainImage_base64 = ipfsData.item;
-    var mainImage_src = "data:image/png;base64," + mainImage_base64;
-    //console.log("Main Image Src", mainImage_src);
+    var nut_cid = this.props.cosmoNuts[this.state.findNutId].ipnsCID;
 
-    this.setState({ nutImgSrc: mainImage_src });
-    this.setState({ findNutLoad: false });
+    if (this.state.getMethod == 'IPFS Gateway') {
+      const baseURL = "https://ipfs.io/ipns/";
+      var nutURL = baseURL + nut_cid;
+      var nutData = await getJSONData(nutURL).catch((error) => {
+        console.log("Could nut retrive data on nut #: ", this.state.findNutId);
+      });
+
+      const checkNutImg = () => {
+        try {
+          return nutData.image;
+        } catch {
+          return notLoad.src;
+        }
+      }
+
+      const checkEmbImg = () => {
+        try {
+          return nutData.embedded_image;
+        } catch {
+          return notLoad.src;
+        }
+      }
+
+      this.setState({
+        nutImgSrc: checkNutImg(),
+        embeddedImgSrc: checkEmbImg()
+      });
+
+    } else if (this.state.getMethod == 'IPFS Node') {
+      var retrievedNut = await retrieveFromIPNS(nut_cid).catch((error) => {
+        console.log("Could not retrieve data on nut id:", this.state.findNutId);
+      });
+      //console.log("Nut Info", retrievedNut.data);
+      var nutInfo = retrievedNut.data;
+
+      let imageURL = nutInfo.image;
+      var urlImgArray = imageURL.split("/");
+      var imageCID = urlImgArray[4]; // The fourth and last item in the array is the IPFS CID
+      var ipfsImageData = await retrieveFromIPFS(imageCID, "image");
+      var mainImage_base64 = ipfsImageData.item;
+      var mainImage_src = "data:image/png;base64," + mainImage_base64;
+      //console.log("Main Image Src", mainImage_src);
+
+      let embeddedImgURL = nutInfo.embedded_image;
+      var urlEmbeddedImgArray = embeddedImgURL.split("/");
+      var embeddedImgCID = urlEmbeddedImgArray[4];
+      var ipfsEmbeddedImgData = await retrieveFromIPFS(embeddedImgCID, "image");
+      var embeddedImg_base64 = ipfsEmbeddedImgData.item;
+      var embeddedImg_src = "data:image/png;base64," + embeddedImg_base64;
+
+      this.setState({
+        nutImgSrc: mainImage_src,
+        embeddedImgSrc: embeddedImg_src
+      });
+    }
+
+    this.setState({ findNutLoad: false }); // Sets the loading off for the search field
   }
 
   render() {
@@ -378,7 +429,10 @@ class Main extends Component {
               }}
             />
 
-            <Grid columns={2}>
+            <Grid columns={2} style={{
+              width: '500px',
+              height: 'auto'
+            }}>
               <Grid.Column>
                 <Dropdown
                   defaultValue={this.state.getMethod}
@@ -390,6 +444,11 @@ class Main extends Component {
                       { key: 'IPFS Node', text: 'IPFS Node', value: 'IPFS Node' }
                     ]
                   }
+                  onChange={this.getMethodChange}
+                  style={{
+                    width: '200px',
+                    height: 'auto'
+                  }}
                 />
               </Grid.Column>
 
