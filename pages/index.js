@@ -10,7 +10,7 @@ import notLoad from '../public/images/notload.png';
 import colorfulnebula1 from '../public/images/colorfulnebula12.gif';
 import parseImage from '../components/helpers/parseimage';
 import cosmos from '../metadata/cosmonuts.json';
-import { getInitialNutData } from '../components/helpers/apiRequests';
+import { getInitialNutData, retrieveFromIPNS, retrieveFromIPFS } from '../components/helpers/apiRequests';
 import getJSONData from '../components/helpers/getjsondata';
 
 // Latest deployed CosmoNuts address: 0xb97C6312F412b58cCfac2c0E63609df0c2599CAa
@@ -39,7 +39,9 @@ class Main extends Component {
       nutImgSrc: loadingBackground.src,
       embeddedImgSrc: loadingBackground.src,
       ddOptions: [],
-      findNutId: 0
+      findNutId: 0,
+      findNutLoad: false,
+      getMethod: 'IPFS Gateway'
     };
 
     this.dropdownOptions = this.dropdownOptions.bind(this);
@@ -206,8 +208,27 @@ class Main extends Component {
     this.setState({ findNutId: event.target.value })
   }
 
-  findNutClick() {
-    console.log("Find Nut ID Value", this.state.findNutId);
+  async findNutClick() {
+    this.setState({ findNutLoad: true });
+
+    //console.log("Find Nut ID Value", this.state.findNutId);
+    var nut_cid = this.props.cosmoNuts[this.state.findNutId].ipnsCID;
+    var retrievedNut = await retrieveFromIPNS(nut_cid).catch((error) => {
+      console.log("Could not retrieve data on nut id:", this.state.findNutId);
+    });
+    //console.log("Nut Info", retrievedNut.data);
+    var nutInfo = retrievedNut.data;
+
+    let imageURL = nutInfo.image;
+    var urlImgArray = imageURL.split("/");
+    var imageCID = urlImgArray[4]; // The fourth and last item in the array is the IPFS CID
+    var ipfsData = await retrieveFromIPFS(imageCID, "image");
+    var mainImage_base64 = ipfsData.item;
+    var mainImage_src = "data:image/png;base64," + mainImage_base64;
+    //console.log("Main Image Src", mainImage_src);
+
+    this.setState({ nutImgSrc: mainImage_src });
+    this.setState({ findNutLoad: false });
   }
 
   render() {
@@ -359,6 +380,39 @@ class Main extends Component {
 
             <Grid columns={2}>
               <Grid.Column>
+                <Dropdown
+                  defaultValue={this.state.getMethod}
+                  fluid
+                  selection
+                  options={
+                    [
+                      { key: 'IPFS Gateway', text: 'IPFS Gateway', value: 'IPFS Gateway' },
+                      { key: 'IPFS Node', text: 'IPFS Node', value: 'IPFS Node' }
+                    ]
+                  }
+                />
+              </Grid.Column>
+
+              <Grid.Column>
+                <Input
+                  action={{
+                    icon: 'search',
+                    onClick: () => this.findNutClick()
+                  }}
+                  label='#'
+                  defaultValue={this.state.findNutId}
+                  onChange={this.findNutChange}
+                  loading={this.state.findNutLoad}
+                  style={{
+                    width: '100px',
+                    marginBottom: '20px'
+                  }}
+                />
+              </Grid.Column>
+            </Grid>
+
+            <Grid columns={2}>
+              <Grid.Column>
                 <img id='nutImg' src={this.state.nutImgSrc} width='631' height='631' crossOrigin="anonymous" />
               </Grid.Column>
 
@@ -367,22 +421,6 @@ class Main extends Component {
               </Grid.Column>
             </Grid>
           </div>
-
-          <div style={{
-            marginLeft: '10px',
-            marginTop: '10px'
-          }}>
-            <Input
-              action={{
-                icon: 'search',
-                onClick: () => this.findNutClick()
-              }}
-              label='#'
-              defaultValue={this.state.findNutId}
-              onChange={this.findNutChange}
-            />
-          </div>
-
         </ParallaxLayer>
 
         <ParallaxLayer offset={1} speed={3} style={{
