@@ -476,8 +476,8 @@ class Userpage extends Component {
     var finalImgURI = nutImg.src;
 
     // Final Img URI TYPE: data:image/png;base64, iVBOR......
-    finalImg.setAttribute('src', finalImgURI);
-    this.setState({ finalImgSrc: finalImgURI });
+    //finalImg.setAttribute('src', finalImgURI);
+    //this.setState({ finalImgSrc: finalImgURI });
     //console.log("Final Image", finalImg);
 
     //var parsedImgURI = await this.buildParsedImage(finalImg);

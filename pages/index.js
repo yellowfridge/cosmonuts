@@ -216,9 +216,9 @@ class Main extends Component {
 
   async findNutClick() {
     this.setState({
-      findNutLoad: true,
-      nutImgSrc: loadingBackground.src,
-      embeddedImgSrc: loadingBackground.src
+      findNutLoad: true, // Setting on the loading for the get field
+      nutImgSrc: loadingBackground.src, // Setting the main image to loading
+      embeddedImgSrc: loadingBackground.src // Setting the embedded image to loading
     });
 
     var nut_cid = this.props.cosmoNuts[this.state.findNutId].ipnsCID;
