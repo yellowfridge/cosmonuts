@@ -458,7 +458,7 @@ class Main extends Component {
                     icon: 'search',
                     onClick: () => this.findNutClick()
                   }}
-                  label='#'
+                  label='Nut #'
                   defaultValue={this.state.findNutId}
                   onChange={this.findNutChange}
                   loading={this.state.findNutLoad}
