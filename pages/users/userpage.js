@@ -517,75 +517,65 @@ class Userpage extends Component {
           imgVerification: 'Verified'
         });
 
-        //// - Put block out code here if needed - TEMPORARY - WORKING SECTION - JUST NOT TO SAVE IPFS - SAVING TIME
         if (verification.verification) { // a final check - checking if IPFS CID matches signed CID
+          // Sending info to Ethereum to be verified on blockchain
+          changeTokenURI(this.state.selectedNutId, finalImg_hash, this.state.finalImgSig).then(() => {
+            console.log("Success!");
 
-          this.addToIPFS(byteStringOpenMsgImg, byteStringPubQR, byteStringFinalImg, byteStringEmbeddedImg, newNutMeta.data).then((cids) => {
-            console.log("CIDS", cids);
-            this.setState({
-              openMsgCID: cids.openImg_cid.path,
-              publicMsgCID: cids.qrImg_cid.path,
-              finalImgCID: cids.finalImg_cid.path,
-              embeddedImgCID: cids.embeddedImg_cid.path,
-              metadataCID: cids.nutMetadata_cid.path
+            console.log("Adding to IPFS ...");
+            this.addToIPFS(byteStringOpenMsgImg, byteStringPubQR, byteStringFinalImg, byteStringEmbeddedImg, newNutMeta.data).then((cids) => {
+              console.log("CIDS", cids);
+              this.setState({
+                openMsgCID: cids.openImg_cid.path,
+                publicMsgCID: cids.qrImg_cid.path,
+                finalImgCID: cids.finalImg_cid.path,
+                embeddedImgCID: cids.embeddedImg_cid.path,
+                metadataCID: cids.nutMetadata_cid.path
+              });
+
+              // These are the keys for the IPNS links
+              let nutKey = "nut" + this.state.selectedNutId // nut0, nut1, nut2, ...
+
+              // Publish the IPFS CID to the above IPNS identified key
+              console.log("Publishing to IPNS ...");
+              console.log("Please wait as this part can take a while.");
+
+              publishToIPNS(
+                nutKey,
+                cids.nutMetadata_cid.path,
+                cids.openImg_cid.path,
+                cids.qrImg_cid.path,
+                cids.finalImg_cid.path,
+                cids.embeddedImg_cid.path
+              ).then((cid) => {
+                //console.log("Nut Metadata IPNS", cid.nutIPNS);
+                //console.log("Set Nut Metadata IPNS", this.state.selectedNutCID);
+
+                // Checking to see if returned IPNS CID matches the CID on Metadata
+                if (this.state.selectedNutCID === cid.nutIPNS) {
+                  console.log("Successfully published to correct IPNS CID!");
+
+                  window.location.reload(true); // Refreshes the page
+                } else {
+                  console.log("Error: Does not match recorded IPNS CID.");
+                  console.log("-----LOG NOTES-----");
+                  console.log("Nut CID Key:", nutKey);
+                  console.log("Selected Nut IPNS CID:", this.state.selectedNutCID);
+                  console.log("Received IPNS CID:", cid.nutIPNS);
+
+                  // What happens if there is error publishing and user has paid??
+                }
+
+              });
             });
 
-            // These are the keys for the IPNS links
-            let nutKey = "nut" + this.state.selectedNutId // nut0, nut1, nut2, ...
+          }).catch((error) => {
+            console.log("Error: Was not able to change token URI on blockchain.", error);
 
-            // Publish the IPFS CID to the above IPNS identified key
-            console.log("Publishing to IPNS ...");
-            console.log("Please wait as this part can take a while.");
-            // What happens when it is slow and can't upload??
-            // Need an average timeout and maybe ask user to try again?
-            // MAJOR ISSUE: Publishing needs to likely be done after changing token URI
-            publishToIPNS(
-              nutKey,
-              cids.nutMetadata_cid.path,
-              cids.openImg_cid.path,
-              cids.qrImg_cid.path,
-              cids.finalImg_cid.path,
-              cids.embeddedImg_cid.path
-            ).then((cid) => {
-              //console.log("Nut Metadata IPNS", cid.nutIPNS);
-              //console.log("Set Nut Metadata IPNS", this.state.selectedNutCID);
-
-              // Checking to see if returned IPNS CID matches the CID on Metadata
-              if (this.state.selectedNutCID === cid.nutIPNS) {
-                console.log("Successfully published to correct IPNS CID!");
-
-                // Sending info to Ethereum to be verified on blockchain
-                // Change token location on the selected nut
-                changeTokenURI(this.state.selectedNutId, finalImg_hash, this.state.finalImgSig).then(() => {
-                  console.log("Success!");
-                  this.setState({ buttonLoad: false }); // Set loading on button to false - task is complete
-                }).catch((error) => {
-                  console.log("Error: Was not able to change token URI on blockchain.", error);
-                  // ISSUE!!
-                  // YOU ARE HERE BUT HAVEN'T FILES BEEN PUBLISHED TO IPNS ALREADY???
-
-                  this.setState({ buttonLoad: false }); // Set loading on button to false
-                  // Task is not complete - but the button should be free again to indicate usage
-                });
-
-                //After changing token URI - it likely makes sense to refresh the page - maybe?
-                // Blcked out for now during R&D
-                //window.location.reload(true); // The last item should be refreshing the page and loading from the top
-
-              } else {
-                console.log("Error: Does not match recorded IPNS CID.");
-                console.log("-----LOG NOTES-----");
-                console.log("Nut CID Key:", nutKey);
-                console.log("Selected Nut IPNS CID:", this.state.selectedNutCID);
-                console.log("Received IPNS CID:", cid.nutIPNS);
-
-                this.setState({ buttonLoad: false }); // Reset button - process did not work
-              }
-
-            });
+            this.setState({ buttonLoad: false }); // Set loading on button to false
           });
+
         }
-        /// Put block out code here to stop IPFS feature
       });
     });
 
