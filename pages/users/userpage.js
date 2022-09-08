@@ -531,8 +531,7 @@ class Userpage extends Component {
             });
 
             // These are the keys for the IPNS links
-            // nut0, nut1, nut2, ...
-            let nutKey = "nut" + this.state.selectedNutId
+            let nutKey = "nut" + this.state.selectedNutId // nut0, nut1, nut2, ...
 
             // Publish the IPFS CID to the above IPNS identified key
             console.log("Publishing to IPNS ...");
