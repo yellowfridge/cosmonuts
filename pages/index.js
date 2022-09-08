@@ -35,7 +35,6 @@ class Main extends Component {
       currentAccount: null,
       isSaleActive: (() => { return isSaleActive() })(),
       totalSupply: 'Not Known',
-      selectedNut: 0,
       nutImgSrc: loadingBackground.src,
       embeddedImgSrc: loadingBackground.src,
       ddOptions: [],
@@ -45,7 +44,6 @@ class Main extends Component {
     };
 
     this.dropdownOptions = this.dropdownOptions.bind(this);
-    this.handleDDChange = this.handleDDChange.bind(this);
     this.findNutClick = this.findNutClick.bind(this);
     this.findNutChange = this.findNutChange.bind(this);
     this.getMethodChange = this.getMethodChange.bind(this);
@@ -121,15 +119,15 @@ class Main extends Component {
     getNut0URL().then((img) => {
       this.setState({ nutImgSrc: img });
     }).catch((error) => {
-      console.log("Error in getting the first nut URL.", error);
+      console.log("Error in getting the first nut image.", error);
       this.setState({ nutImgSrc: notLoad.src });
     });
 
     getNut0EmbedImg().then((embedImg) => {
       this.setState({ embeddedImgSrc: embedImg });
     }).catch((error) => {
-      console.log("Error in getting the first nut image.", error);
-      this.setState({ nutImgSrc: notLoad.src });
+      console.log("Error in getting the first nut embedded image.", error);
+      this.setState({ embeddedImgSrc: notLoad.src });
     });
 
     (() => {
@@ -147,7 +145,6 @@ class Main extends Component {
     })();
 
     this.dropdownOptions();
-
   }
 
   dropdownOptions() {
@@ -162,45 +159,6 @@ class Main extends Component {
     }
 
     this.setState({ ddOptions: ddOptions });
-  }
-
-  async handleDDChange(event) {
-    this.setState({ nutImgSrc: loadingBackground.src });
-    this.setState({ embeddedImgSrc: loadingBackground.src });
-
-    var ddText = event.target.innerText; // For dropdowns, it is under innerText (as opposed to .value)
-    var ddTextArray = ddText.split(" "); // Creating an array split by spaces in the string
-    var nutId = ddTextArray[ddTextArray.length - 1]; // Grabbing the last element in the array
-
-    var nut_cid = this.props.cosmoNuts[nutId].ipnsCID;
-    const baseURL = "https://ipfs.io/ipns/";
-    var nutURL = baseURL + nut_cid;
-    var nutData = await getJSONData(nutURL).catch((error) => {
-      console.log("Could nut retrive data on nut #: ", nutId);
-    });
-    //console.log("Nut Data", nutData);
-
-    const checkNutImg = () => {
-      try {
-        return nutData.image;
-      } catch {
-        return notLoad.src;
-      }
-    }
-
-    const checkEmbImg = () => {
-      try {
-        return nutData.embedded_image;
-      } catch {
-        return notLoad.src;
-      }
-    }
-
-    this.setState({
-      selectedNut: nutId,
-      nutImgSrc: checkNutImg(),
-      embeddedImgSrc: checkEmbImg()
-    });
   }
 
   findNutChange(event) {
@@ -414,20 +372,6 @@ class Main extends Component {
             <h3 style={{ color: 'white' }}>
               <p>In a nutshell, CosmoNuts are pictures with embedded attributes.</p>
             </h3>
-
-            <Dropdown
-              placeholder='Nut 0'
-              fluid
-              selection
-              options={this.state.ddOptions}
-              defaultValue={this.state.selectedNut}
-              onChange={this.handleDDChange}
-              style={{
-                width: '200px',
-                height: 'auto',
-                marginBottom: '20px'
-              }}
-            />
 
             <Grid columns={2} style={{
               width: '500px',
