@@ -447,7 +447,7 @@ class Userpage extends Component {
     // Need to think what else and how to embed
     // ** WORKING ON COMBINING IMAGES
     var combinedImg = document.getElementById('combinedImg'); // Grab the combined image element
-    var combinedImgURI = await combineImages(this.state.selectedNutId, openMsgImg, publicQRImg).then(async (uri) => {
+    var combinedImgURI = await combineImages(this.state.selectedNutId, this.props.address, openMsgImg, publicQRImg).then(async (uri) => {
       this.setState({ embeddedImgSrc: uri });
       embeddedImg.setAttribute('src', uri);
 

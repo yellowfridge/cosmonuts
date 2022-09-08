@@ -1,7 +1,8 @@
-export default async function combineImages(nutId, img1, img2) {
+export default async function combineImages(nutId, owner, img1, img2) {
   console.log("Combining images...");
   //console.log("1st Image to Combine", img1);
   //console.log("2nd Image to Combine", img2);
+  console.log("Owner", owner);
 
   // Creating canvas to work on
   var cvs = document.createElement('canvas');
@@ -32,6 +33,16 @@ export default async function combineImages(nutId, img1, img2) {
   var date = mm + "/" + dd + "/" + yyyy; // Create full date format
   var secondLine = "Date Posted: " + date; // Text to write on second line
   await ctx.fillText(secondLine, 20, 55); // Draws the second line right under first
+
+  var thirdLine = "Owner: " + owner; // Text to write on third line
+  await ctx.fillText(thirdLine, 20, 80); // Draws the third line right under second
+
+  // Testing component for html links in images
+  var fourthLine = "TESTING ----- HTML Links";
+  var fifthLine = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
+
+  await ctx.fillText(fourthLine, 20, 500);
+  await ctx.fillText(fifthLine, 20, 525);
 
   var cvsURI = cvs.toDataURL();
   //console.log("Combined Img URL", cvsURL);
