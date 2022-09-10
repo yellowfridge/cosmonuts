@@ -162,17 +162,20 @@ class Main extends Component {
     this.setState({ ddOptions: ddOptions });
   }
 
+  // Handler for nut id number
   findNutChange(event) {
     //console.log("Event", event.target.value);
     // Need to make sure only numbers can be input here
     this.setState({ findNutId: event.target.value });
   }
 
+  // Handler for dropdown method change
   getMethodChange(event) {
     //console.log("Event", event.target.innerText);
     this.setState({ getMethod: event.target.innerText });
   }
 
+  // Performed when user clicks to fund associated nut id number
   async findNutClick() {
     this.setState({
       findNutLoad: true, // Setting on the loading for the get field
