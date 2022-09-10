@@ -3,8 +3,6 @@ import Layout from '../../components/layout';
 import QRCode from 'react-qr-code';
 import { Parallax, ParallaxLayer } from '@react-spring/parallax';
 import { Container, Form, Button, Grid, Dropdown, Popup} from 'semantic-ui-react';
-import embedImage from '../../components/helpers/embedimage';
-import parseImage from '../../components/helpers/parseimage';
 import { svgAsPngUri } from 'save-svg-as-png';
 import * as IPFS from 'ipfs-core';
 import nut from '../../metadata/nut0.json';
@@ -61,6 +59,7 @@ class Userpage extends Component {
       mainQRImg: ''
     };
 
+    // Binding functions to be able to use below
     this.ddPlaceholderSet = this.ddPlaceholderSet.bind(this);
     this.setFirstNut = this.setFirstNut.bind(this);
     this.addToIPFS = this.addToIPFS.bind(this);
@@ -73,19 +72,14 @@ class Userpage extends Component {
     this.openImgSrc = this.openImgSrc.bind(this);
     this.getBytes32FromIPFSHash = this.getBytes32FromIPFSHash.bind(this);
     this.add_0x = this.add_0x.bind(this);
-    this.buildParsedImage = this.buildParsedImage.bind(this);
 
   }
 
+  // Enables server-side rendering and allows initial data population
   static async getInitialProps(props) {
     console.log("In getInitialProps of UserPage");
 
     const { address } = props.query; // Grabbing the address in the URL (user account)
-
-    // Does not work when coming from index page
-    //const cosmoNutsAddress = process.env.COSMONUTS_ADDRESS;
-    //console.log("CosmoNuts Smart Contract Address: ", cosmoNutsAddress);
-
     const baseURL = cosmos.cosmonuts.baseURL; // https://ipfs.io/
     const storageKey = cosmos.cosmonuts.storage_key; // ipns
     const nutsCID = cosmos.nuts; // Contains JSON array data of ipnsCIDs of each nut
@@ -127,8 +121,9 @@ class Userpage extends Component {
             await cosmoNuts.methods.tokenOfOwnerByIndex(this.props.address, n).call().then(async (nut) => {
               nuts[n] = nut; // nut is in string form
               var nutId = parseInt(nut); // convert string to number type
-              var nut_cid = this.props.nutsCID[nutId].ipnsCID;
+              var nut_cid = this.props.nutsCID[nutId].ipnsCID; // Grabs the IPNS CID of the associated nut
 
+              // Retrieve nut information directly from IPFS node on server
               var retrievedNut = await retrieveFromIPNS(nut_cid).catch((error) => {
                 console.log("Could not retrieve data on nut id:", nutId);
               });
@@ -136,11 +131,13 @@ class Userpage extends Component {
               var nutInfo = retrievedNut.data;
 
               let imageURL = nutInfo.image;
-              var urlImgArray = imageURL.split("/");
+              var urlImgArray = imageURL.split("/"); // Split based on "/"
               var imageCID = urlImgArray[4]; // The fourth and last item in the array is the IPFS CID
+
+              // Retrieve nut image dierctly from IPFS node on server
               var ipfsData = await retrieveFromIPFS(imageCID, "image");
               var mainImage_base64 = ipfsData.item;
-              var mainImage_src = "data:image/png;base64," + mainImage_base64;
+              var mainImage_src = "data:image/png;base64," + mainImage_base64; // Missing the base64 identifier info to display image correctly
               //console.log("Main Image Src", mainImage_src);
 
               // This is to blank out if it can't find main image
@@ -153,6 +150,7 @@ class Userpage extends Component {
               }
               var nutImgURL = checkImgURL();
 
+              // Creating an object below for populating the dropdown selection
               let nutObject = {
                 key: nut,
                 text: 'Nut ' + nut,
@@ -162,11 +160,13 @@ class Userpage extends Component {
               nutObjects[n] = nutObject;
 
               let embeddedImageURL = nutInfo.embedded_image;
-              var urlEmbeddedImgArray = embeddedImageURL.split("/");
-              var embeddedImageCID = urlEmbeddedImgArray[4];
+              var urlEmbeddedImgArray = embeddedImageURL.split("/"); // Split based on "/"
+              var embeddedImageCID = urlEmbeddedImgArray[4]; // The fourth and last item in the array is the IPFS CID
+
+              // Retrieve nut embedded image directly from IPFS node on server
               var ipfsData = await retrieveFromIPFS(embeddedImageCID, "image");
               var embeddedImage_base64 = ipfsData.item;
-              var embeddedImage_src = "data:image/png;base64," + embeddedImage_base64;
+              var embeddedImage_src = "data:image/png;base64," + embeddedImage_base64; // Missing the base64 identifier info to display image correctly
               //console.log("Embedded Image Src", embeddedImage_src);
 
               // This is to blank out if it can't find embedded image
@@ -180,6 +180,7 @@ class Userpage extends Component {
               }
               var nutEmbeddedImgURL = checkEmbeddedImgURL();
 
+              // This is to blank out if it can't find the value of the open message
               const checkOpenMsgURL = () => {
                 try {
                   return nutInfo.open_message.value;
@@ -199,6 +200,7 @@ class Userpage extends Component {
               //var openMessageImage_src = "data:image/png;base64," + openMessageImage_base64;
               //console.log("Open Message Image src", openMessageImage_src);
 
+              // This is to blank out if it can't find the open message image
               const checkOpenMsgImgURL = () => {
                 try {
                   //return openMessageImage_src;
@@ -209,6 +211,7 @@ class Userpage extends Component {
               }
               var openMsgImgURL = checkOpenMsgURL();
 
+              // This is to blank out if it can't find the public message value
               const checkPublicMsgURL = () => {
                 try {
                   return nutInfo.public_message.value;
@@ -227,6 +230,7 @@ class Userpage extends Component {
               //const publicMessageImage_base64 = ipfsData.item;
               //const publicMessageImage_src = "data:image/png;base64," + publicMessageImage_base64;
 
+              // This is to blank out if it can't find the public message image
               const checkPublicMsgImgURL = () => {
                 try {
                   return nutInfo.public_message.image;
@@ -237,6 +241,7 @@ class Userpage extends Component {
               }
               var publicMsgImgURL = checkPublicMsgImgURL();
 
+              // Start to create ownedNutsInfo - starts populating with each nut info
               let onNutInfo = {
                 id: nut,
                 cid: nut_cid,
@@ -250,6 +255,8 @@ class Userpage extends Component {
               }
               nutsInfo[n] = onNutInfo;
 
+              // On the first retrieved nut, start setting some new states to update page
+              // Created functions below as such to avoid errors
               if (n === 0) {
                 this.ddPlaceholderSet(nut);
                 this.setFirstNut(n, nut, nutImgURL, nutEmbeddedImgURL, nutInfo, nut_cid);
@@ -276,6 +283,7 @@ class Userpage extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
+    // If open message field is changed, update state
     if (prevState.openMessage !== this.state.openMessage) {
       var imgURL = this.openImgSrc(this.state.openMessage);
       this.setState({
@@ -285,6 +293,7 @@ class Userpage extends Component {
 
   }
 
+  // Function below used to create image URL on provided text input
   openImgSrc(msg) {
     var openMsgCanvas = document.createElement('canvas');
     var openMsgCtx = openMsgCanvas.getContext('2d');
@@ -300,6 +309,7 @@ class Userpage extends Component {
     return imgURL;
   }
 
+  // Function to add provided files to IPFS - adds through user's browser
   async addToIPFS(openImg, qrImg, finalImg, embeddedImg, nutMetadata) {
     console.log("Adding to IPFS...");
     console.log("Please wait as this part can take a while.");
@@ -317,6 +327,7 @@ class Userpage extends Component {
     return { openImg_cid, qrImg_cid, finalImg_cid, embeddedImg_cid, nutMetadata_cid }
   }
 
+  // Changing states based on provided inputs
   setFirstNut(nutId, nutText, nutImgURL, embeddedImgURL, nutInfo, nut_cid) {
     this.setState({
       selectedNutId: nutId,
@@ -328,6 +339,7 @@ class Userpage extends Component {
     });
   }
 
+  // Changing states on dropdown field
   ddPlaceholderSet(firstNut) {
     this.setState({
       ddPlaceholder: 'Nut ' + firstNut,
@@ -335,8 +347,8 @@ class Userpage extends Component {
     });
   }
 
+  // Do below when there is a change to the dropdown field
   handleDropdownChange(event) {
-
     //console.log("Props NutsCid", this.props.nutsCID);
     var ddText = event.target.innerText; // For dropdowns, it is under innerText (as opposed to .value)
     //console.log("DD Text", ddText);
@@ -404,20 +416,6 @@ class Userpage extends Component {
     return "0x" + hex;
   }
 
-  buildParsedImage(imgToParse) {
-    //console.log("Image to Parse", imgToParse);
-    var parsedImage = parseImage(imgToParse).then((uri) => {
-      //console.log("Parsed Image in Build in then", uri);
-      this.setState({
-        embeddedImgSrc: uri
-      });
-
-      return uri
-    });
-
-    return parsedImage;
-  }
-
   async generateImage() {
     this.setState({ buttonLoad: true }); // Set loading on button to true
 
@@ -443,9 +441,6 @@ class Userpage extends Component {
     var nutImg = document.getElementById('nutImg'); // Grab main original image element
     var finalImg = document.getElementById('finalImg'); // Grab the final image element
 
-    // Right now the final image contains only the public QR Code
-    // Need to think what else and how to embed
-    // ** WORKING ON COMBINING IMAGES
     var combinedImg = document.getElementById('combinedImg'); // Grab the combined image element
     var combinedImgURI = await combineImages(this.state.selectedNutId, this.props.address, openMsgImg, publicQRImg).then(async (uri) => {
       this.setState({ embeddedImgSrc: uri });
@@ -468,23 +463,8 @@ class Userpage extends Component {
       nutImg.setAttribute('src', newNutURI);
 
     });
-    //console.log("New Nut Img", nutImg);
-    //console.log("Combined Img", combinedImg);
-
-    //var finalImgURI = await embedImage(nutImg, publicQRImg); // Creating the combined image [original with just qrcode]
-    //var finalImgURI = await embedImage(nutImg, combinedImg); // Creating the combined image
-    //var finalImgURI = nutImg.src;
-
-    // Final Img URI TYPE: data:image/png;base64, iVBOR......
-    //finalImg.setAttribute('src', finalImgURI);
-    //this.setState({ finalImgSrc: finalImgURI });
-    //console.log("Final Image", finalImg);
-
-    //var parsedImgURI = await this.buildParsedImage(finalImg);
-    // Parsed Imf URI TYPE: data:image/png;base64,iVBORw0......
 
     // This is the format to be uploaded to IPFS to display image on load of IPFS URL
-    //var byteStringFinalImg = Buffer.from(finalImgURI.split(',')[1], 'base64');
     var byteStringFinalImg = Buffer.from(nutImg.src.split(',')[1], 'base64');
     //console.log("Bytes Final Img IPFS", byteStringFinalImg);
     const finalImg_cid = await Hash.of(byteStringFinalImg); // Final image CID path

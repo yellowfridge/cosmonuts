@@ -49,6 +49,7 @@ class Main extends Component {
     this.getMethodChange = this.getMethodChange.bind(this);
   }
 
+  // Enables server-side rendering and allows initial data population
   static async getInitialProps(props) {
     console.log("IN: Initial Props of Index");
     const baseURL = "https://ipfs.io/ipns/";
