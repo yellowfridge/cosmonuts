@@ -14,13 +14,13 @@ import "../utils/cryptography/ECDSA.sol";
 contract CosmoNuts is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
   //using SafeMath for uint256; //Do you need to define this still - taking out for now - not needed for .8.0 and above
 
-  string public CN_PROVENANCE = "";
+  //string public CN_PROVENANCE = "";
   uint256 public constant nutPrice = 100000000000000000; //0.1 ETH BAYC had .08 ETH
   // Should we just do 1?  Isn't that point?  BAYC did 20.
   uint256 public constant maxNutPurchase = 1; // sets the max number of nuts you can buy at a time
   uint256 public MAX_NUTS;
   bool public saleIsActive = false;
-  uint256 public REVEAL_TIMESTAMP;
+  //uint256 public REVEAL_TIMESTAMP;
   address private SYSTEM_ADDRESS;
   string public COSMOS_METADATA;
 
@@ -30,11 +30,12 @@ contract CosmoNuts is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
   mapping(uint256 => string[]) private traveledURIs;
 
   // Using 1645347572 for saleStart date in tests
+  // Runs in the beginning, set when contract is created
   constructor(string memory name, string memory symbol, uint256 maxNFTSupply, uint256 saleStart, address _systemAddress, string memory cosmosCID) ERC721(name, symbol) {
       MAX_NUTS = maxNFTSupply; // Total number of tokens (traditionally 10,000)
-      REVEAL_TIMESTAMP = saleStart + (86400 * 9); // Represents 9 days - from BAYC code (86,400 * 9) - should show exact amount to save gas
-      SYSTEM_ADDRESS = _systemAddress;
-      COSMOS_METADATA = cosmosCID;
+      //REVEAL_TIMESTAMP = saleStart + (86400 * 9); // Represents 9 days - from BAYC code (86,400 * 9) - should show exact amount to save gas
+      SYSTEM_ADDRESS = _systemAddress;  // WHAT is this?
+      COSMOS_METADATA = cosmosCID;  // IPNS CID of all the Cosmonuts info
   }
 
   // Set Base URI
@@ -50,14 +51,15 @@ contract CosmoNuts is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
 
   // Set reveal timestamp
   // Do you need the above reveal_timestamp in constructor - why not just set from here - i guess to have the option to change?
-  function setRevealTimestamp(uint256 revealTimeStamp) public onlyOwner {
-    REVEAL_TIMESTAMP = revealTimeStamp;
-  }
+  //function setRevealTimestamp(uint256 revealTimeStamp) public onlyOwner {
+  //  REVEAL_TIMESTAMP = revealTimeStamp;
+  //}
 
   // Set initial provenance hash to prove initial set of images is same
-  function setProvenanceHash(string memory provenanceHash) public onlyOwner {
-    CN_PROVENANCE = provenanceHash;
-  }
+  // Not used right now
+  //function setProvenanceHash(string memory provenanceHash) public onlyOwner {
+  //  CN_PROVENANCE = provenanceHash;
+  //}
 
   // Pause sale if active, make active if paused
   function flipSaleState() public onlyOwner {
@@ -65,13 +67,13 @@ contract CosmoNuts is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
   }
 
   // Mint Cosmo Nuts
-  function mintNut(uint numberOfTokens) public payable {
+  function mintNut(uint numberOfNuts) public payable {
     require(saleIsActive, "Sale must be active to mint Nut");
-    require(numberOfTokens <= maxNutPurchase, "Can only mint 1 token at a time");
-    require(totalSupply() + numberOfTokens <= MAX_NUTS, "Purchase would exceed max supply of Nuts");
-    require(nutPrice * numberOfTokens <= msg.value, "Ether value sent is not correct");
+    require(numberOfNuts <= maxNutPurchase, "Can only mint 1 token at a time");
+    require(totalSupply() + numberOfNuts <= MAX_NUTS, "Purchase would exceed max supply of Nuts");
+    require(nutPrice * numberOfNuts <= msg.value, "Ether value sent is not correct");
 
-    for(uint i = 0; i < numberOfTokens; i++) {
+    for(uint i = 0; i < numberOfNuts; i++) {
       uint mintIndex = totalSupply();
 
       // Do we need this check in the new contract? (does it do it automatically?)

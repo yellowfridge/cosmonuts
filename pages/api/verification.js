@@ -8,15 +8,17 @@ export default async function getVerification(req, res) {
 
   const signerAccount = EthCrypto.recover(
     signature,
-    EthCrypto.hash.keccak256(imgHash) //Is this needed?
+    imgHash
+    //EthCrypto.hash.keccak256(imgHash)
   );
-  //console.log("Signer Account: ", signerAccount);
+  console.log("Signer Account: ", signerAccount);
 
   const signerPublicKey = EthCrypto.recoverPublicKey(
     signature,
-    EthCrypto.hash.keccak256(imgHash) // is this needed?
-  )
-  //console.log("Signer Public Key", signerPublicKey);
+    imgHash
+    //EthCrypto.hash.keccak256(imgHash)
+  );
+  console.log("Signer Public Key", signerPublicKey);
 
   function verify(account, hash, signature) {
     if (signerAccount == account) {

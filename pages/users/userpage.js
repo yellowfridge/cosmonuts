@@ -468,9 +468,9 @@ class Userpage extends Component {
     var byteStringFinalImg = Buffer.from(nutImg.src.split(',')[1], 'base64');
     //console.log("Bytes Final Img IPFS", byteStringFinalImg);
     const finalImg_cid = await Hash.of(byteStringFinalImg); // Final image CID path
-    //console.log("Final Img CID", finalImg_cid, typeof finalImg_cid);
+    console.log("Final Img CID", finalImg_cid, typeof finalImg_cid);
     const finalImg_hash =  EthCrypto.hash.keccak256(finalImg_cid); // Create a hash as it would be done on the ethereum blockchain
-    //console.log("Final Img Hash", finalImg_hash);
+    console.log("Final Img Hash", finalImg_hash);
     var bytesFinalImg = this.getBytes32FromIPFSHash(finalImg_cid); // Format to save image in for IPFS
     //console.log("Bytes Emb Img Eth", bytesFinalImg);
 
@@ -499,7 +499,7 @@ class Userpage extends Component {
 
         if (verification.verification) { // a final check - checking if IPFS CID matches signed CID
           // Sending info to Ethereum to be verified on blockchain
-          changeTokenURI(this.state.selectedNutId, finalImg_hash, this.state.finalImgSig).then(() => {
+          changeTokenURI(this.state.selectedNutId, finalImg_cid, this.state.finalImgSig).then(() => {
             console.log("Success!");
 
             console.log("Adding to IPFS ...");
@@ -535,7 +535,7 @@ class Userpage extends Component {
                 if (this.state.selectedNutCID === cid.nutIPNS) {
                   console.log("Successfully published to correct IPNS CID!");
 
-                  window.location.reload(true); // Refreshes the page
+                  //window.location.reload(true); // Refreshes the page
                 } else {
                   console.log("Error: Does not match recorded IPNS CID.");
                   console.log("-----LOG NOTES-----");
