@@ -6,23 +6,21 @@ import "./CosmoNuts.sol";
 contract CosmoButter {
 
     uint256 public TOKEN_ID;
-    bytes32 public SECRET_HASH;
+    bytes32 private SECRET_HASH;
     uint256 public BUTTER_LIMIT;
     uint256 public BUTTER_ID;
 
+    uint256 public butterAmount;
+    mapping(address => bool) private drawnBefore;
+
     CosmoNuts COSMO_NUTS;
 
-    uint256 public butterAmount;
-
-    mapping(address => bool) public drawnBefore;
-
-    constructor(address _nutsAddress, uint256 _tokenId, bytes32 _secretHash, uint256 _butterAmount, uint256 _butterLimit, uint256 _butterId) {
+    constructor(address _nutsAddress, uint256 _tokenId, uint256 _butterId, uint256 _butterAmount, uint256 _butterLimit, bytes32 _secretHash) {
         COSMO_NUTS = CosmoNuts(_nutsAddress);
         TOKEN_ID = _tokenId;
         SECRET_HASH = _secretHash;
-        BUTTER_LIMIT = _butterLimit;
         butterAmount = _butterAmount;
-        COSMO_NUTS = CosmoNuts(_nutsAddress);
+        BUTTER_LIMIT = _butterLimit;
         BUTTER_ID = _butterId;
     }
 
@@ -35,6 +33,7 @@ contract CosmoButter {
         verifySecret(_secret);
         butterAmount = address(this).balance;
         require(butterAmount > 0 wei, "No butter to draw");
+
         payable(msg.sender).transfer(BUTTER_LIMIT);
         butterAmount -= BUTTER_LIMIT;
         drawnBefore[msg.sender] = true;
