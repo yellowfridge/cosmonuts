@@ -2,18 +2,8 @@
 pragma solidity ^0.8.7;
 
 import "./CosmoCreation.sol";
-import "./CosmoSappling.sol";
-import "./CosmoButter.sol";
 
-/**
-  * @title CosmoNuts contract
-  * @custom:security-contact security@gmail.com //put security contact info (recommended)
-*/
-// SPDX-License-Identifier: MIT
 contract CosmoNuts is CosmoCreation {
-
-    CosmoButter butter;
-    CosmoSappling sappling;
 
     using ECDSA for bytes32;
 
@@ -22,9 +12,10 @@ contract CosmoNuts is CosmoCreation {
         string memory _symbol,
         uint256 _initialNFTSupply,
         address _systemAddress,
-        address _universeAddress
+        address _treasuryAddress,
+        uint256 _nutPrice
     )
-        CosmoCreation(_name, _symbol, _initialNFTSupply, _systemAddress, _universeAddress) {}
+        CosmoCreation(_name, _symbol, _initialNFTSupply, _systemAddress, _treasuryAddress, _nutPrice) {}
 
     function withdraw() public onlyOwner {
         uint balance = address(this).balance;
@@ -36,68 +27,74 @@ contract CosmoNuts is CosmoCreation {
         saleIsActive = !saleIsActive;
     }
 
+    /*
+     * Called from CosmoSapplings to mint a new Nut
+     */
     function createNut(
-        uint256 _parentNut,
-        uint256 _sapplingId,
         string memory _cidPath,
         bytes memory _signature
-    ) public {
-        require(_isApprovedOrOwner(_msgSender(), _parentNut), "ERC721: Caller is not owner nor approved");
-        require(sapplingsOfNut[_parentNut] > 0, "Selected nut has no sapplings");
-
-        growSappling(_parentNut, _sapplingId);
-
+    ) external {
         uint mintIndex = totalSupply();
         _safeMint(msg.sender, mintIndex);
         changeTokenURI(mintIndex, _cidPath, _signature);
     }
 
-    function createSappling(
-        uint256 _tokenId,
+    /**
+     * Function callable by Nut owner to create a seed which has the potential to turn into a new Nut.
+     * Requires the input of a secretHash and a specified amount of Ether to create.
+     * A required level of matter must be burned which is equal to the amount of seeds you have in Universe
+     * multiplied by the matterRate.
+     */
+    function createSeed(
+        uint256 _nutId,
         bytes32 _secretHash,
+        uint256 _matterContributed,
         string memory _cidPath,
         bytes memory _signature
         )
         public payable {
+            require(address(msg.sender) == ownerOf(_nutId), "Caller is not owner of specified nut");
             require(totalSupply() >= INITIAL_NUTS, "Cannot spawn until total supply of initial nuts is met");
-            require(nutPrice ^ (sapplingsOfNut[_tokenId] + 1) <= msg.value, "Ether value sent is not correct");
 
-            uint256 sapplingIndex = sapplingsInUniverse;
-            sappling = new CosmoSappling(address(this), _tokenId, sapplingIndex, _secretHash);
-            payable(address(sappling)).transfer(msg.value);
-
-            spawnSappling(_tokenId, sapplingIndex, address(sappling));
-
-            changeTokenURI(_tokenId, _cidPath, _signature);
+            treasury.spawnSeed(_nutId, _secretHash, _matterContributed);
+            changeTokenURI(_nutId, _cidPath, _signature);
     }
 
+    /**
+     * Function callable by Nut owner to create a matter faucet which allows other users to draw matter
+     * Creation requires a secret hash that must be known to suppy matter
+     * Creation requires input of total number of matter in contract and the amount each user can draw at a single time
+     * Drawing any amount of matter results in the creation of new supply of matter
+     * In creating the faucet, the creator replenishes the accounts of other nut holders (tax on system to create message)
+     * Caller will also receive matter if others call on this function
+     */
     function createButter(
-        uint256 _tokenId,
+        uint256 _nutId,
         bytes32 _secretHash,
+        uint256 _cosmosContributed,
         string memory _cidPath,
         bytes memory _signature,
         uint256 _butterDrawRate
-        ) public payable {
-            require(msg.value % _butterDrawRate == 0, "Draw rate is not perfectly divisible by total amount");
+        ) public {
+            require(address(msg.sender) == ownerOf(_nutId), "Caller is not owner of specified nut");
 
-            uint256 butterIndex = butterCountInUniverse;
-            butter = new CosmoButter(address(this), _tokenId, butterIndex, msg.value, _butterDrawRate, _secretHash);
-            payable(address(butter)).transfer(msg.value);
+            treasury.newButter(_nutId, _cosmosContributed, _butterDrawRate, _secretHash);
 
-            churnButter(_tokenId, butterIndex, address(butter), msg.value);
-
-            changeTokenURI(_tokenId, _cidPath, _signature);
+            changeTokenURI(_nutId, _cidPath, _signature);
     }
 
+    /**
+     *
+     */
     function spreadButter(
         uint256 _tokenId,
-        uint256 _butterId,
-        uint256 _butterTaken,
+        //uint256 _butterId,
+        //uint256 _butterTaken,
         string memory _cidPath,
         bytes memory _signature
-        ) public {
-        butterInUniverse -= _butterTaken;
-        butterOutstandingOfNut[_tokenId][_butterId] -= _butterTaken;
+        ) external {
+        //butterInUniverse -= _butterTaken; // Don't believe this would be needed - transfer to Treasury
+        //butterOutstandingOfNut[_tokenId][_butterId] -= _butterTaken; // Don't beleive this would be needed - transfer to Treasury
 
         changeTokenURI(_tokenId, _cidPath, _signature);
     }
