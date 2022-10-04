@@ -14,7 +14,7 @@ import "./ButterAccounts.sol";
  * ERC20 Token to mint, burn, and allocate balances
  * Acts as storage for the ERC 721 tokens on their created Seed and Butter contracts.
  */
-contract CosmoTreasury is SeedAccounts, ButterAccounts {
+ contract CosmoTreasury is SeedAccounts, ButterAccounts {
 
     /**
      * @dev Saved addresses include the contract which created the Treasury: UNIVERSE_ADDRESS, and
@@ -31,7 +31,7 @@ contract CosmoTreasury is SeedAccounts, ButterAccounts {
      * MATTER_RATE is the amount of matter it takes to create one NFT (used in calculating pricing) - set to 100
      */
     uint256 public matterInUniverse;
-    uint256 public matterInTreasury = 0;
+    uint256 public matterInTreasury;
 
     mapping(uint256 => address) public currentOwnerOfNut; // Record of current nut owners by address
     mapping(uint256 => uint256) public matterBalanceOfNut; // Matter balance of each Nut recorded by the Treasury
@@ -39,8 +39,8 @@ contract CosmoTreasury is SeedAccounts, ButterAccounts {
     uint256[] public nutsPayeeList; // List of nuts to be provided a balance
 
     CosmoMatter matter;
-    CosmoSeed seed;
-    CosmoButter butter;
+    //CosmoSeed seed;
+    //CosmoButter butter;
 
     /**
      *
@@ -81,7 +81,7 @@ contract CosmoTreasury is SeedAccounts, ButterAccounts {
         require(matterOfOwner >= matterToBurn, "Matter balance is not enough");
         require(_matterContributed >= matterToBurn, "Not enough matter given");
 
-        seed = new CosmoSeed(
+        CosmoSeed seed = new CosmoSeed(
             MATTER_ADDRESS, _nutId, seedsCreated, _secretHash, address(this), NUT_PRICE
         );
         integrateSeed(_nutId, seedsCreated, address(seed));
@@ -97,12 +97,13 @@ contract CosmoTreasury is SeedAccounts, ButterAccounts {
         //matter = CosmoMatter(MATTER_ADDRESS);
         require(matter.balanceOf(address(msg.sender)) >= _matterNeeded, "Not enough matter");
 
+        address seedAddress = seedLocations[_seedId];
+        CosmoSeed seed = CosmoSeed(seedAddress);
+
         address nutOwner = currentOwnerOfNut[seed.NUT_ID()];
         matter.transfer(nutOwner, _matterNeeded);
         matter.mintMatter(address(this), 1);
 
-        address seedAddress = seedLocations[_seedId];
-        seed = CosmoSeed(seedAddress);
         seed.degradeSeed(nutOwner);
 
         matterInUniverse = matter.totalSupply();
@@ -175,7 +176,7 @@ contract CosmoTreasury is SeedAccounts, ButterAccounts {
            matterInTreasury = matter.balanceOf(address(this));
         }
 
-        butter = new CosmoButter(
+        CosmoButter butter = new CosmoButter(
             MATTER_ADDRESS, address(this), _nutId, butterJars, _matterContributed, _matterDrawRate, _secretHash
         );
         matter.transfer(address(butter), _matterContributed);

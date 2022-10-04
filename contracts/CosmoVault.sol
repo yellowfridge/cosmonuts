@@ -17,7 +17,7 @@ contract CosmoVault {
     constructor(address _systemAddress, address _treasuryAddress) {
         SYSTEM_ADDRESS = _systemAddress;
         TREASURY_ADDRESS = _treasuryAddress;
-        treasury = CosmoTreasury(_treasuryAddress);
+        //treasury = CosmoTreasury(_treasuryAddress);
     }
 
     modifier onlySystem {
