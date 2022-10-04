@@ -17,15 +17,6 @@ contract CosmoSeed {
     }
     Seed seed;
 
-    //uint256 public NUT_ID; // Represents the number of the Nut that created this contract (sappling('seed'))
-    //uint256 public SEED_ID; // A unique Id for the contract, also the latest one created in the Universe
-    //bytes32 private SECRET_HASH; // A secret hash stored on blockchain for verification purposes later
-    //address public TREASURY_ADDRESS; // The address of the Treasury assigned to deal with balances
-
-    //uint256 nutPrice;
-    //uint256 public lockedEther;
-    //uint256 public matterNeeded;
-
     CosmoNuts nuts;
     CosmoTreasury treasury;
 
@@ -34,13 +25,6 @@ contract CosmoSeed {
         uint256 _nutId,
         address _treasuryAddress,
         bytes32 _secretHash
-
-        //address _nutsAddress,
-        //uint256 _tokenId,
-        //uint256 _sapplingId,
-        //bytes32 _secretHash,
-        //address _treasuryAddress,
-        //uint256 _nutPrice
     ) payable {
         address nutLocation = address(msg.sender);
         nuts = CosmoNuts(nutLocation);
@@ -53,14 +37,6 @@ contract CosmoSeed {
         seed.location = address(this);
         seed.nutLocation = nutLocation;
         seed.secretHash = _secretHash;
-
-
-        //NUT_ID = _tokenId;
-        //SEED_ID = _sapplingId;
-        //SECRET_HASH = _secretHash;
-        //TREASURY_ADDRESS = _treasuryAddress;
-        //lockedEther = msg.value;
-        //nutPrice = _nutPrice;
     }
 
     function nutId() public view returns (uint256) {

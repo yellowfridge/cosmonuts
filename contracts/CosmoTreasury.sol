@@ -87,7 +87,6 @@ import "./ButterAccounts.sol";
 
         CosmoSeed seed = new CosmoSeed(
             seedsCreated, _nutId, address(this), _secretHash
-            //MATTER_ADDRESS, _nutId, seedsCreated, _secretHash, address(this), NUT_PRICE
         );
         integrateSeed(_nutId, seedsCreated, address(seed));
 
@@ -105,7 +104,6 @@ import "./ButterAccounts.sol";
         address seedAddress = seedLocations[_seedId];
         CosmoSeed seed = CosmoSeed(seedAddress);
 
-        //address nutOwner = currentOwnerOfNut[seed.NUT_ID()];
         address nutOwner = currentOwnerOfNut[seed.nutId()];
         matter.transfer(nutOwner, _matterNeeded);
         matter.mintMatter(address(this), 1);
