@@ -177,7 +177,8 @@ import "./ButterAccounts.sol";
         }
 
         CosmoButter butter = new CosmoButter(
-            MATTER_ADDRESS, address(this), _nutId, butterJars, _matterContributed, _matterDrawRate, _secretHash
+            butterJars, _nutId, _matterContributed, _matterDrawRate, address(this), _secretHash
+            //MATTER_ADDRESS, address(this), _nutId, butterJars, _matterContributed, _matterDrawRate, _secretHash
         );
         matter.transfer(address(butter), _matterContributed);
         churnButter(_nutId, butterJars, address(butter), _matterContributed);

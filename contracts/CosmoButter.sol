@@ -10,39 +10,59 @@ import "./CosmoTreasury.sol";
  */
  contract CosmoButter {
 
-     // Turn these into a struct
+     struct Butter {
+         uint256 id;
+         uint256 nutId;
+         uint256 amount;
+         uint256 drawRate;
+         address location;
+         address nutLocation;
+         bytes32 secretHash;
+         mapping(address => bool) drawnBefore;
+     }
+     Butter butter;
+
+     /* Turn these into a struct
      uint256 public TOKEN_ID;
      bytes32 private SECRET_HASH;
      uint256 public BUTTER_DRAW_RATE;
      uint256 public BUTTER_ID;
      address public TREASURY_ADDRESS;
+     */
 
-     uint256 public butterAmount;
-     mapping(address => bool) private drawnBefore;
+     //uint256 public butterAmount;
+     //mapping(address => bool) private drawnBefore;
 
-     CosmoNuts COSMO_NUTS;
-     CosmoTreasury TREASURY;
+     CosmoNuts nuts;
+     CosmoTreasury treasury;
 
      constructor(
-         address _nutsAddress,
-         address _treasuryAddress,
-         uint256 _tokenId,
          uint256 _butterId,
+         uint256 _nutId,
          uint256 _butterAmount,
-         uint256 _butterLimit,
+         uint256 _drawRate,
+         address _treasuryAddress,
          bytes32 _secretHash
      ) {
-         COSMO_NUTS = CosmoNuts(_nutsAddress);
-         TREASURY = CosmoTreasury(_treasuryAddress);
-         TOKEN_ID = _tokenId;
-         SECRET_HASH = _secretHash;
-         butterAmount = _butterAmount;
-         BUTTER_DRAW_RATE = _butterLimit;
-         BUTTER_ID = _butterId;
+         butter.id = _butterId;
+         butter.nutId = _nutId;
+         butter.amount = _butterAmount;
+         butter.drawRate = _drawRate;
+         butter.location = address(this);
+         butter.nutLocation = address(msg.sender);
+         butter.secretHash = _secretHash;
+
+         nuts = CosmoNuts(butter.nutLocation);
+         treasury = CosmoTreasury(_treasuryAddress);
+         //TOKEN_ID = _tokenId;
+         //SECRET_HASH = _secretHash;
+         //butterAmount = _butterAmount;
+         //BUTTER_DRAW_RATE = _butterLimit;
+         //BUTTER_ID = _butterId;
      }
 
      modifier onlyOnce {
-         require(drawnBefore[msg.sender] != true, "Can only draw once");
+         require(butter.drawnBefore[msg.sender] != true, "Can only draw once");
          _;
      }
 
@@ -50,14 +70,14 @@ import "./CosmoTreasury.sol";
       * Function callable from anyone, but can only be done once per Ethereum address.
       */
      function drawButter(string memory _secret, string memory _cidPath, bytes memory _signature) onlyOnce public {
-         require(butterAmount > 0 wei, "No butter to draw");
+         require(butter.amount > 0 wei, "No butter to draw");
          verifySecret(_secret);
 
-         TREASURY.butterDrawn(msg.sender, BUTTER_ID, BUTTER_DRAW_RATE, butterAmount);
-         butterAmount -= BUTTER_DRAW_RATE;
-         drawnBefore[msg.sender] = true;
+         treasury.butterDrawn(msg.sender, butter.id, butter.drawRate, butter.amount);
+         butter.amount -= butter.drawRate;
+         butter.drawnBefore[msg.sender] = true;
 
-         COSMO_NUTS.spreadButter(TOKEN_ID, _cidPath, _signature);
+         nuts.spreadButter(butter.nutId, _cidPath, _signature);
      }
 
      /**
@@ -66,7 +86,7 @@ import "./CosmoTreasury.sol";
       */
      function verifySecret(string memory _input) private view returns(bool) {
          bytes32 inputHash = keccak256(abi.encodePacked(_input));
-         require(inputHash == SECRET_HASH, "Input does not match secret");
+         require(inputHash == butter.secretHash, "Input does not match secret");
          return true;
      }
 
