@@ -74,26 +74,20 @@ import "./ButterAccounts.sol";
         return MATTER_RATE ^ (seedsOfNut[_nutId] + 1);
     }
 
-    function spawnSeed(uint256 _nutId, bytes32 _secretHash, uint256 _matterContributed) external payable {
+    function spawnSeed(uint256 _nutId, bytes32 _secretHash) external payable {
         uint256 ethToHold = NUT_PRICE ^ (seedsGrownOfNut[_nutId] + 1);
         require(msg.value >= ethToHold, "Ether value is not enough");
-        //matter = CosmoMatter(MATTER_ADDRESS);
 
         uint256 matterToBurn = calcMatterNeeded(_nutId);
         uint256 matterOfOwner = matter.balanceOf((currentOwnerOfNut[_nutId]));
-
         require(matterOfOwner >= matterToBurn, "Matter balance is not enough");
-        require(_matterContributed >= matterToBurn, "Not enough matter given");
 
         CosmoSeed seed = new CosmoSeed(
             seedsCreated, _nutId, address(this), _secretHash
         );
         integrateSeed(_nutId, seedsCreated, address(seed));
 
-        uint256 excessMatter = _matterContributed - matterToBurn;
-
         matter.burn(matterToBurn);
-        matter.transfer(address(seed), excessMatter);
         payable(address(seed)).transfer(msg.value);
     }
 

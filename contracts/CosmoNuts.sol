@@ -54,7 +54,6 @@ import "./CosmoCreation.sol";
     function createSeed(
         uint256 _nutId,
         bytes32 _secretHash,
-        uint256 _matterContributed,
         string memory _cidPath,
         bytes memory _signature
         )
@@ -62,7 +61,7 @@ import "./CosmoCreation.sol";
             require(address(msg.sender) == ownerOf(_nutId), "Caller is not owner of nut");
             require(totalSupply() >= INITIAL_NUTS, "Nuts still exist from creation");
 
-            treasury.spawnSeed(_nutId, _secretHash, _matterContributed);
+            treasury.spawnSeed(_nutId, _secretHash);
             changeTokenURI(_nutId, _cidPath, _signature);
     }
 
