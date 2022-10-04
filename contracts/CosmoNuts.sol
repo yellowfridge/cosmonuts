@@ -17,7 +17,7 @@ import "./CosmoCreation.sol";
         uint256 _initialNFTSupply,
         address _systemAddress,
         address _treasuryAddress
-    )
+    ) 
         CosmoCreation(_name, _symbol, _initialNFTSupply, _systemAddress, _treasuryAddress)
     {}
 

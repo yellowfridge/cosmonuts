@@ -14,7 +14,6 @@ contract CosmoCreation is CosmoVault, ERC721, ERC721Enumerable, ERC721URIStorage
     uint256 public INITIAL_NUTS;
 
     uint256 public totalNuts;
-    //uint256 public constant maxNutPurchase = 1;
     bool public saleIsActive = false;
 
     constructor(
@@ -44,13 +43,6 @@ contract CosmoCreation is CosmoVault, ERC721, ERC721Enumerable, ERC721URIStorage
         _safeMint(TREASURY_ADDRESS, totalSupply());
         _setTokenURI(totalSupply(), _nutCID);
         treasury.assignMintBalance(address(msg.sender), totalSupply());
-
-        //for(uint i=0; i<_numberOfNuts; i++) {
-        //    uint mintIndex = totalSupply();
-        //    _safeMint(TREASURY_ADDRESS, mintIndex);
-        //    _setTokenURI(mintIndex, _nutCID);
-        //    treasury.assignMintBalance(address(msg.sender), mintIndex);
-        //}
     }
 
     function changeTokenURI(uint256 _tokenId, string memory _cidPath, bytes memory _signature) internal {

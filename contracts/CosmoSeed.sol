@@ -15,7 +15,7 @@ contract CosmoSeed {
         address nutLocation;
         bytes32 secretHash;
     }
-    Seed seed;
+    Seed public seed;
 
     CosmoNuts nuts;
     CosmoTreasury treasury;
@@ -37,6 +37,10 @@ contract CosmoSeed {
         seed.location = address(this);
         seed.nutLocation = nutLocation;
         seed.secretHash = _secretHash;
+    }
+
+    function matterNeeded() public view returns (uint256) {
+        return seed.matterNeeded;
     }
 
     function nutId() public view returns (uint256) {

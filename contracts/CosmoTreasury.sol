@@ -20,7 +20,6 @@ import "./ButterAccounts.sol";
      * @dev Saved addresses include the contract which created the Treasury: UNIVERSE_ADDRESS, and
      * the address of the CosmoNuts contract (NFTs) which is created after the Treasury and then updated: matter_ADDRESS.
      */
-    //address public UNIVERSE_ADDRESS;
     address public MATTER_ADDRESS;
     uint256 public NUT_PRICE;
     uint256 public MATTER_RATE;
@@ -39,8 +38,6 @@ import "./ButterAccounts.sol";
     uint256[] public nutsPayeeList; // List of nuts to be provided a balance
 
     CosmoMatter matter;
-    //CosmoSeed seed;
-    //CosmoButter butter;
 
     /**
      *
@@ -82,27 +79,31 @@ import "./ButterAccounts.sol";
         uint256 matterOfOwner = matter.balanceOf((currentOwnerOfNut[_nutId]));
         require(matterOfOwner >= matterToBurn, "Matter balance is not enough");
 
-        CosmoSeed seed = new CosmoSeed(
+        CosmoSeed cosmoseed = new CosmoSeed(
             seedsCreated, _nutId, address(this), _secretHash
         );
-        integrateSeed(_nutId, seedsCreated, address(seed));
+        address seedLocation = address(cosmoseed);
+        integrateSeed(_nutId, seedsCreated, seedLocation);
 
         matter.burn(matterToBurn);
-        payable(address(seed)).transfer(msg.value);
+        payable(seedLocation).transfer(msg.value);
     }
 
+    /**
+     * Called from CosmoSeed contract.
+     */
     function growSeedFromNut(uint256 _seedId, uint256 _matterNeeded) external {
-        //matter = CosmoMatter(MATTER_ADDRESS);
-        require(matter.balanceOf(address(msg.sender)) >= _matterNeeded, "Not enough matter");
-
         address seedAddress = seedLocations[_seedId];
-        CosmoSeed seed = CosmoSeed(seedAddress);
+        require(address(msg.sender) == seedAddress, "Caller is not the right CosmoSeed contract");
+        //require(matter.balanceOf(address(msg.sender)) >= _matterNeeded, "Not enough matter");
 
-        address nutOwner = currentOwnerOfNut[seed.nutId()];
+        CosmoSeed cosmoseed = CosmoSeed(seedAddress);
+
+        address nutOwner = currentOwnerOfNut[cosmoseed.nutId()];
         matter.transfer(nutOwner, _matterNeeded);
         matter.mintMatter(address(this), 1);
 
-        seed.degradeSeed(nutOwner);
+        cosmoseed.degradeSeed(nutOwner);
 
         matterInUniverse = matter.totalSupply();
         matterInTreasury = matter.balanceOf(address(this));
@@ -121,7 +122,6 @@ import "./ButterAccounts.sol";
         // Do we need to be doing these checks twice? Or really new check that caller is from contract (? or person who clicked?)
         require(nutOwner == address(msg.sender), "Caller is not the owner");
         require(matterBalanceOfNut[_nutId] >= _matterContributed, "Not have enough matter");
-        //matter = CosmoMatter(MATTER_ADDRESS);
         require(_matterContributed <= matter.balanceOf(nutOwner), "Not high enough");
         require(_matterContributed % _matterDrawRate == 0, "Draw rate not divisible");
 
@@ -186,7 +186,6 @@ import "./ButterAccounts.sol";
      * Runs from CosmoButter contract when someone requests to draw matter.
      */
     function butterDrawn(address _drawer, uint256 _butterId, uint256 _balance, uint256 _currentBalance) external {
-        //matter = CosmoMatter(MATTER_ADDRESS);
         matter.transfer(_drawer, _balance);
         matter.mintMatter(address(this), _balance);
         distributeButter(_butterId, _balance, _currentBalance);
@@ -197,7 +196,6 @@ import "./ButterAccounts.sol";
 
     function assignMintBalance(address _tokenOwner, uint256 _tokenId) external {
         require(matterInTreasury >= MATTER_RATE, "Not enough matter");
-        //matter = CosmoMatter(MATTER_ADDRESS);
         matter.transfer(_tokenOwner, MATTER_RATE);
         matterBalanceOfNut[_tokenId] = MATTER_RATE;
         matterInTreasury -= MATTER_RATE;
