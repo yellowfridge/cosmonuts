@@ -5,9 +5,6 @@ import "openzeppelin-solidity/contracts/access/Ownable.sol";
 import "./CosmoMatter.sol";
 import "./CosmoBang.sol";
 
-import "openzeppelin-solidity/contracts/token/ERC20/ERC20.sol";
-import "openzeppelin-solidity/contracts/token/ERC20/extensions/ERC20Burnable.sol";
-
 /**
  * CosmoUniverse is the top contract for the developer to create the planned system.
  *

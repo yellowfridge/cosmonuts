@@ -4099,7 +4099,7 @@
         5075
       ],
       "CosmoVault": [
-        5323
+        5321
       ],
       "ECDSA": [
         3288
@@ -4150,7 +4150,7 @@
         104
       ],
       "SeedAccounts": [
-        5431
+        5429
       ],
       "Strings": [
         2881
@@ -5060,7 +5060,7 @@
   },
   "networks": {},
   "schemaVersion": "3.4.10",
-  "updatedAt": "2022-10-03T21:57:54.761Z",
+  "updatedAt": "2022-10-04T07:55:19.829Z",
   "devdoc": {
     "kind": "dev",
     "methods": {},
