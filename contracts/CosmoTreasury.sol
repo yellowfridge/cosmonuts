@@ -70,19 +70,24 @@ import "./ButterAccounts.sol";
     //    NUT_PRICE = _setNutPrice;
     //}
 
+    function calcMatterNeeded(uint256 _nutId) public view returns (uint256) {
+        return MATTER_RATE ^ (seedsOfNut[_nutId] + 1);
+    }
+
     function spawnSeed(uint256 _nutId, bytes32 _secretHash, uint256 _matterContributed) external payable {
         uint256 ethToHold = NUT_PRICE ^ (seedsGrownOfNut[_nutId] + 1);
         require(msg.value >= ethToHold, "Ether value is not enough");
         //matter = CosmoMatter(MATTER_ADDRESS);
 
-        uint256 matterToBurn = MATTER_RATE ^ (seedsOfNut[_nutId] + 1);
+        uint256 matterToBurn = calcMatterNeeded(_nutId);
         uint256 matterOfOwner = matter.balanceOf((currentOwnerOfNut[_nutId]));
 
         require(matterOfOwner >= matterToBurn, "Matter balance is not enough");
         require(_matterContributed >= matterToBurn, "Not enough matter given");
 
         CosmoSeed seed = new CosmoSeed(
-            MATTER_ADDRESS, _nutId, seedsCreated, _secretHash, address(this), NUT_PRICE
+            seedsCreated, _nutId, address(this), _secretHash
+            //MATTER_ADDRESS, _nutId, seedsCreated, _secretHash, address(this), NUT_PRICE
         );
         integrateSeed(_nutId, seedsCreated, address(seed));
 
@@ -100,7 +105,8 @@ import "./ButterAccounts.sol";
         address seedAddress = seedLocations[_seedId];
         CosmoSeed seed = CosmoSeed(seedAddress);
 
-        address nutOwner = currentOwnerOfNut[seed.NUT_ID()];
+        //address nutOwner = currentOwnerOfNut[seed.NUT_ID()];
+        address nutOwner = currentOwnerOfNut[seed.nutId()];
         matter.transfer(nutOwner, _matterNeeded);
         matter.mintMatter(address(this), 1);
 
