@@ -61,6 +61,7 @@ contract CosmoSeed {
      * Called from CosmoNuts as part of the spawnNut function below
      * Jumping back to transfer funds, and downgrade contract (does this mean deletion? - self-destruct)
      */
+    /*
     function degradeSeed(address _parentNutOwner) external payable {
         // Something not right here - need to double check how does msg.value work here?
         uint256 nutPrice = treasury.NUT_PRICE();
@@ -68,6 +69,7 @@ contract CosmoSeed {
         payable(address(treasury)).transfer(nutPrice); // Transfer the set nut price to Treasury
         payable(_parentNutOwner).transfer(excessEth); // Transfer remaining back to parent nut owner
     }
+    */
 
     /**
      * Can be called from anyone who comes across, asks for secret from user
@@ -78,6 +80,31 @@ contract CosmoSeed {
         verifySecret(_secret); // Check whether provided secret is correct
         treasury.growSeedFromNut(seed.id, seed.matterNeeded);
         nuts.createNut(_cidPath, _signature); // Mints the new NFT and assigns to caller
+
+        /**
+         * Sending the original set price to Treasury.  This is payment for a new NFT (nut).
+         * Consider implication - tax - and decision to keep?
+         */
+        uint256 nutPrice = treasury.NUT_PRICE();
+        (bool sentToTreasury,/*memory data*/) = address(treasury).call{
+            value: nutPrice
+        }("");
+        require(sentToTreasury, "Ether not sent to Treasury");
+
+        /**
+         * Sending remaining amount back to current nut owner who created the seed.
+         */
+        uint256 returnAmount = seed.heldEther - nutPrice;
+        address nutOwner = nuts.ownerOf(seed.nutId);
+        (bool sentToParent,/*memory data*/) = nutOwner.call{
+            value: returnAmount
+        }("");
+        require(sentToParent, "Ether not sent to parent nut");
     }
+
+    /**
+     * Functions below relate to receiving ether.  This contract holds ether.
+     * Do we need? - researching
+     */
 
 }
