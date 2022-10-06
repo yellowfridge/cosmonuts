@@ -42,10 +42,7 @@ import "./CosmoBang.sol";
         bang = new CosmoBang(
             SYSTEM_ADDRESS,
             MATTER_ADDRESS,
-            //_cosmosName,
-            //_cosmosSymbol,
             _entityPrice,
-            //_desiredEntities,
              _matterRate
         );
     }
@@ -55,45 +52,6 @@ import "./CosmoBang.sol";
      * The amount of matter created is dependent on the desired number of NFT tokens needed and their rate.
      * Total matter created is ul;timately equal to number of NFT tokens times the selected rate.
      */
-     /*
-    function bigBang(
-        string memory _cosmosName,
-        string memory _cosmosSymbol,
-        uint256 _desiredEntities,
-        uint256 _matterRate
-    ) public onlyOwner {
-        uint256 matterToCreate = _desiredEntities * _matterRate;
-        matter.mintMatter(address(this), matterToCreate);
-        CosmoBang bang = new CosmoBang(SYSTEM_ADDRESS, MATTER_ADDRESS, _cosmosName, _cosmosSymbol, _desiredEntities,  _matterRate);
-
-        uint256 cosmosIndex = cosmos.length;
-        cosmo = Cosmo(cosmosIndex, true, _cosmosName, _cosmosSymbol, bang.COSMO_ADDRESS(), bang.TREASURY_ADDRESS());
-        cosmos.push(cosmo);
-    }
-    */
-
-    /*
-    function bigBang(
-        string memory _cosmosName,
-        string memory _cosmosSymbol,
-        uint256 _entityPrice,
-        uint256 _desiredEntities,
-        uint256 _matterRate
-    ) public onlyOwner {
-        uint256 matterToCreate = _desiredEntities * _matterRate;
-        matter.mintMatter(address(this), matterToCreate);
-        //CosmoBang bang = new CosmoBang();
-        bang.nutBang(
-            SYSTEM_ADDRESS,
-            MATTER_ADDRESS,
-            _cosmosName,
-            _cosmosSymbol,
-            _entityPrice,
-            _desiredEntities,
-             _matterRate);
-    }
-    */
-
     function bigBang(
         string memory _cosmosName,
         string memory _cosmosSymbol,

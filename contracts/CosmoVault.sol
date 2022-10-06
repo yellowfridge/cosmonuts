@@ -7,10 +7,7 @@ import "./CosmoTreasury.sol";
 contract CosmoVault {
 
     address public SYSTEM_ADDRESS;
-    //address public MATTER_ADDRESS;
     address public TREASURY_ADDRESS;
-    //address public COSMO_ADDRESS;
-
     uint256 public NUT_PRICE;
     uint256 public MATTER_RATE;
 
@@ -21,17 +18,10 @@ contract CosmoVault {
     constructor(
         address _systemAddress,
         address _matterAddress,
-        //address _treasuryAddress,
-        //address _cosmoAddress
         uint256 _nutPrice,
         uint256 _matterRate
     )
-    //CosmoTreasury(_systemAddress, _matterAddress, _matterRate, _nutPrice)
     {
-        //SYSTEM_ADDRESS = _systemAddress;
-        //MATTER_ADDRESS = _matterAddress;
-        //TREASURY_ADDRESS = _treasuryAddress;
-        //COSMO_ADDRESS = _cosmoAddress;
         treasury = new CosmoTreasury(_systemAddress, _matterAddress, _matterRate, _nutPrice);
         TREASURY_ADDRESS = address(treasury);
         NUT_PRICE = _nutPrice;
@@ -47,7 +37,6 @@ contract CosmoVault {
     }
 
     function growSeedFromNut(uint256 _seedId) public {
-        //uint256 nutId = treasury.nutOfSeed[_seedId];
         uint256 nutId = treasury.nutOfSeed(_seedId);
         uint256 matterNeeded = calcMatterNeeded(nutId);
         treasury.seedFromNut(_seedId, matterNeeded);
@@ -81,7 +70,7 @@ contract CosmoVault {
 
     function isVerified(bytes32 _pathHash, bytes memory _signature) external view returns (bool) {
         // *Research* - Should you include the following "\x19Ethereum Signed Message:\n32"
-        require(signerAddress(_pathHash, _signature) == treasury.SYSTEM_ADDRESS(), "Invalid signature");
+        require(signerAddress(_pathHash, _signature) == SYSTEM_ADDRESS, "Invalid signature");
         return true;
     }
 

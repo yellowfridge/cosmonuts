@@ -18,7 +18,7 @@ import "./CosmoCreation.sol";
         address _systemAddress,
         address _vaultAddress
     )
-        CosmoCreation(_name, _symbol, _initialNFTSupply, /*_systemAddress,*/ _vaultAddress)
+        CosmoCreation(_name, _symbol, _initialNFTSupply, _vaultAddress)
     {}
 
     // only system address?
@@ -61,7 +61,6 @@ import "./CosmoCreation.sol";
             require(address(msg.sender) == ownerOf(_nutId), "Caller is not owner of nut");
             require(totalSupply() >= INITIAL_NUTS, "Nuts still exist from creation");
 
-            //treasury.spawnSeed(_nutId, _secretHash);
             vault.newSeed(_nutId, _secretHash);
             changeTokenURI(_nutId, _cidPath, _signature);
     }
@@ -84,7 +83,6 @@ import "./CosmoCreation.sol";
     ) public {
         require(address(msg.sender) == ownerOf(_nutId), "Caller is not owner of nut");
         vault.newButterJar(_nutId, _matterContributed, _secretHash);
-        //treasury.newButter(_nutId, _matterContributed, _drawRate, _secretHash);
         changeTokenURI(_nutId, _cidPath, _signature);
     }
 

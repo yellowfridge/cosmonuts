@@ -9,36 +9,29 @@ import "openzeppelin-solidity/contracts/utils/cryptography/ECDSA.sol";
 
 import "./CosmoVault.sol";
 
-contract CosmoCreation is /*CosmoVault, */ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
+contract CosmoCreation is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
 
     uint256 public INITIAL_NUTS;
-    //uint256 public NUT_PRICE;
 
     uint256 public totalNuts;
     bool public saleIsActive = false;
 
     address treasuryAddress;
 
-    //CosmoTreasury treasury;
     CosmoVault vault;
 
     constructor(
         string memory _name,
         string memory _symbol,
         uint256 _initialSupply,
-        //address _systemAddress,
         address _vaultAddress
     )
     ERC721(_name, _symbol)
-    //CosmoVault(_systemAddress, _treasuryAddress)
     {
         totalNuts = totalSupply();
         INITIAL_NUTS = _initialSupply;
-        //TREASURY_ADDRESS = _treasuryAddress;
         vault = CosmoVault(_vaultAddress);
         treasuryAddress = vault.TREASURY_ADDRESS();
-        //treasury = CosmoTreasury(treasuryAddress);
-
     }
 
     function _baseURI() internal pure override returns (string memory) {
@@ -53,7 +46,6 @@ contract CosmoCreation is /*CosmoVault, */ERC721, ERC721Enumerable, ERC721URISto
         _safeMint(treasuryAddress, totalSupply());
         _setTokenURI(totalSupply(), _nutCID);
         vault.giveMintBalance(totalSupply());
-        //treasury.assignMintBalance(address(msg.sender), totalSupply());
     }
 
     function changeTokenURI(uint256 _tokenId, string memory _cidPath, bytes memory _signature) internal {
