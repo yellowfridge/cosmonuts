@@ -5,15 +5,17 @@ import "./CosmoNuts.sol";
 //import "./CosmoTreasury.sol";
 import "./CosmoVault.sol";
 
-contract CosmoBang is CosmoVault {
+contract CosmoBang {
 
     //address public SYSTEM_ADDRESS;
     //address public MATTER_ADDRESS;
     //address public TREASURY_ADDRESS;
     address public COSMOS_ADDRESS;
+    address public VAULT_ADDRESS;
 
     //CosmoTreasury treasury;
     //CosmoNuts nuts;
+    CosmoVault vault;
 
     constructor(
         address _systemAddress,
@@ -24,7 +26,7 @@ contract CosmoBang is CosmoVault {
         //uint256 _desiredEntities,
         uint256 _matterRate
     )
-    CosmoVault(_systemAddress, _matterAddress, _nutPrice, _matterRate)
+    //CosmoVault(_systemAddress, _matterAddress, _nutPrice, _matterRate)
     //CosmoTreasury(_matterAddress, _matterRate, _nutPrice)
 
     //CosmoNuts(_cosmosName, _cosmosSymbol, _desiredEntities, _systemAddress, address(treasury))
@@ -34,6 +36,8 @@ contract CosmoBang is CosmoVault {
         //COSMO_ADDRESS = address(nuts);
         //MATTER_ADDRESS = _matterAddress;
         //treasury = CosmoTreasury(address(treasury));
+        vault = new CosmoVault(_systemAddress, _matterAddress, _nutPrice, _matterRate);
+        VAULT_ADDRESS = address(vault);
 
     }
 
@@ -42,7 +46,9 @@ contract CosmoBang is CosmoVault {
         string memory _cosmosSymbol,
         uint256 _desiredEntities
     ) external {
-        CosmoNuts nuts = new CosmoNuts(_cosmosName, _cosmosSymbol, _desiredEntities, SYSTEM_ADDRESS, TREASURY_ADDRESS);
+        address treasuryAddress = vault.TREASURY_ADDRESS();
+        address systemAddress = vault.SYSTEM_ADDRESS();
+        CosmoNuts nuts = new CosmoNuts(_cosmosName, _cosmosSymbol, _desiredEntities, systemAddress, treasuryAddress);
         COSMOS_ADDRESS = address(nuts);
     }
 
