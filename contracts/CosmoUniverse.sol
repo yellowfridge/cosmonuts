@@ -23,9 +23,10 @@ import "./CosmoBang.sol";
         address treasury_location;
     }
     Cosmo cosmo;
-    Cosmo[] cosmos;
+    Cosmo[] public cosmos;
 
     CosmoMatter matter;
+    CosmoBang bang;
 
     constructor(
         address _systemAddress,
@@ -36,8 +37,15 @@ import "./CosmoBang.sol";
         SYSTEM_ADDRESS = _systemAddress;
         matter = new CosmoMatter(_matterName, _matterSymbol);
         MATTER_ADDRESS = address(matter);
+        bang = new CosmoBang();
     }
 
+    /**
+     * The function starts the CosmoNuts universe.
+     * The amount of matter created is dependent on the desired number of NFT tokens needed and their rate.
+     * Total matter created is ul;timately equal to number of NFT tokens times the selected rate.
+     */
+     /*
     function bigBang(
         string memory _cosmosName,
         string memory _cosmosSymbol,
@@ -51,6 +59,18 @@ import "./CosmoBang.sol";
         uint256 cosmosIndex = cosmos.length;
         cosmo = Cosmo(cosmosIndex, true, _cosmosName, _cosmosSymbol, bang.COSMO_ADDRESS(), bang.TREASURY_ADDRESS());
         cosmos.push(cosmo);
+    }
+    */
+    function bigBang(
+        string memory _cosmosName,
+        string memory _cosmosSymbol,
+        uint256 _desiredEntities,
+        uint256 _matterRate
+    ) public onlyOwner {
+        uint256 matterToCreate = _desiredEntities * _matterRate;
+        matter.mintMatter(address(this), matterToCreate);
+        //CosmoBang bang = new CosmoBang();
+        bang.nutBang(SYSTEM_ADDRESS, MATTER_ADDRESS, _cosmosName, _cosmosSymbol, _desiredEntities,  _matterRate);
     }
 
 }
