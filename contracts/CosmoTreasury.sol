@@ -29,19 +29,11 @@ import "./ButterAccounts.sol";
     }
     AddressOf public addressOf;
 
-    //address public SYSTEM_ADDRESS;
-    //address public MATTER_ADDRESS;
-    //address public TREASURY_ADDRESS;
-    //address public COSMO_ADDRESS;
-
     struct Nut {
         uint256 price;
         uint256 rate;
     }
     Nut public nut;
-
-    //uint256 public NUT_PRICE;
-    //uint256 public MATTER_RATE;
 
     mapping(uint256 => address) public currentOwnerOfNut; // Record of current nut owners by address
     mapping(uint256 => uint256) public matterBalanceOfNut; // Matter balance of each Nut recorded by the Treasury
@@ -57,13 +49,6 @@ import "./ButterAccounts.sol";
         addressOf.treasury = address(this);
         nut.price = _nutPrice;
         nut.rate = _matterRate;
-
-        //SYSTEM_ADDRESS = _systemAddress;
-        //MATTER_ADDRESS = _matterAddress;
-        //MATTER_RATE = _matterRate;
-        //NUT_PRICE = _nutPrice;
-        //TREASURY_ADDRESS = address(this);
-
     }
 
     /*
