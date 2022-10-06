@@ -13,10 +13,8 @@ contract CosmoCreation is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
 
     uint256 public INITIAL_NUTS;
 
-    uint256 public totalNuts;
-    bool public saleIsActive = false;
-
     address treasuryAddress;
+    bool public saleIsActive = false;
 
     CosmoVault vault;
 
@@ -28,7 +26,6 @@ contract CosmoCreation is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
     )
     ERC721(_name, _symbol)
     {
-        totalNuts = totalSupply();
         INITIAL_NUTS = _initialSupply;
         vault = CosmoVault(_vaultAddress);
         treasuryAddress = vault.TREASURY_ADDRESS();
