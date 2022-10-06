@@ -1,8 +1,9 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.7;
 
+import "./CosmoVault.sol";
 import "./CosmoNuts.sol";
-import "./CosmoTreasury.sol";
+//import "./CosmoTreasury.sol";
 
 contract CosmoSeed {
 
@@ -18,22 +19,26 @@ contract CosmoSeed {
     Seed public seed;
 
     CosmoNuts nuts;
-    CosmoTreasury treasury;
+    CosmoVault vault;
+    //CosmoTreasury treasury;
 
     constructor(
         uint256 _seedId,
         uint256 _nutId,
-        address _treasuryAddress,
+        address _vaultAddress,
+        //address _treasuryAddress,
         bytes32 _secretHash
     ) payable {
         address nutLocation = address(msg.sender);
         nuts = CosmoNuts(nutLocation);
-        treasury = CosmoTreasury(_treasuryAddress);
+        //treasury = CosmoTreasury(_treasuryAddress);
+        vault = CosmoVault(_vaultAddress);
 
         seed.id = _seedId;
         seed.nutId = _nutId;
         seed.heldEther = msg.value;
-        seed.matterNeeded = treasury.calcMatterNeeded(_nutId);
+        //seed.matterNeeded = treasury.calcMatterNeeded(_nutId);
+        seed.matterNeeded = vault.calcMatterNeeded(_nutId);
         seed.location = address(this);
         seed.nutLocation = nutLocation;
         seed.secretHash = _secretHash;
@@ -78,15 +83,17 @@ contract CosmoSeed {
      */
     function spawnNut(string memory _secret, string memory _cidPath, bytes memory _signature) public {
         verifySecret(_secret); // Check whether provided secret is correct
-        treasury.growSeedFromNut(seed.id, seed.matterNeeded);
+        vault.growSeedFromNut(seed.id);
+        //treasury.growSeedFromNut(seed.id, seed.matterNeeded);
         nuts.createNut(_cidPath, _signature); // Mints the new NFT and assigns to caller
 
         /**
          * Sending the original set price to Treasury.  This is payment for a new NFT (nut).
          * Consider implication - tax - and decision to keep?
          */
-        uint256 nutPrice = treasury.NUT_PRICE();
-        (bool sentToTreasury,/*memory data*/) = address(treasury).call{
+        //uint256 nutPrice = treasury.NUT_PRICE();
+        uint256 nutPrice = vault.NUT_PRICE();
+        (bool sentToTreasury,/*memory data*/) = vault.TREASURY_ADDRESS().call{
             value: nutPrice
         }("");
         require(sentToTreasury, "Ether not sent to Treasury");

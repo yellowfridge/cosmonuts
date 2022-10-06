@@ -31,13 +31,23 @@ import "./CosmoBang.sol";
     constructor(
         address _systemAddress,
         string memory _matterName,
-        string memory _matterSymbol
+        string memory _matterSymbol,
+        uint256 _entityPrice,
+        uint256 _matterRate
         )
     {
         SYSTEM_ADDRESS = _systemAddress;
         matter = new CosmoMatter(_matterName, _matterSymbol);
         MATTER_ADDRESS = address(matter);
-        bang = new CosmoBang();
+        bang = new CosmoBang(
+            SYSTEM_ADDRESS,
+            MATTER_ADDRESS,
+            //_cosmosName,
+            //_cosmosSymbol,
+            _entityPrice,
+            //_desiredEntities,
+             _matterRate
+        );
     }
 
     /**
@@ -61,16 +71,40 @@ import "./CosmoBang.sol";
         cosmos.push(cosmo);
     }
     */
+
+    /*
     function bigBang(
         string memory _cosmosName,
         string memory _cosmosSymbol,
+        uint256 _entityPrice,
         uint256 _desiredEntities,
         uint256 _matterRate
     ) public onlyOwner {
         uint256 matterToCreate = _desiredEntities * _matterRate;
         matter.mintMatter(address(this), matterToCreate);
         //CosmoBang bang = new CosmoBang();
-        bang.nutBang(SYSTEM_ADDRESS, MATTER_ADDRESS, _cosmosName, _cosmosSymbol, _desiredEntities,  _matterRate);
+        bang.nutBang(
+            SYSTEM_ADDRESS,
+            MATTER_ADDRESS,
+            _cosmosName,
+            _cosmosSymbol,
+            _entityPrice,
+            _desiredEntities,
+             _matterRate);
     }
+    */
+
+    function bigBang(
+        string memory _cosmosName,
+        string memory _cosmosSymbol,
+        uint256 _desiredEntities
+    ) public onlyOwner {
+        bang.nutBang(
+            _cosmosName,
+            _cosmosSymbol,
+            _desiredEntities
+        );
+    }
+
 
 }

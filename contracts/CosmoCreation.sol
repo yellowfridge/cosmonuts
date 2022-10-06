@@ -9,26 +9,36 @@ import "openzeppelin-solidity/contracts/utils/cryptography/ECDSA.sol";
 
 import "./CosmoVault.sol";
 
-contract CosmoCreation is CosmoVault, ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
+contract CosmoCreation is /*CosmoVault, */ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
 
     uint256 public INITIAL_NUTS;
+    //uint256 public NUT_PRICE;
 
     uint256 public totalNuts;
     bool public saleIsActive = false;
+
+    address treasuryAddress;
+
+    //CosmoTreasury treasury;
+    CosmoVault vault;
 
     constructor(
         string memory _name,
         string memory _symbol,
         uint256 _initialSupply,
-        address _systemAddress,
-        address _treasuryAddress
+        //address _systemAddress,
+        address _vaultAddress
     )
     ERC721(_name, _symbol)
-    CosmoVault(_systemAddress, _treasuryAddress)
+    //CosmoVault(_systemAddress, _treasuryAddress)
     {
         totalNuts = totalSupply();
         INITIAL_NUTS = _initialSupply;
-        TREASURY_ADDRESS = _treasuryAddress;
+        //TREASURY_ADDRESS = _treasuryAddress;
+        vault = CosmoVault(_vaultAddress);
+        treasuryAddress = vault.TREASURY_ADDRESS();
+        //treasury = CosmoTreasury(treasuryAddress);
+
     }
 
     function _baseURI() internal pure override returns (string memory) {
@@ -40,15 +50,16 @@ contract CosmoCreation is CosmoVault, ERC721, ERC721Enumerable, ERC721URIStorage
         require(totalSupply() < INITIAL_NUTS, "Exceed initial supply of nuts");
         //require(NUT_PRICE * _numberOfNuts <= msg.value, "Ether value is not correct");
 
-        _safeMint(TREASURY_ADDRESS, totalSupply());
+        _safeMint(treasuryAddress, totalSupply());
         _setTokenURI(totalSupply(), _nutCID);
-        treasury.assignMintBalance(address(msg.sender), totalSupply());
+        vault.giveMintBalance(totalSupply());
+        //treasury.assignMintBalance(address(msg.sender), totalSupply());
     }
 
     function changeTokenURI(uint256 _tokenId, string memory _cidPath, bytes memory _signature) internal {
         require(_isApprovedOrOwner(_msgSender(), _tokenId), "Caller is not owner nor approved");
         bytes32 pathHash = keccak256(abi.encodePacked(_cidPath));
-        require(isVerified(pathHash, _signature), "Data does not match signature");
+        require(vault.isVerified(pathHash, _signature), "Data does not match signature");
 
         _setTokenURI(_tokenId, _cidPath);
     }

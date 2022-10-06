@@ -5,6 +5,7 @@ import "openzeppelin-solidity/contracts/utils/math/Math.sol";
 import "./CosmoMatter.sol";
 import "./CosmoSeed.sol";
 import "./CosmoButter.sol";
+import "./CosmoVault.sol";
 
 import "./SeedAccounts.sol";
 import "./ButterAccounts.sol";
@@ -20,34 +21,41 @@ import "./ButterAccounts.sol";
      * @dev Saved addresses include the contract which created the Treasury: UNIVERSE_ADDRESS, and
      * the address of the CosmoNuts contract (NFTs) which is created after the Treasury and then updated: matter_ADDRESS.
      */
+    //address public MATTER_ADDRESS;
+    //address public COSMOS_ADDRESS;
+    //uint256 public NUT_PRICE;
+    //uint256 public MATTER_RATE;
+
+    address public SYSTEM_ADDRESS;
     address public MATTER_ADDRESS;
+    address public TREASURY_ADDRESS;
+    address public COSMO_ADDRESS;
+
     uint256 public NUT_PRICE;
     uint256 public MATTER_RATE;
 
-    /**
-     * @dev matterInUniverse is the Treasury's own account of the current ERC20 token supply available in Universe.
-     * matterInTreasury is the balanceOf ERC20 tokens that are assigned to the Treasury address and controlled by this contract.
-     * MATTER_RATE is the amount of matter it takes to create one NFT (used in calculating pricing) - set to 100
-     */
-    //uint256 public matterInUniverse;
-    //uint256 public matterInTreasury;
+    //address public matterAddress;
+    //uint256 public nutPrice;
+    //uint256 public matterRate;
 
     mapping(uint256 => address) public currentOwnerOfNut; // Record of current nut owners by address
     mapping(uint256 => uint256) public matterBalanceOfNut; // Matter balance of each Nut recorded by the Treasury
 
     uint256[] public nutsPayeeList; // List of nuts to be provided a balance
 
-    //CosmoMatter matter;
-
     /**
      *
      */
-    constructor(address _matterAddress, uint256 _matterRate) {
+    constructor(address _systemAddress, address _matterAddress, uint256 _matterRate, uint256 _nutPrice) {
+        SYSTEM_ADDRESS = _systemAddress;
         MATTER_ADDRESS = _matterAddress;
         MATTER_RATE = _matterRate;
-        //matter = CosmoMatter(MATTER_ADDRESS);
-        //matterInUniverse = matter.totalSupply();
-        //matterInTreasury = matter.balanceOf(address(this));
+        NUT_PRICE = _nutPrice;
+        TREASURY_ADDRESS = address(this);
+        //matterAddress = _matterAddress;
+        //nutPrice = _nutPrice;
+        //matterRate = _matterRate;
+
     }
 
     /*
@@ -67,7 +75,11 @@ import "./ButterAccounts.sol";
     //    NUT_PRICE = _setNutPrice;
     //}
 
-    function calcMatterNeeded(uint256 _nutId) public view returns (uint256) {
+    //function calcMatterNeeded(uint256 _nutId) public view returns (uint256) {
+    //    return matterRate ^ (seedsOfNut[_nutId] + 1);
+    //}
+
+    function matterNeeded(uint256 _nutId) public view returns (uint256) {
         return MATTER_RATE ^ (seedsOfNut[_nutId] + 1);
     }
 
@@ -76,7 +88,7 @@ import "./ButterAccounts.sol";
         require(msg.value >= ethToHold, "Ether value is not enough");
 
         CosmoMatter matter = CosmoMatter(MATTER_ADDRESS);
-        uint256 matterToBurn = calcMatterNeeded(_nutId);
+        uint256 matterToBurn = matterNeeded(_nutId);
         uint256 matterOfOwner = matter.balanceOf((currentOwnerOfNut[_nutId]));
         require(matterOfOwner >= matterToBurn, "Matter balance is not enough");
 
@@ -93,7 +105,27 @@ import "./ButterAccounts.sol";
     /**
      * Called from CosmoSeed contract.
      */
+     /*
     function growSeedFromNut(uint256 _seedId, uint256 _matterNeeded) external {
+        address seedAddress = seedLocations[_seedId];
+        require(address(msg.sender) == seedAddress, "Caller is not the right CosmoSeed contract");
+        //require(matter.balanceOf(address(msg.sender)) >= _matterNeeded, "Not enough matter");
+
+        CosmoSeed seed = CosmoSeed(seedAddress);
+
+        address nutOwner = currentOwnerOfNut[seed.nutId()];
+        CosmoMatter matter = CosmoMatter(matterAddress);
+        matter.transfer(nutOwner, _matterNeeded);
+        matter.mintMatter(address(this), 1);
+
+        //seed.degradeSeed(nutOwner);
+
+        growSeed(_seedId);
+
+    }
+    */
+
+    function seedFromNut(uint256 _seedId, uint256 _matterNeeded) external {
         address seedAddress = seedLocations[_seedId];
         require(address(msg.sender) == seedAddress, "Caller is not the right CosmoSeed contract");
         //require(matter.balanceOf(address(msg.sender)) >= _matterNeeded, "Not enough matter");
@@ -107,9 +139,6 @@ import "./ButterAccounts.sol";
 
         //seed.degradeSeed(nutOwner);
 
-        //matterInUniverse = matter.totalSupply();
-        //matterInTreasury = matter.balanceOf(address(this));
-
         growSeed(_seedId);
 
     }
@@ -121,10 +150,10 @@ import "./ButterAccounts.sol";
      */
     function newButter(uint256 _nutId, uint256 _matterContributed, uint256 _matterDrawRate, bytes32 _secretHash) external {
         address nutOwner = currentOwnerOfNut[_nutId];
-        CosmoMatter matter = CosmoMatter(MATTER_ADDRESS);
         // Do we need to be doing these checks twice? Or really new check that caller is from contract (? or person who clicked?)
         require(nutOwner == address(msg.sender), "Caller is not the owner");
         require(matterBalanceOfNut[_nutId] >= _matterContributed, "Not have enough matter");
+        CosmoMatter matter = CosmoMatter(MATTER_ADDRESS);
         require(_matterContributed <= matter.balanceOf(nutOwner), "Not high enough");
         require(_matterContributed % _matterDrawRate == 0, "Draw rate not divisible");
 
@@ -194,8 +223,6 @@ import "./ButterAccounts.sol";
         matter.mintMatter(address(this), _balance);
         distributeButter(_butterId, _balance, _currentBalance);
 
-        //matterInUniverse = matter.totalSupply();
-        //matterInTreasury = matter.balanceOf(address(this));
     }
 
     function assignMintBalance(address _tokenOwner, uint256 _tokenId) external {
@@ -203,7 +230,6 @@ import "./ButterAccounts.sol";
         require(matter.balanceOf(address(this)) >= MATTER_RATE, "Not enough matter");
         matter.transfer(_tokenOwner, MATTER_RATE);
         matterBalanceOfNut[_tokenId] = MATTER_RATE;
-        //matterInTreasury -= MATTER_RATE;
     }
 
 }
