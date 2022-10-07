@@ -9,7 +9,8 @@ contract CosmoVault {
     address public SYSTEM_ADDRESS;
     address public TREASURY_ADDRESS;
     uint256 public NUT_PRICE;
-    uint256 public MATTER_RATE;
+    uint256 public NUT_RATE;
+    uint256 public NUTS_INITIAL;
 
     CosmoTreasury treasury;
 
@@ -17,15 +18,21 @@ contract CosmoVault {
 
     constructor(
         address _systemAddress,
-        address _matterAddress,
-        uint256 _nutPrice,
-        uint256 _matterRate
+        address _matterAddress
+        //uint256 _nutPrice,
+        //uint256 _matterRate
     )
     {
-        treasury = new CosmoTreasury(_systemAddress, _matterAddress, _matterRate, _nutPrice);
+        treasury = new CosmoTreasury(_systemAddress, _matterAddress);
         TREASURY_ADDRESS = address(treasury);
+        //NUT_PRICE = _nutPrice;
+        //NUT_RATE = _matterRate;
+    }
+
+    function entityCreation(uint256 _nutPrice, uint256 _nutRate, uint256 _numNuts) external {
         NUT_PRICE = _nutPrice;
-        MATTER_RATE = _matterRate;
+        NUT_RATE = _nutRate;
+        NUTS_INITIAL = _numNuts;
     }
 
     function calcMatterNeeded(uint256 _nutId) public view returns (uint256) {
@@ -47,7 +54,7 @@ contract CosmoVault {
     }
 
     function newButterJar(uint256 _nutId, uint256 _matterContributed, bytes32 _secretHash) external {
-        treasury.newButter(_nutId, _matterContributed, MATTER_RATE, _secretHash);
+        treasury.newButter(_nutId, _matterContributed, NUT_RATE, _secretHash);
     }
 
     //modifier onlySystem {

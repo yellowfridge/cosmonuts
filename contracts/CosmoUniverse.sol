@@ -31,9 +31,9 @@ import "./CosmoBang.sol";
     constructor(
         address _systemAddress,
         string memory _matterName,
-        string memory _matterSymbol,
-        uint256 _entityPrice,
-        uint256 _matterRate
+        string memory _matterSymbol
+        //uint256 _entityPrice,
+        //uint256 _matterRate
         )
     {
         SYSTEM_ADDRESS = _systemAddress;
@@ -41,25 +41,29 @@ import "./CosmoBang.sol";
         MATTER_ADDRESS = address(matter);
         bang = new CosmoBang(
             SYSTEM_ADDRESS,
-            MATTER_ADDRESS,
-            _entityPrice,
-             _matterRate
+            MATTER_ADDRESS
+            //_entityPrice,
+            //_matterRate
         );
     }
 
     /**
      * The function starts the CosmoNuts universe.
      * The amount of matter created is dependent on the desired number of NFT tokens needed and their rate.
-     * Total matter created is ul;timately equal to number of NFT tokens times the selected rate.
+     * Total matter created is ultimately equal to number of NFT tokens times the selected rate.
      */
     function bigBang(
         string memory _cosmosName,
         string memory _cosmosSymbol,
+        uint256 _nutPrice,
+        uint256 _nutRate,
         uint256 _desiredEntities
     ) public onlyOwner {
         bang.nutBang(
             _cosmosName,
             _cosmosSymbol,
+            _nutPrice,
+            _nutRate,
             _desiredEntities
         );
     }

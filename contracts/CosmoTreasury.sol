@@ -43,12 +43,12 @@ import "./ButterAccounts.sol";
     /**
      *
      */
-    constructor(address _systemAddress, address _matterAddress, uint256 _matterRate, uint256 _nutPrice) {
+    constructor(address _systemAddress, address _matterAddress) {
         addressOf.system = _systemAddress;
         addressOf.matter = _matterAddress;
         addressOf.treasury = address(this);
-        nut.price = _nutPrice;
-        nut.rate = _matterRate;
+        //nut.price = _nutPrice;
+        //nut.rate = _matterRate;
     }
 
     /*
