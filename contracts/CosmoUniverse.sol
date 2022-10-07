@@ -15,12 +15,12 @@ import "./CosmoBang.sol";
     address public MATTER_ADDRESS;
 
     struct Cosmo {
-        uint256 cosmoId;
+        uint256 id;
         bool status;
         string name;
         string symbol;
-        address cosmo_location;
-        address treasury_location;
+        address location;
+        address vaultLocation;
     }
     Cosmo cosmo;
     Cosmo[] public cosmos;
@@ -32,7 +32,7 @@ import "./CosmoBang.sol";
         address _systemAddress,
         string memory _matterName,
         string memory _matterSymbol
-        )
+    )
     {
         SYSTEM_ADDRESS = _systemAddress;
         matter = new CosmoMatter(_matterName, _matterSymbol);
@@ -55,14 +55,22 @@ import "./CosmoBang.sol";
         uint256 _nutRate,
         uint256 _desiredEntities
     ) public onlyOwner {
-        bang.nutBang(
+        address[] memory cosmoAddresses = bang.nutBang(
             _cosmosName,
             _cosmosSymbol,
             _nutPrice,
             _nutRate,
             _desiredEntities
         );
-    }
 
+        cosmo.id = cosmos.length;
+        cosmo.status = true;
+        cosmo.name = _cosmosName;
+        cosmo.symbol = _cosmosSymbol;
+        cosmo.location = cosmoAddresses[0];
+        cosmo.vaultLocation = cosmoAddresses[1];
+
+        cosmos.push(cosmo);
+    }
 
 }

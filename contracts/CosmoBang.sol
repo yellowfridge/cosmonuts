@@ -22,16 +22,18 @@ contract CosmoBang {
         uint256 _nutPrice,
         uint256 _nutRate,
         uint256 _desiredEntities
-    ) external returns (address) {
+    ) external returns (address[] memory cosmoAddresses) {
         vault.entityCreation(_nutPrice, _nutRate, _desiredEntities);
-        CosmoNuts nuts = new CosmoNuts(
+        CosmoNuts cosmonuts = new CosmoNuts(
             _cosmosName,
             _cosmosSymbol,
             _desiredEntities,
             vault.SYSTEM_ADDRESS(),
             vault.TREASURY_ADDRESS()
         );
-        return address(nuts);
+        cosmoAddresses[0] = address(vault);
+        cosmoAddresses[1] = address(cosmonuts);
+        return cosmoAddresses;
     }
 
 }

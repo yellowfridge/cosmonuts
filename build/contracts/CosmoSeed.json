@@ -8729,21 +8729,21 @@
     "absolutePath": "project:/contracts/CosmoSeed.sol",
     "exportedSymbols": {
       "CosmoNuts": [
-        4310
+        4326
       ],
       "CosmoSeed": [
-        4548
+        4564
       ],
       "CosmoVault": [
-        5458
+        5525
       ]
     },
-    "id": 4549,
+    "id": 4565,
     "license": "MIT",
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 4312,
+        "id": 4328,
         "literals": [
           "solidity",
           "^",
@@ -8756,11 +8756,11 @@
       {
         "absolutePath": "project:/contracts/CosmoVault.sol",
         "file": "./CosmoVault.sol",
-        "id": 4313,
+        "id": 4329,
         "nameLocation": "-1:-1:-1",
         "nodeType": "ImportDirective",
-        "scope": 4549,
-        "sourceUnit": 5459,
+        "scope": 4565,
+        "sourceUnit": 5526,
         "src": "57:26:25",
         "symbolAliases": [],
         "unitAlias": ""
@@ -8768,11 +8768,11 @@
       {
         "absolutePath": "project:/contracts/CosmoNuts.sol",
         "file": "./CosmoNuts.sol",
-        "id": 4314,
+        "id": 4330,
         "nameLocation": "-1:-1:-1",
         "nodeType": "ImportDirective",
-        "scope": 4549,
-        "sourceUnit": 4311,
+        "scope": 4565,
+        "sourceUnit": 4327,
         "src": "84:25:25",
         "symbolAliases": [],
         "unitAlias": ""
@@ -8784,9 +8784,9 @@
         "contractDependencies": [],
         "contractKind": "contract",
         "fullyImplemented": true,
-        "id": 4548,
+        "id": 4564,
         "linearizedBaseContracts": [
-          4548
+          4564
         ],
         "name": "CosmoSeed",
         "nameLocation": "120:9:25",
@@ -8794,16 +8794,16 @@
         "nodes": [
           {
             "canonicalName": "CosmoSeed.Seed",
-            "id": 4329,
+            "id": 4345,
             "members": [
               {
                 "constant": false,
-                "id": 4316,
+                "id": 4332,
                 "mutability": "mutable",
                 "name": "id",
                 "nameLocation": "167:2:25",
                 "nodeType": "VariableDeclaration",
-                "scope": 4329,
+                "scope": 4345,
                 "src": "159:10:25",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -8812,7 +8812,7 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 4315,
+                  "id": 4331,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
                   "src": "159:7:25",
@@ -8825,12 +8825,12 @@
               },
               {
                 "constant": false,
-                "id": 4318,
+                "id": 4334,
                 "mutability": "mutable",
                 "name": "nutId",
                 "nameLocation": "187:5:25",
                 "nodeType": "VariableDeclaration",
-                "scope": 4329,
+                "scope": 4345,
                 "src": "179:13:25",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -8839,7 +8839,7 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 4317,
+                  "id": 4333,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
                   "src": "179:7:25",
@@ -8852,12 +8852,12 @@
               },
               {
                 "constant": false,
-                "id": 4320,
+                "id": 4336,
                 "mutability": "mutable",
                 "name": "heldEther",
                 "nameLocation": "210:9:25",
                 "nodeType": "VariableDeclaration",
-                "scope": 4329,
+                "scope": 4345,
                 "src": "202:17:25",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -8866,7 +8866,7 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 4319,
+                  "id": 4335,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
                   "src": "202:7:25",
@@ -8879,12 +8879,12 @@
               },
               {
                 "constant": false,
-                "id": 4322,
+                "id": 4338,
                 "mutability": "mutable",
                 "name": "matterNeeded",
                 "nameLocation": "237:12:25",
                 "nodeType": "VariableDeclaration",
-                "scope": 4329,
+                "scope": 4345,
                 "src": "229:20:25",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -8893,7 +8893,7 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 4321,
+                  "id": 4337,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
                   "src": "229:7:25",
@@ -8906,12 +8906,12 @@
               },
               {
                 "constant": false,
-                "id": 4324,
+                "id": 4340,
                 "mutability": "mutable",
                 "name": "location",
                 "nameLocation": "267:8:25",
                 "nodeType": "VariableDeclaration",
-                "scope": 4329,
+                "scope": 4345,
                 "src": "259:16:25",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -8920,7 +8920,7 @@
                   "typeString": "address"
                 },
                 "typeName": {
-                  "id": 4323,
+                  "id": 4339,
                   "name": "address",
                   "nodeType": "ElementaryTypeName",
                   "src": "259:7:25",
@@ -8934,12 +8934,12 @@
               },
               {
                 "constant": false,
-                "id": 4326,
+                "id": 4342,
                 "mutability": "mutable",
                 "name": "nutLocation",
                 "nameLocation": "293:11:25",
                 "nodeType": "VariableDeclaration",
-                "scope": 4329,
+                "scope": 4345,
                 "src": "285:19:25",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -8948,7 +8948,7 @@
                   "typeString": "address"
                 },
                 "typeName": {
-                  "id": 4325,
+                  "id": 4341,
                   "name": "address",
                   "nodeType": "ElementaryTypeName",
                   "src": "285:7:25",
@@ -8962,12 +8962,12 @@
               },
               {
                 "constant": false,
-                "id": 4328,
+                "id": 4344,
                 "mutability": "mutable",
                 "name": "secretHash",
                 "nameLocation": "322:10:25",
                 "nodeType": "VariableDeclaration",
-                "scope": 4329,
+                "scope": 4345,
                 "src": "314:18:25",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -8976,7 +8976,7 @@
                   "typeString": "bytes32"
                 },
                 "typeName": {
-                  "id": 4327,
+                  "id": 4343,
                   "name": "bytes32",
                   "nodeType": "ElementaryTypeName",
                   "src": "314:7:25",
@@ -8991,43 +8991,43 @@
             "name": "Seed",
             "nameLocation": "144:4:25",
             "nodeType": "StructDefinition",
-            "scope": 4548,
+            "scope": 4564,
             "src": "137:202:25",
             "visibility": "public"
           },
           {
             "constant": false,
             "functionSelector": "7d94792a",
-            "id": 4332,
+            "id": 4348,
             "mutability": "mutable",
             "name": "seed",
             "nameLocation": "356:4:25",
             "nodeType": "VariableDeclaration",
-            "scope": 4548,
+            "scope": 4564,
             "src": "344:16:25",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_struct$_Seed_$4329_storage",
+              "typeIdentifier": "t_struct$_Seed_$4345_storage",
               "typeString": "struct CosmoSeed.Seed"
             },
             "typeName": {
-              "id": 4331,
+              "id": 4347,
               "nodeType": "UserDefinedTypeName",
               "pathNode": {
-                "id": 4330,
+                "id": 4346,
                 "name": "Seed",
                 "nameLocations": [
                   "344:4:25"
                 ],
                 "nodeType": "IdentifierPath",
-                "referencedDeclaration": 4329,
+                "referencedDeclaration": 4345,
                 "src": "344:4:25"
               },
-              "referencedDeclaration": 4329,
+              "referencedDeclaration": 4345,
               "src": "344:4:25",
               "typeDescriptions": {
-                "typeIdentifier": "t_struct$_Seed_$4329_storage_ptr",
+                "typeIdentifier": "t_struct$_Seed_$4345_storage_ptr",
                 "typeString": "struct CosmoSeed.Seed"
               }
             },
@@ -9035,36 +9035,36 @@
           },
           {
             "constant": false,
-            "id": 4335,
+            "id": 4351,
             "mutability": "mutable",
             "name": "nuts",
             "nameLocation": "377:4:25",
             "nodeType": "VariableDeclaration",
-            "scope": 4548,
+            "scope": 4564,
             "src": "367:14:25",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_contract$_CosmoNuts_$4310",
+              "typeIdentifier": "t_contract$_CosmoNuts_$4326",
               "typeString": "contract CosmoNuts"
             },
             "typeName": {
-              "id": 4334,
+              "id": 4350,
               "nodeType": "UserDefinedTypeName",
               "pathNode": {
-                "id": 4333,
+                "id": 4349,
                 "name": "CosmoNuts",
                 "nameLocations": [
                   "367:9:25"
                 ],
                 "nodeType": "IdentifierPath",
-                "referencedDeclaration": 4310,
+                "referencedDeclaration": 4326,
                 "src": "367:9:25"
               },
-              "referencedDeclaration": 4310,
+              "referencedDeclaration": 4326,
               "src": "367:9:25",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_CosmoNuts_$4310",
+                "typeIdentifier": "t_contract$_CosmoNuts_$4326",
                 "typeString": "contract CosmoNuts"
               }
             },
@@ -9072,36 +9072,36 @@
           },
           {
             "constant": false,
-            "id": 4338,
+            "id": 4354,
             "mutability": "mutable",
             "name": "vault",
             "nameLocation": "398:5:25",
             "nodeType": "VariableDeclaration",
-            "scope": 4548,
+            "scope": 4564,
             "src": "387:16:25",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_contract$_CosmoVault_$5458",
+              "typeIdentifier": "t_contract$_CosmoVault_$5525",
               "typeString": "contract CosmoVault"
             },
             "typeName": {
-              "id": 4337,
+              "id": 4353,
               "nodeType": "UserDefinedTypeName",
               "pathNode": {
-                "id": 4336,
+                "id": 4352,
                 "name": "CosmoVault",
                 "nameLocations": [
                   "387:10:25"
                 ],
                 "nodeType": "IdentifierPath",
-                "referencedDeclaration": 5458,
+                "referencedDeclaration": 5525,
                 "src": "387:10:25"
               },
-              "referencedDeclaration": 5458,
+              "referencedDeclaration": 5525,
               "src": "387:10:25",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_CosmoVault_$5458",
+                "typeIdentifier": "t_contract$_CosmoVault_$5525",
                 "typeString": "contract CosmoVault"
               }
             },
@@ -9109,23 +9109,23 @@
           },
           {
             "body": {
-              "id": 4418,
+              "id": 4434,
               "nodeType": "Block",
               "src": "545:411:25",
               "statements": [
                 {
                   "assignments": [
-                    4350
+                    4366
                   ],
                   "declarations": [
                     {
                       "constant": false,
-                      "id": 4350,
+                      "id": 4366,
                       "mutability": "mutable",
                       "name": "nutLocation",
                       "nameLocation": "563:11:25",
                       "nodeType": "VariableDeclaration",
-                      "scope": 4418,
+                      "scope": 4434,
                       "src": "555:19:25",
                       "stateVariable": false,
                       "storageLocation": "default",
@@ -9134,7 +9134,7 @@
                         "typeString": "address"
                       },
                       "typeName": {
-                        "id": 4349,
+                        "id": 4365,
                         "name": "address",
                         "nodeType": "ElementaryTypeName",
                         "src": "555:7:25",
@@ -9147,12 +9147,12 @@
                       "visibility": "internal"
                     }
                   ],
-                  "id": 4356,
+                  "id": 4372,
                   "initialValue": {
                     "arguments": [
                       {
                         "expression": {
-                          "id": 4353,
+                          "id": 4369,
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
@@ -9163,7 +9163,7 @@
                             "typeString": "msg"
                           }
                         },
-                        "id": 4354,
+                        "id": 4370,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
@@ -9185,7 +9185,7 @@
                           "typeString": "address"
                         }
                       ],
-                      "id": 4352,
+                      "id": 4368,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": true,
@@ -9197,14 +9197,14 @@
                         "typeString": "type(address)"
                       },
                       "typeName": {
-                        "id": 4351,
+                        "id": 4367,
                         "name": "address",
                         "nodeType": "ElementaryTypeName",
                         "src": "577:7:25",
                         "typeDescriptions": {}
                       }
                     },
-                    "id": 4355,
+                    "id": 4371,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -9225,20 +9225,20 @@
                 },
                 {
                   "expression": {
-                    "id": 4361,
+                    "id": 4377,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
-                      "id": 4357,
+                      "id": 4373,
                       "name": "nuts",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 4335,
+                      "referencedDeclaration": 4351,
                       "src": "606:4:25",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_contract$_CosmoNuts_$4310",
+                        "typeIdentifier": "t_contract$_CosmoNuts_$4326",
                         "typeString": "contract CosmoNuts"
                       }
                     },
@@ -9247,11 +9247,11 @@
                     "rightHandSide": {
                       "arguments": [
                         {
-                          "id": 4359,
+                          "id": 4375,
                           "name": "nutLocation",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 4350,
+                          "referencedDeclaration": 4366,
                           "src": "623:11:25",
                           "typeDescriptions": {
                             "typeIdentifier": "t_address",
@@ -9266,18 +9266,18 @@
                             "typeString": "address"
                           }
                         ],
-                        "id": 4358,
+                        "id": 4374,
                         "name": "CosmoNuts",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 4310,
+                        "referencedDeclaration": 4326,
                         "src": "613:9:25",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_type$_t_contract$_CosmoNuts_$4310_$",
+                          "typeIdentifier": "t_type$_t_contract$_CosmoNuts_$4326_$",
                           "typeString": "type(contract CosmoNuts)"
                         }
                       },
-                      "id": 4360,
+                      "id": 4376,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
@@ -9289,36 +9289,36 @@
                       "src": "613:22:25",
                       "tryCall": false,
                       "typeDescriptions": {
-                        "typeIdentifier": "t_contract$_CosmoNuts_$4310",
+                        "typeIdentifier": "t_contract$_CosmoNuts_$4326",
                         "typeString": "contract CosmoNuts"
                       }
                     },
                     "src": "606:29:25",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_contract$_CosmoNuts_$4310",
+                      "typeIdentifier": "t_contract$_CosmoNuts_$4326",
                       "typeString": "contract CosmoNuts"
                     }
                   },
-                  "id": 4362,
+                  "id": 4378,
                   "nodeType": "ExpressionStatement",
                   "src": "606:29:25"
                 },
                 {
                   "expression": {
-                    "id": 4367,
+                    "id": 4383,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
-                      "id": 4363,
+                      "id": 4379,
                       "name": "vault",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 4338,
+                      "referencedDeclaration": 4354,
                       "src": "645:5:25",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_contract$_CosmoVault_$5458",
+                        "typeIdentifier": "t_contract$_CosmoVault_$5525",
                         "typeString": "contract CosmoVault"
                       }
                     },
@@ -9327,11 +9327,11 @@
                     "rightHandSide": {
                       "arguments": [
                         {
-                          "id": 4365,
+                          "id": 4381,
                           "name": "_vaultAddress",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 4344,
+                          "referencedDeclaration": 4360,
                           "src": "664:13:25",
                           "typeDescriptions": {
                             "typeIdentifier": "t_address",
@@ -9346,18 +9346,18 @@
                             "typeString": "address"
                           }
                         ],
-                        "id": 4364,
+                        "id": 4380,
                         "name": "CosmoVault",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 5458,
+                        "referencedDeclaration": 5525,
                         "src": "653:10:25",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_type$_t_contract$_CosmoVault_$5458_$",
+                          "typeIdentifier": "t_type$_t_contract$_CosmoVault_$5525_$",
                           "typeString": "type(contract CosmoVault)"
                         }
                       },
-                      "id": 4366,
+                      "id": 4382,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
@@ -9369,41 +9369,41 @@
                       "src": "653:25:25",
                       "tryCall": false,
                       "typeDescriptions": {
-                        "typeIdentifier": "t_contract$_CosmoVault_$5458",
+                        "typeIdentifier": "t_contract$_CosmoVault_$5525",
                         "typeString": "contract CosmoVault"
                       }
                     },
                     "src": "645:33:25",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_contract$_CosmoVault_$5458",
+                      "typeIdentifier": "t_contract$_CosmoVault_$5525",
                       "typeString": "contract CosmoVault"
                     }
                   },
-                  "id": 4368,
+                  "id": 4384,
                   "nodeType": "ExpressionStatement",
                   "src": "645:33:25"
                 },
                 {
                   "expression": {
-                    "id": 4373,
+                    "id": 4389,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
                       "expression": {
-                        "id": 4369,
+                        "id": 4385,
                         "name": "seed",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 4332,
+                        "referencedDeclaration": 4348,
                         "src": "689:4:25",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_struct$_Seed_$4329_storage",
+                          "typeIdentifier": "t_struct$_Seed_$4345_storage",
                           "typeString": "struct CosmoSeed.Seed storage ref"
                         }
                       },
-                      "id": 4371,
+                      "id": 4387,
                       "isConstant": false,
                       "isLValue": true,
                       "isPure": false,
@@ -9411,7 +9411,7 @@
                       "memberLocation": "694:2:25",
                       "memberName": "id",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 4316,
+                      "referencedDeclaration": 4332,
                       "src": "689:7:25",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint256",
@@ -9421,11 +9421,11 @@
                     "nodeType": "Assignment",
                     "operator": "=",
                     "rightHandSide": {
-                      "id": 4372,
+                      "id": 4388,
                       "name": "_seedId",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 4340,
+                      "referencedDeclaration": 4356,
                       "src": "699:7:25",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint256",
@@ -9438,31 +9438,31 @@
                       "typeString": "uint256"
                     }
                   },
-                  "id": 4374,
+                  "id": 4390,
                   "nodeType": "ExpressionStatement",
                   "src": "689:17:25"
                 },
                 {
                   "expression": {
-                    "id": 4379,
+                    "id": 4395,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
                       "expression": {
-                        "id": 4375,
+                        "id": 4391,
                         "name": "seed",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 4332,
+                        "referencedDeclaration": 4348,
                         "src": "716:4:25",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_struct$_Seed_$4329_storage",
+                          "typeIdentifier": "t_struct$_Seed_$4345_storage",
                           "typeString": "struct CosmoSeed.Seed storage ref"
                         }
                       },
-                      "id": 4377,
+                      "id": 4393,
                       "isConstant": false,
                       "isLValue": true,
                       "isPure": false,
@@ -9470,7 +9470,7 @@
                       "memberLocation": "721:5:25",
                       "memberName": "nutId",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 4318,
+                      "referencedDeclaration": 4334,
                       "src": "716:10:25",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint256",
@@ -9480,11 +9480,11 @@
                     "nodeType": "Assignment",
                     "operator": "=",
                     "rightHandSide": {
-                      "id": 4378,
+                      "id": 4394,
                       "name": "_nutId",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 4342,
+                      "referencedDeclaration": 4358,
                       "src": "729:6:25",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint256",
@@ -9497,31 +9497,31 @@
                       "typeString": "uint256"
                     }
                   },
-                  "id": 4380,
+                  "id": 4396,
                   "nodeType": "ExpressionStatement",
                   "src": "716:19:25"
                 },
                 {
                   "expression": {
-                    "id": 4386,
+                    "id": 4402,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
                       "expression": {
-                        "id": 4381,
+                        "id": 4397,
                         "name": "seed",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 4332,
+                        "referencedDeclaration": 4348,
                         "src": "745:4:25",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_struct$_Seed_$4329_storage",
+                          "typeIdentifier": "t_struct$_Seed_$4345_storage",
                           "typeString": "struct CosmoSeed.Seed storage ref"
                         }
                       },
-                      "id": 4383,
+                      "id": 4399,
                       "isConstant": false,
                       "isLValue": true,
                       "isPure": false,
@@ -9529,7 +9529,7 @@
                       "memberLocation": "750:9:25",
                       "memberName": "heldEther",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 4320,
+                      "referencedDeclaration": 4336,
                       "src": "745:14:25",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint256",
@@ -9540,7 +9540,7 @@
                     "operator": "=",
                     "rightHandSide": {
                       "expression": {
-                        "id": 4384,
+                        "id": 4400,
                         "name": "msg",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
@@ -9551,7 +9551,7 @@
                           "typeString": "msg"
                         }
                       },
-                      "id": 4385,
+                      "id": 4401,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
@@ -9571,31 +9571,31 @@
                       "typeString": "uint256"
                     }
                   },
-                  "id": 4387,
+                  "id": 4403,
                   "nodeType": "ExpressionStatement",
                   "src": "745:26:25"
                 },
                 {
                   "expression": {
-                    "id": 4395,
+                    "id": 4411,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
                       "expression": {
-                        "id": 4388,
+                        "id": 4404,
                         "name": "seed",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 4332,
+                        "referencedDeclaration": 4348,
                         "src": "781:4:25",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_struct$_Seed_$4329_storage",
+                          "typeIdentifier": "t_struct$_Seed_$4345_storage",
                           "typeString": "struct CosmoSeed.Seed storage ref"
                         }
                       },
-                      "id": 4390,
+                      "id": 4406,
                       "isConstant": false,
                       "isLValue": true,
                       "isPure": false,
@@ -9603,7 +9603,7 @@
                       "memberLocation": "786:12:25",
                       "memberName": "matterNeeded",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 4322,
+                      "referencedDeclaration": 4338,
                       "src": "781:17:25",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint256",
@@ -9615,11 +9615,11 @@
                     "rightHandSide": {
                       "arguments": [
                         {
-                          "id": 4393,
+                          "id": 4409,
                           "name": "_nutId",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 4342,
+                          "referencedDeclaration": 4358,
                           "src": "824:6:25",
                           "typeDescriptions": {
                             "typeIdentifier": "t_uint256",
@@ -9635,18 +9635,18 @@
                           }
                         ],
                         "expression": {
-                          "id": 4391,
+                          "id": 4407,
                           "name": "vault",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 4338,
+                          "referencedDeclaration": 4354,
                           "src": "801:5:25",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_contract$_CosmoVault_$5458",
+                            "typeIdentifier": "t_contract$_CosmoVault_$5525",
                             "typeString": "contract CosmoVault"
                           }
                         },
-                        "id": 4392,
+                        "id": 4408,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
@@ -9654,14 +9654,14 @@
                         "memberLocation": "807:16:25",
                         "memberName": "calcMatterNeeded",
                         "nodeType": "MemberAccess",
-                        "referencedDeclaration": 5347,
+                        "referencedDeclaration": 5414,
                         "src": "801:22:25",
                         "typeDescriptions": {
                           "typeIdentifier": "t_function_external_view$_t_uint256_$returns$_t_uint256_$",
                           "typeString": "function (uint256) view external returns (uint256)"
                         }
                       },
-                      "id": 4394,
+                      "id": 4410,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
@@ -9683,31 +9683,31 @@
                       "typeString": "uint256"
                     }
                   },
-                  "id": 4396,
+                  "id": 4412,
                   "nodeType": "ExpressionStatement",
                   "src": "781:50:25"
                 },
                 {
                   "expression": {
-                    "id": 4404,
+                    "id": 4420,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
                       "expression": {
-                        "id": 4397,
+                        "id": 4413,
                         "name": "seed",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 4332,
+                        "referencedDeclaration": 4348,
                         "src": "841:4:25",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_struct$_Seed_$4329_storage",
+                          "typeIdentifier": "t_struct$_Seed_$4345_storage",
                           "typeString": "struct CosmoSeed.Seed storage ref"
                         }
                       },
-                      "id": 4399,
+                      "id": 4415,
                       "isConstant": false,
                       "isLValue": true,
                       "isPure": false,
@@ -9715,7 +9715,7 @@
                       "memberLocation": "846:8:25",
                       "memberName": "location",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 4324,
+                      "referencedDeclaration": 4340,
                       "src": "841:13:25",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
@@ -9727,14 +9727,14 @@
                     "rightHandSide": {
                       "arguments": [
                         {
-                          "id": 4402,
+                          "id": 4418,
                           "name": "this",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
                           "referencedDeclaration": 4294967268,
                           "src": "865:4:25",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_contract$_CosmoSeed_$4548",
+                            "typeIdentifier": "t_contract$_CosmoSeed_$4564",
                             "typeString": "contract CosmoSeed"
                           }
                         }
@@ -9742,11 +9742,11 @@
                       "expression": {
                         "argumentTypes": [
                           {
-                            "typeIdentifier": "t_contract$_CosmoSeed_$4548",
+                            "typeIdentifier": "t_contract$_CosmoSeed_$4564",
                             "typeString": "contract CosmoSeed"
                           }
                         ],
-                        "id": 4401,
+                        "id": 4417,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": true,
@@ -9758,14 +9758,14 @@
                           "typeString": "type(address)"
                         },
                         "typeName": {
-                          "id": 4400,
+                          "id": 4416,
                           "name": "address",
                           "nodeType": "ElementaryTypeName",
                           "src": "857:7:25",
                           "typeDescriptions": {}
                         }
                       },
-                      "id": 4403,
+                      "id": 4419,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
@@ -9787,31 +9787,31 @@
                       "typeString": "address"
                     }
                   },
-                  "id": 4405,
+                  "id": 4421,
                   "nodeType": "ExpressionStatement",
                   "src": "841:29:25"
                 },
                 {
                   "expression": {
-                    "id": 4410,
+                    "id": 4426,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
                       "expression": {
-                        "id": 4406,
+                        "id": 4422,
                         "name": "seed",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 4332,
+                        "referencedDeclaration": 4348,
                         "src": "880:4:25",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_struct$_Seed_$4329_storage",
+                          "typeIdentifier": "t_struct$_Seed_$4345_storage",
                           "typeString": "struct CosmoSeed.Seed storage ref"
                         }
                       },
-                      "id": 4408,
+                      "id": 4424,
                       "isConstant": false,
                       "isLValue": true,
                       "isPure": false,
@@ -9819,7 +9819,7 @@
                       "memberLocation": "885:11:25",
                       "memberName": "nutLocation",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 4326,
+                      "referencedDeclaration": 4342,
                       "src": "880:16:25",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
@@ -9829,11 +9829,11 @@
                     "nodeType": "Assignment",
                     "operator": "=",
                     "rightHandSide": {
-                      "id": 4409,
+                      "id": 4425,
                       "name": "nutLocation",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 4350,
+                      "referencedDeclaration": 4366,
                       "src": "899:11:25",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
@@ -9846,31 +9846,31 @@
                       "typeString": "address"
                     }
                   },
-                  "id": 4411,
+                  "id": 4427,
                   "nodeType": "ExpressionStatement",
                   "src": "880:30:25"
                 },
                 {
                   "expression": {
-                    "id": 4416,
+                    "id": 4432,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
                       "expression": {
-                        "id": 4412,
+                        "id": 4428,
                         "name": "seed",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 4332,
+                        "referencedDeclaration": 4348,
                         "src": "920:4:25",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_struct$_Seed_$4329_storage",
+                          "typeIdentifier": "t_struct$_Seed_$4345_storage",
                           "typeString": "struct CosmoSeed.Seed storage ref"
                         }
                       },
-                      "id": 4414,
+                      "id": 4430,
                       "isConstant": false,
                       "isLValue": true,
                       "isPure": false,
@@ -9878,7 +9878,7 @@
                       "memberLocation": "925:10:25",
                       "memberName": "secretHash",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 4328,
+                      "referencedDeclaration": 4344,
                       "src": "920:15:25",
                       "typeDescriptions": {
                         "typeIdentifier": "t_bytes32",
@@ -9888,11 +9888,11 @@
                     "nodeType": "Assignment",
                     "operator": "=",
                     "rightHandSide": {
-                      "id": 4415,
+                      "id": 4431,
                       "name": "_secretHash",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 4346,
+                      "referencedDeclaration": 4362,
                       "src": "938:11:25",
                       "typeDescriptions": {
                         "typeIdentifier": "t_bytes32",
@@ -9905,13 +9905,13 @@
                       "typeString": "bytes32"
                     }
                   },
-                  "id": 4417,
+                  "id": 4433,
                   "nodeType": "ExpressionStatement",
                   "src": "920:29:25"
                 }
               ]
             },
-            "id": 4419,
+            "id": 4435,
             "implemented": true,
             "kind": "constructor",
             "modifiers": [],
@@ -9919,17 +9919,17 @@
             "nameLocation": "-1:-1:-1",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 4347,
+              "id": 4363,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 4340,
+                  "id": 4356,
                   "mutability": "mutable",
                   "name": "_seedId",
                   "nameLocation": "439:7:25",
                   "nodeType": "VariableDeclaration",
-                  "scope": 4419,
+                  "scope": 4435,
                   "src": "431:15:25",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -9938,7 +9938,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 4339,
+                    "id": 4355,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "431:7:25",
@@ -9951,12 +9951,12 @@
                 },
                 {
                   "constant": false,
-                  "id": 4342,
+                  "id": 4358,
                   "mutability": "mutable",
                   "name": "_nutId",
                   "nameLocation": "464:6:25",
                   "nodeType": "VariableDeclaration",
-                  "scope": 4419,
+                  "scope": 4435,
                   "src": "456:14:25",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -9965,7 +9965,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 4341,
+                    "id": 4357,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "456:7:25",
@@ -9978,12 +9978,12 @@
                 },
                 {
                   "constant": false,
-                  "id": 4344,
+                  "id": 4360,
                   "mutability": "mutable",
                   "name": "_vaultAddress",
                   "nameLocation": "488:13:25",
                   "nodeType": "VariableDeclaration",
-                  "scope": 4419,
+                  "scope": 4435,
                   "src": "480:21:25",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -9992,7 +9992,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 4343,
+                    "id": 4359,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "480:7:25",
@@ -10006,12 +10006,12 @@
                 },
                 {
                   "constant": false,
-                  "id": 4346,
+                  "id": 4362,
                   "mutability": "mutable",
                   "name": "_secretHash",
                   "nameLocation": "519:11:25",
                   "nodeType": "VariableDeclaration",
-                  "scope": 4419,
+                  "scope": 4435,
                   "src": "511:19:25",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -10020,7 +10020,7 @@
                     "typeString": "bytes32"
                   },
                   "typeName": {
-                    "id": 4345,
+                    "id": 4361,
                     "name": "bytes32",
                     "nodeType": "ElementaryTypeName",
                     "src": "511:7:25",
@@ -10035,12 +10035,12 @@
               "src": "421:115:25"
             },
             "returnParameters": {
-              "id": 4348,
+              "id": 4364,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "545:0:25"
             },
-            "scope": 4548,
+            "scope": 4564,
             "src": "410:546:25",
             "stateMutability": "payable",
             "virtual": false,
@@ -10048,25 +10048,25 @@
           },
           {
             "body": {
-              "id": 4427,
+              "id": 4443,
               "nodeType": "Block",
               "src": "1016:41:25",
               "statements": [
                 {
                   "expression": {
                     "expression": {
-                      "id": 4424,
+                      "id": 4440,
                       "name": "seed",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 4332,
+                      "referencedDeclaration": 4348,
                       "src": "1033:4:25",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_struct$_Seed_$4329_storage",
+                        "typeIdentifier": "t_struct$_Seed_$4345_storage",
                         "typeString": "struct CosmoSeed.Seed storage ref"
                       }
                     },
-                    "id": 4425,
+                    "id": 4441,
                     "isConstant": false,
                     "isLValue": true,
                     "isPure": false,
@@ -10074,22 +10074,22 @@
                     "memberLocation": "1038:12:25",
                     "memberName": "matterNeeded",
                     "nodeType": "MemberAccess",
-                    "referencedDeclaration": 4322,
+                    "referencedDeclaration": 4338,
                     "src": "1033:17:25",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
                     }
                   },
-                  "functionReturnParameters": 4423,
-                  "id": 4426,
+                  "functionReturnParameters": 4439,
+                  "id": 4442,
                   "nodeType": "Return",
                   "src": "1026:24:25"
                 }
               ]
             },
             "functionSelector": "c5d12c97",
-            "id": 4428,
+            "id": 4444,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
@@ -10097,23 +10097,23 @@
             "nameLocation": "971:12:25",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 4420,
+              "id": 4436,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "983:2:25"
             },
             "returnParameters": {
-              "id": 4423,
+              "id": 4439,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 4422,
+                  "id": 4438,
                   "mutability": "mutable",
                   "name": "",
                   "nameLocation": "-1:-1:-1",
                   "nodeType": "VariableDeclaration",
-                  "scope": 4428,
+                  "scope": 4444,
                   "src": "1007:7:25",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -10122,7 +10122,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 4421,
+                    "id": 4437,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "1007:7:25",
@@ -10136,7 +10136,7 @@
               ],
               "src": "1006:9:25"
             },
-            "scope": 4548,
+            "scope": 4564,
             "src": "962:95:25",
             "stateMutability": "view",
             "virtual": false,
@@ -10144,25 +10144,25 @@
           },
           {
             "body": {
-              "id": 4436,
+              "id": 4452,
               "nodeType": "Block",
               "src": "1110:34:25",
               "statements": [
                 {
                   "expression": {
                     "expression": {
-                      "id": 4433,
+                      "id": 4449,
                       "name": "seed",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 4332,
+                      "referencedDeclaration": 4348,
                       "src": "1127:4:25",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_struct$_Seed_$4329_storage",
+                        "typeIdentifier": "t_struct$_Seed_$4345_storage",
                         "typeString": "struct CosmoSeed.Seed storage ref"
                       }
                     },
-                    "id": 4434,
+                    "id": 4450,
                     "isConstant": false,
                     "isLValue": true,
                     "isPure": false,
@@ -10170,22 +10170,22 @@
                     "memberLocation": "1132:5:25",
                     "memberName": "nutId",
                     "nodeType": "MemberAccess",
-                    "referencedDeclaration": 4318,
+                    "referencedDeclaration": 4334,
                     "src": "1127:10:25",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
                     }
                   },
-                  "functionReturnParameters": 4432,
-                  "id": 4435,
+                  "functionReturnParameters": 4448,
+                  "id": 4451,
                   "nodeType": "Return",
                   "src": "1120:17:25"
                 }
               ]
             },
             "functionSelector": "685771f4",
-            "id": 4437,
+            "id": 4453,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
@@ -10193,23 +10193,23 @@
             "nameLocation": "1072:5:25",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 4429,
+              "id": 4445,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "1077:2:25"
             },
             "returnParameters": {
-              "id": 4432,
+              "id": 4448,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 4431,
+                  "id": 4447,
                   "mutability": "mutable",
                   "name": "",
                   "nameLocation": "-1:-1:-1",
                   "nodeType": "VariableDeclaration",
-                  "scope": 4437,
+                  "scope": 4453,
                   "src": "1101:7:25",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -10218,7 +10218,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 4430,
+                    "id": 4446,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "1101:7:25",
@@ -10232,7 +10232,7 @@
               ],
               "src": "1100:9:25"
             },
-            "scope": 4548,
+            "scope": 4564,
             "src": "1063:81:25",
             "stateMutability": "view",
             "virtual": false,
@@ -10240,23 +10240,23 @@
           },
           {
             "body": {
-              "id": 4464,
+              "id": 4480,
               "nodeType": "Block",
               "src": "1359:171:25",
               "statements": [
                 {
                   "assignments": [
-                    4446
+                    4462
                   ],
                   "declarations": [
                     {
                       "constant": false,
-                      "id": 4446,
+                      "id": 4462,
                       "mutability": "mutable",
                       "name": "inputHash",
                       "nameLocation": "1377:9:25",
                       "nodeType": "VariableDeclaration",
-                      "scope": 4464,
+                      "scope": 4480,
                       "src": "1369:17:25",
                       "stateVariable": false,
                       "storageLocation": "default",
@@ -10265,7 +10265,7 @@
                         "typeString": "bytes32"
                       },
                       "typeName": {
-                        "id": 4445,
+                        "id": 4461,
                         "name": "bytes32",
                         "nodeType": "ElementaryTypeName",
                         "src": "1369:7:25",
@@ -10277,17 +10277,17 @@
                       "visibility": "internal"
                     }
                   ],
-                  "id": 4453,
+                  "id": 4469,
                   "initialValue": {
                     "arguments": [
                       {
                         "arguments": [
                           {
-                            "id": 4450,
+                            "id": 4466,
                             "name": "_input",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 4440,
+                            "referencedDeclaration": 4456,
                             "src": "1416:6:25",
                             "typeDescriptions": {
                               "typeIdentifier": "t_string_memory_ptr",
@@ -10303,7 +10303,7 @@
                             }
                           ],
                           "expression": {
-                            "id": 4448,
+                            "id": 4464,
                             "name": "abi",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
@@ -10314,7 +10314,7 @@
                               "typeString": "abi"
                             }
                           },
-                          "id": 4449,
+                          "id": 4465,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": true,
@@ -10328,7 +10328,7 @@
                             "typeString": "function () pure returns (bytes memory)"
                           }
                         },
-                        "id": 4451,
+                        "id": 4467,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
@@ -10352,7 +10352,7 @@
                           "typeString": "bytes memory"
                         }
                       ],
-                      "id": 4447,
+                      "id": 4463,
                       "name": "keccak256",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
@@ -10363,7 +10363,7 @@
                         "typeString": "function (bytes memory) pure returns (bytes32)"
                       }
                     },
-                    "id": 4452,
+                    "id": 4468,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -10390,17 +10390,17 @@
                           "typeIdentifier": "t_bytes32",
                           "typeString": "bytes32"
                         },
-                        "id": 4458,
+                        "id": 4474,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
                         "lValueRequested": false,
                         "leftExpression": {
-                          "id": 4455,
+                          "id": 4471,
                           "name": "inputHash",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 4446,
+                          "referencedDeclaration": 4462,
                           "src": "1442:9:25",
                           "typeDescriptions": {
                             "typeIdentifier": "t_bytes32",
@@ -10411,18 +10411,18 @@
                         "operator": "==",
                         "rightExpression": {
                           "expression": {
-                            "id": 4456,
+                            "id": 4472,
                             "name": "seed",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 4332,
+                            "referencedDeclaration": 4348,
                             "src": "1455:4:25",
                             "typeDescriptions": {
-                              "typeIdentifier": "t_struct$_Seed_$4329_storage",
+                              "typeIdentifier": "t_struct$_Seed_$4345_storage",
                               "typeString": "struct CosmoSeed.Seed storage ref"
                             }
                           },
-                          "id": 4457,
+                          "id": 4473,
                           "isConstant": false,
                           "isLValue": true,
                           "isPure": false,
@@ -10430,7 +10430,7 @@
                           "memberLocation": "1460:10:25",
                           "memberName": "secretHash",
                           "nodeType": "MemberAccess",
-                          "referencedDeclaration": 4328,
+                          "referencedDeclaration": 4344,
                           "src": "1455:15:25",
                           "typeDescriptions": {
                             "typeIdentifier": "t_bytes32",
@@ -10445,7 +10445,7 @@
                       },
                       {
                         "hexValue": "496e70757420646f6573206e6f74206d6174636820736563726574",
-                        "id": 4459,
+                        "id": 4475,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": true,
@@ -10471,7 +10471,7 @@
                           "typeString": "literal_string \"Input does not match secret\""
                         }
                       ],
-                      "id": 4454,
+                      "id": 4470,
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
@@ -10485,7 +10485,7 @@
                         "typeString": "function (bool,string memory) pure"
                       }
                     },
-                    "id": 4460,
+                    "id": 4476,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -10501,14 +10501,14 @@
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 4461,
+                  "id": 4477,
                   "nodeType": "ExpressionStatement",
                   "src": "1434:68:25"
                 },
                 {
                   "expression": {
                     "hexValue": "74727565",
-                    "id": 4462,
+                    "id": 4478,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": true,
@@ -10522,20 +10522,20 @@
                     },
                     "value": "true"
                   },
-                  "functionReturnParameters": 4444,
-                  "id": 4463,
+                  "functionReturnParameters": 4460,
+                  "id": 4479,
                   "nodeType": "Return",
                   "src": "1512:11:25"
                 }
               ]
             },
             "documentation": {
-              "id": 4438,
+              "id": 4454,
               "nodeType": "StructuredDocumentation",
               "src": "1150:133:25",
               "text": " Takes a string input and hashes it; compares to the SECRET_HASH in the contract\n If it matches, returns true"
             },
-            "id": 4465,
+            "id": 4481,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
@@ -10543,17 +10543,17 @@
             "nameLocation": "1297:12:25",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 4441,
+              "id": 4457,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 4440,
+                  "id": 4456,
                   "mutability": "mutable",
                   "name": "_input",
                   "nameLocation": "1324:6:25",
                   "nodeType": "VariableDeclaration",
-                  "scope": 4465,
+                  "scope": 4481,
                   "src": "1310:20:25",
                   "stateVariable": false,
                   "storageLocation": "memory",
@@ -10562,7 +10562,7 @@
                     "typeString": "string"
                   },
                   "typeName": {
-                    "id": 4439,
+                    "id": 4455,
                     "name": "string",
                     "nodeType": "ElementaryTypeName",
                     "src": "1310:6:25",
@@ -10577,17 +10577,17 @@
               "src": "1309:22:25"
             },
             "returnParameters": {
-              "id": 4444,
+              "id": 4460,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 4443,
+                  "id": 4459,
                   "mutability": "mutable",
                   "name": "",
                   "nameLocation": "-1:-1:-1",
                   "nodeType": "VariableDeclaration",
-                  "scope": 4465,
+                  "scope": 4481,
                   "src": "1353:4:25",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -10596,7 +10596,7 @@
                     "typeString": "bool"
                   },
                   "typeName": {
-                    "id": 4442,
+                    "id": 4458,
                     "name": "bool",
                     "nodeType": "ElementaryTypeName",
                     "src": "1353:4:25",
@@ -10610,7 +10610,7 @@
               ],
               "src": "1352:6:25"
             },
-            "scope": 4548,
+            "scope": 4564,
             "src": "1288:242:25",
             "stateMutability": "view",
             "virtual": false,
@@ -10618,7 +10618,7 @@
           },
           {
             "body": {
-              "id": 4546,
+              "id": 4562,
               "nodeType": "Block",
               "src": "1868:1013:25",
               "statements": [
@@ -10626,11 +10626,11 @@
                   "expression": {
                     "arguments": [
                       {
-                        "id": 4476,
+                        "id": 4492,
                         "name": "_secret",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 4468,
+                        "referencedDeclaration": 4484,
                         "src": "1891:7:25",
                         "typeDescriptions": {
                           "typeIdentifier": "t_string_memory_ptr",
@@ -10645,18 +10645,18 @@
                           "typeString": "string memory"
                         }
                       ],
-                      "id": 4475,
+                      "id": 4491,
                       "name": "verifySecret",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 4465,
+                      "referencedDeclaration": 4481,
                       "src": "1878:12:25",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_internal_view$_t_string_memory_ptr_$returns$_t_bool_$",
                         "typeString": "function (string memory) view returns (bool)"
                       }
                     },
-                    "id": 4477,
+                    "id": 4493,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -10672,7 +10672,7 @@
                       "typeString": "bool"
                     }
                   },
-                  "id": 4478,
+                  "id": 4494,
                   "nodeType": "ExpressionStatement",
                   "src": "1878:21:25"
                 },
@@ -10681,18 +10681,18 @@
                     "arguments": [
                       {
                         "expression": {
-                          "id": 4482,
+                          "id": 4498,
                           "name": "seed",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 4332,
+                          "referencedDeclaration": 4348,
                           "src": "1975:4:25",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_struct$_Seed_$4329_storage",
+                            "typeIdentifier": "t_struct$_Seed_$4345_storage",
                             "typeString": "struct CosmoSeed.Seed storage ref"
                           }
                         },
-                        "id": 4483,
+                        "id": 4499,
                         "isConstant": false,
                         "isLValue": true,
                         "isPure": false,
@@ -10700,7 +10700,7 @@
                         "memberLocation": "1980:2:25",
                         "memberName": "id",
                         "nodeType": "MemberAccess",
-                        "referencedDeclaration": 4316,
+                        "referencedDeclaration": 4332,
                         "src": "1975:7:25",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
@@ -10716,18 +10716,18 @@
                         }
                       ],
                       "expression": {
-                        "id": 4479,
+                        "id": 4495,
                         "name": "vault",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 4338,
+                        "referencedDeclaration": 4354,
                         "src": "1953:5:25",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_CosmoVault_$5458",
+                          "typeIdentifier": "t_contract$_CosmoVault_$5525",
                           "typeString": "contract CosmoVault"
                         }
                       },
-                      "id": 4481,
+                      "id": 4497,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
@@ -10735,14 +10735,14 @@
                       "memberLocation": "1959:15:25",
                       "memberName": "growSeedFromNut",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 5386,
+                      "referencedDeclaration": 5453,
                       "src": "1953:21:25",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_external_nonpayable$_t_uint256_$returns$__$",
                         "typeString": "function (uint256) external"
                       }
                     },
-                    "id": 4484,
+                    "id": 4500,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -10758,7 +10758,7 @@
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 4485,
+                  "id": 4501,
                   "nodeType": "ExpressionStatement",
                   "src": "1953:30:25"
                 },
@@ -10766,11 +10766,11 @@
                   "expression": {
                     "arguments": [
                       {
-                        "id": 4489,
+                        "id": 4505,
                         "name": "_cidPath",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 4470,
+                        "referencedDeclaration": 4486,
                         "src": "2008:8:25",
                         "typeDescriptions": {
                           "typeIdentifier": "t_string_memory_ptr",
@@ -10778,11 +10778,11 @@
                         }
                       },
                       {
-                        "id": 4490,
+                        "id": 4506,
                         "name": "_signature",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 4472,
+                        "referencedDeclaration": 4488,
                         "src": "2018:10:25",
                         "typeDescriptions": {
                           "typeIdentifier": "t_bytes_memory_ptr",
@@ -10802,18 +10802,18 @@
                         }
                       ],
                       "expression": {
-                        "id": 4486,
+                        "id": 4502,
                         "name": "nuts",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 4335,
+                        "referencedDeclaration": 4351,
                         "src": "1993:4:25",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_CosmoNuts_$4310",
+                          "typeIdentifier": "t_contract$_CosmoNuts_$4326",
                           "typeString": "contract CosmoNuts"
                         }
                       },
-                      "id": 4488,
+                      "id": 4504,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
@@ -10821,14 +10821,14 @@
                       "memberLocation": "1998:9:25",
                       "memberName": "createNut",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 4201,
+                      "referencedDeclaration": 4217,
                       "src": "1993:14:25",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_external_nonpayable$_t_string_memory_ptr_$_t_bytes_memory_ptr_$returns$__$",
                         "typeString": "function (string memory,bytes memory) external"
                       }
                     },
-                    "id": 4491,
+                    "id": 4507,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -10844,23 +10844,23 @@
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 4492,
+                  "id": 4508,
                   "nodeType": "ExpressionStatement",
                   "src": "1993:36:25"
                 },
                 {
                   "assignments": [
-                    4495
+                    4511
                   ],
                   "declarations": [
                     {
                       "constant": false,
-                      "id": 4495,
+                      "id": 4511,
                       "mutability": "mutable",
                       "name": "nutPrice",
                       "nameLocation": "2270:8:25",
                       "nodeType": "VariableDeclaration",
-                      "scope": 4546,
+                      "scope": 4562,
                       "src": "2262:16:25",
                       "stateVariable": false,
                       "storageLocation": "default",
@@ -10869,7 +10869,7 @@
                         "typeString": "uint256"
                       },
                       "typeName": {
-                        "id": 4494,
+                        "id": 4510,
                         "name": "uint256",
                         "nodeType": "ElementaryTypeName",
                         "src": "2262:7:25",
@@ -10882,24 +10882,24 @@
                     }
                   ],
                   "documentation": " Sending the original set price to Treasury.  This is payment for a new NFT (nut).\n Consider implication - tax - and decision to keep?",
-                  "id": 4499,
+                  "id": 4515,
                   "initialValue": {
                     "arguments": [],
                     "expression": {
                       "argumentTypes": [],
                       "expression": {
-                        "id": 4496,
+                        "id": 4512,
                         "name": "vault",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 4338,
+                        "referencedDeclaration": 4354,
                         "src": "2281:5:25",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_CosmoVault_$5458",
+                          "typeIdentifier": "t_contract$_CosmoVault_$5525",
                           "typeString": "contract CosmoVault"
                         }
                       },
-                      "id": 4497,
+                      "id": 4513,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
@@ -10907,14 +10907,14 @@
                       "memberLocation": "2287:9:25",
                       "memberName": "NUT_PRICE",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 5264,
+                      "referencedDeclaration": 5331,
                       "src": "2281:15:25",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_external_view$__$returns$_t_uint256_$",
                         "typeString": "function () view external returns (uint256)"
                       }
                     },
-                    "id": 4498,
+                    "id": 4514,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -10935,18 +10935,18 @@
                 },
                 {
                   "assignments": [
-                    4501,
+                    4517,
                     null
                   ],
                   "declarations": [
                     {
                       "constant": false,
-                      "id": 4501,
+                      "id": 4517,
                       "mutability": "mutable",
                       "name": "sentToTreasury",
                       "nameLocation": "2314:14:25",
                       "nodeType": "VariableDeclaration",
-                      "scope": 4546,
+                      "scope": 4562,
                       "src": "2309:19:25",
                       "stateVariable": false,
                       "storageLocation": "default",
@@ -10955,7 +10955,7 @@
                         "typeString": "bool"
                       },
                       "typeName": {
-                        "id": 4500,
+                        "id": 4516,
                         "name": "bool",
                         "nodeType": "ElementaryTypeName",
                         "src": "2309:4:25",
@@ -10968,12 +10968,12 @@
                     },
                     null
                   ],
-                  "id": 4510,
+                  "id": 4526,
                   "initialValue": {
                     "arguments": [
                       {
                         "hexValue": "",
-                        "id": 4508,
+                        "id": 4524,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": true,
@@ -11007,18 +11007,18 @@
                           "expression": {
                             "argumentTypes": [],
                             "expression": {
-                              "id": 4502,
+                              "id": 4518,
                               "name": "vault",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 4338,
+                              "referencedDeclaration": 4354,
                               "src": "2348:5:25",
                               "typeDescriptions": {
-                                "typeIdentifier": "t_contract$_CosmoVault_$5458",
+                                "typeIdentifier": "t_contract$_CosmoVault_$5525",
                                 "typeString": "contract CosmoVault"
                               }
                             },
-                            "id": 4503,
+                            "id": 4519,
                             "isConstant": false,
                             "isLValue": false,
                             "isPure": false,
@@ -11026,14 +11026,14 @@
                             "memberLocation": "2354:16:25",
                             "memberName": "TREASURY_ADDRESS",
                             "nodeType": "MemberAccess",
-                            "referencedDeclaration": 5262,
+                            "referencedDeclaration": 5329,
                             "src": "2348:22:25",
                             "typeDescriptions": {
                               "typeIdentifier": "t_function_external_view$__$returns$_t_address_$",
                               "typeString": "function () view external returns (address)"
                             }
                           },
-                          "id": 4504,
+                          "id": 4520,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": false,
@@ -11049,7 +11049,7 @@
                             "typeString": "address"
                           }
                         },
-                        "id": 4505,
+                        "id": 4521,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
@@ -11063,7 +11063,7 @@
                           "typeString": "function (bytes memory) payable returns (bool,bytes memory)"
                         }
                       },
-                      "id": 4507,
+                      "id": 4523,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
@@ -11074,11 +11074,11 @@
                       "nodeType": "FunctionCallOptions",
                       "options": [
                         {
-                          "id": 4506,
+                          "id": 4522,
                           "name": "nutPrice",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 4495,
+                          "referencedDeclaration": 4511,
                           "src": "2398:8:25",
                           "typeDescriptions": {
                             "typeIdentifier": "t_uint256",
@@ -11092,7 +11092,7 @@
                         "typeString": "function (bytes memory) payable returns (bool,bytes memory)"
                       }
                     },
-                    "id": 4509,
+                    "id": 4525,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -11115,11 +11115,11 @@
                   "expression": {
                     "arguments": [
                       {
-                        "id": 4512,
+                        "id": 4528,
                         "name": "sentToTreasury",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 4501,
+                        "referencedDeclaration": 4517,
                         "src": "2438:14:25",
                         "typeDescriptions": {
                           "typeIdentifier": "t_bool",
@@ -11128,7 +11128,7 @@
                       },
                       {
                         "hexValue": "4574686572206e6f742073656e7420746f205472656173757279",
-                        "id": 4513,
+                        "id": 4529,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": true,
@@ -11154,7 +11154,7 @@
                           "typeString": "literal_string \"Ether not sent to Treasury\""
                         }
                       ],
-                      "id": 4511,
+                      "id": 4527,
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
@@ -11168,7 +11168,7 @@
                         "typeString": "function (bool,string memory) pure"
                       }
                     },
-                    "id": 4514,
+                    "id": 4530,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -11184,23 +11184,23 @@
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 4515,
+                  "id": 4531,
                   "nodeType": "ExpressionStatement",
                   "src": "2430:53:25"
                 },
                 {
                   "assignments": [
-                    4518
+                    4534
                   ],
                   "declarations": [
                     {
                       "constant": false,
-                      "id": 4518,
+                      "id": 4534,
                       "mutability": "mutable",
                       "name": "returnAmount",
                       "nameLocation": "2610:12:25",
                       "nodeType": "VariableDeclaration",
-                      "scope": 4546,
+                      "scope": 4562,
                       "src": "2602:20:25",
                       "stateVariable": false,
                       "storageLocation": "default",
@@ -11209,7 +11209,7 @@
                         "typeString": "uint256"
                       },
                       "typeName": {
-                        "id": 4517,
+                        "id": 4533,
                         "name": "uint256",
                         "nodeType": "ElementaryTypeName",
                         "src": "2602:7:25",
@@ -11222,31 +11222,31 @@
                     }
                   ],
                   "documentation": " Sending remaining amount back to current nut owner who created the seed.",
-                  "id": 4523,
+                  "id": 4539,
                   "initialValue": {
                     "commonType": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
                     },
-                    "id": 4522,
+                    "id": 4538,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftExpression": {
                       "expression": {
-                        "id": 4519,
+                        "id": 4535,
                         "name": "seed",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 4332,
+                        "referencedDeclaration": 4348,
                         "src": "2625:4:25",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_struct$_Seed_$4329_storage",
+                          "typeIdentifier": "t_struct$_Seed_$4345_storage",
                           "typeString": "struct CosmoSeed.Seed storage ref"
                         }
                       },
-                      "id": 4520,
+                      "id": 4536,
                       "isConstant": false,
                       "isLValue": true,
                       "isPure": false,
@@ -11254,7 +11254,7 @@
                       "memberLocation": "2630:9:25",
                       "memberName": "heldEther",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 4320,
+                      "referencedDeclaration": 4336,
                       "src": "2625:14:25",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint256",
@@ -11264,11 +11264,11 @@
                     "nodeType": "BinaryOperation",
                     "operator": "-",
                     "rightExpression": {
-                      "id": 4521,
+                      "id": 4537,
                       "name": "nutPrice",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 4495,
+                      "referencedDeclaration": 4511,
                       "src": "2642:8:25",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint256",
@@ -11286,17 +11286,17 @@
                 },
                 {
                   "assignments": [
-                    4525
+                    4541
                   ],
                   "declarations": [
                     {
                       "constant": false,
-                      "id": 4525,
+                      "id": 4541,
                       "mutability": "mutable",
                       "name": "nutOwner",
                       "nameLocation": "2668:8:25",
                       "nodeType": "VariableDeclaration",
-                      "scope": 4546,
+                      "scope": 4562,
                       "src": "2660:16:25",
                       "stateVariable": false,
                       "storageLocation": "default",
@@ -11305,7 +11305,7 @@
                         "typeString": "address"
                       },
                       "typeName": {
-                        "id": 4524,
+                        "id": 4540,
                         "name": "address",
                         "nodeType": "ElementaryTypeName",
                         "src": "2660:7:25",
@@ -11318,23 +11318,23 @@
                       "visibility": "internal"
                     }
                   ],
-                  "id": 4531,
+                  "id": 4547,
                   "initialValue": {
                     "arguments": [
                       {
                         "expression": {
-                          "id": 4528,
+                          "id": 4544,
                           "name": "seed",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 4332,
+                          "referencedDeclaration": 4348,
                           "src": "2692:4:25",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_struct$_Seed_$4329_storage",
+                            "typeIdentifier": "t_struct$_Seed_$4345_storage",
                             "typeString": "struct CosmoSeed.Seed storage ref"
                           }
                         },
-                        "id": 4529,
+                        "id": 4545,
                         "isConstant": false,
                         "isLValue": true,
                         "isPure": false,
@@ -11342,7 +11342,7 @@
                         "memberLocation": "2697:5:25",
                         "memberName": "nutId",
                         "nodeType": "MemberAccess",
-                        "referencedDeclaration": 4318,
+                        "referencedDeclaration": 4334,
                         "src": "2692:10:25",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
@@ -11358,18 +11358,18 @@
                         }
                       ],
                       "expression": {
-                        "id": 4526,
+                        "id": 4542,
                         "name": "nuts",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 4335,
+                        "referencedDeclaration": 4351,
                         "src": "2679:4:25",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_CosmoNuts_$4310",
+                          "typeIdentifier": "t_contract$_CosmoNuts_$4326",
                           "typeString": "contract CosmoNuts"
                         }
                       },
-                      "id": 4527,
+                      "id": 4543,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
@@ -11384,7 +11384,7 @@
                         "typeString": "function (uint256) view external returns (address)"
                       }
                     },
-                    "id": 4530,
+                    "id": 4546,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -11405,18 +11405,18 @@
                 },
                 {
                   "assignments": [
-                    4533,
+                    4549,
                     null
                   ],
                   "declarations": [
                     {
                       "constant": false,
-                      "id": 4533,
+                      "id": 4549,
                       "mutability": "mutable",
                       "name": "sentToParent",
                       "nameLocation": "2719:12:25",
                       "nodeType": "VariableDeclaration",
-                      "scope": 4546,
+                      "scope": 4562,
                       "src": "2714:17:25",
                       "stateVariable": false,
                       "storageLocation": "default",
@@ -11425,7 +11425,7 @@
                         "typeString": "bool"
                       },
                       "typeName": {
-                        "id": 4532,
+                        "id": 4548,
                         "name": "bool",
                         "nodeType": "ElementaryTypeName",
                         "src": "2714:4:25",
@@ -11438,12 +11438,12 @@
                     },
                     null
                   ],
-                  "id": 4540,
+                  "id": 4556,
                   "initialValue": {
                     "arguments": [
                       {
                         "hexValue": "",
-                        "id": 4538,
+                        "id": 4554,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": true,
@@ -11473,18 +11473,18 @@
                           }
                         ],
                         "expression": {
-                          "id": 4534,
+                          "id": 4550,
                           "name": "nutOwner",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 4525,
+                          "referencedDeclaration": 4541,
                           "src": "2751:8:25",
                           "typeDescriptions": {
                             "typeIdentifier": "t_address",
                             "typeString": "address"
                           }
                         },
-                        "id": 4535,
+                        "id": 4551,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
@@ -11498,7 +11498,7 @@
                           "typeString": "function (bytes memory) payable returns (bool,bytes memory)"
                         }
                       },
-                      "id": 4537,
+                      "id": 4553,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
@@ -11509,11 +11509,11 @@
                       "nodeType": "FunctionCallOptions",
                       "options": [
                         {
-                          "id": 4536,
+                          "id": 4552,
                           "name": "returnAmount",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 4518,
+                          "referencedDeclaration": 4534,
                           "src": "2785:12:25",
                           "typeDescriptions": {
                             "typeIdentifier": "t_uint256",
@@ -11527,7 +11527,7 @@
                         "typeString": "function (bytes memory) payable returns (bool,bytes memory)"
                       }
                     },
-                    "id": 4539,
+                    "id": 4555,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -11550,11 +11550,11 @@
                   "expression": {
                     "arguments": [
                       {
-                        "id": 4542,
+                        "id": 4558,
                         "name": "sentToParent",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 4533,
+                        "referencedDeclaration": 4549,
                         "src": "2829:12:25",
                         "typeDescriptions": {
                           "typeIdentifier": "t_bool",
@@ -11563,7 +11563,7 @@
                       },
                       {
                         "hexValue": "4574686572206e6f742073656e7420746f20706172656e74206e7574",
-                        "id": 4543,
+                        "id": 4559,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": true,
@@ -11589,7 +11589,7 @@
                           "typeString": "literal_string \"Ether not sent to parent nut\""
                         }
                       ],
-                      "id": 4541,
+                      "id": 4557,
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
@@ -11603,7 +11603,7 @@
                         "typeString": "function (bool,string memory) pure"
                       }
                     },
-                    "id": 4544,
+                    "id": 4560,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -11619,20 +11619,20 @@
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 4545,
+                  "id": 4561,
                   "nodeType": "ExpressionStatement",
                   "src": "2821:53:25"
                 }
               ]
             },
             "documentation": {
-              "id": 4466,
+              "id": 4482,
               "nodeType": "StructuredDocumentation",
               "src": "1536:230:25",
               "text": " Can be called from anyone who comes across, asks for secret from user\n The application fills out the path and signature\n If provided secret is correct, a new CosmoNut is minted and assigned to caller"
             },
             "functionSelector": "956c2dc3",
-            "id": 4547,
+            "id": 4563,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
@@ -11640,17 +11640,17 @@
             "nameLocation": "1780:8:25",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 4473,
+              "id": 4489,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 4468,
+                  "id": 4484,
                   "mutability": "mutable",
                   "name": "_secret",
                   "nameLocation": "1803:7:25",
                   "nodeType": "VariableDeclaration",
-                  "scope": 4547,
+                  "scope": 4563,
                   "src": "1789:21:25",
                   "stateVariable": false,
                   "storageLocation": "memory",
@@ -11659,7 +11659,7 @@
                     "typeString": "string"
                   },
                   "typeName": {
-                    "id": 4467,
+                    "id": 4483,
                     "name": "string",
                     "nodeType": "ElementaryTypeName",
                     "src": "1789:6:25",
@@ -11672,12 +11672,12 @@
                 },
                 {
                   "constant": false,
-                  "id": 4470,
+                  "id": 4486,
                   "mutability": "mutable",
                   "name": "_cidPath",
                   "nameLocation": "1826:8:25",
                   "nodeType": "VariableDeclaration",
-                  "scope": 4547,
+                  "scope": 4563,
                   "src": "1812:22:25",
                   "stateVariable": false,
                   "storageLocation": "memory",
@@ -11686,7 +11686,7 @@
                     "typeString": "string"
                   },
                   "typeName": {
-                    "id": 4469,
+                    "id": 4485,
                     "name": "string",
                     "nodeType": "ElementaryTypeName",
                     "src": "1812:6:25",
@@ -11699,12 +11699,12 @@
                 },
                 {
                   "constant": false,
-                  "id": 4472,
+                  "id": 4488,
                   "mutability": "mutable",
                   "name": "_signature",
                   "nameLocation": "1849:10:25",
                   "nodeType": "VariableDeclaration",
-                  "scope": 4547,
+                  "scope": 4563,
                   "src": "1836:23:25",
                   "stateVariable": false,
                   "storageLocation": "memory",
@@ -11713,7 +11713,7 @@
                     "typeString": "bytes"
                   },
                   "typeName": {
-                    "id": 4471,
+                    "id": 4487,
                     "name": "bytes",
                     "nodeType": "ElementaryTypeName",
                     "src": "1836:5:25",
@@ -11728,19 +11728,19 @@
               "src": "1788:72:25"
             },
             "returnParameters": {
-              "id": 4474,
+              "id": 4490,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "1868:0:25"
             },
-            "scope": 4548,
+            "scope": 4564,
             "src": "1771:1110:25",
             "stateMutability": "nonpayable",
             "virtual": false,
             "visibility": "public"
           }
         ],
-        "scope": 4549,
+        "scope": 4565,
         "src": "111:2901:25",
         "usedErrors": []
       }
@@ -11753,7 +11753,7 @@
   },
   "networks": {},
   "schemaVersion": "3.4.10",
-  "updatedAt": "2022-10-07T10:00:29.438Z",
+  "updatedAt": "2022-10-07T14:49:48.590Z",
   "devdoc": {
     "kind": "dev",
     "methods": {},
