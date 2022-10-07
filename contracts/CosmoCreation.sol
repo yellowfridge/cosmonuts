@@ -11,24 +11,16 @@ import "./CosmoVault.sol";
 
 contract CosmoCreation is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
 
-    uint256 public INITIAL_NUTS;
-
-    address treasuryAddress;
-    bool public saleIsActive = false;
-
     CosmoVault vault;
 
     constructor(
         string memory _name,
         string memory _symbol,
-        uint256 _initialSupply,
         address _vaultAddress
     )
     ERC721(_name, _symbol)
     {
-        INITIAL_NUTS = _initialSupply;
         vault = CosmoVault(_vaultAddress);
-        treasuryAddress = vault.TREASURY_ADDRESS();
     }
 
     function _baseURI() internal pure override returns (string memory) {
@@ -36,11 +28,11 @@ contract CosmoCreation is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
     }
 
     function mintNut(string memory _nutCID) public payable {
-        require(saleIsActive, "Sale must be active");
-        require(totalSupply() < INITIAL_NUTS, "Exceed initial supply of nuts");
+        require(vault.SALE_STATUS(), "Sale must be active");
+        require(totalSupply() < vault.NUTS_INITIAL(), "Exceed initial supply of nuts");
         //require(NUT_PRICE * _numberOfNuts <= msg.value, "Ether value is not correct");
 
-        _safeMint(treasuryAddress, totalSupply());
+        _safeMint(vault.TREASURY_ADDRESS(), totalSupply());
         _setTokenURI(totalSupply(), _nutCID);
         vault.giveMintBalance(totalSupply());
     }

@@ -18,7 +18,7 @@ import "./CosmoCreation.sol";
         address _systemAddress,
         address _vaultAddress
     )
-        CosmoCreation(_name, _symbol, _initialNFTSupply, _vaultAddress)
+        CosmoCreation(_name, _symbol, _vaultAddress)
     {}
 
     // only system address?
@@ -28,9 +28,9 @@ import "./CosmoCreation.sol";
         payable(msg.sender).transfer(balance);
     }
 
-    // only system address?
-    function flipSaleState() public onlyOwner {
-        saleIsActive = !saleIsActive;
+    //only system address?
+    function turnSaleOn() public onlyOwner {
+        vault.lightsOn();
     }
 
     /*
@@ -59,7 +59,7 @@ import "./CosmoCreation.sol";
         )
         public payable {
             require(address(msg.sender) == ownerOf(_nutId), "Caller is not owner of nut");
-            require(totalSupply() >= INITIAL_NUTS, "Nuts still exist from creation");
+            require(totalSupply() >= vault.NUTS_INITIAL(), "Nuts still exist from creation");
 
             vault.newSeed(_nutId, _secretHash);
             changeTokenURI(_nutId, _cidPath, _signature);
@@ -79,7 +79,6 @@ import "./CosmoCreation.sol";
         uint256 _matterContributed,
         string memory _cidPath,
         bytes memory _signature
-        //uint256 _drawRate
     ) public {
         require(address(msg.sender) == ownerOf(_nutId), "Caller is not owner of nut");
         vault.newButterJar(_nutId, _matterContributed, _secretHash);

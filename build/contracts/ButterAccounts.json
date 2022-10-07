@@ -211,9 +211,9 @@
       "type": "function"
     }
   ],
-  "metadata": "{\"compiler\":{\"version\":\"0.8.17+commit.8df45f5f\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"butterChurnedByNut\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"butterDeficiencyInUniverse\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"butterDeficiencyOfNut\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"butterJars\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"butterLocations\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"butterSpread\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"butterWeight\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"buttersOfNut\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"isButterActive\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"matterMintedByNut\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_nutId\",\"type\":\"uint256\"}],\"name\":\"numberOfButterJars\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"nutOfButter\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{\"butterWeight()\":{\"notice\":\"butterWeight is the amount of matter in the universe thta is currently outstanding. butterSpread is the amount of matter that has been distributed from butterWeight, thus reducing its value. butterJams represent the total number of matter contracts created in the Universe.\"},\"buttersOfNut(uint256,uint256)\":{\"notice\":\"buttersOfNut represents a list of all butter contracts created byt that nut. butterLocations represents the address of contract identifed by butterId.\"}},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/ButterAccounts.sol\":\"ButterAccounts\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/ButterAccounts.sol\":{\"keccak256\":\"0x8804ae736c99ed6de6e4733b893a16df54ec042835f373a445af2bcc5c31ece5\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://8b1a81419ddaec52cb6ed258e6b235b687e404cef6644dddfc3933268a9473a9\",\"dweb:/ipfs/QmepUnQVhBMYFDq2HYJuLT1erUi9cyVGduws7U2T8dxfat\"]}},\"version\":1}",
-  "bytecode": "0x60806040526000805560006001556000600255600060085534801561002357600080fd5b50610567806100336000396000f3fe608060405234801561001057600080fd5b50600436106100b45760003560e01c806347634e1c1161007157806347634e1c146101c757806349a6b51f146101f75780634ffe5a6f14610215578063aef054ce14610245578063df4f5ccc14610275578063f6317f8d14610293576100b4565b806302760a48146100b95780631821907a146100e95780631e0b39641461011957806326342ea414610149578063282adc8c146101675780633279bd4f14610197575b600080fd5b6100d360048036038101906100ce9190610408565b6102b1565b6040516100e09190610450565b60405180910390f35b61010360048036038101906100fe9190610408565b6102d1565b604051610110919061047a565b60405180910390f35b610133600480360381019061012e9190610495565b6102e9565b604051610140919061047a565b60405180910390f35b61015161031a565b60405161015e919061047a565b60405180910390f35b610181600480360381019061017c9190610408565b610320565b60405161018e919061047a565b60405180910390f35b6101b160048036038101906101ac9190610408565b610340565b6040516101be919061047a565b60405180910390f35b6101e160048036038101906101dc9190610408565b610358565b6040516101ee919061047a565b60405180910390f35b6101ff610370565b60405161020c919061047a565b60405180910390f35b61022f600480360381019061022a9190610408565b610376565b60405161023c919061047a565b60405180910390f35b61025f600480360381019061025a9190610408565b61038e565b60405161026c9190610516565b60405180910390f35b61027d6103c1565b60405161028a919061047a565b60405180910390f35b61029b6103c7565b6040516102a8919061047a565b60405180910390f35b600a6020528060005260406000206000915054906101000a900460ff1681565b60066020528060005260406000206000915090505481565b6003602052816000526040600020818154811061030557600080fd5b90600052602060002001600091509150505481565b60025481565b600060036000838152602001908152602001600020805490509050919050565b60056020528060005260406000206000915090505481565b60076020528060005260406000206000915090505481565b60015481565b60096020528060005260406000206000915090505481565b60046020528060005260406000206000915054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b60085481565b60005481565b600080fd5b6000819050919050565b6103e5816103d2565b81146103f057600080fd5b50565b600081359050610402816103dc565b92915050565b60006020828403121561041e5761041d6103cd565b5b600061042c848285016103f3565b91505092915050565b60008115159050919050565b61044a81610435565b82525050565b60006020820190506104656000830184610441565b92915050565b610474816103d2565b82525050565b600060208201905061048f600083018461046b565b92915050565b600080604083850312156104ac576104ab6103cd565b5b60006104ba858286016103f3565b92505060206104cb858286016103f3565b9150509250929050565b600073ffffffffffffffffffffffffffffffffffffffff82169050919050565b6000610500826104d5565b9050919050565b610510816104f5565b82525050565b600060208201905061052b6000830184610507565b9291505056fea2646970667358221220736082c5f0f35a9f545610a1e10caabab4fc6212ac8bd25f36fa975b1c7315e164736f6c63430008110033",
-  "deployedBytecode": "0x608060405234801561001057600080fd5b50600436106100b45760003560e01c806347634e1c1161007157806347634e1c146101c757806349a6b51f146101f75780634ffe5a6f14610215578063aef054ce14610245578063df4f5ccc14610275578063f6317f8d14610293576100b4565b806302760a48146100b95780631821907a146100e95780631e0b39641461011957806326342ea414610149578063282adc8c146101675780633279bd4f14610197575b600080fd5b6100d360048036038101906100ce9190610408565b6102b1565b6040516100e09190610450565b60405180910390f35b61010360048036038101906100fe9190610408565b6102d1565b604051610110919061047a565b60405180910390f35b610133600480360381019061012e9190610495565b6102e9565b604051610140919061047a565b60405180910390f35b61015161031a565b60405161015e919061047a565b60405180910390f35b610181600480360381019061017c9190610408565b610320565b60405161018e919061047a565b60405180910390f35b6101b160048036038101906101ac9190610408565b610340565b6040516101be919061047a565b60405180910390f35b6101e160048036038101906101dc9190610408565b610358565b6040516101ee919061047a565b60405180910390f35b6101ff610370565b60405161020c919061047a565b60405180910390f35b61022f600480360381019061022a9190610408565b610376565b60405161023c919061047a565b60405180910390f35b61025f600480360381019061025a9190610408565b61038e565b60405161026c9190610516565b60405180910390f35b61027d6103c1565b60405161028a919061047a565b60405180910390f35b61029b6103c7565b6040516102a8919061047a565b60405180910390f35b600a6020528060005260406000206000915054906101000a900460ff1681565b60066020528060005260406000206000915090505481565b6003602052816000526040600020818154811061030557600080fd5b90600052602060002001600091509150505481565b60025481565b600060036000838152602001908152602001600020805490509050919050565b60056020528060005260406000206000915090505481565b60076020528060005260406000206000915090505481565b60015481565b60096020528060005260406000206000915090505481565b60046020528060005260406000206000915054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b60085481565b60005481565b600080fd5b6000819050919050565b6103e5816103d2565b81146103f057600080fd5b50565b600081359050610402816103dc565b92915050565b60006020828403121561041e5761041d6103cd565b5b600061042c848285016103f3565b91505092915050565b60008115159050919050565b61044a81610435565b82525050565b60006020820190506104656000830184610441565b92915050565b610474816103d2565b82525050565b600060208201905061048f600083018461046b565b92915050565b600080604083850312156104ac576104ab6103cd565b5b60006104ba858286016103f3565b92505060206104cb858286016103f3565b9150509250929050565b600073ffffffffffffffffffffffffffffffffffffffff82169050919050565b6000610500826104d5565b9050919050565b610510816104f5565b82525050565b600060208201905061052b6000830184610507565b9291505056fea2646970667358221220736082c5f0f35a9f545610a1e10caabab4fc6212ac8bd25f36fa975b1c7315e164736f6c63430008110033",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.17+commit.8df45f5f\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"butterChurnedByNut\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"butterDeficiencyInUniverse\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"butterDeficiencyOfNut\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"butterJars\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"butterLocations\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"butterSpread\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"butterWeight\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"buttersOfNut\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"isButterActive\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"matterMintedByNut\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_nutId\",\"type\":\"uint256\"}],\"name\":\"numberOfButterJars\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"nutOfButter\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{\"butterWeight()\":{\"notice\":\"butterWeight is the amount of matter in the universe that is currently outstanding. butterSpread is the amount of matter that has been distributed from butterWeight, thus reducing its value. butterJars represent the total number of matter contracts created in the Universe.\"},\"buttersOfNut(uint256,uint256)\":{\"notice\":\"buttersOfNut represents a list of all butter contracts created byt that nut. butterLocations represents the address of contract identifed by butterId.\"}},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/ButterAccounts.sol\":\"ButterAccounts\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/ButterAccounts.sol\":{\"keccak256\":\"0x4287ec00d577708f9861fb07332031b2d5d421942e30c25d155dd9a0433b8bde\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://423291529f46294d20efa6247e16f0552bcfc897b41089ccdba9d536e95328e1\",\"dweb:/ipfs/QmagXa5yWeyRTrZp5iwLBniWaY2mF7VFDje5nuMmDwA3yz\"]}},\"version\":1}",
+  "bytecode": "0x60806040526000805560006001556000600255600060085534801561002357600080fd5b50610567806100336000396000f3fe608060405234801561001057600080fd5b50600436106100b45760003560e01c806347634e1c1161007157806347634e1c146101c757806349a6b51f146101f75780634ffe5a6f14610215578063aef054ce14610245578063df4f5ccc14610275578063f6317f8d14610293576100b4565b806302760a48146100b95780631821907a146100e95780631e0b39641461011957806326342ea414610149578063282adc8c146101675780633279bd4f14610197575b600080fd5b6100d360048036038101906100ce9190610408565b6102b1565b6040516100e09190610450565b60405180910390f35b61010360048036038101906100fe9190610408565b6102d1565b604051610110919061047a565b60405180910390f35b610133600480360381019061012e9190610495565b6102e9565b604051610140919061047a565b60405180910390f35b61015161031a565b60405161015e919061047a565b60405180910390f35b610181600480360381019061017c9190610408565b610320565b60405161018e919061047a565b60405180910390f35b6101b160048036038101906101ac9190610408565b610340565b6040516101be919061047a565b60405180910390f35b6101e160048036038101906101dc9190610408565b610358565b6040516101ee919061047a565b60405180910390f35b6101ff610370565b60405161020c919061047a565b60405180910390f35b61022f600480360381019061022a9190610408565b610376565b60405161023c919061047a565b60405180910390f35b61025f600480360381019061025a9190610408565b61038e565b60405161026c9190610516565b60405180910390f35b61027d6103c1565b60405161028a919061047a565b60405180910390f35b61029b6103c7565b6040516102a8919061047a565b60405180910390f35b600a6020528060005260406000206000915054906101000a900460ff1681565b60066020528060005260406000206000915090505481565b6003602052816000526040600020818154811061030557600080fd5b90600052602060002001600091509150505481565b60025481565b600060036000838152602001908152602001600020805490509050919050565b60056020528060005260406000206000915090505481565b60076020528060005260406000206000915090505481565b60015481565b60096020528060005260406000206000915090505481565b60046020528060005260406000206000915054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b60085481565b60005481565b600080fd5b6000819050919050565b6103e5816103d2565b81146103f057600080fd5b50565b600081359050610402816103dc565b92915050565b60006020828403121561041e5761041d6103cd565b5b600061042c848285016103f3565b91505092915050565b60008115159050919050565b61044a81610435565b82525050565b60006020820190506104656000830184610441565b92915050565b610474816103d2565b82525050565b600060208201905061048f600083018461046b565b92915050565b600080604083850312156104ac576104ab6103cd565b5b60006104ba858286016103f3565b92505060206104cb858286016103f3565b9150509250929050565b600073ffffffffffffffffffffffffffffffffffffffff82169050919050565b6000610500826104d5565b9050919050565b610510816104f5565b82525050565b600060208201905061052b6000830184610507565b9291505056fea26469706673582212206d642208bc50598e5a1603982f6b77820645780d748f2f2923234cc214b6917a64736f6c63430008110033",
+  "deployedBytecode": "0x608060405234801561001057600080fd5b50600436106100b45760003560e01c806347634e1c1161007157806347634e1c146101c757806349a6b51f146101f75780634ffe5a6f14610215578063aef054ce14610245578063df4f5ccc14610275578063f6317f8d14610293576100b4565b806302760a48146100b95780631821907a146100e95780631e0b39641461011957806326342ea414610149578063282adc8c146101675780633279bd4f14610197575b600080fd5b6100d360048036038101906100ce9190610408565b6102b1565b6040516100e09190610450565b60405180910390f35b61010360048036038101906100fe9190610408565b6102d1565b604051610110919061047a565b60405180910390f35b610133600480360381019061012e9190610495565b6102e9565b604051610140919061047a565b60405180910390f35b61015161031a565b60405161015e919061047a565b60405180910390f35b610181600480360381019061017c9190610408565b610320565b60405161018e919061047a565b60405180910390f35b6101b160048036038101906101ac9190610408565b610340565b6040516101be919061047a565b60405180910390f35b6101e160048036038101906101dc9190610408565b610358565b6040516101ee919061047a565b60405180910390f35b6101ff610370565b60405161020c919061047a565b60405180910390f35b61022f600480360381019061022a9190610408565b610376565b60405161023c919061047a565b60405180910390f35b61025f600480360381019061025a9190610408565b61038e565b60405161026c9190610516565b60405180910390f35b61027d6103c1565b60405161028a919061047a565b60405180910390f35b61029b6103c7565b6040516102a8919061047a565b60405180910390f35b600a6020528060005260406000206000915054906101000a900460ff1681565b60066020528060005260406000206000915090505481565b6003602052816000526040600020818154811061030557600080fd5b90600052602060002001600091509150505481565b60025481565b600060036000838152602001908152602001600020805490509050919050565b60056020528060005260406000206000915090505481565b60076020528060005260406000206000915090505481565b60015481565b60096020528060005260406000206000915090505481565b60046020528060005260406000206000915054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b60085481565b60005481565b600080fd5b6000819050919050565b6103e5816103d2565b81146103f057600080fd5b50565b600081359050610402816103dc565b92915050565b60006020828403121561041e5761041d6103cd565b5b600061042c848285016103f3565b91505092915050565b60008115159050919050565b61044a81610435565b82525050565b60006020820190506104656000830184610441565b92915050565b610474816103d2565b82525050565b600060208201905061048f600083018461046b565b92915050565b600080604083850312156104ac576104ab6103cd565b5b60006104ba858286016103f3565b92505060206104cb858286016103f3565b9150509250929050565b600073ffffffffffffffffffffffffffffffffffffffff82169050919050565b6000610500826104d5565b9050919050565b610510816104f5565b82525050565b600060208201905061052b6000830184610507565b9291505056fea26469706673582212206d642208bc50598e5a1603982f6b77820645780d748f2f2923234cc214b6917a64736f6c63430008110033",
   "immutableReferences": {},
   "generatedSources": [],
   "deployedGeneratedSources": [
@@ -1692,9 +1692,9 @@
       "name": "#utility.yul"
     }
   ],
-  "sourceMap": "57:2187:19:-:0;;;429:1;399:31;;466:1;436:31;;501:1;473:29;;1061:1;1017:45;;57:2187;;;;;;;;;;;;;;;;",
-  "deployedSourceMap": "57:2187:19:-:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1189:46;;;;;;;;;;;;;:::i;:::-;;:::i;:::-;;;;;;;:::i;:::-;;;;;;;;905:53;;;;;;;;;;;;;:::i;:::-;;:::i;:::-;;;;;;;:::i;:::-;;;;;;;;697:49;;;;;;;;;;;;;:::i;:::-;;:::i;:::-;;;;;;;:::i;:::-;;;;;;;;473:29;;;:::i;:::-;;;;;;;:::i;:::-;;;;;;;;1242:125;;;;;;;;;;;;;:::i;:::-;;:::i;:::-;;;;;;;:::i;:::-;;;;;;;;808:52;;;;;;;;;;;;;:::i;:::-;;:::i;:::-;;;;;;;:::i;:::-;;;;;;;;964:46;;;;;;;;;;;;;:::i;:::-;;:::i;:::-;;;;;;;:::i;:::-;;;;;;;;436:31;;;:::i;:::-;;;;;;;:::i;:::-;;;;;;;;1127:56;;;;;;;;;;;;;:::i;:::-;;:::i;:::-;;;;;;;:::i;:::-;;;;;;;;752:50;;;;;;;;;;;;;:::i;:::-;;:::i;:::-;;;;;;;:::i;:::-;;;;;;;;1017:45;;;:::i;:::-;;;;;;;:::i;:::-;;;;;;;;399:31;;;:::i;:::-;;;;;;;:::i;:::-;;;;;;;;1189:46;;;;;;;;;;;;;;;;;;;;;;:::o;905:53::-;;;;;;;;;;;;;;;;;:::o;697:49::-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::o;473:29::-;;;;:::o;1242:125::-;1307:7;1333:12;:20;1346:6;1333:20;;;;;;;;;;;:27;;;;1326:34;;1242:125;;;:::o;808:52::-;;;;;;;;;;;;;;;;;:::o;964:46::-;;;;;;;;;;;;;;;;;:::o;436:31::-;;;;:::o;1127:56::-;;;;;;;;;;;;;;;;;:::o;752:50::-;;;;;;;;;;;;;;;;;;;;;;:::o;1017:45::-;;;;:::o;399:31::-;;;;:::o;88:117:30:-;197:1;194;187:12;334:77;371:7;400:5;389:16;;334:77;;;:::o;417:122::-;490:24;508:5;490:24;:::i;:::-;483:5;480:35;470:63;;529:1;526;519:12;470:63;417:122;:::o;545:139::-;591:5;629:6;616:20;607:29;;645:33;672:5;645:33;:::i;:::-;545:139;;;;:::o;690:329::-;749:6;798:2;786:9;777:7;773:23;769:32;766:119;;;804:79;;:::i;:::-;766:119;924:1;949:53;994:7;985:6;974:9;970:22;949:53;:::i;:::-;939:63;;895:117;690:329;;;;:::o;1025:90::-;1059:7;1102:5;1095:13;1088:21;1077:32;;1025:90;;;:::o;1121:109::-;1202:21;1217:5;1202:21;:::i;:::-;1197:3;1190:34;1121:109;;:::o;1236:210::-;1323:4;1361:2;1350:9;1346:18;1338:26;;1374:65;1436:1;1425:9;1421:17;1412:6;1374:65;:::i;:::-;1236:210;;;;:::o;1452:118::-;1539:24;1557:5;1539:24;:::i;:::-;1534:3;1527:37;1452:118;;:::o;1576:222::-;1669:4;1707:2;1696:9;1692:18;1684:26;;1720:71;1788:1;1777:9;1773:17;1764:6;1720:71;:::i;:::-;1576:222;;;;:::o;1804:474::-;1872:6;1880;1929:2;1917:9;1908:7;1904:23;1900:32;1897:119;;;1935:79;;:::i;:::-;1897:119;2055:1;2080:53;2125:7;2116:6;2105:9;2101:22;2080:53;:::i;:::-;2070:63;;2026:117;2182:2;2208:53;2253:7;2244:6;2233:9;2229:22;2208:53;:::i;:::-;2198:63;;2153:118;1804:474;;;;;:::o;2284:126::-;2321:7;2361:42;2354:5;2350:54;2339:65;;2284:126;;;:::o;2416:96::-;2453:7;2482:24;2500:5;2482:24;:::i;:::-;2471:35;;2416:96;;;:::o;2518:118::-;2605:24;2623:5;2605:24;:::i;:::-;2600:3;2593:37;2518:118;;:::o;2642:222::-;2735:4;2773:2;2762:9;2758:18;2750:26;;2786:71;2854:1;2843:9;2839:17;2830:6;2786:71;:::i;:::-;2642:222;;;;:::o",
-  "source": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.7;\n\ncontract ButterAccounts {\n\n    /**\n     * butterWeight is the amount of matter in the universe thta is currently outstanding.\n     * butterSpread is the amount of matter that has been distributed from butterWeight, thus reducing its value.\n     * butterJams represent the total number of matter contracts created in the Universe.\n     */\n    uint256 public butterWeight = 0;\n    uint256 public butterSpread = 0;\n    uint256 public butterJars = 0;\n\n    /**\n     * buttersOfNut represents a list of all butter contracts created byt that nut.\n     * butterLocations represents the address of contract identifed by butterId.\n     *\n     */\n    mapping(uint256 => uint256[]) public buttersOfNut;\n    mapping(uint256 => address) public butterLocations;\n    mapping(uint256 => uint256) public matterMintedByNut; // Amount of matter minted by this Nut\n    mapping(uint256 => uint256) public butterChurnedByNut;\n    mapping(uint256 => uint256) public nutOfButter;\n\n    uint256 public butterDeficiencyInUniverse = 0; // Represents matter that's not fully restored to each nut\n    mapping(uint256 => uint256) public butterDeficiencyOfNut;\n    mapping(uint256 => bool) public isButterActive;\n\n    function numberOfButterJars(uint256 _nutId) public view returns (uint256) {\n        return buttersOfNut[_nutId].length;\n    }\n\n    function churnButter(uint256 _nutId, uint256 _butterId, address _butterAddress, uint256 _butterToCreate) internal {\n        butterJars += 1;\n        butterWeight += _butterToCreate;\n        buttersOfNut[_nutId].push(_butterId);\n        butterChurnedByNut[_nutId] += _butterToCreate;\n        butterLocations[_nutId] = _butterAddress;\n        isButterActive[_nutId] = true;\n        nutOfButter[_butterId] = _nutId;\n    }\n\n    function distributeButter(uint256 _butterId, uint256 _depletedBy, uint256 _balanceBefore) internal {\n        butterWeight -= _depletedBy;\n        butterSpread += _depletedBy;\n        uint256 nutId = nutOfButter[_butterId];\n        matterMintedByNut[nutId] += _depletedBy;\n\n        // Maybe we use assert on these (research material)\n        if (_balanceBefore - _depletedBy == 0) {\n            isButterActive[_butterId] = false;\n        }\n    }\n\n}\n",
+  "sourceMap": "57:2127:19:-:0;;;429:1;399:31;;466:1;436:31;;501:1;473:29;;1061:1;1017:45;;57:2127;;;;;;;;;;;;;;;;",
+  "deployedSourceMap": "57:2127:19:-:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1189:46;;;;;;;;;;;;;:::i;:::-;;:::i;:::-;;;;;;;:::i;:::-;;;;;;;;905:53;;;;;;;;;;;;;:::i;:::-;;:::i;:::-;;;;;;;:::i;:::-;;;;;;;;697:49;;;;;;;;;;;;;:::i;:::-;;:::i;:::-;;;;;;;:::i;:::-;;;;;;;;473:29;;;:::i;:::-;;;;;;;:::i;:::-;;;;;;;;1242:125;;;;;;;;;;;;;:::i;:::-;;:::i;:::-;;;;;;;:::i;:::-;;;;;;;;808:52;;;;;;;;;;;;;:::i;:::-;;:::i;:::-;;;;;;;:::i;:::-;;;;;;;;964:46;;;;;;;;;;;;;:::i;:::-;;:::i;:::-;;;;;;;:::i;:::-;;;;;;;;436:31;;;:::i;:::-;;;;;;;:::i;:::-;;;;;;;;1127:56;;;;;;;;;;;;;:::i;:::-;;:::i;:::-;;;;;;;:::i;:::-;;;;;;;;752:50;;;;;;;;;;;;;:::i;:::-;;:::i;:::-;;;;;;;:::i;:::-;;;;;;;;1017:45;;;:::i;:::-;;;;;;;:::i;:::-;;;;;;;;399:31;;;:::i;:::-;;;;;;;:::i;:::-;;;;;;;;1189:46;;;;;;;;;;;;;;;;;;;;;;:::o;905:53::-;;;;;;;;;;;;;;;;;:::o;697:49::-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::o;473:29::-;;;;:::o;1242:125::-;1307:7;1333:12;:20;1346:6;1333:20;;;;;;;;;;;:27;;;;1326:34;;1242:125;;;:::o;808:52::-;;;;;;;;;;;;;;;;;:::o;964:46::-;;;;;;;;;;;;;;;;;:::o;436:31::-;;;;:::o;1127:56::-;;;;;;;;;;;;;;;;;:::o;752:50::-;;;;;;;;;;;;;;;;;;;;;;:::o;1017:45::-;;;;:::o;399:31::-;;;;:::o;88:117:30:-;197:1;194;187:12;334:77;371:7;400:5;389:16;;334:77;;;:::o;417:122::-;490:24;508:5;490:24;:::i;:::-;483:5;480:35;470:63;;529:1;526;519:12;470:63;417:122;:::o;545:139::-;591:5;629:6;616:20;607:29;;645:33;672:5;645:33;:::i;:::-;545:139;;;;:::o;690:329::-;749:6;798:2;786:9;777:7;773:23;769:32;766:119;;;804:79;;:::i;:::-;766:119;924:1;949:53;994:7;985:6;974:9;970:22;949:53;:::i;:::-;939:63;;895:117;690:329;;;;:::o;1025:90::-;1059:7;1102:5;1095:13;1088:21;1077:32;;1025:90;;;:::o;1121:109::-;1202:21;1217:5;1202:21;:::i;:::-;1197:3;1190:34;1121:109;;:::o;1236:210::-;1323:4;1361:2;1350:9;1346:18;1338:26;;1374:65;1436:1;1425:9;1421:17;1412:6;1374:65;:::i;:::-;1236:210;;;;:::o;1452:118::-;1539:24;1557:5;1539:24;:::i;:::-;1534:3;1527:37;1452:118;;:::o;1576:222::-;1669:4;1707:2;1696:9;1692:18;1684:26;;1720:71;1788:1;1777:9;1773:17;1764:6;1720:71;:::i;:::-;1576:222;;;;:::o;1804:474::-;1872:6;1880;1929:2;1917:9;1908:7;1904:23;1900:32;1897:119;;;1935:79;;:::i;:::-;1897:119;2055:1;2080:53;2125:7;2116:6;2105:9;2101:22;2080:53;:::i;:::-;2070:63;;2026:117;2182:2;2208:53;2253:7;2244:6;2233:9;2229:22;2208:53;:::i;:::-;2198:63;;2153:118;1804:474;;;;;:::o;2284:126::-;2321:7;2361:42;2354:5;2350:54;2339:65;;2284:126;;;:::o;2416:96::-;2453:7;2482:24;2500:5;2482:24;:::i;:::-;2471:35;;2416:96;;;:::o;2518:118::-;2605:24;2623:5;2605:24;:::i;:::-;2600:3;2593:37;2518:118;;:::o;2642:222::-;2735:4;2773:2;2762:9;2758:18;2750:26;;2786:71;2854:1;2843:9;2839:17;2830:6;2786:71;:::i;:::-;2642:222;;;;:::o",
+  "source": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.7;\n\ncontract ButterAccounts {\n\n    /**\n     * butterWeight is the amount of matter in the universe that is currently outstanding.\n     * butterSpread is the amount of matter that has been distributed from butterWeight, thus reducing its value.\n     * butterJars represent the total number of matter contracts created in the Universe.\n     */\n    uint256 public butterWeight = 0;\n    uint256 public butterSpread = 0;\n    uint256 public butterJars = 0;\n\n    /**\n     * buttersOfNut represents a list of all butter contracts created byt that nut.\n     * butterLocations represents the address of contract identifed by butterId.\n     *\n     */\n    mapping(uint256 => uint256[]) public buttersOfNut;\n    mapping(uint256 => address) public butterLocations;\n    mapping(uint256 => uint256) public matterMintedByNut; // Amount of matter minted by this Nut\n    mapping(uint256 => uint256) public butterChurnedByNut;\n    mapping(uint256 => uint256) public nutOfButter;\n\n    uint256 public butterDeficiencyInUniverse = 0; // Represents matter that's not fully restored to each nut\n    mapping(uint256 => uint256) public butterDeficiencyOfNut;\n    mapping(uint256 => bool) public isButterActive;\n\n    function numberOfButterJars(uint256 _nutId) public view returns (uint256) {\n        return buttersOfNut[_nutId].length;\n    }\n\n    function churnButter(uint256 _nutId, uint256 _butterId, address _butterAddress, uint256 _butterToCreate) internal {\n        butterJars += 1;\n        butterWeight += _butterToCreate;\n        buttersOfNut[_nutId].push(_butterId);\n        butterChurnedByNut[_nutId] += _butterToCreate;\n        butterLocations[_nutId] = _butterAddress;\n        isButterActive[_nutId] = true;\n        nutOfButter[_butterId] = _nutId;\n    }\n\n    function distributeButter(uint256 _butterId, uint256 _depletedBy, uint256 _balanceBefore) internal {\n        butterWeight -= _depletedBy;\n        butterSpread += _depletedBy;\n        uint256 nutId = nutOfButter[_butterId];\n        matterMintedByNut[nutId] += _depletedBy;\n\n        if (_balanceBefore - _depletedBy == 0) {\n            isButterActive[_butterId] = false;\n        }\n    }\n\n}\n",
   "sourcePath": "/home/redlentils/Seafile/Websites/avatarnft/contracts/ButterAccounts.sol",
   "ast": {
     "absolutePath": "project:/contracts/ButterAccounts.sol",
@@ -1739,7 +1739,7 @@
               "id": 3415,
               "nodeType": "StructuredDocumentation",
               "src": "88:306:19",
-              "text": " butterWeight is the amount of matter in the universe thta is currently outstanding.\n butterSpread is the amount of matter that has been distributed from butterWeight, thus reducing its value.\n butterJams represent the total number of matter contracts created in the Universe."
+              "text": " butterWeight is the amount of matter in the universe that is currently outstanding.\n butterSpread is the amount of matter that has been distributed from butterWeight, thus reducing its value.\n butterJars represent the total number of matter contracts created in the Universe."
             },
             "functionSelector": "f6317f8d",
             "id": 3418,
@@ -3015,7 +3015,7 @@
             "body": {
               "id": 3563,
               "nodeType": "Block",
-              "src": "1896:345:19",
+              "src": "1896:285:19",
               "statements": [
                 {
                   "expression": {
@@ -3272,7 +3272,7 @@
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
                         "referencedDeclaration": 3527,
-                        "src": "2142:14:19",
+                        "src": "2082:14:19",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
                           "typeString": "uint256"
@@ -3286,13 +3286,13 @@
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
                         "referencedDeclaration": 3525,
-                        "src": "2159:11:19",
+                        "src": "2099:11:19",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
                           "typeString": "uint256"
                         }
                       },
-                      "src": "2142:28:19",
+                      "src": "2082:28:19",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint256",
                         "typeString": "uint256"
@@ -3309,14 +3309,14 @@
                       "kind": "number",
                       "lValueRequested": false,
                       "nodeType": "Literal",
-                      "src": "2174:1:19",
+                      "src": "2114:1:19",
                       "typeDescriptions": {
                         "typeIdentifier": "t_rational_0_by_1",
                         "typeString": "int_const 0"
                       },
                       "value": "0"
                     },
-                    "src": "2142:33:19",
+                    "src": "2082:33:19",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bool",
                       "typeString": "bool"
@@ -3324,11 +3324,11 @@
                   },
                   "id": 3562,
                   "nodeType": "IfStatement",
-                  "src": "2138:97:19",
+                  "src": "2078:97:19",
                   "trueBody": {
                     "id": 3561,
                     "nodeType": "Block",
-                    "src": "2177:58:19",
+                    "src": "2117:58:19",
                     "statements": [
                       {
                         "expression": {
@@ -3344,7 +3344,7 @@
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
                               "referencedDeclaration": 3457,
-                              "src": "2191:14:19",
+                              "src": "2131:14:19",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_mapping$_t_uint256_$_t_bool_$",
                                 "typeString": "mapping(uint256 => bool)"
@@ -3357,7 +3357,7 @@
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
                               "referencedDeclaration": 3523,
-                              "src": "2206:9:19",
+                              "src": "2146:9:19",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_uint256",
                                 "typeString": "uint256"
@@ -3368,7 +3368,7 @@
                             "isPure": false,
                             "lValueRequested": true,
                             "nodeType": "IndexAccess",
-                            "src": "2191:25:19",
+                            "src": "2131:25:19",
                             "typeDescriptions": {
                               "typeIdentifier": "t_bool",
                               "typeString": "bool"
@@ -3385,14 +3385,14 @@
                             "kind": "bool",
                             "lValueRequested": false,
                             "nodeType": "Literal",
-                            "src": "2219:5:19",
+                            "src": "2159:5:19",
                             "typeDescriptions": {
                               "typeIdentifier": "t_bool",
                               "typeString": "bool"
                             },
                             "value": "false"
                           },
-                          "src": "2191:33:19",
+                          "src": "2131:33:19",
                           "typeDescriptions": {
                             "typeIdentifier": "t_bool",
                             "typeString": "bool"
@@ -3400,7 +3400,7 @@
                         },
                         "id": 3560,
                         "nodeType": "ExpressionStatement",
-                        "src": "2191:33:19"
+                        "src": "2131:33:19"
                       }
                     ]
                   }
@@ -3509,18 +3509,18 @@
               "src": "1896:0:19"
             },
             "scope": 3565,
-            "src": "1797:444:19",
+            "src": "1797:384:19",
             "stateMutability": "nonpayable",
             "virtual": false,
             "visibility": "internal"
           }
         ],
         "scope": 3566,
-        "src": "57:2187:19",
+        "src": "57:2127:19",
         "usedErrors": []
       }
     ],
-    "src": "32:2213:19"
+    "src": "32:2153:19"
   },
   "compiler": {
     "name": "solc",
@@ -3528,7 +3528,7 @@
   },
   "networks": {},
   "schemaVersion": "3.4.10",
-  "updatedAt": "2022-10-04T18:24:40.562Z",
+  "updatedAt": "2022-10-07T10:00:29.378Z",
   "devdoc": {
     "kind": "dev",
     "methods": {},
@@ -3538,7 +3538,7 @@
     "kind": "user",
     "methods": {
       "butterWeight()": {
-        "notice": "butterWeight is the amount of matter in the universe thta is currently outstanding. butterSpread is the amount of matter that has been distributed from butterWeight, thus reducing its value. butterJams represent the total number of matter contracts created in the Universe."
+        "notice": "butterWeight is the amount of matter in the universe that is currently outstanding. butterSpread is the amount of matter that has been distributed from butterWeight, thus reducing its value. butterJars represent the total number of matter contracts created in the Universe."
       },
       "buttersOfNut(uint256,uint256)": {
         "notice": "buttersOfNut represents a list of all butter contracts created byt that nut. butterLocations represents the address of contract identifed by butterId."

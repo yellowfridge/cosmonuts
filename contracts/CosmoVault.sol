@@ -11,6 +11,7 @@ contract CosmoVault {
     uint256 public NUT_PRICE;
     uint256 public NUT_RATE;
     uint256 public NUTS_INITIAL;
+    bool public SALE_STATUS;
 
     CosmoTreasury treasury;
 
@@ -19,14 +20,15 @@ contract CosmoVault {
     constructor(
         address _systemAddress,
         address _matterAddress
-        //uint256 _nutPrice,
-        //uint256 _matterRate
     )
     {
+        SALE_STATUS = false;
         treasury = new CosmoTreasury(_systemAddress, _matterAddress);
         TREASURY_ADDRESS = address(treasury);
-        //NUT_PRICE = _nutPrice;
-        //NUT_RATE = _matterRate;
+    }
+
+    function lightsOn() external {
+        SALE_STATUS = true;
     }
 
     function entityCreation(uint256 _nutPrice, uint256 _nutRate, uint256 _numNuts) external {

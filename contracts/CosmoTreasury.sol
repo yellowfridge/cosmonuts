@@ -47,8 +47,6 @@ import "./ButterAccounts.sol";
         addressOf.system = _systemAddress;
         addressOf.matter = _matterAddress;
         addressOf.treasury = address(this);
-        //nut.price = _nutPrice;
-        //nut.rate = _matterRate;
     }
 
     /*

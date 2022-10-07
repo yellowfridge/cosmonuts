@@ -11,8 +11,6 @@ contract CosmoBang {
     constructor(
         address _systemAddress,
         address _matterAddress
-        //uint256 _nutPrice,
-        //uint256 _matterRate
     )
     {
         vault = new CosmoVault(_systemAddress, _matterAddress);

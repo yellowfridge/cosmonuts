@@ -32,8 +32,6 @@ import "./CosmoBang.sol";
         address _systemAddress,
         string memory _matterName,
         string memory _matterSymbol
-        //uint256 _entityPrice,
-        //uint256 _matterRate
         )
     {
         SYSTEM_ADDRESS = _systemAddress;
@@ -42,8 +40,6 @@ import "./CosmoBang.sol";
         bang = new CosmoBang(
             SYSTEM_ADDRESS,
             MATTER_ADDRESS
-            //_entityPrice,
-            //_matterRate
         );
     }
 

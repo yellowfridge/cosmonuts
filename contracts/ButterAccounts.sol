@@ -4,9 +4,9 @@ pragma solidity ^0.8.7;
 contract ButterAccounts {
 
     /**
-     * butterWeight is the amount of matter in the universe thta is currently outstanding.
+     * butterWeight is the amount of matter in the universe that is currently outstanding.
      * butterSpread is the amount of matter that has been distributed from butterWeight, thus reducing its value.
-     * butterJams represent the total number of matter contracts created in the Universe.
+     * butterJars represent the total number of matter contracts created in the Universe.
      */
     uint256 public butterWeight = 0;
     uint256 public butterSpread = 0;
@@ -47,7 +47,6 @@ contract ButterAccounts {
         uint256 nutId = nutOfButter[_butterId];
         matterMintedByNut[nutId] += _depletedBy;
 
-        // Maybe we use assert on these (research material)
         if (_balanceBefore - _depletedBy == 0) {
             isButterActive[_butterId] = false;
         }
