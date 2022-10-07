@@ -25823,7 +25823,7 @@
         5165
       ],
       "CosmoVault": [
-        5525
+        5551
       ],
       "ECDSA": [
         3288
@@ -25874,7 +25874,7 @@
         104
       ],
       "SeedAccounts": [
-        5657
+        5683
       ],
       "Strings": [
         2881
@@ -25962,7 +25962,7 @@
         "nameLocation": "-1:-1:-1",
         "nodeType": "ImportDirective",
         "scope": 4074,
-        "sourceUnit": 5526,
+        "sourceUnit": 5552,
         "src": "430:26:22",
         "symbolAliases": [],
         "unitAlias": ""
@@ -26065,7 +26065,7 @@
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_contract$_CosmoVault_$5525",
+              "typeIdentifier": "t_contract$_CosmoVault_$5551",
               "typeString": "contract CosmoVault"
             },
             "typeName": {
@@ -26078,13 +26078,13 @@
                   "543:10:22"
                 ],
                 "nodeType": "IdentifierPath",
-                "referencedDeclaration": 5525,
+                "referencedDeclaration": 5551,
                 "src": "543:10:22"
               },
-              "referencedDeclaration": 5525,
+              "referencedDeclaration": 5551,
               "src": "543:10:22",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_CosmoVault_$5525",
+                "typeIdentifier": "t_contract$_CosmoVault_$5551",
                 "typeString": "contract CosmoVault"
               }
             },
@@ -26111,7 +26111,7 @@
                       "referencedDeclaration": 3889,
                       "src": "716:5:22",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_contract$_CosmoVault_$5525",
+                        "typeIdentifier": "t_contract$_CosmoVault_$5551",
                         "typeString": "contract CosmoVault"
                       }
                     },
@@ -26143,10 +26143,10 @@
                         "name": "CosmoVault",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 5525,
+                        "referencedDeclaration": 5551,
                         "src": "724:10:22",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_type$_t_contract$_CosmoVault_$5525_$",
+                          "typeIdentifier": "t_type$_t_contract$_CosmoVault_$5551_$",
                           "typeString": "type(contract CosmoVault)"
                         }
                       },
@@ -26162,13 +26162,13 @@
                       "src": "724:25:22",
                       "tryCall": false,
                       "typeDescriptions": {
-                        "typeIdentifier": "t_contract$_CosmoVault_$5525",
+                        "typeIdentifier": "t_contract$_CosmoVault_$5551",
                         "typeString": "contract CosmoVault"
                       }
                     },
                     "src": "716:33:22",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_contract$_CosmoVault_$5525",
+                      "typeIdentifier": "t_contract$_CosmoVault_$5551",
                       "typeString": "contract CosmoVault"
                     }
                   },
@@ -26442,7 +26442,7 @@
                             "referencedDeclaration": 3889,
                             "src": "955:5:22",
                             "typeDescriptions": {
-                              "typeIdentifier": "t_contract$_CosmoVault_$5525",
+                              "typeIdentifier": "t_contract$_CosmoVault_$5551",
                               "typeString": "contract CosmoVault"
                             }
                           },
@@ -26454,7 +26454,7 @@
                           "memberLocation": "961:11:22",
                           "memberName": "SALE_STATUS",
                           "nodeType": "MemberAccess",
-                          "referencedDeclaration": 5337,
+                          "referencedDeclaration": 5363,
                           "src": "955:17:22",
                           "typeDescriptions": {
                             "typeIdentifier": "t_function_external_view$__$returns$_t_bool_$",
@@ -26597,7 +26597,7 @@
                               "referencedDeclaration": 3889,
                               "src": "1032:5:22",
                               "typeDescriptions": {
-                                "typeIdentifier": "t_contract$_CosmoVault_$5525",
+                                "typeIdentifier": "t_contract$_CosmoVault_$5551",
                                 "typeString": "contract CosmoVault"
                               }
                             },
@@ -26609,7 +26609,7 @@
                             "memberLocation": "1038:12:22",
                             "memberName": "NUTS_INITIAL",
                             "nodeType": "MemberAccess",
-                            "referencedDeclaration": 5335,
+                            "referencedDeclaration": 5361,
                             "src": "1032:18:22",
                             "typeDescriptions": {
                               "typeIdentifier": "t_function_external_view$__$returns$_t_uint256_$",
@@ -26715,7 +26715,7 @@
                             "referencedDeclaration": 3889,
                             "src": "1196:5:22",
                             "typeDescriptions": {
-                              "typeIdentifier": "t_contract$_CosmoVault_$5525",
+                              "typeIdentifier": "t_contract$_CosmoVault_$5551",
                               "typeString": "contract CosmoVault"
                             }
                           },
@@ -26727,7 +26727,7 @@
                           "memberLocation": "1202:16:22",
                           "memberName": "TREASURY_ADDRESS",
                           "nodeType": "MemberAccess",
-                          "referencedDeclaration": 5329,
+                          "referencedDeclaration": 5355,
                           "src": "1196:22:22",
                           "typeDescriptions": {
                             "typeIdentifier": "t_function_external_view$__$returns$_t_address_$",
@@ -26966,7 +26966,7 @@
                         "referencedDeclaration": 3889,
                         "src": "1292:5:22",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_CosmoVault_$5525",
+                          "typeIdentifier": "t_contract$_CosmoVault_$5551",
                           "typeString": "contract CosmoVault"
                         }
                       },
@@ -26978,7 +26978,7 @@
                       "memberLocation": "1298:15:22",
                       "memberName": "giveMintBalance",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 5427,
+                      "referencedDeclaration": 5453,
                       "src": "1292:21:22",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_external_nonpayable$_t_uint256_$returns$__$",
@@ -27403,7 +27403,7 @@
                             "referencedDeclaration": 3889,
                             "src": "1622:5:22",
                             "typeDescriptions": {
-                              "typeIdentifier": "t_contract$_CosmoVault_$5525",
+                              "typeIdentifier": "t_contract$_CosmoVault_$5551",
                               "typeString": "contract CosmoVault"
                             }
                           },
@@ -27415,7 +27415,7 @@
                           "memberLocation": "1628:10:22",
                           "memberName": "isVerified",
                           "nodeType": "MemberAccess",
-                          "referencedDeclaration": 5524,
+                          "referencedDeclaration": 5550,
                           "src": "1622:16:22",
                           "typeDescriptions": {
                             "typeIdentifier": "t_function_external_view$_t_bytes32_$_t_bytes_memory_ptr_$returns$_t_bool_$",
@@ -28489,7 +28489,7 @@
   },
   "networks": {},
   "schemaVersion": "3.4.10",
-  "updatedAt": "2022-10-07T14:49:48.557Z",
+  "updatedAt": "2022-10-07T17:57:54.069Z",
   "devdoc": {
     "kind": "dev",
     "methods": {

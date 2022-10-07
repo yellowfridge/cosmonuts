@@ -13,6 +13,9 @@ import "./CosmoBang.sol";
 
     address public SYSTEM_ADDRESS;
     address public MATTER_ADDRESS;
+    uint256 public COSMOS_INDEX;
+
+    address public bangAddress;
 
     struct Cosmo {
         uint256 id;
@@ -23,7 +26,10 @@ import "./CosmoBang.sol";
         address vaultLocation;
     }
     Cosmo cosmo;
-    Cosmo[] public cosmos;
+
+    mapping(uint256 => Cosmo) public cosmos;
+
+    //Cosmo[] public cosmos;
 
     CosmoMatter matter;
     CosmoBang bang;
@@ -41,7 +47,14 @@ import "./CosmoBang.sol";
             SYSTEM_ADDRESS,
             MATTER_ADDRESS
         );
+        bangAddress = address(bang);
+        COSMOS_INDEX = 0;
     }
+
+    //function deployBang() public onlyOwner {
+    //    CosmoBang bang = new CosmoBang(SYSTEM_ADDRESS, MATTER_ADDRESS);
+    //    bangAddress = address(bang);
+    //}
 
     /**
      * The function starts the CosmoNuts universe.
@@ -55,6 +68,7 @@ import "./CosmoBang.sol";
         uint256 _nutRate,
         uint256 _desiredEntities
     ) public onlyOwner {
+        //CosmoBang bang = CosmoBang(bangAddress);
         address[] memory cosmoAddresses = bang.nutBang(
             _cosmosName,
             _cosmosSymbol,
@@ -63,14 +77,14 @@ import "./CosmoBang.sol";
             _desiredEntities
         );
 
-        cosmo.id = cosmos.length;
+        cosmo.id = COSMOS_INDEX;
         cosmo.status = true;
         cosmo.name = _cosmosName;
         cosmo.symbol = _cosmosSymbol;
         cosmo.location = cosmoAddresses[0];
         cosmo.vaultLocation = cosmoAddresses[1];
 
-        cosmos.push(cosmo);
+        cosmos[COSMOS_INDEX] = cosmo;
     }
 
 }

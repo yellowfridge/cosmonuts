@@ -30921,7 +30921,7 @@
         5165
       ],
       "CosmoVault": [
-        5525
+        5551
       ],
       "ECDSA": [
         3288
@@ -30972,7 +30972,7 @@
         104
       ],
       "SeedAccounts": [
-        5657
+        5683
       ],
       "Strings": [
         2881
@@ -31785,7 +31785,7 @@
                         "referencedDeclaration": 3889,
                         "src": "848:5:24",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_CosmoVault_$5525",
+                          "typeIdentifier": "t_contract$_CosmoVault_$5551",
                           "typeString": "contract CosmoVault"
                         }
                       },
@@ -31797,7 +31797,7 @@
                       "memberLocation": "854:8:24",
                       "memberName": "lightsOn",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 5379,
+                      "referencedDeclaration": 5405,
                       "src": "848:14:24",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_external_nonpayable$__$returns$__$",
@@ -32468,7 +32468,7 @@
                               "referencedDeclaration": 3889,
                               "src": "1843:5:24",
                               "typeDescriptions": {
-                                "typeIdentifier": "t_contract$_CosmoVault_$5525",
+                                "typeIdentifier": "t_contract$_CosmoVault_$5551",
                                 "typeString": "contract CosmoVault"
                               }
                             },
@@ -32480,7 +32480,7 @@
                             "memberLocation": "1849:12:24",
                             "memberName": "NUTS_INITIAL",
                             "nodeType": "MemberAccess",
-                            "referencedDeclaration": 5335,
+                            "referencedDeclaration": 5361,
                             "src": "1843:18:24",
                             "typeDescriptions": {
                               "typeIdentifier": "t_function_external_view$__$returns$_t_uint256_$",
@@ -32618,7 +32618,7 @@
                         "referencedDeclaration": 3889,
                         "src": "1913:5:24",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_CosmoVault_$5525",
+                          "typeIdentifier": "t_contract$_CosmoVault_$5551",
                           "typeString": "contract CosmoVault"
                         }
                       },
@@ -32630,7 +32630,7 @@
                       "memberLocation": "1919:7:24",
                       "memberName": "newSeed",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 5468,
+                      "referencedDeclaration": 5494,
                       "src": "1913:13:24",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_external_nonpayable$_t_uint256_$_t_bytes32_$returns$__$",
@@ -33159,7 +33159,7 @@
                         "referencedDeclaration": 3889,
                         "src": "2896:5:24",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_CosmoVault_$5525",
+                          "typeIdentifier": "t_contract$_CosmoVault_$5551",
                           "typeString": "contract CosmoVault"
                         }
                       },
@@ -33171,7 +33171,7 @@
                       "memberLocation": "2902:12:24",
                       "memberName": "newButterJar",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 5487,
+                      "referencedDeclaration": 5513,
                       "src": "2896:18:24",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_external_nonpayable$_t_uint256_$_t_uint256_$_t_bytes32_$returns$__$",
@@ -33676,7 +33676,7 @@
   },
   "networks": {},
   "schemaVersion": "3.4.10",
-  "updatedAt": "2022-10-07T14:49:48.577Z",
+  "updatedAt": "2022-10-07T17:57:54.084Z",
   "devdoc": {
     "kind": "dev",
     "methods": {

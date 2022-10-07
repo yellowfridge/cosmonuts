@@ -10692,7 +10692,7 @@
         5165
       ],
       "CosmoVault": [
-        5525
+        5551
       ],
       "ERC20": [
         690
@@ -10710,7 +10710,7 @@
         3412
       ],
       "SeedAccounts": [
-        5657
+        5683
       ]
     },
     "id": 5166,
@@ -10783,7 +10783,7 @@
         "nameLocation": "-1:-1:-1",
         "nodeType": "ImportDirective",
         "scope": 5166,
-        "sourceUnit": 5526,
+        "sourceUnit": 5552,
         "src": "201:26:26",
         "symbolAliases": [],
         "unitAlias": ""
@@ -10795,7 +10795,7 @@
         "nameLocation": "-1:-1:-1",
         "nodeType": "ImportDirective",
         "scope": 5166,
-        "sourceUnit": 5658,
+        "sourceUnit": 5684,
         "src": "229:28:26",
         "symbolAliases": [],
         "unitAlias": ""
@@ -10823,7 +10823,7 @@
                 "559:12:26"
               ],
               "nodeType": "IdentifierPath",
-              "referencedDeclaration": 5657,
+              "referencedDeclaration": 5683,
               "src": "559:12:26"
             },
             "id": 4576,
@@ -10863,7 +10863,7 @@
         "linearizedBaseContracts": [
           5165,
           3565,
-          5657
+          5683
         ],
         "name": "CosmoTreasury",
         "nameLocation": "542:13:26",
@@ -11654,7 +11654,7 @@
                             "name": "numOfSeedsOf",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 5571,
+                            "referencedDeclaration": 5597,
                             "src": "2112:12:26",
                             "typeDescriptions": {
                               "typeIdentifier": "t_function_internal_view$_t_uint256_$returns$_t_uint256_$",
@@ -11894,7 +11894,7 @@
                             "name": "numOfSeedsGrownOf",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 5584,
+                            "referencedDeclaration": 5610,
                             "src": "2262:17:26",
                             "typeDescriptions": {
                               "typeIdentifier": "t_function_internal_view$_t_uint256_$returns$_t_uint256_$",
@@ -12561,7 +12561,7 @@
                         "name": "seedsCreated",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 5530,
+                        "referencedDeclaration": 5556,
                         "src": "2691:12:26",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
@@ -12835,7 +12835,7 @@
                         "name": "seedsCreated",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 5530,
+                        "referencedDeclaration": 5556,
                         "src": "2832:12:26",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
@@ -12874,7 +12874,7 @@
                       "name": "integrateSeed",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 5631,
+                      "referencedDeclaration": 5657,
                       "src": "2810:13:26",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_internal_nonpayable$_t_uint256_$_t_uint256_$_t_address_$returns$__$",
@@ -13231,7 +13231,7 @@
                       "name": "seedLocations",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 5554,
+                      "referencedDeclaration": 5580,
                       "src": "3116:13:26",
                       "typeDescriptions": {
                         "typeIdentifier": "t_mapping$_t_uint256_$_t_address_$",
@@ -13969,7 +13969,7 @@
                       "name": "growSeed",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 5656,
+                      "referencedDeclaration": 5682,
                       "src": "3615:8:26",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_internal_nonpayable$_t_uint256_$returns$__$",
@@ -14915,7 +14915,7 @@
                         "name": "numOfSeedsGrownOf",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 5584,
+                        "referencedDeclaration": 5610,
                         "src": "4831:17:26",
                         "typeDescriptions": {
                           "typeIdentifier": "t_function_internal_view$_t_uint256_$returns$_t_uint256_$",
@@ -15952,7 +15952,7 @@
                                     "name": "numOfSeedsGrownOf",
                                     "nodeType": "Identifier",
                                     "overloadedDeclarations": [],
-                                    "referencedDeclaration": 5584,
+                                    "referencedDeclaration": 5610,
                                     "src": "6122:17:26",
                                     "typeDescriptions": {
                                       "typeIdentifier": "t_function_internal_view$_t_uint256_$returns$_t_uint256_$",
@@ -18565,7 +18565,7 @@
   },
   "networks": {},
   "schemaVersion": "3.4.10",
-  "updatedAt": "2022-10-07T14:49:48.606Z",
+  "updatedAt": "2022-10-07T17:57:54.109Z",
   "devdoc": {
     "details": "Manages the matter balance of the CosmoNuts collection and handles interaction with the ERC20 Token to mint, burn, and allocate balances Acts as storage for the ERC 721 tokens on their created Seed and Butter contracts.",
     "kind": "dev",
