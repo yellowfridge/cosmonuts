@@ -69,11 +69,11 @@ import "./ButterAccounts.sol";
     //}
 
     function matterNeeded(uint256 _nutId) public view returns (uint256) {
-        return nut.rate ^ (seedsOfNut[_nutId] + 1);
+        return nut.rate ^ (numOfSeedsOf(_nutId));
     }
 
     function spawnSeed(uint256 _nutId, bytes32 _secretHash) external payable {
-        uint256 ethToHold = nut.price ^ (seedsGrownOfNut[_nutId] + 1);
+        uint256 ethToHold = nut.price ^ (numOfSeedsGrownOf(_nutId));
         require(msg.value >= ethToHold, "Ether value is not enough");
 
         CosmoMatter matter = CosmoMatter(addressOf.matter);
@@ -126,7 +126,7 @@ import "./ButterAccounts.sol";
         /**
          * A nut must have already grown a seed to start being counted as part of the deficiency list.
          */
-        if (seedsGrownOfNut[_nutId] > 0) {
+        if (numOfSeedsGrownOf(_nutId) > 0) {
             butterDeficiencyInUniverse += _matterContributed;
             butterDeficiencyOfNut[_nutId] += _matterContributed;
             nutsPayeeList.push(_nutId);
@@ -155,7 +155,7 @@ import "./ButterAccounts.sol";
 
                 uint256 nutPayeeId = nutsPayeeList[index];
                 address nutOwnerPayee = currentOwnerOfNut[nutPayeeId];
-                uint256 maxMatter = seedsGrownOfNut[nutPayeeId] * nut.rate;
+                uint256 maxMatter = numOfSeedsGrownOf(nutPayeeId) * nut.rate;
                 if (matterBalanceOfNut[nutPayeeId] == maxMatter) {
                     delete nutsPayeeList[index];
                 } else {
