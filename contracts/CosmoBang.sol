@@ -6,16 +6,26 @@ import "./CosmoVault.sol";
 
 contract CosmoBang {
 
+    address public COSMO_ADDRESS;
+
     CosmoVault vault;
+    CosmoNuts cosmo;
 
     constructor(
+        string memory _name,
+        string memory _symbol,
+        uint256 _supply,
         address _systemAddress,
-        address _matterAddress
+        address _vaultAddress
     )
     {
-        vault = new CosmoVault(_systemAddress, _matterAddress);
+        //vault = new CosmoVault(_systemAddress, _matterAddress);
+        vault = CosmoVault(_vaultAddress);
+        cosmo = new CosmoNuts(_name, _symbol, _supply, _systemAddress, _vaultAddress);
+        COSMO_ADDRESS = address(cosmo);
     }
 
+    /*
     function nutBang(
         string memory _cosmosName,
         string memory _cosmosSymbol,
@@ -35,5 +45,6 @@ contract CosmoBang {
         cosmoAddresses[1] = address(cosmonuts);
         return cosmoAddresses;
     }
+    */
 
 }

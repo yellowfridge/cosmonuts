@@ -20,7 +20,7 @@ contract CosmoCreation is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
     )
     ERC721(_name, _symbol)
     {
-        vault = CosmoVault(_vaultAddress);
+        vault = CosmoVault(_vaultAddress);   
     }
 
     function _baseURI() internal pure override returns (string memory) {

@@ -3,64 +3,76 @@ pragma solidity ^0.8.7;
 
 import "openzeppelin-solidity/contracts/access/Ownable.sol";
 import "./CosmoMatter.sol";
-import "./CosmoBang.sol";
+//import "./CosmoBang.sol";
+import "./CosmoSystems.sol";
 
 /**
  * CosmoUniverse is the top contract for the developer to create the planned system.
  *
  */
- contract CosmoUniverse is Ownable {
-
-    address public SYSTEM_ADDRESS;
-    address public MATTER_ADDRESS;
-    uint256 public COSMOS_INDEX;
-
-    address public bangAddress;
-
-    struct Cosmo {
-        uint256 id;
-        bool status;
-        string name;
-        string symbol;
-        address location;
-        address vaultLocation;
-    }
-    Cosmo cosmo;
-
-    mapping(uint256 => Cosmo) public cosmos;
-
-    //Cosmo[] public cosmos;
+ // *** HERE ** DECIDED TO REMOVE CosmoSystems (make it an outside contract to build and then just return needed addresses)
+contract CosmoUniverse is CosmoSystems, Ownable {
 
     CosmoMatter matter;
-    CosmoBang bang;
 
     constructor(
-        address _systemAddress,
-        string memory _matterName,
-        string memory _matterSymbol
-    )
+        address _systemAddress
+    ) CosmoSystems(_systemAddress)
     {
         SYSTEM_ADDRESS = _systemAddress;
-        matter = new CosmoMatter(_matterName, _matterSymbol);
-        MATTER_ADDRESS = address(matter);
-        bang = new CosmoBang(
-            SYSTEM_ADDRESS,
-            MATTER_ADDRESS
-        );
-        bangAddress = address(bang);
-        COSMOS_INDEX = 0;
+        //matter = new CosmoMatter(_matterName, _matterSymbol);
+        //MATTER_ADDRESS = address(matter);
+        //bang = new CosmoBang(
+        //    SYSTEM_ADDRESS,
+        //    MATTER_ADDRESS
+        //);
+        //bangAddress = address(bang);
     }
 
-    //function deployBang() public onlyOwner {
-    //    CosmoBang bang = new CosmoBang(SYSTEM_ADDRESS, MATTER_ADDRESS);
-    //    bangAddress = address(bang);
+    //function deployCosmo(string memory _cosmoName, string memory _cosmoSymbol) public {
+        //cosmos[cosmosIndex].name = _matterName;
+        //cosmos[cosmosIndex].symbol = _matterSymbol;
+        //CosmoBuilding cosmobuild = new CosmoBuilding(_cosmoName, _cosmoSymbol);
+        //buildLocation = address(cosmobuild);
     //}
+
+    function deployCosmo(
+        uint256 _id,
+        uint256 _price,
+        uint256 _rate,
+        uint256 _amount,
+        string memory _name,
+        string memory _symbol
+    ) public {
+        cosmos[COSMOS_INDEX].id = _id;
+        cosmos[COSMOS_INDEX].price = _price;
+        cosmos[COSMOS_INDEX].rate =  _rate;
+        cosmos[COSMOS_INDEX].amount = _amount;
+        cosmos[COSMOS_INDEX].name = _name;
+        cosmos[COSMOS_INDEX].symbol = _symbol;
+
+        createVault();
+    }
+
+    function makeMatter(string memory _matterName, string memory _matterSymbol) public {
+        matter = new CosmoMatter(_matterName, _matterSymbol);
+        MATTER_ADDRESS = address(matter);
+    }
+
+    function bigBang() public {
+        // seperate out mattertocreate later as a function that can be viewed before bigBang;
+        uint256 matterToCreate = cosmos[COSMOS_INDEX].rate * cosmos[COSMOS_INDEX].amount;
+        matter = CosmoMatter(MATTER_ADDRESS);
+        matter.mintMatter(cosmos[COSMOS_INDEX].vaultLocation, matterToCreate);
+        createCosmo();
+    }
 
     /**
      * The function starts the CosmoNuts universe.
      * The amount of matter created is dependent on the desired number of NFT tokens needed and their rate.
      * Total matter created is ultimately equal to number of NFT tokens times the selected rate.
      */
+     /*
     function bigBang(
         string memory _cosmosName,
         string memory _cosmosSymbol,
@@ -69,6 +81,8 @@ import "./CosmoBang.sol";
         uint256 _desiredEntities
     ) public onlyOwner {
         //CosmoBang bang = CosmoBang(bangAddress);
+        uint256 matterToCreate = _nutRate * _desiredEntities;
+        matter.mintMatter(address(this), matterToCreate);
         address[] memory cosmoAddresses = bang.nutBang(
             _cosmosName,
             _cosmosSymbol,
@@ -86,5 +100,6 @@ import "./CosmoBang.sol";
 
         cosmos[COSMOS_INDEX] = cosmo;
     }
+    */
 
 }

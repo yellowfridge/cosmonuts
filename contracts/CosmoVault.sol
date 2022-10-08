@@ -4,7 +4,7 @@ pragma solidity ^0.8.7;
 import "openzeppelin-solidity/contracts/utils/cryptography/ECDSA.sol";
 import "./CosmoTreasury.sol";
 
-contract CosmoVault {
+contract CosmoVault is CosmoTreasury {
 
     address public SYSTEM_ADDRESS;
     address public TREASURY_ADDRESS;
@@ -20,11 +20,11 @@ contract CosmoVault {
     constructor(
         address _systemAddress,
         address _matterAddress
-    )
+    ) CosmoTreasury(_systemAddress, _matterAddress)
     {
         SALE_STATUS = false;
-        treasury = new CosmoTreasury(_systemAddress, _matterAddress);
-        TREASURY_ADDRESS = address(treasury);
+        //treasury = new CosmoTreasury(_systemAddress, _matterAddress);
+        //TREASURY_ADDRESS = address(treasury);
     }
 
     function lightsOn() external {
@@ -38,7 +38,8 @@ contract CosmoVault {
     }
 
     function calcMatterNeeded(uint256 _nutId) public view returns (uint256) {
-        return treasury.matterNeeded(_nutId);
+        //return treasury.matterNeeded(_nutId);
+        return matterNeeded(_nutId);
     }
 
     function giveMintBalance(uint256 _nutIndex) external {
