@@ -5,7 +5,7 @@ import "openzeppelin-solidity/contracts/utils/math/Math.sol";
 import "./CosmoMatter.sol";
 import "./CosmoSeed.sol";
 import "./CosmoButter.sol";
-import "./CosmoVault.sol";
+//import "./CosmoVault.sol";
 
 import "./SeedAccounts.sol";
 import "./ButterAccounts.sol";
