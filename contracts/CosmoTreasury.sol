@@ -186,7 +186,6 @@ import "./ButterAccounts.sol";
 
                  index++;
             }
-            matterInTreasury = matter.balanceOf(addressOf.treasury);
          }
 
          CosmoButter butter = CosmoButter(Clones.clone(addressOf.butterImplementation));
