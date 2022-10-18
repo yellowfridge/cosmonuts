@@ -8,7 +8,7 @@ import "./CosmoTreasury.sol";
  * A contract created by a CosmoNut which contains a certain amount of matter,
  * and can be drawn by others if the secret is known.
  */
- contract CosmoButter {
+contract CosmoButter {
 
     struct Butter {
         uint256 id;

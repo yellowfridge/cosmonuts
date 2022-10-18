@@ -1,0 +1,244 @@
+{
+  "contractName": "ICosmoBang",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "_name",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "_symbol",
+          "type": "string"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_supply",
+          "type": "uint256"
+        }
+      ],
+      "name": "createCosmo",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "metadata": "{\"compiler\":{\"version\":\"0.8.17+commit.8df45f5f\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"string\",\"name\":\"_name\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"_symbol\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"_supply\",\"type\":\"uint256\"}],\"name\":\"createCosmo\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/ICosmoBang.sol\":\"ICosmoBang\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/ICosmoBang.sol\":{\"keccak256\":\"0xc3f775390aab25aa27870d6f052e177d5795c00c55b60626db8017fd4f03eef2\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://1bc147c2b1bdeed012374b648bf9c737b5c9a06ca9746f026a04172b3fee3efc\",\"dweb:/ipfs/QmbbmQRuT57SRfagM5rJXNKLbXJoEasGMDywrUuf3Y3xRR\"]}},\"version\":1}",
+  "bytecode": "0x",
+  "deployedBytecode": "0x",
+  "immutableReferences": {},
+  "generatedSources": [],
+  "deployedGeneratedSources": [],
+  "sourceMap": "",
+  "deployedSourceMap": "",
+  "source": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.7;\n\ninterface ICosmoBang {\n\n    //function COSMO_ADDRESS() external view returns (address);\n    function createCosmo(\n        string memory _name,\n        string memory _symbol,\n        uint256 _supply\n    ) external returns (address);\n\n}\n",
+  "sourcePath": "/home/redlentils/Seafile/Websites/avatarnft/contracts/ICosmoBang.sol",
+  "ast": {
+    "absolutePath": "project:/contracts/ICosmoBang.sol",
+    "exportedSymbols": {
+      "ICosmoBang": [
+        5725
+      ]
+    },
+    "id": 5726,
+    "license": "MIT",
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 5713,
+        "literals": [
+          "solidity",
+          "^",
+          "0.8",
+          ".7"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "32:23:30"
+      },
+      {
+        "abstract": false,
+        "baseContracts": [],
+        "canonicalName": "ICosmoBang",
+        "contractDependencies": [],
+        "contractKind": "interface",
+        "fullyImplemented": false,
+        "id": 5725,
+        "linearizedBaseContracts": [
+          5725
+        ],
+        "name": "ICosmoBang",
+        "nameLocation": "67:10:30",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "functionSelector": "679d1149",
+            "id": 5724,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "createCosmo",
+            "nameLocation": "158:11:30",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 5720,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 5715,
+                  "mutability": "mutable",
+                  "name": "_name",
+                  "nameLocation": "193:5:30",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 5724,
+                  "src": "179:19:30",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_memory_ptr",
+                    "typeString": "string"
+                  },
+                  "typeName": {
+                    "id": 5714,
+                    "name": "string",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "179:6:30",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage_ptr",
+                      "typeString": "string"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 5717,
+                  "mutability": "mutable",
+                  "name": "_symbol",
+                  "nameLocation": "222:7:30",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 5724,
+                  "src": "208:21:30",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_memory_ptr",
+                    "typeString": "string"
+                  },
+                  "typeName": {
+                    "id": 5716,
+                    "name": "string",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "208:6:30",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage_ptr",
+                      "typeString": "string"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 5719,
+                  "mutability": "mutable",
+                  "name": "_supply",
+                  "nameLocation": "247:7:30",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 5724,
+                  "src": "239:15:30",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 5718,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "239:7:30",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "169:91:30"
+            },
+            "returnParameters": {
+              "id": 5723,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 5722,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nameLocation": "-1:-1:-1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 5724,
+                  "src": "279:7:30",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 5721,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "279:7:30",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "278:9:30"
+            },
+            "scope": 5725,
+            "src": "149:139:30",
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "external"
+          }
+        ],
+        "scope": 5726,
+        "src": "57:234:30",
+        "usedErrors": []
+      }
+    ],
+    "src": "32:260:30"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.8.17+commit.8df45f5f.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "3.4.10",
+  "updatedAt": "2022-10-18T05:13:26.852Z",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {},
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {},
+    "version": 1
+  }
+}

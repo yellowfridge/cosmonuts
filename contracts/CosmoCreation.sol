@@ -7,42 +7,67 @@ import "openzeppelin-solidity/contracts/token/ERC721/extensions/ERC721URIStorage
 import "openzeppelin-solidity/contracts/access/Ownable.sol";
 import "openzeppelin-solidity/contracts/utils/cryptography/ECDSA.sol";
 
-import "./CosmoVault.sol";
+//import "./CosmoVault.sol";
+import "./ICosmoTreasury.sol";
 
 contract CosmoCreation is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
 
-    CosmoVault vault;
+    //CosmoVault vault;
+
+    uint256 public NUTS_INITIAL;
+
+    address public SYSTEM_ADDRESS;
+    address public TREASURY_ADDRESS;
+
+    using ECDSA for bytes32;
 
     constructor(
         string memory _name,
         string memory _symbol,
-        address _vaultAddress
+        uint256 _supply,
+        address _systemAddress,
+        address _treasuryAddress
     )
     ERC721(_name, _symbol)
     {
-        vault = CosmoVault(_vaultAddress);   
+        //vault = CosmoVault(_vaultAddress);
+        NUTS_INITIAL = _supply;
+        SYSTEM_ADDRESS = _systemAddress;
+        TREASURY_ADDRESS = _treasuryAddress;
     }
 
     function _baseURI() internal pure override returns (string memory) {
         return "https://ipfs.io/ipfs/";
     }
 
-    function mintNut(string memory _nutCID) public payable {
-        require(vault.SALE_STATUS(), "Sale must be active");
-        require(totalSupply() < vault.NUTS_INITIAL(), "Exceed initial supply of nuts");
+    function mintNut(uint256 _nutId, string memory _nutCID) public payable {
+        //require(vault.SALE_STATUS(), "Sale must be active");
+        //require(totalSupply() < vault.NUTS_INITIAL(), "Exceed initial supply of nuts");
         //require(NUT_PRICE * _numberOfNuts <= msg.value, "Ether value is not correct");
 
-        _safeMint(vault.TREASURY_ADDRESS(), totalSupply());
+        //_safeMint(vault.TREASURY_ADDRESS(), totalSupply());
+        _safeMint(TREASURY_ADDRESS, totalSupply());
         _setTokenURI(totalSupply(), _nutCID);
-        vault.giveMintBalance(totalSupply());
+        //vault.giveMintBalance(totalSupply());
+        ICosmoTreasury(TREASURY_ADDRESS).assignMintBalance(TREASURY_ADDRESS, _nutId);
     }
 
     function changeTokenURI(uint256 _tokenId, string memory _cidPath, bytes memory _signature) internal {
         require(_isApprovedOrOwner(_msgSender(), _tokenId), "Caller is not owner nor approved");
         bytes32 pathHash = keccak256(abi.encodePacked(_cidPath));
-        require(vault.isVerified(pathHash, _signature), "Data does not match signature");
+        require(isVerified(pathHash, _signature), "Data does not match signature");
 
         _setTokenURI(_tokenId, _cidPath);
+    }
+
+    function signerAddress(bytes32 _hash, bytes memory _signature) internal pure returns (address) {
+        return _hash.recover(_signature);
+    }
+
+    function isVerified(bytes32 _pathHash, bytes memory _signature) internal view returns (bool) {
+        // *Research* - Should you include the following "\x19Ethereum Signed Message:\n32"
+        require(signerAddress(_pathHash, _signature) == SYSTEM_ADDRESS, "Invalid signature");
+        return true;
     }
 
     // ----- The following functions are overrides required by Solidity -----

@@ -2,12 +2,13 @@
 pragma solidity ^0.8.7;
 
 import "./CosmoCreation.sol";
+import "./ICosmoNuts.sol";
 
 /**
  * Main Contract for the NFT tokens.
  * System address resembles the public address of the software application.
  */
- contract CosmoNuts is CosmoCreation {
+ contract CosmoNuts is CosmoCreation, ICosmoNuts {
 
     using ECDSA for bytes32;
 
@@ -16,10 +17,14 @@ import "./CosmoCreation.sol";
         string memory _symbol,
         uint256 _initialNFTSupply,
         address _systemAddress,
-        address _vaultAddress
+        address _treasuryAddress
     )
-        CosmoCreation(_name, _symbol, _vaultAddress)
+        CosmoCreation(_name, _symbol, _initialNFTSupply, _systemAddress, _treasuryAddress)
     {}
+
+    function getOwnerOf(uint256 _nutId) external view virtual override returns (address) {
+        return ownerOf(_nutId);
+    }
 
     // only system address?
     function withdraw() public onlyOwner {
@@ -29,9 +34,11 @@ import "./CosmoCreation.sol";
     }
 
     //only system address?
+    /*
     function turnSaleOn() public onlyOwner {
         vault.lightsOn();
     }
+    */
 
     /*
      * Called from CosmoSeed to mint a new Nut
@@ -39,10 +46,11 @@ import "./CosmoCreation.sol";
     function createNut(
         string memory _cidPath,
         bytes memory _signature
-    ) external {
+    ) external virtual override returns (bool) {
         uint256 mintIndex = totalSupply();
         _safeMint(msg.sender, mintIndex);
         changeTokenURI(mintIndex, _cidPath, _signature);
+        return true;
     }
 
     /**
@@ -57,12 +65,16 @@ import "./CosmoCreation.sol";
         string memory _cidPath,
         bytes memory _signature
         )
-        public payable {
+        public payable returns (bool) {
             require(address(msg.sender) == ownerOf(_nutId), "Caller is not owner of nut");
-            require(totalSupply() >= vault.NUTS_INITIAL(), "Nuts still exist from creation");
+            //require(totalSupply() >= vault.NUTS_INITIAL(), "Nuts still exist from creation");
+            require(totalSupply() >= NUTS_INITIAL, "Nuts still exist from creation");
 
-            vault.newSeed(_nutId, _secretHash);
+            //vault.newSeed(_nutId, _secretHash);
+            ICosmoTreasury(TREASURY_ADDRESS).spawnSeed(_nutId, _secretHash);
             changeTokenURI(_nutId, _cidPath, _signature);
+
+            return true;
     }
 
     /**
@@ -77,11 +89,13 @@ import "./CosmoCreation.sol";
         uint256 _nutId,
         bytes32 _secretHash,
         uint256 _matterContributed,
+        uint256 _matterDrawRate,
         string memory _cidPath,
         bytes memory _signature
     ) public {
         require(address(msg.sender) == ownerOf(_nutId), "Caller is not owner of nut");
-        vault.newButterJar(_nutId, _matterContributed, _secretHash);
+        //vault.newButterJar(_nutId, _matterContributed, _secretHash);
+        ICosmoTreasury(TREASURY_ADDRESS).newButter(_nutId, _matterContributed, _matterDrawRate, _secretHash);
         changeTokenURI(_nutId, _cidPath, _signature);
     }
 
@@ -92,8 +106,9 @@ import "./CosmoCreation.sol";
         uint256 _tokenId,
         string memory _cidPath,
         bytes memory _signature
-        ) external {
+        ) external virtual override returns (bool) {
         changeTokenURI(_tokenId, _cidPath, _signature);
+        return true;
     }
 
 }

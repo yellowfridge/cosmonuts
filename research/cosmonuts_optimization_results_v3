@@ -1,12 +1,14 @@
-ButterAccounts	1.35	1.35
-CosmoBang	23.16	23.16
-CosmoButter	2.49	2.49
-CosmoCreation	15.66	15.66
-CosmoBuilding		24.50
-CosmoMatter	6.41	6.41
-CosmoNuts	18.96	18.96
-CosmoSeed	3.51	3.51
-CosmoTreasury	18.92	18.92
-CosmoUniverse	36.36	36.42
-CosmoVault	23.51	23.51
-SeedAccounts	1.27	1.27
+ButterAccounts	1.35	1.35	1.35
+CosmoBang	23.16	23.16	21.85	0.24	0.24
+CosmoButter	2.49	2.49	2.60	2.62	2.62
+CosmoCreation	15.66	15.66	15.66		15.14
+CosmoBuilding		24.50	24.50
+CosmoBuilder			1.71
+CosmoMatter	6.41	6.41	6.41		6.41
+CosmoNuts	18.96	18.96	18.96	19.05	20.00
+CosmoSeed	3.51	3.51	3.51	3.63	3.65
+CosmoTreasury	18.92	18.92	19.18	19.38
+CosmoUniverse	36.36	36.42	10.92	46.43	47.52
+CosmoVault	23.51	23.51	5.23
+SeedAccounts	1.27	1.27	1.27
+CosmoSystems			50.46

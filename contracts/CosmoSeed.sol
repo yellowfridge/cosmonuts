@@ -1,10 +1,16 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.7;
 
-import "./CosmoVault.sol";
-import "./CosmoNuts.sol";
+//import "./CosmoVault.sol";
+//import "./CosmoNuts.sol";
+import "./ICosmoTreasury.sol";
+import "./ICosmoNuts.sol";
 
-contract CosmoSeed {
+/**
+ * Contract created from a CosmoNut.  This contract holds a set amount of ether.
+ * Ether is unlocked when the predetermined amount of matter is transferred to nut owner.
+ */
+ contract CosmoSeed {
 
     struct Seed {
         uint256 id;
@@ -12,30 +18,35 @@ contract CosmoSeed {
         uint256 heldEther;
         uint256 matterNeeded;
         address location;
-        address nutLocation;
+        address treasuryLocation;
+        address cosmosLocation;
         bytes32 secretHash;
     }
     Seed public seed;
 
-    CosmoNuts nuts;
-    CosmoVault vault;
+    //CosmoNuts nuts;
+    //CosmoVault vault;
 
     constructor(
         uint256 _seedId,
         uint256 _nutId,
-        address _vaultAddress,
+        address _treasuryLocation,
+        address _cosmosLocation,
+        //address _vaultAddress,
         bytes32 _secretHash
     ) payable {
-        address nutLocation = address(msg.sender);
-        nuts = CosmoNuts(nutLocation);
-        vault = CosmoVault(_vaultAddress);
+        //address nutLocation = address(msg.sender);
+        //nuts = CosmoNuts(nutLocation);
+        //vault = CosmoVault(_vaultAddress);
 
         seed.id = _seedId;
         seed.nutId = _nutId;
         seed.heldEther = msg.value;
-        seed.matterNeeded = vault.calcMatterNeeded(_nutId);
+        //seed.matterNeeded = vault.calcMatterNeeded(_nutId);
+        seed.matterNeeded = ICosmoTreasury(_treasuryLocation).matterNeeded(_nutId);
         seed.location = address(this);
-        seed.nutLocation = nutLocation;
+        seed.treasuryLocation = _treasuryLocation;
+        seed.cosmosLocation = _cosmosLocation;
         seed.secretHash = _secretHash;
     }
 
@@ -64,15 +75,19 @@ contract CosmoSeed {
      */
     function spawnNut(string memory _secret, string memory _cidPath, bytes memory _signature) public {
         verifySecret(_secret); // Check whether provided secret is correct
-        vault.growSeedFromNut(seed.id);
-        nuts.createNut(_cidPath, _signature); // Mints the new NFT and assigns to caller
+        //vault.growSeedFromNut(seed.id);
+        ICosmoTreasury(seed.treasuryLocation).seedFromNut(seed.id, seed.matterNeeded);
+        //nuts.createNut(_cidPath, _signature); // Mints the new NFT and assigns to caller
+        ICosmoNuts(seed.cosmosLocation).createNut(_cidPath, _signature);
 
         /**
          * Sending the original set price to Treasury.  This is payment for a new NFT (nut).
          * Consider implication - tax - and decision to keep?
          */
-        uint256 nutPrice = vault.NUT_PRICE();
-        (bool sentToTreasury,/*memory data*/) = vault.TREASURY_ADDRESS().call{
+        //uint256 nutPrice = vault.NUT_PRICE();
+        uint256 nutPrice = ICosmoTreasury(seed.treasuryLocation).getPrice();
+        //(bool sentToTreasury,/*memory data*/) = vault.TREASURY_ADDRESS().call{
+        (bool sentToTreasury,/*memory data*/) = seed.treasuryLocation.call{
             value: nutPrice
         }("");
         require(sentToTreasury, "Ether not sent to Treasury");
@@ -81,7 +96,8 @@ contract CosmoSeed {
          * Sending remaining amount back to current nut owner who created the seed.
          */
         uint256 returnAmount = seed.heldEther - nutPrice;
-        address nutOwner = nuts.ownerOf(seed.nutId);
+        //address nutOwner = nuts.ownerOf(seed.nutId);
+        address nutOwner = ICosmoNuts(seed.cosmosLocation).getOwnerOf(seed.nutId);
         (bool sentToParent,/*memory data*/) = nutOwner.call{
             value: returnAmount
         }("");

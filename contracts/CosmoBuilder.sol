@@ -8,6 +8,9 @@ contract CosmoBuilder {
 
     address public SYSTEM_ADDRESS;
 
+    address private vaultAddress;
+    address private cosmosAddress;
+
     struct Cosmo {
         bool status;
         uint256 id;
@@ -20,41 +23,60 @@ contract CosmoBuilder {
         address vaultLocation;
     }
     Cosmo cosmo;
-    mapping(uint256 => Cosmo) public cosmos;
+    //mapping(uint256 => Cosmo) public cosmos;
 
     //mapping(uint256 => address) bangAddressOfCosmo;
 
-    /*
     constructor(address _systemAddress) {
         SYSTEM_ADDRESS = _systemAddress;
     }
-    */
 
-    //function createVault(address _matterAddress) internal returns (address) {
-    //    CosmoVault vault = new CosmoVault(SYSTEM_ADDRESS, _matterAddress);
-    //    return address(vault);
-    //}
+    function insertSystemInfo(
+        uint256 _id,
+        uint256 _price,
+        uint256 _rate,
+        uint256 _amount,
+        string memory _name,
+        string memory _symbol
+    ) external {
+        cosmo.status = false;
+        cosmo.id = _id;
+        cosmo.price = _price;
+        cosmo.rate =  _rate;
+        cosmo.amount = _amount;
+        cosmo.name = _name;
+        cosmo.symbol = _symbol;
+    }
+
+    function createVault(address _matterAddress) internal returns (address) {
+        CosmoVault vault = new CosmoVault(SYSTEM_ADDRESS, _matterAddress);
+        return address(vault);
+    }
+
 
     // This needs to utilize CosmoBang contract to move away CosmoNuts
+    /*
     function createCosmo(
         //uint256 _id,
-        string memory _name,
-        string memory _symbol,
-        uint256 _amount,
+        //string memory _name,
+        //string memory _symbol,
+        //uint256 _amount,
         address _matterAddress
-    ) internal returns (address) {
-        CosmoVault vault = new CosmoVault(SYSTEM_ADDRESS, _matterAddress);
+    ) external returns (address) {
+        //CosmoVault vault = new CosmoVault(SYSTEM_ADDRESS, _matterAddress);
+        vaultAddress = createVault(_matterAddress);
 
-        CosmoBang bang = new CosmoBang(
-            _name, _symbol, _amount, SYSTEM_ADDRESS, address(vault)
-        );
+        //CosmoBang bang = new CosmoBang(
+        //    _name, _symbol, _amount, SYSTEM_ADDRESS, vaultAddress
+        //);
 
         //bangAddressOfCosmo[_id] = address(bang);
 
-        bang.nutBang();
+        //bang.nutBang();
 
-        return bang.COSMO_ADDRESS();
+        return address(bang);
     }
+    */
 
 
 }
