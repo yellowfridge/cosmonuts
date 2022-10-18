@@ -2,6 +2,7 @@
 pragma solidity ^0.8.7;
 
 import "./CosmoNuts.sol";
+import "./ICosmoNuts.sol";
 import "./CosmoTreasury.sol";
 import "./ICosmoBang.sol";
 
@@ -39,6 +40,7 @@ contract CosmoBang is ICosmoBang {
             cosmo.systemAddress,
             _treasuryLocation
         );
+        ICosmoNuts(address(nuts)).createVault();
 
         return address(nuts);
     }
