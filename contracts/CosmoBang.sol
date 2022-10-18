@@ -1,6 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.7;
 
+import { Clones } from "openzeppelin-solidity/contracts/proxy/Clones.sol";
+
 import "./CosmoNuts.sol";
 import "./ICosmoNuts.sol";
 import "./CosmoTreasury.sol";
@@ -11,6 +13,7 @@ contract CosmoBang is ICosmoBang {
     struct Cosmo {
         address systemAddress;
         address matterAddress;
+        address treasuryImplementation;
     }
     Cosmo cosmo;
 
@@ -23,7 +26,12 @@ contract CosmoBang is ICosmoBang {
     }
 
     function createTreasury() internal returns (address) {
-        CosmoTreasury treasury = new CosmoTreasury(cosmo.systemAddress, cosmo.matterAddress);
+        //CosmoTreasury treasury = new CosmoTreasury(cosmo.systemAddress, cosmo.matterAddress);
+        CosmoTreasury treasury = CosmoTreasury(Clones.clone(cosmo.treasuryImplementation));
+        treasury.initialize(
+            cosmo.systemAddress,
+            cosmo.matterAddress
+        );
         return address(treasury);
     }
 

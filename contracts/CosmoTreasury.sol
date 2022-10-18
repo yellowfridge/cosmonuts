@@ -17,7 +17,7 @@ import "./ButterAccounts.sol";
  * ERC20 Token to mint, burn, and allocate balances
  * Acts as storage for the ERC 721 tokens on their created Seed and Butter contracts.
  */
- contract CosmoTreasury is SeedAccounts, ButterAccounts, ICosmoTreasury {
+contract CosmoTreasury is SeedAccounts, ButterAccounts, ICosmoTreasury {
 
      /**
       * @dev Saved addresses include the contract which created the Treasury: UNIVERSE_ADDRESS, and
@@ -47,7 +47,14 @@ import "./ButterAccounts.sol";
      /**
       *
       */
+      /*
      constructor(address _systemAddress, address _matterAddress) {
+         addressOf.system = _systemAddress;
+         addressOf.matter = _matterAddress;
+         addressOf.treasury = address(this);
+     }
+     */
+     function initialize(address _systemAddress, address _matterAddress) external {
          addressOf.system = _systemAddress;
          addressOf.matter = _matterAddress;
          addressOf.treasury = address(this);
