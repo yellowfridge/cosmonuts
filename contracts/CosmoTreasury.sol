@@ -67,6 +67,10 @@ import "./ButterAccounts.sol";
      //    NUT_PRICE = _setNutPrice;
      //}
 
+     function getVaultLocation() public virtual override returns (address) {
+        return ICosmoNuts(addressOf.cosmos).vaultLocation();
+     }
+
      function getPrice() public view virtual override returns (uint256) {
          return nut.price;
      }

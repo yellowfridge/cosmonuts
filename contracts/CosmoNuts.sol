@@ -23,6 +23,10 @@ import "./ICosmoVault.sol";
         CosmoCreation(_name, _symbol, _initialNFTSupply, _systemAddress, _treasuryAddress)
     {}
 
+    function vaultLocation() public view override returns (address) {
+        return creation.vault;
+    }
+
     function setTokenURI(uint256 _nutId, string memory _nutCID) external virtual override {
         _setTokenURI(_nutId, _nutCID);
     }
@@ -107,6 +111,7 @@ import "./ICosmoVault.sol";
     /**
      * Called by CosmoButter when some matter is drawn from the contract.
      */
+     /*
     function spreadButter(
         uint256 _tokenId,
         string memory _cidPath,
@@ -117,5 +122,6 @@ import "./ICosmoVault.sol";
         );
         return true;
     }
+    */
 
 }

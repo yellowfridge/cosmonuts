@@ -1,7 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.7;
 
-import "./ICosmoNuts.sol";
+//import "./ICosmoNuts.sol";
+import "./ICosmoVault.sol";
 import "./ICosmoTreasury.sol";
 
 /**
@@ -46,6 +47,18 @@ contract CosmoButter {
         _;
     }
 
+    function spreadButter(
+        uint256 _nutId,
+        string memory _cidPath,
+        bytes memory _signature
+    ) internal returns (bool) {
+        address vaultAddress = ICosmoTreasury(butter.treasury).getVaultLocation();
+        ICosmoVault(vaultAddress).changeTokenURI(
+            _nutId, _cidPath, _signature
+        );
+        return true;
+    }
+
     /**
      * Function callable from anyone, but can only be done once per Ethereum address.
      */
@@ -57,7 +70,8 @@ contract CosmoButter {
         butter.amount -= butter.drawRate;
         butter.drawnBefore[msg.sender] = true;
 
-        ICosmoNuts(butter.nutLocation).spreadButter(butter.nutId, _cidPath, _signature);
+        //ICosmoNuts(butter.nutLocation).spreadButter(butter.nutId, _cidPath, _signature);
+        spreadButter(butter.nutId, _cidPath, _signature);
     }
 
     /**
