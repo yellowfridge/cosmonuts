@@ -22,9 +22,9 @@ contract CosmoNuts is CosmoCreation, ICosmoNuts {
         CosmoCreation(_name, _symbol, _initialNFTSupply, _systemAddress, _treasuryAddress)
     {}
 
-    function getOwnerOf(uint256 _nutId) external view virtual override returns (address) {
+    function getOwnerOf(uint256 _nutId) public view virtual override returns (address) {
         return ownerOf(_nutId);
-    }
+    }  
 
     // only system address?
     function withdraw() public onlyOwner {

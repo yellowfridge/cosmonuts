@@ -12,8 +12,6 @@ import "./ICosmoTreasury.sol";
 import "./SeedAccounts.sol";
 import "./ButterAccounts.sol";
 
-// WILL ATTEMPT TO CLONE FACTORY HERE FOR COSMOSEED AND COSMOBUTTER
-
 /**
  * @dev Manages the matter balance of the CosmoNuts collection and handles interaction with the
  * ERC20 Token to mint, burn, and allocate balances
