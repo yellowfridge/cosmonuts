@@ -9,7 +9,7 @@ import "./ICosmoVault.sol";
  * Main Contract for the NFT tokens.
  * System address resembles the public address of the software application.
  */
- contract CosmoNuts is CosmoCreation, ICosmoNuts {
+contract CosmoNuts is CosmoCreation, ICosmoNuts {
 
     using ECDSA for bytes32;
 
@@ -107,21 +107,5 @@ import "./ICosmoVault.sol";
             _nutId, _cidPath, _signature
         );
     }
-
-    /**
-     * Called by CosmoButter when some matter is drawn from the contract.
-     */
-     /*
-    function spreadButter(
-        uint256 _tokenId,
-        string memory _cidPath,
-        bytes memory _signature
-        ) external virtual override returns (bool) {
-        ICosmoVault(creation.vault).changeTokenURI(
-            _tokenId, _cidPath, _signature
-        );
-        return true;
-    }
-    */
 
 }

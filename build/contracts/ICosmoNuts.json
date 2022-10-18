@@ -89,7 +89,7 @@
       "type": "function"
     }
   ],
-  "metadata": "{\"compiler\":{\"version\":\"0.8.17+commit.8df45f5f\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"string\",\"name\":\"_cidPath\",\"type\":\"string\"},{\"internalType\":\"bytes\",\"name\":\"_signature\",\"type\":\"bytes\"}],\"name\":\"createNut\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"createVault\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_nutId\",\"type\":\"uint256\"}],\"name\":\"getOwnerOf\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_nutId\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"_nutCID\",\"type\":\"string\"}],\"name\":\"setTokenURI\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"vaultLocation\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/ICosmoNuts.sol\":\"ICosmoNuts\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/ICosmoNuts.sol\":{\"keccak256\":\"0x980236abd4342579d1a719f82a9fe81393a82909dd53587d1cae3838bd7434b6\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://81c64395208217db39f4db30ec0f952caf9c2f50fd839c6258d6a03594dd9000\",\"dweb:/ipfs/QmZG8cqQhwcDD3GrzMXHEytwz72uuy6DvuMZEbnE9FajSZ\"]}},\"version\":1}",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.17+commit.8df45f5f\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"string\",\"name\":\"_cidPath\",\"type\":\"string\"},{\"internalType\":\"bytes\",\"name\":\"_signature\",\"type\":\"bytes\"}],\"name\":\"createNut\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"createVault\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_nutId\",\"type\":\"uint256\"}],\"name\":\"getOwnerOf\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_nutId\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"_nutCID\",\"type\":\"string\"}],\"name\":\"setTokenURI\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"vaultLocation\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/ICosmoNuts.sol\":\"ICosmoNuts\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/ICosmoNuts.sol\":{\"keccak256\":\"0x01a53c07c0b9f4853f634c08e30d833405e4bd0742a62fc8e140453fff15ecb4\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://c22d9d1bd8cb815e9c8379b4ad513791a6ba3c77509150850144fef81b7d6017\",\"dweb:/ipfs/QmPeg4GCjQBDCsj16fn2s5Xp9EsXPnfh7sRocJUconUDeg\"]}},\"version\":1}",
   "bytecode": "0x",
   "deployedBytecode": "0x",
   "immutableReferences": {},
@@ -97,7 +97,7 @@
   "deployedGeneratedSources": [],
   "sourceMap": "",
   "deployedSourceMap": "",
-  "source": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.7;\n\ninterface ICosmoNuts {\n\n    function createNut(\n        string memory _cidPath,\n        bytes memory _signature\n    ) external returns (bool);\n\n    /*\n    function spreadButter(\n        uint256 _tokenId,\n        string memory _cidPath,\n        bytes memory _signature\n    ) external returns (bool);\n    */\n\n    function getOwnerOf(uint256 _nutId) external view returns (address);\n\n    function setTokenURI(uint256 _nutId, string memory _nutCID) external;\n\n    function createVault() external returns (address);\n\n    function vaultLocation() external returns (address);\n\n}\n",
+  "source": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.7;\n\ninterface ICosmoNuts {\n\n    function createNut(\n        string memory _cidPath,\n        bytes memory _signature\n    ) external returns (bool);\n\n    function getOwnerOf(uint256 _nutId) external view returns (address);\n\n    function setTokenURI(uint256 _nutId, string memory _nutCID) external;\n\n    function createVault() external returns (address);\n\n    function vaultLocation() external returns (address);\n\n}\n",
   "sourcePath": "/home/redlentils/Seafile/Websites/avatarnft/contracts/ICosmoNuts.sol",
   "ast": {
     "absolutePath": "project:/contracts/ICosmoNuts.sol",
@@ -253,7 +253,7 @@
             "kind": "function",
             "modifiers": [],
             "name": "getOwnerOf",
-            "nameLocation": "377:10:31",
+            "nameLocation": "214:10:31",
             "nodeType": "FunctionDefinition",
             "parameters": {
               "id": 5723,
@@ -264,10 +264,10 @@
                   "id": 5722,
                   "mutability": "mutable",
                   "name": "_nutId",
-                  "nameLocation": "396:6:31",
+                  "nameLocation": "233:6:31",
                   "nodeType": "VariableDeclaration",
                   "scope": 5727,
-                  "src": "388:14:31",
+                  "src": "225:14:31",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -278,7 +278,7 @@
                     "id": 5721,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "388:7:31",
+                    "src": "225:7:31",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -287,7 +287,7 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "387:16:31"
+              "src": "224:16:31"
             },
             "returnParameters": {
               "id": 5726,
@@ -301,7 +301,7 @@
                   "nameLocation": "-1:-1:-1",
                   "nodeType": "VariableDeclaration",
                   "scope": 5727,
-                  "src": "427:7:31",
+                  "src": "264:7:31",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -312,7 +312,7 @@
                     "id": 5724,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "427:7:31",
+                    "src": "264:7:31",
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -322,10 +322,10 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "426:9:31"
+              "src": "263:9:31"
             },
             "scope": 5745,
-            "src": "368:68:31",
+            "src": "205:68:31",
             "stateMutability": "view",
             "virtual": false,
             "visibility": "external"
@@ -337,7 +337,7 @@
             "kind": "function",
             "modifiers": [],
             "name": "setTokenURI",
-            "nameLocation": "451:11:31",
+            "nameLocation": "288:11:31",
             "nodeType": "FunctionDefinition",
             "parameters": {
               "id": 5732,
@@ -348,10 +348,10 @@
                   "id": 5729,
                   "mutability": "mutable",
                   "name": "_nutId",
-                  "nameLocation": "471:6:31",
+                  "nameLocation": "308:6:31",
                   "nodeType": "VariableDeclaration",
                   "scope": 5734,
-                  "src": "463:14:31",
+                  "src": "300:14:31",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -362,7 +362,7 @@
                     "id": 5728,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "463:7:31",
+                    "src": "300:7:31",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -375,10 +375,10 @@
                   "id": 5731,
                   "mutability": "mutable",
                   "name": "_nutCID",
-                  "nameLocation": "493:7:31",
+                  "nameLocation": "330:7:31",
                   "nodeType": "VariableDeclaration",
                   "scope": 5734,
-                  "src": "479:21:31",
+                  "src": "316:21:31",
                   "stateVariable": false,
                   "storageLocation": "memory",
                   "typeDescriptions": {
@@ -389,7 +389,7 @@
                     "id": 5730,
                     "name": "string",
                     "nodeType": "ElementaryTypeName",
-                    "src": "479:6:31",
+                    "src": "316:6:31",
                     "typeDescriptions": {
                       "typeIdentifier": "t_string_storage_ptr",
                       "typeString": "string"
@@ -398,16 +398,16 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "462:39:31"
+              "src": "299:39:31"
             },
             "returnParameters": {
               "id": 5733,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "510:0:31"
+              "src": "347:0:31"
             },
             "scope": 5745,
-            "src": "442:69:31",
+            "src": "279:69:31",
             "stateMutability": "nonpayable",
             "virtual": false,
             "visibility": "external"
@@ -419,13 +419,13 @@
             "kind": "function",
             "modifiers": [],
             "name": "createVault",
-            "nameLocation": "526:11:31",
+            "nameLocation": "363:11:31",
             "nodeType": "FunctionDefinition",
             "parameters": {
               "id": 5735,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "537:2:31"
+              "src": "374:2:31"
             },
             "returnParameters": {
               "id": 5738,
@@ -439,7 +439,7 @@
                   "nameLocation": "-1:-1:-1",
                   "nodeType": "VariableDeclaration",
                   "scope": 5739,
-                  "src": "558:7:31",
+                  "src": "395:7:31",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -450,7 +450,7 @@
                     "id": 5736,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "558:7:31",
+                    "src": "395:7:31",
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -460,10 +460,10 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "557:9:31"
+              "src": "394:9:31"
             },
             "scope": 5745,
-            "src": "517:50:31",
+            "src": "354:50:31",
             "stateMutability": "nonpayable",
             "virtual": false,
             "visibility": "external"
@@ -475,13 +475,13 @@
             "kind": "function",
             "modifiers": [],
             "name": "vaultLocation",
-            "nameLocation": "582:13:31",
+            "nameLocation": "419:13:31",
             "nodeType": "FunctionDefinition",
             "parameters": {
               "id": 5740,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "595:2:31"
+              "src": "432:2:31"
             },
             "returnParameters": {
               "id": 5743,
@@ -495,7 +495,7 @@
                   "nameLocation": "-1:-1:-1",
                   "nodeType": "VariableDeclaration",
                   "scope": 5744,
-                  "src": "616:7:31",
+                  "src": "453:7:31",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -506,7 +506,7 @@
                     "id": 5741,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "616:7:31",
+                    "src": "453:7:31",
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -516,21 +516,21 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "615:9:31"
+              "src": "452:9:31"
             },
             "scope": 5745,
-            "src": "573:52:31",
+            "src": "410:52:31",
             "stateMutability": "nonpayable",
             "virtual": false,
             "visibility": "external"
           }
         ],
         "scope": 5746,
-        "src": "57:571:31",
+        "src": "57:408:31",
         "usedErrors": []
       }
     ],
-    "src": "32:597:31"
+    "src": "32:434:31"
   },
   "compiler": {
     "name": "solc",
@@ -538,7 +538,7 @@
   },
   "networks": {},
   "schemaVersion": "3.4.10",
-  "updatedAt": "2022-10-18T19:38:54.436Z",
+  "updatedAt": "2022-10-18T19:44:29.958Z",
   "devdoc": {
     "kind": "dev",
     "methods": {},
