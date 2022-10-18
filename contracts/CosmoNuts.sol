@@ -3,6 +3,7 @@ pragma solidity ^0.8.7;
 
 import "./CosmoCreation.sol";
 import "./ICosmoNuts.sol";
+import "./ICosmoVault.sol";
 
 /**
  * Main Contract for the NFT tokens.
@@ -22,9 +23,17 @@ contract CosmoNuts is CosmoCreation, ICosmoNuts {
         CosmoCreation(_name, _symbol, _initialNFTSupply, _systemAddress, _treasuryAddress)
     {}
 
+    function setTokenURI(uint256 _nutId, string memory _nutCID) external virtual override {
+        _setTokenURI(_nutId, _nutCID);
+    }
+
     function getOwnerOf(uint256 _nutId) public view virtual override returns (address) {
         return ownerOf(_nutId);
-    }  
+    }
+
+    function createVault() external virtual override returns (address) {
+        return openVault(SYSTEM_ADDRESS, address(this));
+    }
 
     // only system address?
     function withdraw() public onlyOwner {
@@ -49,7 +58,10 @@ contract CosmoNuts is CosmoCreation, ICosmoNuts {
     ) external virtual override returns (bool) {
         uint256 mintIndex = totalSupply();
         _safeMint(msg.sender, mintIndex);
-        changeTokenURI(mintIndex, _cidPath, _signature);
+        //changeTokenURI(mintIndex, _cidPath, _signature);
+        ICosmoVault(VAULT_ADDRESS).changeTokenURI(
+            mintIndex, _cidPath, _signature
+        );
         return true;
     }
 
@@ -70,7 +82,10 @@ contract CosmoNuts is CosmoCreation, ICosmoNuts {
             require(totalSupply() >= NUTS_INITIAL, "Nuts still exist from creation");
 
             ICosmoTreasury(TREASURY_ADDRESS).spawnSeed(_nutId, _secretHash);
-            changeTokenURI(_nutId, _cidPath, _signature);
+            //changeTokenURI(_nutId, _cidPath, _signature);
+            ICosmoVault(VAULT_ADDRESS).changeTokenURI(
+                _nutId, _cidPath, _signature
+            );
 
             return true;
     }
@@ -93,7 +108,10 @@ contract CosmoNuts is CosmoCreation, ICosmoNuts {
     ) public {
         require(address(msg.sender) == ownerOf(_nutId), "Caller is not owner of nut");
         ICosmoTreasury(TREASURY_ADDRESS).newButter(_nutId, _matterContributed, _matterDrawRate, _secretHash);
-        changeTokenURI(_nutId, _cidPath, _signature);
+        //changeTokenURI(_nutId, _cidPath, _signature);
+        ICosmoVault(VAULT_ADDRESS).changeTokenURI(
+            _nutId, _cidPath, _signature
+        );
     }
 
     /**
@@ -104,7 +122,10 @@ contract CosmoNuts is CosmoCreation, ICosmoNuts {
         string memory _cidPath,
         bytes memory _signature
         ) external virtual override returns (bool) {
-        changeTokenURI(_tokenId, _cidPath, _signature);
+        //changeTokenURI(_tokenId, _cidPath, _signature);
+        ICosmoVault(VAULT_ADDRESS).changeTokenURI(
+            _tokenId, _cidPath, _signature
+        );
         return true;
     }
 

@@ -6,8 +6,10 @@ import "openzeppelin-solidity/contracts/token/ERC721/extensions/ERC721Enumerable
 import "openzeppelin-solidity/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "openzeppelin-solidity/contracts/access/Ownable.sol";
 import "openzeppelin-solidity/contracts/utils/cryptography/ECDSA.sol";
+import { Clones } from "openzeppelin-solidity/contracts/proxy/Clones.sol";
 
 import "./ICosmoTreasury.sol";
+import "./CosmoVault.sol";
 
 contract CosmoCreation is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
 
@@ -15,6 +17,9 @@ contract CosmoCreation is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
 
     address public SYSTEM_ADDRESS;
     address public TREASURY_ADDRESS;
+    address public VAULT_ADDRESS;
+
+    address public vaultImplementation;
 
     using ECDSA for bytes32;
 
@@ -36,6 +41,16 @@ contract CosmoCreation is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
         return "https://ipfs.io/ipfs/";
     }
 
+    function openVault(
+        address _systemAddress,
+        address _matterAddress
+    ) internal returns (address) {
+        CosmoVault vault = CosmoVault(Clones.clone(vaultImplementation));
+        vault.initialize(_systemAddress, _matterAddress);
+        VAULT_ADDRESS = address(vault);
+        return VAULT_ADDRESS;
+    }
+
     function mintNut(uint256 _nutId, string memory _nutCID) public payable {
         //require(vault.SALE_STATUS(), "Sale must be active");
         //require(totalSupply() < vault.NUTS_INITIAL(), "Exceed initial supply of nuts");
@@ -46,6 +61,8 @@ contract CosmoCreation is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
         ICosmoTreasury(TREASURY_ADDRESS).assignMintBalance(TREASURY_ADDRESS, _nutId);
     }
 
+    // **** TRY MOVING THREE BELOW TO ANOTHER CONTRACT - DOES IT HELP?
+    /*
     function changeTokenURI(uint256 _tokenId, string memory _cidPath, bytes memory _signature) internal {
         require(_isApprovedOrOwner(_msgSender(), _tokenId), "Caller is not owner nor approved");
         bytes32 pathHash = keccak256(abi.encodePacked(_cidPath));
@@ -63,6 +80,7 @@ contract CosmoCreation is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
         require(signerAddress(_pathHash, _signature) == SYSTEM_ADDRESS, "Invalid signature");
         return true;
     }
+    */
 
     // ----- The following functions are overrides required by Solidity -----
     function _beforeTokenTransfer(address from, address to, uint256 tokenId) internal override(ERC721, ERC721Enumerable) {

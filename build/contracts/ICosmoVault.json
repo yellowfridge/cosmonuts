@@ -1,0 +1,209 @@
+{
+  "contractName": "ICosmoVault",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_tokenId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "string",
+          "name": "_cidPath",
+          "type": "string"
+        },
+        {
+          "internalType": "bytes",
+          "name": "_signature",
+          "type": "bytes"
+        }
+      ],
+      "name": "changeTokenURI",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "metadata": "{\"compiler\":{\"version\":\"0.8.17+commit.8df45f5f\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_tokenId\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"_cidPath\",\"type\":\"string\"},{\"internalType\":\"bytes\",\"name\":\"_signature\",\"type\":\"bytes\"}],\"name\":\"changeTokenURI\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/ICosmoVault.sol\":\"ICosmoVault\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/ICosmoVault.sol\":{\"keccak256\":\"0x685f58f7a57677b25318014886a713d033cd38539592a4fcecff3ca182157225\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://182e1c096920a4414a1c1e3f12c438d7ada54717469ff0b9a71f19b0a5016b51\",\"dweb:/ipfs/QmXrNkuYyFjeJ6AXx8VFvwk8KKuD38MgKtwYQqCoYJFqM9\"]}},\"version\":1}",
+  "bytecode": "0x",
+  "deployedBytecode": "0x",
+  "immutableReferences": {},
+  "generatedSources": [],
+  "deployedGeneratedSources": [],
+  "sourceMap": "",
+  "deployedSourceMap": "",
+  "source": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.7;\n\ninterface ICosmoVault {\n\n    function changeTokenURI(\n        uint256 _tokenId,\n        string memory _cidPath,\n        bytes memory _signature\n    ) external;\n\n}\n",
+  "sourcePath": "/home/redlentils/Seafile/Websites/avatarnft/contracts/ICosmoVault.sol",
+  "ast": {
+    "absolutePath": "project:/contracts/ICosmoVault.sol",
+    "exportedSymbols": {
+      "ICosmoVault": [
+        5729
+      ]
+    },
+    "id": 5730,
+    "license": "MIT",
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 5719,
+        "literals": [
+          "solidity",
+          "^",
+          "0.8",
+          ".7"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "32:23:33"
+      },
+      {
+        "abstract": false,
+        "baseContracts": [],
+        "canonicalName": "ICosmoVault",
+        "contractDependencies": [],
+        "contractKind": "interface",
+        "fullyImplemented": false,
+        "id": 5729,
+        "linearizedBaseContracts": [
+          5729
+        ],
+        "name": "ICosmoVault",
+        "nameLocation": "67:11:33",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "functionSelector": "bd6af009",
+            "id": 5728,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "changeTokenURI",
+            "nameLocation": "95:14:33",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 5726,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 5721,
+                  "mutability": "mutable",
+                  "name": "_tokenId",
+                  "nameLocation": "127:8:33",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 5728,
+                  "src": "119:16:33",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 5720,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "119:7:33",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 5723,
+                  "mutability": "mutable",
+                  "name": "_cidPath",
+                  "nameLocation": "159:8:33",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 5728,
+                  "src": "145:22:33",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_memory_ptr",
+                    "typeString": "string"
+                  },
+                  "typeName": {
+                    "id": 5722,
+                    "name": "string",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "145:6:33",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage_ptr",
+                      "typeString": "string"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 5725,
+                  "mutability": "mutable",
+                  "name": "_signature",
+                  "nameLocation": "190:10:33",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 5728,
+                  "src": "177:23:33",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes_memory_ptr",
+                    "typeString": "bytes"
+                  },
+                  "typeName": {
+                    "id": 5724,
+                    "name": "bytes",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "177:5:33",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes_storage_ptr",
+                      "typeString": "bytes"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "109:97:33"
+            },
+            "returnParameters": {
+              "id": 5727,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "215:0:33"
+            },
+            "scope": 5729,
+            "src": "86:130:33",
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "external"
+          }
+        ],
+        "scope": 5730,
+        "src": "57:162:33",
+        "usedErrors": []
+      }
+    ],
+    "src": "32:188:33"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.8.17+commit.8df45f5f.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "3.4.10",
+  "updatedAt": "2022-10-18T13:48:46.576Z",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {},
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {},
+    "version": 1
+  }
+}
