@@ -2,6 +2,8 @@
 pragma solidity ^0.8.7;
 
 import "openzeppelin-solidity/contracts/utils/math/Math.sol";
+import { Clones } from "openzeppelin-solidity/contracts/proxy/Clones.sol";
+
 import "./CosmoMatter.sol";
 import "./CosmoSeed.sol";
 import "./CosmoButter.sol";
@@ -9,6 +11,8 @@ import "./ICosmoTreasury.sol";
 
 import "./SeedAccounts.sol";
 import "./ButterAccounts.sol";
+
+// WILL ATTEMPT TO CLONE FACTORY HERE FOR COSMOSEED AND COSMOBUTTER
 
 /**
  * @dev Manages the matter balance of the CosmoNuts collection and handles interaction with the
@@ -26,6 +30,8 @@ contract CosmoTreasury is SeedAccounts, ButterAccounts, ICosmoTreasury {
         address matter;
         address treasury;
         address cosmos;
+        address seedImplementation;
+        address butterImplementation;
     }
     AddressOf public addressOf;
 
@@ -83,9 +89,17 @@ contract CosmoTreasury is SeedAccounts, ButterAccounts, ICosmoTreasury {
         uint256 matterOfOwner = matter.balanceOf(currentOwnerOfNut[_nutId]);
         require(matterOfOwner >= matterToBurn, "Matter balance is not enough");
 
+        CosmoSeed cosmoseed = CosmoSeed(Clones.clone(addressOf.seedImplementation));
+        cosmoseed.initialize(
+            seedsCreated, _nutId, address(this), addressOf.cosmos, _secretHash
+        );
+
+        /*
         CosmoSeed cosmoseed = new CosmoSeed(
             seedsCreated, _nutId, address(this), addressOf.cosmos, _secretHash
         );
+        */
+
         address seedLocation = address(cosmoseed);
         integrateSeed(_nutId, seedsCreated, seedLocation);
 
@@ -183,9 +197,16 @@ contract CosmoTreasury is SeedAccounts, ButterAccounts, ICosmoTreasury {
            matterInTreasury = matter.balanceOf(addressOf.treasury);
         }
 
+        /*
         CosmoButter butter = new CosmoButter(
             butterJars, _nutId, _matterContributed, _matterDrawRate, addressOf.treasury, _secretHash
         );
+        */
+        CosmoButter butter = CosmoButter(Clones.clone(addressOf.butterImplementation));
+        butter.initialize(
+            butterJars, _nutId, _matterContributed, _matterDrawRate, addressOf.treasury, _secretHash
+        );
+
         matter.transfer(address(butter), _matterContributed);
         churnButter(_nutId, butterJars, address(butter), _matterContributed);
 
