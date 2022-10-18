@@ -22,13 +22,6 @@ contract CosmoCreation is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
     }
     Creation public creation;
 
-    //uint256 public NUTS_INITIAL;
-    //address public SYSTEM_ADDRESS;
-    //address public TREASURY_ADDRESS;
-    //address public VAULT_ADDRESS;
-
-    //address public vaultImplementation;
-
     using ECDSA for bytes32;
 
     constructor(
@@ -43,9 +36,6 @@ contract CosmoCreation is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
         creation.initialSupply = _supply;
         creation.system = _systemAddress;
         creation.treasury = _treasuryAddress;
-        //NUTS_INITIAL = _supply;
-        //SYSTEM_ADDRESS = _systemAddress;
-        //TREASURY_ADDRESS = _treasuryAddress;
     }
 
     function _baseURI() internal pure override returns (string memory) {
@@ -57,7 +47,6 @@ contract CosmoCreation is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
     ) internal returns (address) {
         CosmoVault vault = CosmoVault(Clones.clone(creation.vaultImplementation));
         vault.initialize(creation.system, _cosmosAddress);
-        //VAULT_ADDRESS = address(vault);
         creation.vault = address(vault);
         return creation.vault;
     }

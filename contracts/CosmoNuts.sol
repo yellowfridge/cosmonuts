@@ -32,7 +32,6 @@ import "./ICosmoVault.sol";
     }
 
     function createVault() external virtual override returns (address) {
-        //return openVault(SYSTEM_ADDRESS, address(this));
         return openVault(address(this));
     }
 
@@ -52,7 +51,6 @@ import "./ICosmoVault.sol";
     ) external virtual override returns (bool) {
         uint256 mintIndex = totalSupply();
         _safeMint(msg.sender, mintIndex);
-        //ICosmoVault(VAULT_ADDRESS).changeTokenURI(
         ICosmoVault(creation.vault).changeTokenURI(
             mintIndex, _cidPath, _signature
         );
@@ -73,12 +71,9 @@ import "./ICosmoVault.sol";
         )
         public payable returns (bool) {
             require(address(msg.sender) == ownerOf(_nutId), "Caller is not owner of nut");
-            //require(totalSupply() >= NUTS_INITIAL, "Nuts still exist from creation");
             require(totalSupply() >= creation.initialSupply, "Nuts still exist from creation");
 
-            //ICosmoTreasury(TREASURY_ADDRESS).spawnSeed(_nutId, _secretHash);
             ICosmoTreasury(creation.treasury).spawnSeed(_nutId, _secretHash);
-            //ICosmoVault(VAULT_ADDRESS).changeTokenURI(
             ICosmoVault(creation.vault).changeTokenURI(
                 _nutId, _cidPath, _signature
             );
@@ -103,9 +98,7 @@ import "./ICosmoVault.sol";
         bytes memory _signature
     ) public {
         require(address(msg.sender) == ownerOf(_nutId), "Caller is not owner of nut");
-        //ICosmoTreasury(TREASURY_ADDRESS).newButter(_nutId, _matterContributed, _matterDrawRate, _secretHash);
         ICosmoTreasury(creation.treasury).newButter(_nutId, _matterContributed, _matterDrawRate, _secretHash);
-        //ICosmoVault(VAULT_ADDRESS).changeTokenURI(
         ICosmoVault(creation.vault).changeTokenURI(
             _nutId, _cidPath, _signature
         );
@@ -119,7 +112,6 @@ import "./ICosmoVault.sol";
         string memory _cidPath,
         bytes memory _signature
         ) external virtual override returns (bool) {
-        //ICosmoVault(VAULT_ADDRESS).changeTokenURI(
         ICosmoVault(creation.vault).changeTokenURI(
             _tokenId, _cidPath, _signature
         );
