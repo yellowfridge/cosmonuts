@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.7;
 
-import "./CosmoNuts.sol";
-import "./CosmoTreasury.sol";
+import "./ICosmoNuts.sol";
+import "./ICosmoTreasury.sol";
 
 /**
  * A contract created by a CosmoNut which contains a certain amount of matter,
@@ -16,14 +16,12 @@ contract CosmoButter {
         uint256 amount;
         uint256 drawRate;
         address location;
+        address treasury;
         address nutLocation;
         bytes32 secretHash;
         mapping(address => bool) drawnBefore;
     }
     Butter butter;
-
-    CosmoNuts nuts;
-    CosmoTreasury treasury;
 
     constructor(
         uint256 _butterId,
@@ -38,11 +36,9 @@ contract CosmoButter {
         butter.amount = _butterAmount;
         butter.drawRate = _drawRate;
         butter.location = address(this);
+        butter.treasury = _treasuryAddress;
         butter.nutLocation = address(msg.sender);
         butter.secretHash = _secretHash;
-
-        nuts = CosmoNuts(butter.nutLocation);
-        treasury = CosmoTreasury(_treasuryAddress);
     }
 
     modifier onlyOnce {
@@ -57,11 +53,11 @@ contract CosmoButter {
         require(butter.amount > 0 wei, "No butter to draw");
         verifySecret(_secret);
 
-        treasury.butterDrawn(msg.sender, butter.id, butter.drawRate, butter.amount);
+        ICosmoTreasury(butter.treasury).butterDrawn(msg.sender, butter.id, butter.drawRate, butter.amount);
         butter.amount -= butter.drawRate;
         butter.drawnBefore[msg.sender] = true;
 
-        nuts.spreadButter(butter.nutId, _cidPath, _signature);
+        ICosmoNuts(butter.nutLocation).spreadButter(butter.nutId, _cidPath, _signature);
     }
 
     /**
