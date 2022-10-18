@@ -26,7 +26,6 @@ contract CosmoVault is ICosmoVault {
         bytes32 pathHash = keccak256(abi.encodePacked(_cidPath));
         require(isVerified(pathHash, _signature), "Data does not match signature");
 
-        //_setTokenURI(_tokenId, _cidPath);
         ICosmoNuts(vault.cosmos).setTokenURI(_tokenId, _cidPath);
     }
 

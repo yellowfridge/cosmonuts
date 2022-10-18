@@ -26,7 +26,6 @@ contract CosmoBang is ICosmoBang {
     }
 
     function createTreasury() internal returns (address) {
-        //CosmoTreasury treasury = new CosmoTreasury(cosmo.systemAddress, cosmo.matterAddress);
         CosmoTreasury treasury = CosmoTreasury(Clones.clone(cosmo.treasuryImplementation));
         treasury.initialize(
             cosmo.systemAddress,

@@ -61,27 +61,6 @@ contract CosmoCreation is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
         ICosmoTreasury(TREASURY_ADDRESS).assignMintBalance(TREASURY_ADDRESS, _nutId);
     }
 
-    // **** TRY MOVING THREE BELOW TO ANOTHER CONTRACT - DOES IT HELP?
-    /*
-    function changeTokenURI(uint256 _tokenId, string memory _cidPath, bytes memory _signature) internal {
-        require(_isApprovedOrOwner(_msgSender(), _tokenId), "Caller is not owner nor approved");
-        bytes32 pathHash = keccak256(abi.encodePacked(_cidPath));
-        require(isVerified(pathHash, _signature), "Data does not match signature");
-
-        _setTokenURI(_tokenId, _cidPath);
-    }
-
-    function signerAddress(bytes32 _hash, bytes memory _signature) internal pure returns (address) {
-        return _hash.recover(_signature);
-    }
-
-    function isVerified(bytes32 _pathHash, bytes memory _signature) internal view returns (bool) {
-        // *Research* - Should you include the following "\x19Ethereum Signed Message:\n32"
-        require(signerAddress(_pathHash, _signature) == SYSTEM_ADDRESS, "Invalid signature");
-        return true;
-    }
-    */
-
     // ----- The following functions are overrides required by Solidity -----
     function _beforeTokenTransfer(address from, address to, uint256 tokenId) internal override(ERC721, ERC721Enumerable) {
         super._beforeTokenTransfer(from, to, tokenId);

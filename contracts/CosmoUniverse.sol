@@ -13,45 +13,45 @@ import "./ICosmoBang.sol";
  * The owner of this contract has the option to create a big bang starting the CosmoNuts universe.
  * Each universe is comprised of an NFT collection and a Treasury to manage funds of that NFT collection.
  */
-contract CosmoUniverse is Ownable {
+ contract CosmoUniverse is Ownable {
 
-    uint256 COSMOS_INDEX = 0;
+     uint256 COSMOS_INDEX = 0;
 
-    address public SYSTEM_ADDRESS;
-    address public MATTER_ADDRESS;
+     address public SYSTEM_ADDRESS;
+     address public MATTER_ADDRESS;
 
-    address implementationAddress;
+     address cosmoImplementation;
 
-    //mapping(uint256 => Cosmo) public cosmos;
+     //mapping(uint256 => Cosmo) public cosmos;
 
-    CosmoMatter matter;
+     CosmoMatter matter;
 
-    constructor(
-        address _systemAddress,
-        string memory _matterName,
-        string memory _matterSymbol
-    )
-    {
-        SYSTEM_ADDRESS = _systemAddress;
-        matter = new CosmoMatter(_matterName, _matterSymbol);
-        MATTER_ADDRESS = address(matter);
-    }
+     constructor(
+         address _systemAddress,
+         string memory _matterName,
+         string memory _matterSymbol
+     )
+     {
+         SYSTEM_ADDRESS = _systemAddress;
+         matter = new CosmoMatter(_matterName, _matterSymbol);
+         MATTER_ADDRESS = address(matter);
+     }
 
-    function bigBang(
-        string memory _cosmosName,
-        string memory _cosmosSymbol,
-        uint256 _desiredEntities
-    ) public onlyOwner returns (address) {
-        CosmoBang bang = CosmoBang(Clones.clone(implementationAddress));
-        bang.initialize(SYSTEM_ADDRESS, MATTER_ADDRESS);
+     function bigBang(
+         string memory _cosmosName,
+         string memory _cosmosSymbol,
+         uint256 _desiredEntities
+     ) public onlyOwner returns (address) {
+         CosmoBang bang = CosmoBang(Clones.clone(cosmoImplementation));
+         bang.initialize(SYSTEM_ADDRESS, MATTER_ADDRESS);
 
-        address cosmoAddress = ICosmoBang(address(bang)).createCosmo(
-            _cosmosName,
-            _cosmosSymbol,
-            _desiredEntities
-        );
+         address cosmoAddress = ICosmoBang(address(bang)).createCosmo(
+             _cosmosName,
+             _cosmosSymbol,
+             _desiredEntities
+         );
 
-        return cosmoAddress;
-    }
+         return cosmoAddress;
+     }
 
-}
+ }
