@@ -13,13 +13,21 @@ import "./CosmoVault.sol";
 
 contract CosmoCreation is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
 
-    uint256 public NUTS_INITIAL;
+    struct Creation {
+        uint256 initialSupply;
+        address system;
+        address treasury;
+        address vault;
+        address vaultImplementation;
+    }
+    Creation public creation;
 
-    address public SYSTEM_ADDRESS;
-    address public TREASURY_ADDRESS;
-    address public VAULT_ADDRESS;
+    //uint256 public NUTS_INITIAL;
+    //address public SYSTEM_ADDRESS;
+    //address public TREASURY_ADDRESS;
+    //address public VAULT_ADDRESS;
 
-    address public vaultImplementation;
+    //address public vaultImplementation;
 
     using ECDSA for bytes32;
 
@@ -32,9 +40,12 @@ contract CosmoCreation is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
     )
     ERC721(_name, _symbol)
     {
-        NUTS_INITIAL = _supply;
-        SYSTEM_ADDRESS = _systemAddress;
-        TREASURY_ADDRESS = _treasuryAddress;
+        creation.initialSupply = _supply;
+        creation.system = _systemAddress;
+        creation.treasury = _treasuryAddress;
+        //NUTS_INITIAL = _supply;
+        //SYSTEM_ADDRESS = _systemAddress;
+        //TREASURY_ADDRESS = _treasuryAddress;
     }
 
     function _baseURI() internal pure override returns (string memory) {
@@ -42,13 +53,13 @@ contract CosmoCreation is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
     }
 
     function openVault(
-        address _systemAddress,
-        address _matterAddress
+        address _cosmosAddress
     ) internal returns (address) {
-        CosmoVault vault = CosmoVault(Clones.clone(vaultImplementation));
-        vault.initialize(_systemAddress, _matterAddress);
-        VAULT_ADDRESS = address(vault);
-        return VAULT_ADDRESS;
+        CosmoVault vault = CosmoVault(Clones.clone(creation.vaultImplementation));
+        vault.initialize(creation.system, _cosmosAddress);
+        //VAULT_ADDRESS = address(vault);
+        creation.vault = address(vault);
+        return creation.vault;
     }
 
     function mintNut(uint256 _nutId, string memory _nutCID) public payable {
@@ -56,9 +67,9 @@ contract CosmoCreation is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
         //require(totalSupply() < vault.NUTS_INITIAL(), "Exceed initial supply of nuts");
         //require(NUT_PRICE * _numberOfNuts <= msg.value, "Ether value is not correct");
 
-        _safeMint(TREASURY_ADDRESS, totalSupply());
+        _safeMint(creation.treasury, totalSupply());
         _setTokenURI(totalSupply(), _nutCID);
-        ICosmoTreasury(TREASURY_ADDRESS).assignMintBalance(TREASURY_ADDRESS, _nutId);
+        ICosmoTreasury(creation.treasury).assignMintBalance(creation.treasury, _nutId);
     }
 
     // ----- The following functions are overrides required by Solidity -----
