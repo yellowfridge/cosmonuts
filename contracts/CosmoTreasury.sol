@@ -80,7 +80,7 @@ contract CosmoTreasury is SeedAccounts, ButterAccounts, ICosmoTreasury {
 
         CosmoMatter matter = CosmoMatter(addressOf.matter);
         uint256 matterToBurn = matterNeeded(_nutId);
-        uint256 matterOfOwner = matter.balanceOf((currentOwnerOfNut[_nutId]));
+        uint256 matterOfOwner = matter.balanceOf(currentOwnerOfNut[_nutId]);
         require(matterOfOwner >= matterToBurn, "Matter balance is not enough");
 
         CosmoSeed cosmoseed = new CosmoSeed(
