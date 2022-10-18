@@ -5,7 +5,6 @@ import "openzeppelin-solidity/contracts/utils/math/Math.sol";
 import "./CosmoMatter.sol";
 import "./CosmoSeed.sol";
 import "./CosmoButter.sol";
-//import "./CosmoVault.sol";
 import "./ICosmoTreasury.sol";
 
 import "./SeedAccounts.sol";
@@ -16,7 +15,7 @@ import "./ButterAccounts.sol";
  * ERC20 Token to mint, burn, and allocate balances
  * Acts as storage for the ERC 721 tokens on their created Seed and Butter contracts.
  */
- contract CosmoTreasury is SeedAccounts, ButterAccounts, ICosmoTreasury {
+contract CosmoTreasury is SeedAccounts, ButterAccounts, ICosmoTreasury {
 
     /**
      * @dev Saved addresses include the contract which created the Treasury: UNIVERSE_ADDRESS, and

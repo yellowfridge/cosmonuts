@@ -8,7 +8,7 @@ import "./ICosmoNuts.sol";
  * Main Contract for the NFT tokens.
  * System address resembles the public address of the software application.
  */
- contract CosmoNuts is CosmoCreation, ICosmoNuts {
+contract CosmoNuts is CosmoCreation, ICosmoNuts {
 
     using ECDSA for bytes32;
 
@@ -67,10 +67,8 @@ import "./ICosmoNuts.sol";
         )
         public payable returns (bool) {
             require(address(msg.sender) == ownerOf(_nutId), "Caller is not owner of nut");
-            //require(totalSupply() >= vault.NUTS_INITIAL(), "Nuts still exist from creation");
             require(totalSupply() >= NUTS_INITIAL, "Nuts still exist from creation");
 
-            //vault.newSeed(_nutId, _secretHash);
             ICosmoTreasury(TREASURY_ADDRESS).spawnSeed(_nutId, _secretHash);
             changeTokenURI(_nutId, _cidPath, _signature);
 
@@ -94,7 +92,6 @@ import "./ICosmoNuts.sol";
         bytes memory _signature
     ) public {
         require(address(msg.sender) == ownerOf(_nutId), "Caller is not owner of nut");
-        //vault.newButterJar(_nutId, _matterContributed, _secretHash);
         ICosmoTreasury(TREASURY_ADDRESS).newButter(_nutId, _matterContributed, _matterDrawRate, _secretHash);
         changeTokenURI(_nutId, _cidPath, _signature);
     }

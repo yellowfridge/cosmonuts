@@ -7,12 +7,9 @@ import "openzeppelin-solidity/contracts/token/ERC721/extensions/ERC721URIStorage
 import "openzeppelin-solidity/contracts/access/Ownable.sol";
 import "openzeppelin-solidity/contracts/utils/cryptography/ECDSA.sol";
 
-//import "./CosmoVault.sol";
 import "./ICosmoTreasury.sol";
 
 contract CosmoCreation is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
-
-    //CosmoVault vault;
 
     uint256 public NUTS_INITIAL;
 
@@ -30,7 +27,6 @@ contract CosmoCreation is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
     )
     ERC721(_name, _symbol)
     {
-        //vault = CosmoVault(_vaultAddress);
         NUTS_INITIAL = _supply;
         SYSTEM_ADDRESS = _systemAddress;
         TREASURY_ADDRESS = _treasuryAddress;
@@ -45,10 +41,8 @@ contract CosmoCreation is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
         //require(totalSupply() < vault.NUTS_INITIAL(), "Exceed initial supply of nuts");
         //require(NUT_PRICE * _numberOfNuts <= msg.value, "Ether value is not correct");
 
-        //_safeMint(vault.TREASURY_ADDRESS(), totalSupply());
         _safeMint(TREASURY_ADDRESS, totalSupply());
         _setTokenURI(totalSupply(), _nutCID);
-        //vault.giveMintBalance(totalSupply());
         ICosmoTreasury(TREASURY_ADDRESS).assignMintBalance(TREASURY_ADDRESS, _nutId);
     }
 
