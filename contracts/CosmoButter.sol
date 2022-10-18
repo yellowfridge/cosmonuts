@@ -1,7 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.7;
 
-//import "./ICosmoNuts.sol";
 import "./ICosmoVault.sol";
 import "./ICosmoTreasury.sol";
 
@@ -70,7 +69,6 @@ contract CosmoButter {
         butter.amount -= butter.drawRate;
         butter.drawnBefore[msg.sender] = true;
 
-        //ICosmoNuts(butter.nutLocation).spreadButter(butter.nutId, _cidPath, _signature);
         spreadButter(butter.nutId, _cidPath, _signature);
     }
 
@@ -83,6 +81,5 @@ contract CosmoButter {
         require(inputHash == butter.secretHash, "Input does not match secret");
         return true;
     }
-
 
 }
