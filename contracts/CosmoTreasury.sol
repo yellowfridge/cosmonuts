@@ -57,15 +57,10 @@ import "./ButterAccounts.sol";
      }
      */
 
-     /*
-     function updateCosmosAddress(address _matterAddressNew) external onlyUniverse {
-         MATTER_ADDRESS = _matterAddressNew;
+     function updateCosmoInfo(uint256 _price, uint256 _rate) external virtual override {
+         nut.price = _price;
+         nut.rate = _rate;
      }
-     */
-
-     //function updateNutPrice(uint256 _setNutPrice) external onlyUniverse {
-     //    NUT_PRICE = _setNutPrice;
-     //}
 
      function getVaultLocation() public virtual override returns (address) {
         return ICosmoNuts(addressOf.cosmos).vaultLocation();

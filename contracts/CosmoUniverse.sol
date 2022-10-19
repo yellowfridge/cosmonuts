@@ -15,7 +15,7 @@ import "./ICosmoBang.sol";
  */
  contract CosmoUniverse is Ownable {
 
-    uint256 COSMOS_INDEX = 0;
+    uint256 public COSMO_INDEX = 0;
     address public SYSTEM_ADDRESS;
     address public MATTER_ADDRESS;
 
@@ -26,6 +26,7 @@ import "./ICosmoBang.sol";
     }
     Bang bang;
     mapping(uint256 => Bang) public bangs;
+
 
     CosmoMatter matter;
 
@@ -40,23 +41,36 @@ import "./ICosmoBang.sol";
         MATTER_ADDRESS = address(matter);
     }
 
+    function changeCosmoIndex(uint256 _newCosmoIndex) public onlyOwner {
+        require(COSMO_INDEX != _newCosmoIndex, "Same cosmo index");
+        COSMO_INDEX = _newCosmoIndex;
+    }
+
+    function setImplementation(address _implementationAddress) public onlyOwner {
+        bangs[COSMO_INDEX].implementation = _implementationAddress;
+    }
+
     function bigBang(
         string memory _cosmosName,
         string memory _cosmosSymbol,
-        uint256 _desiredEntities
+        uint256 _desiredEntities,
+        uint256 _price,
+        uint256 _rate
     ) public onlyOwner returns (address) {
-        CosmoBang cosmobang = CosmoBang(Clones.clone(bang.implementation));
+        require(bangs[COSMO_INDEX].implementation != address(0), "No bang implementation on current Cosmo");
+        CosmoBang cosmobang = CosmoBang(Clones.clone(bangs[COSMO_INDEX].implementation));
         cosmobang.initialize(SYSTEM_ADDRESS, MATTER_ADDRESS);
 
         address cosmoAddress = ICosmoBang(address(cosmobang)).createCosmo(
             _cosmosName,
             _cosmosSymbol,
-            _desiredEntities
+            _desiredEntities,
+            _price,
+            _rate
         );
 
-        bang.name = _cosmosName;
-        bang.cosmo = cosmoAddress;
-        bangs[COSMOS_INDEX] = bang;
+        bangs[COSMO_INDEX].name = _cosmosName;
+        bangs[COSMO_INDEX].cosmo = cosmoAddress;
 
         return cosmoAddress;
     }

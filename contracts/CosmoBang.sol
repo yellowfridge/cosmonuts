@@ -55,10 +55,15 @@ contract CosmoBang is ICosmoBang {
     function createCosmo(
         string memory _name,
         string memory _symbol,
-        uint256 _supply
+        uint256 _supply,
+        uint256 _price,
+        uint256 _rate
     ) external virtual override returns (address cosmoAddress) {
         address treasuryAddress = createTreasury();
+        ICosmoTreasury(treasuryAddress).updateCosmoInfo(_price, _rate);
+
         cosmoAddress = createNuts(_name, _symbol, _supply, treasuryAddress);
+
         return cosmoAddress;
     }
 
