@@ -25,11 +25,13 @@ contract CosmoBang is ICosmoBang {
         cosmo.matterAddress = _matterAddress;
     }
 
-    function createTreasury() internal returns (address) {
+    function createTreasury(uint256 _price, uint256 _rate) internal returns (address) {
         CosmoTreasury treasury = CosmoTreasury(Clones.clone(cosmo.treasuryImplementation));
         treasury.initialize(
             cosmo.systemAddress,
-            cosmo.matterAddress
+            cosmo.matterAddress,
+            _price,
+            _rate
         );
         return address(treasury);
     }
@@ -59,11 +61,8 @@ contract CosmoBang is ICosmoBang {
         uint256 _price,
         uint256 _rate
     ) external virtual override returns (address cosmoAddress) {
-        address treasuryAddress = createTreasury();
-        ICosmoTreasury(treasuryAddress).updateCosmoInfo(_price, _rate);
-
+        address treasuryAddress = createTreasury(_price, _rate);
         cosmoAddress = createNuts(_name, _symbol, _supply, treasuryAddress);
-
         return cosmoAddress;
     }
 
