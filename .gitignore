@@ -9,3 +9,6 @@ Not_Used
 
 # Ignore environment variables
 .env.local
+
+# Ignore helper files
+helperfiles

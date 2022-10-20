@@ -20742,7 +20742,7 @@
   },
   "networks": {},
   "schemaVersion": "3.4.10",
-  "updatedAt": "2022-10-20T08:15:40.609Z",
+  "updatedAt": "2022-10-20T09:50:48.628Z",
   "devdoc": {
     "details": "Manages the matter balance of the CosmoNuts collection and handles interaction with the ERC20 Token to mint, burn, and allocate balances Acts as storage for the ERC 721 tokens on their created Seed and Butter contracts.",
     "kind": "dev",
