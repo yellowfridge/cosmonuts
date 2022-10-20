@@ -3,6 +3,8 @@ pragma solidity ^0.8.7;
 
 interface ICosmoTreasury {
 
+    function linkCosmo(address _cosmoAddress) external;
+
     function getVaultLocation() external returns (address);
 
     function getPrice() external view returns (uint256);
