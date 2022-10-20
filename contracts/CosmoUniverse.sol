@@ -5,7 +5,6 @@ import "openzeppelin-solidity/contracts/access/Ownable.sol";
 import { Clones } from "openzeppelin-solidity/contracts/proxy/Clones.sol";
 import "./CosmoMatter.sol";
 import "./CosmoBang.sol";
-import "./ICosmoBang.sol";
 
 /**
  * CosmoUniverse is the top contract for the developer to create the planned system.
@@ -26,7 +25,6 @@ import "./ICosmoBang.sol";
     }
     Bang bang;
     mapping(uint256 => Bang) public bangs;
-
 
     CosmoMatter matter;
 
@@ -55,18 +53,30 @@ import "./ICosmoBang.sol";
         string memory _cosmosSymbol,
         uint256 _desiredEntities,
         uint256 _price,
-        uint256 _rate
-    ) public onlyOwner returns (address) {
+        uint256 _rate,
+        address _treasuryImplementation,
+        address _seedImplementation,
+        address _butterImplementation,
+        address _vaultImplementation
+    ) public onlyOwner returns (address cosmoAddress) {
         require(bangs[COSMO_INDEX].implementation != address(0), "No bang implementation on current Cosmo");
         CosmoBang cosmobang = CosmoBang(Clones.clone(bangs[COSMO_INDEX].implementation));
-        cosmobang.initialize(SYSTEM_ADDRESS, MATTER_ADDRESS);
+        address treasuryAddress = cosmobang.initialize(
+            SYSTEM_ADDRESS,
+            MATTER_ADDRESS,
+            _treasuryImplementation,
+            _seedImplementation,
+            _butterImplementation,
+            _price,
+            _rate
+        );
 
-        address cosmoAddress = ICosmoBang(address(cosmobang)).createCosmo(
+        cosmoAddress = cosmobang.createCosmo(
             _cosmosName,
             _cosmosSymbol,
             _desiredEntities,
-            _price,
-            _rate
+            treasuryAddress,
+            _vaultImplementation
         );
 
         bangs[COSMO_INDEX].name = _cosmosName;

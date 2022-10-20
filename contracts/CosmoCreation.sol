@@ -29,13 +29,15 @@ contract CosmoCreation is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
         string memory _symbol,
         uint256 _supply,
         address _systemAddress,
-        address _treasuryAddress
+        address _treasuryAddress,
+        address _vaultImplementation
     )
     ERC721(_name, _symbol)
     {
         creation.initialSupply = _supply;
         creation.system = _systemAddress;
         creation.treasury = _treasuryAddress;
+        creation.vaultImplementation = _vaultImplementation;
     }
 
     function _baseURI() internal pure override returns (string memory) {

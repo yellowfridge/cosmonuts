@@ -6,9 +6,8 @@ import { Clones } from "openzeppelin-solidity/contracts/proxy/Clones.sol";
 import "./CosmoNuts.sol";
 import "./ICosmoNuts.sol";
 import "./CosmoTreasury.sol";
-import "./ICosmoBang.sol";
 
-contract CosmoBang is ICosmoBang {
+contract CosmoBang {
 
     struct Cosmo {
         address systemAddress;
@@ -19,51 +18,48 @@ contract CosmoBang is ICosmoBang {
 
     function initialize(
         address _systemAddress,
-        address _matterAddress
-    ) public {
+        address _matterAddress,
+        address _treasuryImplementation,
+        address _seedImplementation,
+        address _butterImplementation,
+        uint256 _price,
+        uint256 _rate
+    ) external returns (address) {
         cosmo.systemAddress = _systemAddress;
         cosmo.matterAddress = _matterAddress;
-    }
+        cosmo.treasuryImplementation = _treasuryImplementation;
 
-    function createTreasury(uint256 _price, uint256 _rate) internal returns (address) {
         CosmoTreasury treasury = CosmoTreasury(Clones.clone(cosmo.treasuryImplementation));
         treasury.initialize(
             cosmo.systemAddress,
             cosmo.matterAddress,
+            _seedImplementation,
+            _butterImplementation,
             _price,
             _rate
         );
+
         return address(treasury);
-    }
-
-    function createNuts(
-        string memory _name,
-        string memory _symbol,
-        uint256 _supply,
-        address _treasuryLocation
-    ) internal returns (address) {
-        CosmoNuts nuts = new CosmoNuts(
-           _name,
-            _symbol,
-            _supply,
-            cosmo.systemAddress,
-            _treasuryLocation
-        );
-        ICosmoNuts(address(nuts)).createVault();
-
-        return address(nuts);
     }
 
     function createCosmo(
         string memory _name,
         string memory _symbol,
         uint256 _supply,
-        uint256 _price,
-        uint256 _rate
-    ) external virtual override returns (address cosmoAddress) {
-        address treasuryAddress = createTreasury(_price, _rate);
-        cosmoAddress = createNuts(_name, _symbol, _supply, treasuryAddress);
-        return cosmoAddress;
+        address _treasuryLocation,
+        address _vaultImplementation
+    ) external returns (address) {
+        CosmoNuts nuts = new CosmoNuts(
+            _name,
+            _symbol,
+            _supply,
+            cosmo.systemAddress,
+            _treasuryLocation,
+            _vaultImplementation
+        );
+        ICosmoNuts(address(nuts)).createVault();
+
+        return address(nuts);
     }
 
 }

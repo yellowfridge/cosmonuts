@@ -47,6 +47,8 @@ import "./ButterAccounts.sol";
     function initialize(
         address _systemAddress,
         address _matterAddress,
+        address _seedImplementation,
+        address _butterImplementation,
         uint256 _price,
         uint256 _rate
     ) external {
@@ -55,6 +57,9 @@ import "./ButterAccounts.sol";
         addressOf.treasury = address(this);
         nut.price = _price;
         nut.rate = _rate;
+
+        addressOf.seedImplementation = _seedImplementation;
+        addressOf.butterImplementation = _butterImplementation;
     }
 
     /*

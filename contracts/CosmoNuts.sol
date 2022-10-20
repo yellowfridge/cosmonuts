@@ -18,9 +18,17 @@ import "./ICosmoVault.sol";
          string memory _symbol,
          uint256 _initialNFTSupply,
          address _systemAddress,
-         address _treasuryAddress
+         address _treasuryAddress,
+         address _vaultImplementation
      )
-         CosmoCreation(_name, _symbol, _initialNFTSupply, _systemAddress, _treasuryAddress)
+         CosmoCreation(
+             _name,
+             _symbol,
+             _initialNFTSupply,
+             _systemAddress,
+             _treasuryAddress,
+             _vaultImplementation
+         )
      {}
 
      function vaultLocation() public view override returns (address) {
