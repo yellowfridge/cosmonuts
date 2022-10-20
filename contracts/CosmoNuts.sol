@@ -30,7 +30,7 @@ import "./ICosmoVault.sol";
             _vaultImplementation
         )
     {
-        ICosmoTreasury(creation.treasury).linkCosmo(address(this));
+        ICosmoTreasury(_treasuryAddress).linkCosmo(address(this));
     }
 
     function vaultLocation() public view override returns (address) {

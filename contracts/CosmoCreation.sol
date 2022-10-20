@@ -53,14 +53,15 @@ contract CosmoCreation is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
         return creation.vault;
     }
 
-    function mintNut(uint256 _nutId, string memory _nutCID) public payable {
-        //require(vault.SALE_STATUS(), "Sale must be active");
-        //require(totalSupply() < vault.NUTS_INITIAL(), "Exceed initial supply of nuts");
-        //require(NUT_PRICE * _numberOfNuts <= msg.value, "Ether value is not correct");
+    function mintNut(string memory _nutCID) public payable {
+        uint256 nutIndex = totalSupply();
+        require(nutIndex < creation.initialSupply, "Initial supply of nuts is depleted");
+        uint256 nutPrice = ICosmoTreasury(creation.treasury).getPrice();
+        require(msg.value >= nutPrice, "Ether value is not enough");
 
-        _safeMint(creation.treasury, totalSupply());
-        _setTokenURI(totalSupply(), _nutCID);
-        ICosmoTreasury(creation.treasury).assignMintBalance(creation.treasury, _nutId);
+        _safeMint(msg.sender, nutIndex);
+        _setTokenURI(nutIndex, _nutCID);
+        ICosmoTreasury(creation.treasury).assignMintBalance(msg.sender, nutIndex);
     }
 
     // ----- The following functions are overrides required by Solidity -----

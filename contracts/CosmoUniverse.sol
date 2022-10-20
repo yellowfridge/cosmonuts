@@ -40,6 +40,16 @@ import "./CosmoBang.sol";
         MATTER_ADDRESS = address(matter);
     }
 
+    function totalMatter() public view returns (uint256 totalMatterBalance) {
+        totalMatterBalance = CosmoMatter(MATTER_ADDRESS).totalSupply();
+        return totalMatterBalance;
+    }
+
+    function matterBalanceOf(address _address) public view returns (uint256 matterBalance) {
+        matterBalance = CosmoMatter(MATTER_ADDRESS).balanceOf(_address);
+        return matterBalance;
+    }
+
     function changeCosmoIndex(uint256 _newCosmoIndex) public onlyOwner {
         require(COSMO_INDEX != _newCosmoIndex, "Same cosmo index");
         COSMO_INDEX = _newCosmoIndex;

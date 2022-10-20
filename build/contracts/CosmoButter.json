@@ -7594,10 +7594,10 @@
         4014
       ],
       "ICosmoTreasury": [
-        5947
+        6007
       ],
       "ICosmoVault": [
-        5959
+        6019
       ]
     },
     "id": 4015,
@@ -7622,7 +7622,7 @@
         "nameLocation": "-1:-1:-1",
         "nodeType": "ImportDirective",
         "scope": 4015,
-        "sourceUnit": 5960,
+        "sourceUnit": 6020,
         "src": "57:27:22",
         "symbolAliases": [],
         "unitAlias": ""
@@ -7634,7 +7634,7 @@
         "nameLocation": "-1:-1:-1",
         "nodeType": "ImportDirective",
         "scope": 4015,
-        "sourceUnit": 5948,
+        "sourceUnit": 6008,
         "src": "85:30:22",
         "symbolAliases": [],
         "unitAlias": ""
@@ -9030,10 +9030,10 @@
                           "name": "ICosmoTreasury",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 5947,
+                          "referencedDeclaration": 6007,
                           "src": "1447:14:22",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_type$_t_contract$_ICosmoTreasury_$5947_$",
+                            "typeIdentifier": "t_type$_t_contract$_ICosmoTreasury_$6007_$",
                             "typeString": "type(contract ICosmoTreasury)"
                           }
                         },
@@ -9049,7 +9049,7 @@
                         "src": "1447:31:22",
                         "tryCall": false,
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_ICosmoTreasury_$5947",
+                          "typeIdentifier": "t_contract$_ICosmoTreasury_$6007",
                           "typeString": "contract ICosmoTreasury"
                         }
                       },
@@ -9061,7 +9061,7 @@
                       "memberLocation": "1479:16:22",
                       "memberName": "getVaultLocation",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 5881,
+                      "referencedDeclaration": 5941,
                       "src": "1447:48:22",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_external_nonpayable$__$returns$_t_address_$",
@@ -9168,10 +9168,10 @@
                           "name": "ICosmoVault",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 5959,
+                          "referencedDeclaration": 6019,
                           "src": "1508:11:22",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_type$_t_contract$_ICosmoVault_$5959_$",
+                            "typeIdentifier": "t_type$_t_contract$_ICosmoVault_$6019_$",
                             "typeString": "type(contract ICosmoVault)"
                           }
                         },
@@ -9187,7 +9187,7 @@
                         "src": "1508:25:22",
                         "tryCall": false,
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_ICosmoVault_$5959",
+                          "typeIdentifier": "t_contract$_ICosmoVault_$6019",
                           "typeString": "contract ICosmoVault"
                         }
                       },
@@ -9199,7 +9199,7 @@
                       "memberLocation": "1534:14:22",
                       "memberName": "changeTokenURI",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 5958,
+                      "referencedDeclaration": 6018,
                       "src": "1508:40:22",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_external_nonpayable$_t_uint256_$_t_string_memory_ptr_$_t_bytes_memory_ptr_$returns$__$",
@@ -9749,10 +9749,10 @@
                           "name": "ICosmoTreasury",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 5947,
+                          "referencedDeclaration": 6007,
                           "src": "1958:14:22",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_type$_t_contract$_ICosmoTreasury_$5947_$",
+                            "typeIdentifier": "t_type$_t_contract$_ICosmoTreasury_$6007_$",
                             "typeString": "type(contract ICosmoTreasury)"
                           }
                         },
@@ -9768,7 +9768,7 @@
                         "src": "1958:31:22",
                         "tryCall": false,
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_ICosmoTreasury_$5947",
+                          "typeIdentifier": "t_contract$_ICosmoTreasury_$6007",
                           "typeString": "contract ICosmoTreasury"
                         }
                       },
@@ -9780,7 +9780,7 @@
                       "memberLocation": "1990:11:22",
                       "memberName": "butterDrawn",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 5937,
+                      "referencedDeclaration": 5997,
                       "src": "1958:43:22",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_external_nonpayable$_t_address_$_t_uint256_$_t_uint256_$_t_uint256_$returns$_t_bool_$",
@@ -10612,7 +10612,7 @@
   },
   "networks": {},
   "schemaVersion": "3.4.10",
-  "updatedAt": "2022-10-20T07:27:03.434Z",
+  "updatedAt": "2022-10-20T08:15:40.565Z",
   "devdoc": {
     "kind": "dev",
     "methods": {},
