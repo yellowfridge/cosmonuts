@@ -15,7 +15,7 @@ contract ButterAccounts {
     /**
      * buttersOfNut represents a list of all butter contracts created byt that nut.
      * butterLocations represents the address of contract identifed by butterId.
-     *
+     * 
      */
     mapping(uint256 => uint256[]) public buttersOfNut;
     mapping(uint256 => address) public butterLocations;

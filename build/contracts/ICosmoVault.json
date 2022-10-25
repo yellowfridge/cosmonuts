@@ -39,15 +39,15 @@
     "absolutePath": "project:/contracts/ICosmoVault.sol",
     "exportedSymbols": {
       "ICosmoVault": [
-        5729
+        6366
       ]
     },
-    "id": 5730,
+    "id": 6367,
     "license": "MIT",
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 5719,
+        "id": 6356,
         "literals": [
           "solidity",
           "^",
@@ -55,7 +55,7 @@
           ".7"
         ],
         "nodeType": "PragmaDirective",
-        "src": "32:23:33"
+        "src": "32:23:34"
       },
       {
         "abstract": false,
@@ -64,36 +64,36 @@
         "contractDependencies": [],
         "contractKind": "interface",
         "fullyImplemented": false,
-        "id": 5729,
+        "id": 6366,
         "linearizedBaseContracts": [
-          5729
+          6366
         ],
         "name": "ICosmoVault",
-        "nameLocation": "67:11:33",
+        "nameLocation": "67:11:34",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "functionSelector": "bd6af009",
-            "id": 5728,
+            "id": 6365,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
             "name": "changeTokenURI",
-            "nameLocation": "95:14:33",
+            "nameLocation": "95:14:34",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 5726,
+              "id": 6363,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 5721,
+                  "id": 6358,
                   "mutability": "mutable",
                   "name": "_tokenId",
-                  "nameLocation": "127:8:33",
+                  "nameLocation": "127:8:34",
                   "nodeType": "VariableDeclaration",
-                  "scope": 5728,
-                  "src": "119:16:33",
+                  "scope": 6365,
+                  "src": "119:16:34",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -101,10 +101,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 5720,
+                    "id": 6357,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "119:7:33",
+                    "src": "119:7:34",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -114,13 +114,13 @@
                 },
                 {
                   "constant": false,
-                  "id": 5723,
+                  "id": 6360,
                   "mutability": "mutable",
                   "name": "_cidPath",
-                  "nameLocation": "159:8:33",
+                  "nameLocation": "159:8:34",
                   "nodeType": "VariableDeclaration",
-                  "scope": 5728,
-                  "src": "145:22:33",
+                  "scope": 6365,
+                  "src": "145:22:34",
                   "stateVariable": false,
                   "storageLocation": "memory",
                   "typeDescriptions": {
@@ -128,10 +128,10 @@
                     "typeString": "string"
                   },
                   "typeName": {
-                    "id": 5722,
+                    "id": 6359,
                     "name": "string",
                     "nodeType": "ElementaryTypeName",
-                    "src": "145:6:33",
+                    "src": "145:6:34",
                     "typeDescriptions": {
                       "typeIdentifier": "t_string_storage_ptr",
                       "typeString": "string"
@@ -141,13 +141,13 @@
                 },
                 {
                   "constant": false,
-                  "id": 5725,
+                  "id": 6362,
                   "mutability": "mutable",
                   "name": "_signature",
-                  "nameLocation": "190:10:33",
+                  "nameLocation": "190:10:34",
                   "nodeType": "VariableDeclaration",
-                  "scope": 5728,
-                  "src": "177:23:33",
+                  "scope": 6365,
+                  "src": "177:23:34",
                   "stateVariable": false,
                   "storageLocation": "memory",
                   "typeDescriptions": {
@@ -155,10 +155,10 @@
                     "typeString": "bytes"
                   },
                   "typeName": {
-                    "id": 5724,
+                    "id": 6361,
                     "name": "bytes",
                     "nodeType": "ElementaryTypeName",
-                    "src": "177:5:33",
+                    "src": "177:5:34",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes_storage_ptr",
                       "typeString": "bytes"
@@ -167,27 +167,27 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "109:97:33"
+              "src": "109:97:34"
             },
             "returnParameters": {
-              "id": 5727,
+              "id": 6364,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "215:0:33"
+              "src": "215:0:34"
             },
-            "scope": 5729,
-            "src": "86:130:33",
+            "scope": 6366,
+            "src": "86:130:34",
             "stateMutability": "nonpayable",
             "virtual": false,
             "visibility": "external"
           }
         ],
-        "scope": 5730,
-        "src": "57:162:33",
+        "scope": 6367,
+        "src": "57:162:34",
         "usedErrors": []
       }
     ],
-    "src": "32:188:33"
+    "src": "32:188:34"
   },
   "compiler": {
     "name": "solc",
@@ -195,7 +195,7 @@
   },
   "networks": {},
   "schemaVersion": "3.4.10",
-  "updatedAt": "2022-10-18T13:48:46.576Z",
+  "updatedAt": "2022-10-25T08:21:46.473Z",
   "devdoc": {
     "kind": "dev",
     "methods": {},

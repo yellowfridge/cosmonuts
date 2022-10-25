@@ -12,7 +12,7 @@ import "./CosmoBang.sol";
  * The owner of this contract has the option to create a big bang starting the CosmoNuts universe.
  * Each universe is comprised of an NFT collection and a Treasury to manage funds of that NFT collection.
  */
- contract CosmoUniverse is Ownable {
+contract CosmoUniverse is Ownable {
 
     uint256 public COSMO_INDEX = 0;
     address public SYSTEM_ADDRESS;

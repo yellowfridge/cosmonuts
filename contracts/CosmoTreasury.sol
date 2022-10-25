@@ -8,6 +8,9 @@ import "./CosmoMatter.sol";
 import "./CosmoSeed.sol";
 import "./CosmoButter.sol";
 import "./ICosmoTreasury.sol";
+import "./ICosmoNuts.sol";
+import "./ICosmoSeed.sol";
+import "./ICosmoMatter.sol";
 
 import "./SeedAccounts.sol";
 import "./ButterAccounts.sol";
@@ -17,7 +20,7 @@ import "./ButterAccounts.sol";
  * ERC20 Token to mint, burn, and allocate balances
  * Acts as storage for the ERC 721 tokens on their created Seed and Butter contracts.
  */
- contract CosmoTreasury is SeedAccounts, ButterAccounts, ICosmoTreasury {
+contract CosmoTreasury is SeedAccounts, ButterAccounts, ICosmoTreasury {
 
      /**
       * @dev Saved addresses include the contract which created the Treasury: UNIVERSE_ADDRESS, and
@@ -39,7 +42,6 @@ import "./ButterAccounts.sol";
     }
     Nut public nut;
 
-    mapping(uint256 => address) public currentOwnerOfNut; // Record of current nut owners by address
     mapping(uint256 => uint256) public matterBalanceOfNut; // Matter balance of each Nut recorded by the Treasury
 
     uint256[] public nutsPayeeList; // List of nuts to be provided a balance
@@ -69,6 +71,16 @@ import "./ButterAccounts.sol";
     }
     */
 
+    function viewCosmos() public view virtual override returns (address) {
+        return addressOf.cosmos;
+    }
+
+    function matterOf(uint256 _nutId) public view virtual override returns (uint256 matterOfNutOwner) {
+        address nutOwner = ICosmoNuts(addressOf.cosmos).getOwnerOf(_nutId);
+        matterOfNutOwner = ICosmoMatter(addressOf.matter).matterOf(nutOwner);
+        return matterOfNutOwner;
+    }
+
     function linkCosmo(address _cosmoAddress) external virtual override {
         addressOf.cosmos = _cosmoAddress;
     }
@@ -81,31 +93,39 @@ import "./ButterAccounts.sol";
         return nut.price;
     }
 
+    function grantApproval(address _owner, address _spender, uint256 _allowance) external virtual override returns (bool) {
+         ICosmoMatter(addressOf.matter).grantApproval(_owner, _spender, _allowance);
+         return true;
+    }
+
+    function burnMatterFrom(address _from, uint256 _toBurn) external virtual override returns (uint256 newMatterSupply) {
+        ICosmoMatter(addressOf.matter).burnMatterFrom(_from, _toBurn);
+        newMatterSupply = ICosmoMatter(addressOf.matter).totalMatter();
+        return newMatterSupply;
+    }
+
     function matterNeeded(uint256 _nutId) public view virtual override returns (uint256) {
         return nut.rate ^ (numOfSeedsOf(_nutId));
     }
 
-    function spawnSeed(uint256 _nutId, bytes32 _secretHash) external virtual override payable returns (bool) {
-        uint256 ethToHold = nut.price ^ (numOfSeedsGrownOf(_nutId));
-        require(msg.value >= ethToHold, "Ether value is not enough");
+    function ethToHold(uint256 _nutId) public view virtual override returns (uint256) {
+        return nut.price ^ (numOfSeedsGrownOf(_nutId));
+    }
 
-        CosmoMatter matter = CosmoMatter(addressOf.matter);
-        uint256 matterToBurn = matterNeeded(_nutId);
-        uint256 matterOfOwner = matter.balanceOf(currentOwnerOfNut[_nutId]);
-        require(matterOfOwner >= matterToBurn, "Matter balance is not enough");
+    /**
+     * Called from CosmoNuts contract.
+     */
+    function spawnSeed(uint256 _nutId, bytes32 _secretHash) external virtual override returns (address seedLocation) {
+        CosmoSeed seed = CosmoSeed(payable(Clones.clone(addressOf.seedImplementation)));
 
-        CosmoSeed cosmoseed = CosmoSeed(Clones.clone(addressOf.seedImplementation));
-        cosmoseed.initialize(
+        seed.initialize(
             seedsCreated, _nutId, address(this), addressOf.cosmos, _secretHash
         );
+        seedLocation = address(seed);
 
-        address seedLocation = address(cosmoseed);
         integrateSeed(_nutId, seedsCreated, seedLocation);
 
-        matter.burn(matterToBurn);
-        payable(seedLocation).transfer(msg.value);
-
-        return true;
+        return seedLocation;
     }
 
     /**
@@ -116,9 +136,9 @@ import "./ButterAccounts.sol";
         require(address(msg.sender) == seedAddress, "Caller is not the right CosmoSeed contract");
         //require(matter.balanceOf(address(msg.sender)) >= _matterNeeded, "Not enough matter");
 
-        CosmoSeed seed = CosmoSeed(seedAddress);
+        CosmoSeed seed = CosmoSeed(payable(seedAddress));
 
-        address nutOwner = currentOwnerOfNut[seed.nutId()];
+        address nutOwner = ICosmoNuts(addressOf.cosmos).getOwnerOf(seed.nutId());
         CosmoMatter matter = CosmoMatter(addressOf.matter);
         matter.transfer(nutOwner, _matterNeeded);
         matter.mintMatter(addressOf.treasury, 1);
@@ -139,7 +159,7 @@ import "./ButterAccounts.sol";
         uint256 _matterDrawRate,
         bytes32 _secretHash
     ) external virtual override returns (bool) {
-        address nutOwner = currentOwnerOfNut[_nutId];
+        address nutOwner = ICosmoNuts(addressOf.cosmos).getOwnerOf(_nutId);
         // Do we need to be doing these checks twice? Or really new check that caller is from contract (? or person who clicked?)
         require(nutOwner == address(msg.sender), "Caller is not the owner");
         require(matterBalanceOfNut[_nutId] >= _matterContributed, "Not have enough matter");
@@ -178,7 +198,7 @@ import "./ButterAccounts.sol";
                 }
 
                 uint256 nutPayeeId = nutsPayeeList[index];
-                address nutOwnerPayee = currentOwnerOfNut[nutPayeeId];
+                address nutOwnerPayee = ICosmoNuts(addressOf.cosmos).getOwnerOf(nutPayeeId);
                 uint256 maxMatter = numOfSeedsGrownOf(nutPayeeId) * nut.rate;
                 if (matterBalanceOfNut[nutPayeeId] == maxMatter) {
                     delete nutsPayeeList[index];
