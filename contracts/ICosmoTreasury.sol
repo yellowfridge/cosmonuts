@@ -22,7 +22,6 @@ interface ICosmoTreasury {
     function matterNeeded(uint256 _nutId) external view returns (uint256);
 
     function spawnSeed(uint256 _nutId, bytes32 _secretHash) external returns (address seedLocation);
-    //function spawnSeed(uint256 _nutId, bytes32 _seretHash) external returns (address payable seedLocation);
 
     function seedFromNut(uint256 _seedId, uint256 _matterNeeded) external returns (bool);
 
