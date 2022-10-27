@@ -21,7 +21,11 @@ contract CosmoVault is ICosmoVault {
         vault.cosmos = _cosmosAddress;
     }
 
-    function changeTokenURI(uint256 _tokenId, string memory _cidPath, bytes memory _signature) external virtual override {
+    function changeTokenURI(
+        uint256 _tokenId,
+        string memory _cidPath,
+        bytes memory _signature
+    ) external virtual override {
         //require(_isApprovedOrOwner(_msgSender(), _tokenId), "Caller is not owner nor approved");
         bytes32 pathHash = keccak256(abi.encodePacked(_cidPath));
         require(isVerified(pathHash, _signature), "Data does not match signature");

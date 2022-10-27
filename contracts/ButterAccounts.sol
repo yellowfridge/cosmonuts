@@ -15,7 +15,7 @@ contract ButterAccounts {
     /**
      * buttersOfNut represents a list of all butter contracts created byt that nut.
      * butterLocations represents the address of contract identifed by butterId.
-     * 
+     *
      */
     mapping(uint256 => uint256[]) public buttersOfNut;
     mapping(uint256 => address) public butterLocations;
@@ -36,9 +36,11 @@ contract ButterAccounts {
         butterWeight += _butterToCreate;
         buttersOfNut[_nutId].push(_butterId);
         butterChurnedByNut[_nutId] += _butterToCreate;
-        butterLocations[_nutId] = _butterAddress;
-        isButterActive[_nutId] = true;
+        butterLocations[_butterId] = _butterAddress;
+        isButterActive[_butterId] = true;
         nutOfButter[_butterId] = _nutId;
+        butterDeficiencyInUniverse += _butterToCreate;
+        butterDeficiencyOfNut[_nutId] += _butterToCreate;
     }
 
     function distributeButter(uint256 _butterId, uint256 _depletedBy, uint256 _balanceBefore) internal {

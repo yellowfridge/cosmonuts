@@ -5,9 +5,15 @@ interface ICosmoTreasury {
 
     function viewCosmos() external view returns (address);
 
+    function transferMatter(address _to, uint256 _toTransfer) external returns (bool);
+
+    function transferMatterFrom(address _from, address _to, uint256 _toTransfer) external returns (bool);
+
     function burnMatterFrom(address _from, uint256 _toBurn) external returns (uint256 newMatterSupply);
 
-    function matterOf(uint256 _nutId) external view returns (uint256 matterOfNutOwner);
+    function matterOf(address _account) external view returns (uint256 matterOfOwner);
+
+    //function matterOfOwnerByNut(uint256 _nutId) external view returns (uint256 matterOfNutOwner);
 
     function linkCosmo(address _cosmoAddress) external;
 
@@ -30,7 +36,7 @@ interface ICosmoTreasury {
         uint256 _matterContributed,
         uint256 _matterDrawRate,
         bytes32 _secretHash
-    ) external returns (bool);
+    ) external returns (address butterLocation);
 
     function butterDrawn(
         address _drawer,

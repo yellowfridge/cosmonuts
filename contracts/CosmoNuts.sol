@@ -92,7 +92,7 @@ import "./ICosmoTreasury.sol";
              require(msg.value >= ethToHold, "Ether value is not enough");
 
              uint256 matterNeeded = ICosmoTreasury(creation.treasury).matterNeeded(_nutId);
-             uint256 matterOfOwner = ICosmoTreasury(creation.treasury).matterOf(_nutId);
+             uint256 matterOfOwner = ICosmoTreasury(creation.treasury).matterOf(msg.sender);
              require(matterOfOwner >= matterNeeded, "Matter balance is not enough");
 
              ICosmoTreasury(creation.treasury).grantApproval(
@@ -131,12 +131,25 @@ import "./ICosmoTreasury.sol";
          uint256 _matterDrawRate,
          string memory _cidPath,
          bytes memory _signature
-     ) public {
+     ) public returns (address butterLocation) {
          require(address(msg.sender) == ownerOf(_nutId), "Caller is not owner of nut");
-         ICosmoTreasury(creation.treasury).newButter(_nutId, _matterContributed, _matterDrawRate, _secretHash);
+         require(_matterContributed % _matterDrawRate == 0, "Draw rate not perfectly divisible by contribution");
+         uint256 matterOfOwner = ICosmoTreasury(creation.treasury).matterOf(msg.sender);
+         require(matterOfOwner >= _matterContributed, "Matter owned is less than desired contribution");
+
+         ICosmoTreasury(creation.treasury).grantApproval(
+             msg.sender,
+             creation.treasury,
+             _matterContributed
+         );
+
+         butterLocation = ICosmoTreasury(creation.treasury).newButter(_nutId, _matterContributed, _matterDrawRate, _secretHash);
+
          ICosmoVault(creation.vault).changeTokenURI(
              _nutId, _cidPath, _signature
          );
+
+         return butterLocation;
      }
 
  }

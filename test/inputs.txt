@@ -1,0 +1,10 @@
+Will create a hash for following secret:
+password
+-----SECRET HASH-----
+0xb68fe43f0d1a0d7aef123722670be50268e15365401c442f8806ef83b612976b
+
+Will sign for the following input hash:
+0
+Eth Hash of Input:  0x044852b2a670ade5407e78fb2863c51de9fcb96542a07186fe3aeda6bb8a116d
+-----SIGNATURE-----
+0x1915322bb77cd62486904890606dacba59ebca71d5a3b7b9a6a2dd87acba65c876298cab2f73c063f74058249f3ee68a0564559fd023e249638a0747799999531c

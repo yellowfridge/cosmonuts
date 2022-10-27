@@ -11,8 +11,17 @@ contract CosmoMatter is ERC20, ERC20Burnable, ICosmoMatter {
     constructor(string memory _name, string memory _symbol) ERC20(_name, _symbol) {}
 
     // Needs some restrictions
-    function mintMatter(address _mintTo, uint256 _matterToMint) external {
+    function mintMatter(address _mintTo, uint256 _matterToMint) external virtual override returns (uint256) {
         _mint(_mintTo, _matterToMint);
+        return totalSupply();
+    }
+
+    function transferMatter(address _to, uint256 _toTransfer) external virtual override {
+        transfer(_to, _toTransfer);
+    }
+
+    function transferMatterFrom(address _from, address _to, uint256 _toTransfer) external virtual override {
+        transferFrom(_from, _to, _toTransfer);
     }
 
     function burnMatterFrom(address _from, uint256 _toBurn) external virtual override {

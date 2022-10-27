@@ -44,7 +44,8 @@ import "./ButterAccounts.sol";
 
      mapping(uint256 => uint256) public matterBalanceOfNut; // Matter balance of each Nut recorded by the Treasury
 
-     uint256[] public nutsPayeeList; // List of nuts to be provided a balance
+     uint256 public paymentTicket;
+     uint256[] public nutsPayeeList;
 
      function initialize(
          address _systemAddress,
@@ -62,6 +63,8 @@ import "./ButterAccounts.sol";
 
          addressOf.seedImplementation = _seedImplementation;
          addressOf.butterImplementation = _butterImplementation;
+
+         paymentTicket = 0;
      }
 
      /*
@@ -75,10 +78,18 @@ import "./ButterAccounts.sol";
          return addressOf.cosmos;
      }
 
-     function matterOf(uint256 _nutId) public view virtual override returns (uint256 matterOfNutOwner) {
+     // Likely not needed and below is enough
+     /**
+     function matterOfOwnerByNut(uint256 _nutId) public view virtual override returns (uint256 matterOfNutOwner) {
          address nutOwner = ICosmoNuts(addressOf.cosmos).getOwnerOf(_nutId);
          matterOfNutOwner = ICosmoMatter(addressOf.matter).matterOf(nutOwner);
          return matterOfNutOwner;
+     }
+     */
+
+     function matterOf(address _account) public view virtual override returns (uint256 matterOfOwner) {
+         matterOfOwner = ICosmoMatter(addressOf.matter).matterOf(_account);
+         return matterOfOwner;
      }
 
      function linkCosmo(address _cosmoAddress) external virtual override {
@@ -98,7 +109,26 @@ import "./ButterAccounts.sol";
           return true;
      }
 
-     function burnMatterFrom(address _from, uint256 _toBurn) external virtual override returns (uint256 newMatterSupply) {
+     function transferMatter(address _to, uint256 _toTransfer) public virtual override returns (bool) {
+         ICosmoMatter(addressOf.matter).transferMatter(_to, _toTransfer);
+         return true;
+     }
+
+     function transferMatterFrom(
+         address _from,
+         address _to,
+         uint256 _toTransfer
+     ) public virtual override returns (bool) {
+         ICosmoMatter(addressOf.matter).transferMatterFrom(
+             _from, _to, _toTransfer
+         );
+         return true;
+     }
+
+     function burnMatterFrom(
+         address _from,
+         uint256 _toBurn
+     ) external virtual override returns (uint256 newMatterSupply) {
          ICosmoMatter(addressOf.matter).burnMatterFrom(_from, _toBurn);
          newMatterSupply = ICosmoMatter(addressOf.matter).totalMatter();
          return newMatterSupply;
@@ -148,6 +178,15 @@ import "./ButterAccounts.sol";
          return true;
      }
 
+     function _nutCheck(uint256 _nutId) internal view returns (bool) {
+         uint256 maxMatter = (numOfSeedsGrownOf(_nutId) + 1) * nut.rate;
+         if (matterBalanceOfNut[_nutId] == maxMatter) {
+             return true;
+         } else {
+             return false;
+         }
+     }
+
      /**
       * Creating new butter means the creation of a contract where other users can withdraw matter from.
       * Need to contribute butter (which can only be done if you have a Nut with the desired level of matter to give away.
@@ -158,60 +197,37 @@ import "./ButterAccounts.sol";
          uint256 _matterContributed,
          uint256 _matterDrawRate,
          bytes32 _secretHash
-     ) external virtual override returns (bool) {
-         address nutOwner = ICosmoNuts(addressOf.cosmos).getOwnerOf(_nutId);
-         // Do we need to be doing these checks twice? Or really new check that caller is from contract (? or person who clicked?)
-         require(nutOwner == address(msg.sender), "Caller is not the owner");
-         require(matterBalanceOfNut[_nutId] >= _matterContributed, "Not have enough matter");
-         CosmoMatter matter = CosmoMatter(addressOf.matter);
-         require(_matterContributed <= matter.balanceOf(nutOwner), "Not high enough");
-         require(_matterContributed % _matterDrawRate == 0, "Draw rate not divisible");
-
-         /**
-          * A nut must have already grown a seed to start being counted as part of the deficiency list.
-          */
-         if (numOfSeedsGrownOf(_nutId) > 0) {
-             butterDeficiencyInUniverse += _matterContributed;
-             butterDeficiencyOfNut[_nutId] += _matterContributed;
-             nutsPayeeList.push(_nutId);
-         }
-
+     ) external virtual override returns (address butterLocation) {
          /**
           * The Treasury wants to distribute its available balance to the nutsPayeeList.
           * It will distribute the minimum of either its available balance or the deficiency in the Universe.
           * All payees are awarded one matter and moved to the end of the list.
           * When their maximum available balance is reached, they are removed from the payee list.
           */
-         uint256 matterInTreasury = matter.balanceOf(addressOf.treasury);
+         uint256 matterInTreasury = ICosmoMatter(addressOf.matter).matterOf(addressOf.treasury);
          if (matterInTreasury > 0) {
              uint256 toDistribute = Math.min(matterInTreasury, butterDeficiencyInUniverse);
 
-             uint256 index = 0;
+             uint256 index = paymentTicket;
              for (uint j = 0; j != toDistribute; j++) {
-                 uint256 allPayees = nutsPayeeList.length;
-                 if (allPayees == 0) {
-                     break;
-                 }
-
-                 if (j > allPayees) {
-                     index = 0;
-                 }
+                 if (butterDeficiencyInUniverse == 0) break;
 
                  uint256 nutPayeeId = nutsPayeeList[index];
-                 address nutOwnerPayee = ICosmoNuts(addressOf.cosmos).getOwnerOf(nutPayeeId);
-                 uint256 maxMatter = numOfSeedsGrownOf(nutPayeeId) * nut.rate;
-                 if (matterBalanceOfNut[nutPayeeId] == maxMatter) {
+                 if (butterDeficiencyOfNut[nutPayeeId] == 0) {
                      delete nutsPayeeList[index];
                  } else {
-                     matter.transfer(nutOwnerPayee, 1);
-                     nutsPayeeList.push(nutPayeeId);
-                     delete nutsPayeeList[index];
+                     address nutOwnerPayee = ICosmoNuts(addressOf.cosmos).getOwnerOf(nutPayeeId);
+                     ICosmoMatter(addressOf.matter).transferMatter(nutOwnerPayee, 1);
 
                      butterDeficiencyInUniverse -= 1;
                      butterDeficiencyOfNut[nutPayeeId] -= 1;
+
+                     nutsPayeeList.push(nutPayeeId);
+                     delete nutsPayeeList[index];
                  }
 
                  index++;
+                 paymentTicket++;
             }
          }
 
@@ -219,12 +235,16 @@ import "./ButterAccounts.sol";
          butter.initialize(
              butterJars, _nutId, _matterContributed, _matterDrawRate, addressOf.treasury, _secretHash
          );
+         butterLocation = address(butter);
 
-         matter.transfer(address(butter), _matterContributed);
+         address nutIdOwner = ICosmoNuts(addressOf.cosmos).getOwnerOf(_nutId);
+         ICosmoMatter(addressOf.matter).transferMatterFrom(nutIdOwner, butterLocation, _matterContributed);
+
+         nutsPayeeList.push(_nutId);
+
          churnButter(_nutId, butterJars, address(butter), _matterContributed);
 
-         return true;
-
+         return butterLocation;
      }
 
      /**
@@ -236,18 +256,20 @@ import "./ButterAccounts.sol";
          uint256 _balance,
          uint256 _currentBalance
      ) external virtual override returns (bool) {
-         CosmoMatter matter = CosmoMatter(addressOf.matter);
-         matter.transfer(_drawer, _balance);
-         matter.mintMatter(address(this), _balance);
+         ICosmoMatter(addressOf.matter).transferMatter(_drawer, _balance);
+         ICosmoMatter(addressOf.matter).mintMatter(address(this), _balance);
+
          distributeButter(_butterId, _balance, _currentBalance);
 
          return true;
      }
 
      function assignMintBalance(address _tokenOwner, uint256 _tokenId) external virtual override returns (bool) {
-         CosmoMatter matter = CosmoMatter(addressOf.matter);
-         require(matter.balanceOf(addressOf.treasury) >= nut.rate, "Not enough matter");
-         matter.transfer(_tokenOwner, nut.rate);
+         uint256 matterOfTreasury = ICosmoMatter(addressOf.matter).matterOf(address(this));
+         require(matterOfTreasury >= nut.rate, "Nut enough matter in Treasury to mint");
+
+         ICosmoMatter(addressOf.matter).transferMatter(_tokenOwner, nut.rate);
+
          matterBalanceOfNut[_tokenId] = nut.rate;
 
          return true;

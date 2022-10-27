@@ -57,7 +57,7 @@ contract CosmoCreation is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
         uint256 nutIndex = totalSupply();
         require(nutIndex < creation.initialSupply, "Initial supply of nuts is depleted");
         uint256 nutPrice = ICosmoTreasury(creation.treasury).getPrice();
-        require(msg.value >= nutPrice, "Ether value is not enough");
+        require(msg.value >= nutPrice, "Ether value provided is not enough");
 
         _safeMint(msg.sender, nutIndex);
         _setTokenURI(nutIndex, _nutCID);
