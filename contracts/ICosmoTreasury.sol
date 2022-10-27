@@ -13,8 +13,6 @@ interface ICosmoTreasury {
 
     function matterOf(address _account) external view returns (uint256 matterOfOwner);
 
-    //function matterOfOwnerByNut(uint256 _nutId) external view returns (uint256 matterOfNutOwner);
-
     function linkCosmo(address _cosmoAddress) external;
 
     function getVaultLocation() external returns (address);
