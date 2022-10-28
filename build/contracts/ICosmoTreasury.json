@@ -360,7 +360,7 @@
       "type": "function"
     }
   ],
-  "metadata": "{\"compiler\":{\"version\":\"0.8.17+commit.8df45f5f\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_tokenOwner\",\"type\":\"address\"}],\"name\":\"assignMintBalance\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_from\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_toBurn\",\"type\":\"uint256\"}],\"name\":\"burnMatterFrom\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"newMatterSupply\",\"type\":\"uint256\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_drawer\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_butterId\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_balance\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_currentBalance\",\"type\":\"uint256\"}],\"name\":\"butterDrawn\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_nutId\",\"type\":\"uint256\"}],\"name\":\"ethToHold\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getPrice\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getSystem\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getVaultLocation\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_owner\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_spender\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_allowance\",\"type\":\"uint256\"}],\"name\":\"grantApproval\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_seedId\",\"type\":\"uint256\"}],\"name\":\"growSeed\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_cosmoAddress\",\"type\":\"address\"}],\"name\":\"linkCosmo\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_nutId\",\"type\":\"uint256\"}],\"name\":\"matterNeeded\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_account\",\"type\":\"address\"}],\"name\":\"matterOf\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"matterOfOwner\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_nutId\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_matterContributed\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_matterDrawRate\",\"type\":\"uint256\"},{\"internalType\":\"bytes32\",\"name\":\"_secretHash\",\"type\":\"bytes32\"}],\"name\":\"newButter\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"butterLocation\",\"type\":\"address\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_nutId\",\"type\":\"uint256\"},{\"internalType\":\"bytes32\",\"name\":\"_secretHash\",\"type\":\"bytes32\"}],\"name\":\"spawnSeed\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"seedLocation\",\"type\":\"address\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_toTransfer\",\"type\":\"uint256\"}],\"name\":\"transferMatter\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_from\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_toTransfer\",\"type\":\"uint256\"}],\"name\":\"transferMatterFrom\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"viewCosmos\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/ICosmoTreasury.sol\":\"ICosmoTreasury\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/ICosmoTreasury.sol\":{\"keccak256\":\"0x934f77f93d48eaf66d6dbb95afd4f2afa85746a797c421eb9a211fc4dc77ae09\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://740145bbe796d64f580eee56b0bac38cf0ce5a9f7a775c8740e4d9ef2bf6bbd2\",\"dweb:/ipfs/QmddJg77TNuTyAgTSk8sCb9Q6J1F2VaiPsVxNyJsZRgCwu\"]}},\"version\":1}",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.17+commit.8df45f5f\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_tokenOwner\",\"type\":\"address\"}],\"name\":\"assignMintBalance\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_from\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_toBurn\",\"type\":\"uint256\"}],\"name\":\"burnMatterFrom\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"newMatterSupply\",\"type\":\"uint256\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_drawer\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_butterId\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_balance\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_currentBalance\",\"type\":\"uint256\"}],\"name\":\"butterDrawn\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_nutId\",\"type\":\"uint256\"}],\"name\":\"ethToHold\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getPrice\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getSystem\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getVaultLocation\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_owner\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_spender\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_allowance\",\"type\":\"uint256\"}],\"name\":\"grantApproval\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_seedId\",\"type\":\"uint256\"}],\"name\":\"growSeed\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_cosmoAddress\",\"type\":\"address\"}],\"name\":\"linkCosmo\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_nutId\",\"type\":\"uint256\"}],\"name\":\"matterNeeded\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_account\",\"type\":\"address\"}],\"name\":\"matterOf\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"matterOfOwner\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_nutId\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_matterContributed\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_matterDrawRate\",\"type\":\"uint256\"},{\"internalType\":\"bytes32\",\"name\":\"_secretHash\",\"type\":\"bytes32\"}],\"name\":\"newButter\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"butterLocation\",\"type\":\"address\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_nutId\",\"type\":\"uint256\"},{\"internalType\":\"bytes32\",\"name\":\"_secretHash\",\"type\":\"bytes32\"}],\"name\":\"spawnSeed\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"seedLocation\",\"type\":\"address\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_toTransfer\",\"type\":\"uint256\"}],\"name\":\"transferMatter\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_from\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_toTransfer\",\"type\":\"uint256\"}],\"name\":\"transferMatterFrom\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"viewCosmos\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/ICosmoTreasury.sol\":\"ICosmoTreasury\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/ICosmoTreasury.sol\":{\"keccak256\":\"0x0f33d0b661ba6a9ae50e8ecffb15729d202ee82b03efd6cf178811bf9e2ca209\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://c2c2cbe47715894516c19d94c2e86d21f418122d5d52134242ceb495eb1aebaf\",\"dweb:/ipfs/QmPyfUrLidGPav77mXDZdmZaMTxYx8FZX1j4SD7L92qdwH\"]}},\"version\":1}",
   "bytecode": "0x",
   "deployedBytecode": "0x",
   "immutableReferences": {},
@@ -368,7 +368,7 @@
   "deployedGeneratedSources": [],
   "sourceMap": "",
   "deployedSourceMap": "",
-  "source": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.7;\n\ninterface ICosmoTreasury {\n\n    function viewCosmos() external view returns (address);\n\n    function transferMatter(address _to, uint256 _toTransfer) external returns (bool);\n\n    function transferMatterFrom(address _from, address _to, uint256 _toTransfer) external returns (bool);\n\n    function burnMatterFrom(address _from, uint256 _toBurn) external returns (uint256 newMatterSupply);\n\n    function matterOf(address _account) external view returns (uint256 matterOfOwner);\n\n    function linkCosmo(address _cosmoAddress) external;\n\n    function getVaultLocation() external returns (address);\n\n    function getSystem() external view returns (address);\n\n    function getPrice() external view returns (uint256);\n\n    function ethToHold(uint256 _nutId) external view returns (uint256);\n\n    function grantApproval(address _owner, address _spender, uint256 _allowance) external returns (bool);\n\n    function matterNeeded(uint256 _nutId) external view returns (uint256);\n\n    function growSeed(uint256 _seedId) external returns (bool);\n\n    function spawnSeed(uint256 _nutId, bytes32 _secretHash) external returns (address seedLocation);\n\n    //function seedFromNut(uint256 _seedId) external returns (bool);\n\n    function newButter(\n        uint256 _nutId,\n        uint256 _matterContributed,\n        uint256 _matterDrawRate,\n        bytes32 _secretHash\n    ) external returns (address butterLocation);\n\n    function butterDrawn(\n        address _drawer,\n        uint256 _butterId,\n        uint256 _balance,\n        uint256 _currentBalance\n    ) external returns (bool);\n\n    function assignMintBalance(address _tokenOwner) external returns (bool);\n\n}\n",
+  "source": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.7;\n\ninterface ICosmoTreasury {\n\n    function viewCosmos() external view returns (address);\n\n    function transferMatter(address _to, uint256 _toTransfer) external returns (bool);\n\n    function transferMatterFrom(address _from, address _to, uint256 _toTransfer) external returns (bool);\n\n    function burnMatterFrom(address _from, uint256 _toBurn) external returns (uint256 newMatterSupply);\n\n    function matterOf(address _account) external view returns (uint256 matterOfOwner);\n\n    function linkCosmo(address _cosmoAddress) external;\n\n    function getVaultLocation() external returns (address);\n\n    function getSystem() external view returns (address);\n\n    function getPrice() external view returns (uint256);\n\n    function ethToHold(uint256 _nutId) external view returns (uint256);\n\n    function grantApproval(address _owner, address _spender, uint256 _allowance) external returns (bool);\n\n    function matterNeeded(uint256 _nutId) external view returns (uint256);\n\n    function growSeed(uint256 _seedId) external returns (bool);\n\n    function spawnSeed(uint256 _nutId, bytes32 _secretHash) external returns (address seedLocation);\n\n    function newButter(\n        uint256 _nutId,\n        uint256 _matterContributed,\n        uint256 _matterDrawRate,\n        bytes32 _secretHash\n    ) external returns (address butterLocation);\n\n    function butterDrawn(\n        address _drawer,\n        uint256 _butterId,\n        uint256 _balance,\n        uint256 _currentBalance\n    ) external returns (bool);\n\n    function assignMintBalance(address _tokenOwner) external returns (bool);\n\n}\n",
   "sourcePath": "/home/redlentils/Seafile/Websites/avatarnft/contracts/ICosmoTreasury.sol",
   "ast": {
     "absolutePath": "project:/contracts/ICosmoTreasury.sol",
@@ -1637,7 +1637,7 @@
             "kind": "function",
             "modifiers": [],
             "name": "newButter",
-            "nameLocation": "1274:9:33",
+            "nameLocation": "1204:9:33",
             "nodeType": "FunctionDefinition",
             "parameters": {
               "id": 6526,
@@ -1648,10 +1648,10 @@
                   "id": 6519,
                   "mutability": "mutable",
                   "name": "_nutId",
-                  "nameLocation": "1301:6:33",
+                  "nameLocation": "1231:6:33",
                   "nodeType": "VariableDeclaration",
                   "scope": 6530,
-                  "src": "1293:14:33",
+                  "src": "1223:14:33",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1662,7 +1662,7 @@
                     "id": 6518,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "1293:7:33",
+                    "src": "1223:7:33",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -1675,10 +1675,10 @@
                   "id": 6521,
                   "mutability": "mutable",
                   "name": "_matterContributed",
-                  "nameLocation": "1325:18:33",
+                  "nameLocation": "1255:18:33",
                   "nodeType": "VariableDeclaration",
                   "scope": 6530,
-                  "src": "1317:26:33",
+                  "src": "1247:26:33",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1689,7 +1689,7 @@
                     "id": 6520,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "1317:7:33",
+                    "src": "1247:7:33",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -1702,10 +1702,10 @@
                   "id": 6523,
                   "mutability": "mutable",
                   "name": "_matterDrawRate",
-                  "nameLocation": "1361:15:33",
+                  "nameLocation": "1291:15:33",
                   "nodeType": "VariableDeclaration",
                   "scope": 6530,
-                  "src": "1353:23:33",
+                  "src": "1283:23:33",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1716,7 +1716,7 @@
                     "id": 6522,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "1353:7:33",
+                    "src": "1283:7:33",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -1729,10 +1729,10 @@
                   "id": 6525,
                   "mutability": "mutable",
                   "name": "_secretHash",
-                  "nameLocation": "1394:11:33",
+                  "nameLocation": "1324:11:33",
                   "nodeType": "VariableDeclaration",
                   "scope": 6530,
-                  "src": "1386:19:33",
+                  "src": "1316:19:33",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1743,7 +1743,7 @@
                     "id": 6524,
                     "name": "bytes32",
                     "nodeType": "ElementaryTypeName",
-                    "src": "1386:7:33",
+                    "src": "1316:7:33",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes32",
                       "typeString": "bytes32"
@@ -1752,7 +1752,7 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "1283:128:33"
+              "src": "1213:128:33"
             },
             "returnParameters": {
               "id": 6529,
@@ -1763,10 +1763,10 @@
                   "id": 6528,
                   "mutability": "mutable",
                   "name": "butterLocation",
-                  "nameLocation": "1438:14:33",
+                  "nameLocation": "1368:14:33",
                   "nodeType": "VariableDeclaration",
                   "scope": 6530,
-                  "src": "1430:22:33",
+                  "src": "1360:22:33",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1777,7 +1777,7 @@
                     "id": 6527,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "1430:7:33",
+                    "src": "1360:7:33",
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -1787,10 +1787,10 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "1429:24:33"
+              "src": "1359:24:33"
             },
             "scope": 6551,
-            "src": "1265:189:33",
+            "src": "1195:189:33",
             "stateMutability": "nonpayable",
             "virtual": false,
             "visibility": "external"
@@ -1802,7 +1802,7 @@
             "kind": "function",
             "modifiers": [],
             "name": "butterDrawn",
-            "nameLocation": "1469:11:33",
+            "nameLocation": "1399:11:33",
             "nodeType": "FunctionDefinition",
             "parameters": {
               "id": 6539,
@@ -1813,10 +1813,10 @@
                   "id": 6532,
                   "mutability": "mutable",
                   "name": "_drawer",
-                  "nameLocation": "1498:7:33",
+                  "nameLocation": "1428:7:33",
                   "nodeType": "VariableDeclaration",
                   "scope": 6543,
-                  "src": "1490:15:33",
+                  "src": "1420:15:33",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1827,7 +1827,7 @@
                     "id": 6531,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "1490:7:33",
+                    "src": "1420:7:33",
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -1841,10 +1841,10 @@
                   "id": 6534,
                   "mutability": "mutable",
                   "name": "_butterId",
-                  "nameLocation": "1523:9:33",
+                  "nameLocation": "1453:9:33",
                   "nodeType": "VariableDeclaration",
                   "scope": 6543,
-                  "src": "1515:17:33",
+                  "src": "1445:17:33",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1855,7 +1855,7 @@
                     "id": 6533,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "1515:7:33",
+                    "src": "1445:7:33",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -1868,10 +1868,10 @@
                   "id": 6536,
                   "mutability": "mutable",
                   "name": "_balance",
-                  "nameLocation": "1550:8:33",
+                  "nameLocation": "1480:8:33",
                   "nodeType": "VariableDeclaration",
                   "scope": 6543,
-                  "src": "1542:16:33",
+                  "src": "1472:16:33",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1882,7 +1882,7 @@
                     "id": 6535,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "1542:7:33",
+                    "src": "1472:7:33",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -1895,10 +1895,10 @@
                   "id": 6538,
                   "mutability": "mutable",
                   "name": "_currentBalance",
-                  "nameLocation": "1576:15:33",
+                  "nameLocation": "1506:15:33",
                   "nodeType": "VariableDeclaration",
                   "scope": 6543,
-                  "src": "1568:23:33",
+                  "src": "1498:23:33",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1909,7 +1909,7 @@
                     "id": 6537,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "1568:7:33",
+                    "src": "1498:7:33",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -1918,7 +1918,7 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "1480:117:33"
+              "src": "1410:117:33"
             },
             "returnParameters": {
               "id": 6542,
@@ -1932,7 +1932,7 @@
                   "nameLocation": "-1:-1:-1",
                   "nodeType": "VariableDeclaration",
                   "scope": 6543,
-                  "src": "1616:4:33",
+                  "src": "1546:4:33",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1943,7 +1943,7 @@
                     "id": 6540,
                     "name": "bool",
                     "nodeType": "ElementaryTypeName",
-                    "src": "1616:4:33",
+                    "src": "1546:4:33",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bool",
                       "typeString": "bool"
@@ -1952,10 +1952,10 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "1615:6:33"
+              "src": "1545:6:33"
             },
             "scope": 6551,
-            "src": "1460:162:33",
+            "src": "1390:162:33",
             "stateMutability": "nonpayable",
             "virtual": false,
             "visibility": "external"
@@ -1967,7 +1967,7 @@
             "kind": "function",
             "modifiers": [],
             "name": "assignMintBalance",
-            "nameLocation": "1637:17:33",
+            "nameLocation": "1567:17:33",
             "nodeType": "FunctionDefinition",
             "parameters": {
               "id": 6546,
@@ -1978,10 +1978,10 @@
                   "id": 6545,
                   "mutability": "mutable",
                   "name": "_tokenOwner",
-                  "nameLocation": "1663:11:33",
+                  "nameLocation": "1593:11:33",
                   "nodeType": "VariableDeclaration",
                   "scope": 6550,
-                  "src": "1655:19:33",
+                  "src": "1585:19:33",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1992,7 +1992,7 @@
                     "id": 6544,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "1655:7:33",
+                    "src": "1585:7:33",
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -2002,7 +2002,7 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "1654:21:33"
+              "src": "1584:21:33"
             },
             "returnParameters": {
               "id": 6549,
@@ -2016,7 +2016,7 @@
                   "nameLocation": "-1:-1:-1",
                   "nodeType": "VariableDeclaration",
                   "scope": 6550,
-                  "src": "1694:4:33",
+                  "src": "1624:4:33",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -2027,7 +2027,7 @@
                     "id": 6547,
                     "name": "bool",
                     "nodeType": "ElementaryTypeName",
-                    "src": "1694:4:33",
+                    "src": "1624:4:33",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bool",
                       "typeString": "bool"
@@ -2036,21 +2036,21 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "1693:6:33"
+              "src": "1623:6:33"
             },
             "scope": 6551,
-            "src": "1628:72:33",
+            "src": "1558:72:33",
             "stateMutability": "nonpayable",
             "virtual": false,
             "visibility": "external"
           }
         ],
         "scope": 6552,
-        "src": "57:1646:33",
+        "src": "57:1576:33",
         "usedErrors": []
       }
     ],
-    "src": "32:1672:33"
+    "src": "32:1602:33"
   },
   "compiler": {
     "name": "solc",
@@ -2058,7 +2058,7 @@
   },
   "networks": {},
   "schemaVersion": "3.4.10",
-  "updatedAt": "2022-10-28T14:21:30.797Z",
+  "updatedAt": "2022-10-28T15:21:01.335Z",
   "devdoc": {
     "kind": "dev",
     "methods": {},

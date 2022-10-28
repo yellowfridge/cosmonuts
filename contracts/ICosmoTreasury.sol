@@ -31,8 +31,6 @@ interface ICosmoTreasury {
 
     function spawnSeed(uint256 _nutId, bytes32 _secretHash) external returns (address seedLocation);
 
-    //function seedFromNut(uint256 _seedId) external returns (bool);
-
     function newButter(
         uint256 _nutId,
         uint256 _matterContributed,

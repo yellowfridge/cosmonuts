@@ -16,11 +16,9 @@ import "./ICosmoVault.sol";
      struct Seed {
          uint256 id;
          uint256 nutId;
-         //uint256 nutPrice;
          uint256 heldEther;
          uint256 matterNeeded;
          address location;
-         //address system;
          address matter;
          address treasury;
          address cosmos;
@@ -31,23 +29,16 @@ import "./ICosmoVault.sol";
      function initialize(
          uint256 _seedId,
          uint256 _nutId,
-         //uint256 _nutPrice,
-         //address _system,
          address _matter,
          address _treasury,
          address _cosmos,
          bytes32 _secretHash
-     //) public payable {
      ) external virtual override {
          seed.id = _seedId;
          seed.nutId = _nutId;
-         //seed.nutPrice = _nutPrice;
-         //seed.heldEther = msg.value;
          seed.heldEther = 0;
          seed.matterNeeded = ICosmoTreasury(_treasury).matterNeeded(_nutId);
-         //seed.location = payable(address(this));
          seed.location = address(this);
-         //seed.system = _system;
          seed.matter = _matter;
          seed.treasury = _treasury;
          seed.cosmos = _cosmos;
@@ -90,10 +81,9 @@ import "./ICosmoVault.sol";
          );
 
          address parentNutOwner = ICosmoNuts(seed.cosmos).getOwnerOf(seed.nutId);
-
          ICosmoMatter(seed.matter).transferMatterFrom(msg.sender, parentNutOwner, seed.matterNeeded);
 
-         uint256 newNutId = ICosmoNuts(seed.cosmos).newNutMint(msg.sender, _cidPath);
+         uint256 newNutId = ICosmoNuts(seed.cosmos).newNutMint(msg.sender);
 
          address vault = ICosmoTreasury(seed.treasury).getVaultLocation();
          ICosmoVault(vault).changeTokenURI(
@@ -105,10 +95,12 @@ import "./ICosmoVault.sol";
              seed.matterNeeded
          );
 
-         ICosmoTreasury(seed.treasury).growSeed(seed.id);
+         ICosmoMatter(seed.matter).mintMatter(
+             seed.treasury,
+             1
+         );
 
-         //ICosmoTreasury(seed.treasury).seedFromNut(seed.id);
-         //ICosmoNuts(seed.cosmos).createNut(msg.sender, _cidPath, _signature);
+         ICosmoTreasury(seed.treasury).growSeed(seed.id);
 
          /**
           * Sending the original set price to Treasury.  This is payment for a new NFT (nut).
@@ -125,12 +117,11 @@ import "./ICosmoVault.sol";
           * Sending remaining amount back to current nut owner who created the seed.
           */
          uint256 returnAmount = seed.heldEther - nutPrice;
-         //if (returnAmount > 0) {
+
          (bool sentToParent,/*memory data*/) = parentNutOwner.call{
              value: returnAmount
          }("");
          require(sentToParent, "Ether not sent to parent nut");
-         //}
 
          return true;
      }

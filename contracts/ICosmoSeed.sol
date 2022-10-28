@@ -8,8 +8,6 @@ interface ICosmoSeed {
     function initialize(
         uint256 _seedId,
         uint256 _nutId,
-        //uint256 _nutPrice,
-        //address _system,
         address _matter,
         address _treasury,
         address _cosmos,
