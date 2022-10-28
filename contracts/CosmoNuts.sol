@@ -57,20 +57,33 @@ import "./ICosmoTreasury.sol";
          payable(msg.sender).transfer(balance);
      }
 
+     function newNutMint(address _to, string memory _nutCID) external virtual override returns (uint256) {
+         uint256 nutIndex = totalSupply();
+         _safeMint(_to, nutIndex);
+         _setTokenURI(nutIndex, _nutCID);
+         return nutIndex;
+     }
+
      /*
       * Called from CosmoSeed to mint a new Nut
       */
+      // May need to have address of who to assign to sent
+      /*
      function createNut(
+         address _caller,
          string memory _cidPath,
          bytes memory _signature
-     ) external virtual override returns (bool) {
+     ) external virtual override returns (uint256) {
          uint256 mintIndex = totalSupply();
-         _safeMint(msg.sender, mintIndex);
+         _safeMint(_caller, mintIndex);
+
          ICosmoVault(creation.vault).changeTokenURI(
              mintIndex, _cidPath, _signature
          );
-         return true;
+
+         return mintIndex;
      }
+     */
 
      /**
       * Function callable by Nut owner to create a seed which has the potential to turn into a new Nut.

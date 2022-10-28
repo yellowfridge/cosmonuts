@@ -61,7 +61,7 @@ contract CosmoCreation is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
 
         _safeMint(msg.sender, nutIndex);
         _setTokenURI(nutIndex, _nutCID);
-        ICosmoTreasury(creation.treasury).assignMintBalance(msg.sender, nutIndex);
+        ICosmoTreasury(creation.treasury).assignMintBalance(msg.sender);
     }
 
     // ----- The following functions are overrides required by Solidity -----

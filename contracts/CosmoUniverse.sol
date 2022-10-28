@@ -5,6 +5,7 @@ import "openzeppelin-solidity/contracts/access/Ownable.sol";
 import { Clones } from "openzeppelin-solidity/contracts/proxy/Clones.sol";
 import "./CosmoMatter.sol";
 import "./CosmoBang.sol";
+import "./ICosmoMatter.sol";
 
 /**
  * CosmoUniverse is the top contract for the developer to create the planned system.
@@ -41,12 +42,12 @@ import "./CosmoBang.sol";
      }
 
      function totalMatter() public view returns (uint256 totalMatterBalance) {
-         totalMatterBalance = CosmoMatter(MATTER_ADDRESS).totalSupply();
+         totalMatterBalance = ICosmoMatter(MATTER_ADDRESS).totalMatter();
          return totalMatterBalance;
      }
 
      function matterBalanceOf(address _address) public view returns (uint256 matterBalance) {
-         matterBalance = CosmoMatter(MATTER_ADDRESS).balanceOf(_address);
+         matterBalance = ICosmoMatter(MATTER_ADDRESS).matterOf(_address);
          return matterBalance;
      }
 

@@ -39,15 +39,15 @@
     "absolutePath": "project:/contracts/ICosmoVault.sol",
     "exportedSymbols": {
       "ICosmoVault": [
-        6550
+        6563
       ]
     },
-    "id": 6551,
+    "id": 6564,
     "license": "MIT",
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 6540,
+        "id": 6553,
         "literals": [
           "solidity",
           "^",
@@ -64,9 +64,9 @@
         "contractDependencies": [],
         "contractKind": "interface",
         "fullyImplemented": false,
-        "id": 6550,
+        "id": 6563,
         "linearizedBaseContracts": [
-          6550
+          6563
         ],
         "name": "ICosmoVault",
         "nameLocation": "67:11:34",
@@ -74,7 +74,7 @@
         "nodes": [
           {
             "functionSelector": "bd6af009",
-            "id": 6549,
+            "id": 6562,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
@@ -82,17 +82,17 @@
             "nameLocation": "95:14:34",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 6547,
+              "id": 6560,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 6542,
+                  "id": 6555,
                   "mutability": "mutable",
                   "name": "_tokenId",
                   "nameLocation": "127:8:34",
                   "nodeType": "VariableDeclaration",
-                  "scope": 6549,
+                  "scope": 6562,
                   "src": "119:16:34",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -101,7 +101,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 6541,
+                    "id": 6554,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "119:7:34",
@@ -114,12 +114,12 @@
                 },
                 {
                   "constant": false,
-                  "id": 6544,
+                  "id": 6557,
                   "mutability": "mutable",
                   "name": "_cidPath",
                   "nameLocation": "159:8:34",
                   "nodeType": "VariableDeclaration",
-                  "scope": 6549,
+                  "scope": 6562,
                   "src": "145:22:34",
                   "stateVariable": false,
                   "storageLocation": "memory",
@@ -128,7 +128,7 @@
                     "typeString": "string"
                   },
                   "typeName": {
-                    "id": 6543,
+                    "id": 6556,
                     "name": "string",
                     "nodeType": "ElementaryTypeName",
                     "src": "145:6:34",
@@ -141,12 +141,12 @@
                 },
                 {
                   "constant": false,
-                  "id": 6546,
+                  "id": 6559,
                   "mutability": "mutable",
                   "name": "_signature",
                   "nameLocation": "190:10:34",
                   "nodeType": "VariableDeclaration",
-                  "scope": 6549,
+                  "scope": 6562,
                   "src": "177:23:34",
                   "stateVariable": false,
                   "storageLocation": "memory",
@@ -155,7 +155,7 @@
                     "typeString": "bytes"
                   },
                   "typeName": {
-                    "id": 6545,
+                    "id": 6558,
                     "name": "bytes",
                     "nodeType": "ElementaryTypeName",
                     "src": "177:5:34",
@@ -170,19 +170,19 @@
               "src": "109:97:34"
             },
             "returnParameters": {
-              "id": 6548,
+              "id": 6561,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "215:0:34"
             },
-            "scope": 6550,
+            "scope": 6563,
             "src": "86:130:34",
             "stateMutability": "nonpayable",
             "virtual": false,
             "visibility": "external"
           }
         ],
-        "scope": 6551,
+        "scope": 6564,
         "src": "57:162:34",
         "usedErrors": []
       }
@@ -195,7 +195,7 @@
   },
   "networks": {},
   "schemaVersion": "3.4.10",
-  "updatedAt": "2022-10-27T06:37:23.595Z",
+  "updatedAt": "2022-10-28T14:21:30.798Z",
   "devdoc": {
     "kind": "dev",
     "methods": {},

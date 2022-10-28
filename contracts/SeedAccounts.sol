@@ -32,10 +32,12 @@ contract SeedAccounts {
         isSeedActive[_nutId] = true;
     }
 
+    /*
     function growSeed(uint256 _seedId) internal {
         uint256 nutId = nutOfSeed[_seedId];
         seedsGrownOfNut[nutId].push(_seedId);
         isSeedActive[nutId] = false;
     }
+    */
 
 }

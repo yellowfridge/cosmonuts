@@ -17,6 +17,8 @@ interface ICosmoTreasury {
 
     function getVaultLocation() external returns (address);
 
+    function getSystem() external view returns (address);
+
     function getPrice() external view returns (uint256);
 
     function ethToHold(uint256 _nutId) external view returns (uint256);
@@ -25,9 +27,11 @@ interface ICosmoTreasury {
 
     function matterNeeded(uint256 _nutId) external view returns (uint256);
 
+    function growSeed(uint256 _seedId) external returns (bool);
+
     function spawnSeed(uint256 _nutId, bytes32 _secretHash) external returns (address seedLocation);
 
-    function seedFromNut(uint256 _seedId, uint256 _matterNeeded) external returns (bool);
+    //function seedFromNut(uint256 _seedId) external returns (bool);
 
     function newButter(
         uint256 _nutId,
@@ -43,6 +47,6 @@ interface ICosmoTreasury {
         uint256 _currentBalance
     ) external returns (bool);
 
-    function assignMintBalance(address _tokenOwner, uint256 _tokenId) external returns (bool);
+    function assignMintBalance(address _tokenOwner) external returns (bool);
 
 }
