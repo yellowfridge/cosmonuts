@@ -92,11 +92,6 @@ import "./ICosmoVault.sol";
 
          ICosmoMatter(seed.matter).mintMatter(
              msg.sender,
-             seed.matterNeeded
-         );
-
-         ICosmoMatter(seed.matter).mintMatter(
-             seed.treasury,
              1
          );
 
