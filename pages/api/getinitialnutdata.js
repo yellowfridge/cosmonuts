@@ -5,11 +5,12 @@ import CosmoNuts from '../../ethereum/build_manual/CosmoNuts_abi.json';
 export default async function getInitialNutData(req, res) {
   //console.log("Get initial nut data");
   const privateKey = process.env.PRIVATE_KEY;
-  const infuraKey = process.env.INFURA_MNEMONIC;
+  //const infuraKey = process.env.INFURA_MNEMONIC;
   // BELOW NEEDS TO BE DYNAMIC - EVERYWHERE
   const contractAddress = '0xb97C6312F412b58cCfac2c0E63609df0c2599CAa';
 
-  const infuraID = "https://ropsten.infura.io/v3/74359b5dcb78433cbf58438ae3625b64"
+  const infuraID = "https://goerli.infura.io/v3/7062ef4505da4e3d9e333b9ed6a07c6d"
+  //const infuraID = "https://ropsten.infura.io/v3/74359b5dcb78433cbf58438ae3625b64"
 
   // Code to enable local connection (not working poll tracked - updating blocks?)
   // Probably needs an active node connected to ETH on local server
