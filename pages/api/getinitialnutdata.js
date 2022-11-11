@@ -35,7 +35,7 @@ export default async function getInitialNutData(req, res) {
   let maxNutPurchase = await cosmoNuts.methods.maxNutPurchase().call();
   let revealTimeStamp = await cosmoNuts.methods.REVEAL_TIMESTAMP().call();
   let totalSupply = await cosmoNuts.methods.totalSupply().call();
-  let cosmoCID = await cosmoNuts.methods.COSMOS_METADATA().call();
+  //let cosmoCID = await cosmoNuts.methods.COSMOS_METADATA().call();
 
   res.status(200).json({
     isActive: isActive,
@@ -44,7 +44,7 @@ export default async function getInitialNutData(req, res) {
     nutPrice: nutPrice,
     maxNutPurchase: maxNutPurchase,
     revealTimeStamp: revealTimeStamp,
-    cosmoCID: cosmoCID
+    //cosmoCID: cosmoCID
   });
 
 }
