@@ -22,7 +22,7 @@ contract CosmoNuts is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
   bool public saleIsActive = false;
   uint256 public REVEAL_TIMESTAMP;
   address private SYSTEM_ADDRESS;
-  string public COSMOS_METADATA;
+  //string public COSMOS_METADATA;
 
   using ECDSA for bytes32;
 
@@ -30,11 +30,11 @@ contract CosmoNuts is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
   mapping(uint256 => string[]) private traveledURIs;
 
   // Using 1645347572 for saleStart date in tests
-  constructor(string memory name, string memory symbol, uint256 maxNFTSupply, uint256 saleStart, address _systemAddress, string memory cosmosCID) ERC721(name, symbol) {
+  constructor(string memory name, string memory symbol, uint256 maxNFTSupply, uint256 saleStart, address _systemAddress/*, string memory cosmosCID*/) ERC721(name, symbol) {
       MAX_NUTS = maxNFTSupply; // Total number of tokens (traditionally 10,000)
       REVEAL_TIMESTAMP = saleStart + (86400 * 9); // Represents 9 days - from BAYC code (86,400 * 9) - should show exact amount to save gas
       SYSTEM_ADDRESS = _systemAddress;
-      COSMOS_METADATA = cosmosCID;
+      //COSMOS_METADATA = cosmosCID;
   }
 
   // Set Base URI
