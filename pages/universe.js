@@ -160,10 +160,10 @@ class Universe extends Component {
           href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.12/semantic.min.css"
         />
 
-        <Grid columns={2}>
-          <Grid.Column width={6}>
+        <Grid textAlign='center' columns={2}>
+          <Grid.Row>
             <h1>UNIVERSE COMMAND</h1>
-          </Grid.Column>
+          </Grid.Row>
 
           <Grid.Column width={10}>
             <Statistic
@@ -171,11 +171,18 @@ class Universe extends Component {
               label='Universe Address'
               value={this.state.universeAddress}
               size='mini'
-              style={{
-                marginTop: '10px'
-              }}
             />
           </Grid.Column>
+
+          <Grid.Row>
+            <Grid.Column>
+              <Statistic label='Owner' value={this.state.owner} size='mini' />
+            </Grid.Column>
+
+            <Grid.Column>
+              <Statistic label='System Address' value={this.state.systemAddress} size='mini' />
+            </Grid.Column>
+          </Grid.Row>
         </Grid>
 
         <Divider />
@@ -206,49 +213,32 @@ class Universe extends Component {
           </Grid.Column>
         </Grid>
 
-        <Divider hidden />
+        <Divider />
 
         <Grid textAlign='center' columns={2}>
           <Grid.Row>
-            <Statistic label='Name' value={this.state.cosmoName} size='small' />
-          </Grid.Row>
-
-          <Grid.Row>
-            <Statistic label='Cosmo Address' value={this.state.cosmosAddress} size='mini' />
-          </Grid.Row>
-
-          <Grid.Row>
             <Grid.Column>
-              <Statistic label='Owner' value={this.state.owner} size='mini' />
+              <Statistic label='Name' value={this.state.cosmoName} size='small' />
             </Grid.Column>
 
             <Grid.Column>
-              <Statistic label='System Address' value={this.state.systemAddress} size='mini' />
+              <Statistic label='Cosmo Address' value={this.state.cosmosAddress} size='mini' />
             </Grid.Column>
           </Grid.Row>
-
-          <Grid.Row>
-            <Grid.Column>
-              <Statistic label='Treasury Address' value={this.state.treasuryAddress} size='mini' />
-            </Grid.Column>
-
-            <Grid.Column>
-              <Statistic label='Vault Address' value={this.state.vaultAddress} size='mini' />
-            </Grid.Column>
-          </Grid.Row>
-
         </Grid>
 
         <Divider />
 
         <Grid textAlign='center' columns={2}>
           <Grid.Row>
-            <h2>Matter Systems</h2>
-          </Grid.Row>
+            <Grid.Column>
+              <h1>MATTER SYSTEMS</h1>
+            </Grid.Column>
 
-          <Grid.Column>
-            <Statistic label='Matter Address' value={this.state.matterAddress} size='mini' />
-          </Grid.Column>
+            <Grid.Column>
+              <Statistic label='Matter Address' value={this.state.matterAddress} size='mini' />
+            </Grid.Column>
+          </Grid.Row>
 
           <Grid.Column>
             <Statistic label='Initial Matter' value={this.state.initialMatter} size='mini' />
@@ -307,6 +297,36 @@ class Universe extends Component {
           </Grid.Row>
 
         </Grid>
+
+        <Divider />
+
+        <Grid textAlign='center' columns={2}>
+          <Grid.Row>
+            <Grid.Column>
+              <h1>TREASURY</h1>
+            </Grid.Column>
+
+            <Grid.Column>
+              <Statistic label='Treasury Address' value={this.state.treasuryAddress} size='mini' />
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
+
+      <Divider />
+
+      <Grid textAlign='center' columns={2}>
+        <Grid.Row>
+          <Grid.Column>
+            <h1>VAULT</h1>
+          </Grid.Column>
+
+          <Grid.Column>
+            <Statistic label='Vault Address' value={this.state.vaultAddress} size='mini' />
+          </Grid.Column>
+        </Grid.Row>
+      </Grid>
+
+      <Divider />
 
       </div>
     )
