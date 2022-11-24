@@ -13,8 +13,8 @@ import cosmos from '../metadata/cosmonuts.json';
 import { getInitialNutData, retrieveFromIPNS, retrieveFromIPFS } from '../components/helpers/apiRequests';
 import getJSONData from '../components/helpers/getjsondata';
 
-// Latest deployed CosmoNuts address: 0xb97C6312F412b58cCfac2c0E63609df0c2599CAa
-// Deployed on Ropsten(3) network
+// Latest deployed CosmoNuts address: 0XF9A938EE9F7EE1EF8457C3C6E4CDF94A00AFA58E
+// Deployed on Goergli Network (old one Ropsten was deprecated)
 
 class Main extends Component {
   constructor(props) {

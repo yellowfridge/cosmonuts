@@ -6,9 +6,8 @@ export default async function getInitialNutData(req, res) {
   const privateKey = process.env.PRIVATE_KEY;
   const infuraKey = process.env.INFURA_MNEMONIC;
   // BELOW NEEDS TO BE DYNAMIC - EVERYWHERE
-  const contractAddress = '0xb97C6312F412b58cCfac2c0E63609df0c2599CAa';
-
-  const infuraID = "https://ropsten.infura.io/v3/74359b5dcb78433cbf58438ae3625b64"
+  const contractAddress = '0XF9A938EE9F7EE1EF8457C3C6E4CDF94A00AFA58E';
+  const infuraID = "https://goerli.infura.io/v3/7062ef4505da4e3d9e333b9ed6a07c6d";
 
   let web3 = new Web3(new Web3.providers.HttpProvider(infuraID));
 
@@ -16,22 +15,10 @@ export default async function getInitialNutData(req, res) {
   let cosmoNuts = new web3.eth.Contract(CosmoNuts, contractAddress);
 
   // Grab all the relevant info from the smart contract
-  let isActive = await cosmoNuts.methods.saleIsActive().call();
-  let maxNuts = await cosmoNuts.methods.MAX_NUTS().call();
-  let nutPrice = await cosmoNuts.methods.nutPrice().call();
-  let maxNutPurchase = await cosmoNuts.methods.maxNutPurchase().call();
-  let revealTimeStamp = await cosmoNuts.methods.REVEAL_TIMESTAMP().call();
   let totalSupply = await cosmoNuts.methods.totalSupply().call();
-  //let cosmoCID = await cosmoNuts.methods.COSMOS_METADATA().call();
 
   res.status(200).json({
-    isActive: isActive,
     totalSupply: totalSupply,
-    maxNuts: maxNuts,
-    nutPrice: nutPrice,
-    maxNutPurchase: maxNutPurchase,
-    revealTimeStamp: revealTimeStamp,
-    //cosmoCID: cosmoCID
   });
 
 }
