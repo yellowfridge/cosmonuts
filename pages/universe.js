@@ -10,6 +10,7 @@ class Universe extends Component {
     super();
 
     this.state = {
+      universeAddress: '0x78d61C45d0A7BE65C42F2D56d8745122d5e66261',
       cosmoIndex: 0,
       systemAddress: '',
       matterAddress: '',
@@ -38,9 +39,8 @@ class Universe extends Component {
   }
 
   async collectUniverse() {
-    const universeAddress = '0x78d61C45d0A7BE65C42F2D56d8745122d5e66261';
     const web3 = new Web3(window.ethereum);
-    const universe = new web3.eth.Contract(CosmoUniverse, universeAddress);
+    const universe = new web3.eth.Contract(CosmoUniverse, this.state.universeAddress);
 
     await universe.methods.owner().call().then((owner) => {
       this.setState({
@@ -92,9 +92,8 @@ class Universe extends Component {
   }
 
   async collectMatterStats() {
-    const universeAddress = '0x78d61C45d0A7BE65C42F2D56d8745122d5e66261';
     const web3 = new Web3(window.ethereum);
-    const universe = new web3.eth.Contract(CosmoUniverse, universeAddress);
+    const universe = new web3.eth.Contract(CosmoUniverse, this.state.universeAddress);
 
     await universe.methods.totalMatter().call().then((totalMatter) => {
       this.setState({
@@ -117,9 +116,8 @@ class Universe extends Component {
   }
 
   async handleGetCosmo() {
-    const universeAddress = '0x78d61C45d0A7BE65C42F2D56d8745122d5e66261';
     const web3 = new Web3(window.ethereum);
-    const universe = new web3.eth.Contract(CosmoUniverse, universeAddress);
+    const universe = new web3.eth.Contract(CosmoUniverse, this.state.universeAddress);
 
     await universe.methods.bangs(this.state.cosmoIndex).call().then((bang) => {
       this.setState({
@@ -131,9 +129,8 @@ class Universe extends Component {
   }
 
   async handleGetMatterOf() {
-    const universeAddress = '0x78d61C45d0A7BE65C42F2D56d8745122d5e66261';
     const web3 = new Web3(window.ethereum);
-    const universe = new web3.eth.Contract(CosmoUniverse, universeAddress);
+    const universe = new web3.eth.Contract(CosmoUniverse, this.state.universeAddress);
 
     await universe.methods.matterBalanceOf(this.state.matterOfAddress).call().then((matter) => {
       this.setState({
@@ -163,7 +160,23 @@ class Universe extends Component {
           href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.12/semantic.min.css"
         />
 
-        <h1>UNIVERSE COMMAND</h1>
+        <Grid columns={2}>
+          <Grid.Column width={6}>
+            <h1>UNIVERSE COMMAND</h1>
+          </Grid.Column>
+
+          <Grid.Column width={10}>
+            <Statistic
+              horizontal
+              label='Universe Address'
+              value={this.state.universeAddress}
+              size='mini'
+              style={{
+                marginTop: '10px'
+              }}
+            />
+          </Grid.Column>
+        </Grid>
 
         <Divider />
 
@@ -198,6 +211,10 @@ class Universe extends Component {
         <Grid textAlign='center' columns={2}>
           <Grid.Row>
             <Statistic label='Name' value={this.state.cosmoName} size='small' />
+          </Grid.Row>
+
+          <Grid.Row>
+            <Statistic label='Cosmo Address' value={this.state.cosmosAddress} size='mini' />
           </Grid.Row>
 
           <Grid.Row>

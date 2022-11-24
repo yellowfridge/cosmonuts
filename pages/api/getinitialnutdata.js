@@ -3,7 +3,6 @@ import Web3 from 'web3';
 import CosmoNuts from '../../ethereum/build_manual/CosmoNuts_abi.json';
 
 export default async function getInitialNutData(req, res) {
-  //console.log("Get initial nut data");
   const privateKey = process.env.PRIVATE_KEY;
   const infuraKey = process.env.INFURA_MNEMONIC;
   // BELOW NEEDS TO BE DYNAMIC - EVERYWHERE
@@ -11,19 +10,7 @@ export default async function getInitialNutData(req, res) {
 
   const infuraID = "https://ropsten.infura.io/v3/74359b5dcb78433cbf58438ae3625b64"
 
-  // Code to enable local connection (not working poll tracked - updating blocks?)
-  // Probably needs an active node connected to ETH on local server
-  //const serverProvider = new HDWalletProvider(
-  //  privateKey,
-  //  "http://localhost:3000"
-  //);
-
   let web3 = new Web3(new Web3.providers.HttpProvider(infuraID));
-
-  //let accounts = await web3.eth.getAccounts().then((accounts) => {
-  //  return accounts;
-  //});
-  //console.log("Accounts", accounts);
 
   // Initiate the cosmo nuts contract so calls can be made to it
   let cosmoNuts = new web3.eth.Contract(CosmoNuts, contractAddress);
