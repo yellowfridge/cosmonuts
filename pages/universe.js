@@ -3,6 +3,7 @@ import Layout from '../components/layout';
 import Web3 from 'web3';
 import CosmoUniverse from '../ethereum/build_manual/CosmoUniverse_abi.json';
 import CosmoNuts from '../ethereum/build_manual/CosmoNuts_abi.json';
+import CosmoTreasury from '../ethereum/build_manual/CosmoTreasury_abi.json';
 import { Input, Grid, Divider, Button, Statistic } from 'semantic-ui-react';
 
 class Universe extends Component {
@@ -24,7 +25,13 @@ class Universe extends Component {
       systemMatter: '',
       treasuryMatter: '',
       matterOfAddress: '',
-      matterOf: ''
+      matterOf: '',
+      supply: 0,
+      price: 0,
+      rate: 0,
+      butterJars: 0,
+      seedsCreated: 0,
+      seedsGrown: 0
     }
 
     this.collectUniverse = this.collectUniverse.bind(this);
@@ -32,6 +39,7 @@ class Universe extends Component {
     this.collectMatterStats = this.collectMatterStats.bind(this);
     this.collectCosmo = this.collectCosmo.bind(this);
     this.changeMatterOfInput = this.changeMatterOfInput.bind(this);
+    this.mintNut = this.mintNut.bind(this);
   }
 
   componentDidMount() {
@@ -89,6 +97,7 @@ class Universe extends Component {
       });
     });
 
+    this.collectTreasury();
   }
 
   async collectMatterStats() {
@@ -115,6 +124,17 @@ class Universe extends Component {
 
   }
 
+  async collectTreasury() {
+    const web3 = new Web3(window.ethereum);
+    const treasury = new web3.eth.Contract(CosmoTreasury, this.state.treasuryAddress);
+
+    await treasury.methods.getPrice().call().then((price) => {
+      this.setState({
+        price: price
+      });
+    });
+  }
+
   async handleGetCosmo() {
     const web3 = new Web3(window.ethereum);
     const universe = new web3.eth.Contract(CosmoUniverse, this.state.universeAddress);
@@ -135,7 +155,7 @@ class Universe extends Component {
     await universe.methods.matterBalanceOf(this.state.matterOfAddress).call().then((matter) => {
       this.setState({
         matterOf: matter
-      })
+      });
     });
   }
 
@@ -151,6 +171,16 @@ class Universe extends Component {
     });
   }
 
+  async mintNut() {
+    const web3 = new Web3(window.ethereum);
+    const cosmos = new web3.eth.Contract(CosmoNuts, this.state.cosmosAddress);
+    const provider = await detectEthereumProvider();
+
+    //await cosmos.methods.mintNut(this.state.supply).send({
+    //
+    //});
+  }
+
   render() {
     return (
       <div>
@@ -160,27 +190,65 @@ class Universe extends Component {
           href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.12/semantic.min.css"
         />
 
-        <Grid textAlign='center' columns={2}>
-          <Grid.Row>
-            <h1>UNIVERSE COMMAND</h1>
-          </Grid.Row>
-
-          <Grid.Column width={10}>
-            <Statistic
-              horizontal
-              label='Universe Address'
-              value={this.state.universeAddress}
-              size='mini'
-            />
-          </Grid.Column>
-
-          <Grid.Row>
+        <Grid textAlign='center' style={{
+          marginTop: '10px'
+        }}>
+          <Grid.Row columns={2}>
             <Grid.Column>
-              <Statistic label='Owner' value={this.state.owner} size='mini' />
+              <h1>UNIVERSE COMMAND</h1>
             </Grid.Column>
 
             <Grid.Column>
-              <Statistic label='System Address' value={this.state.systemAddress} size='mini' />
+              <Input
+                fluid
+                disabled
+                label='Universe'
+                defaultValue={this.state.universeAddress}
+                action={{
+                  color: 'teal',
+                  icon: 'copy',
+                  content: 'Copy'
+                }}
+                style={{
+                  width: '600px'
+                }}
+              />
+            </Grid.Column>
+          </Grid.Row>
+
+          <Grid.Row columns={2}>
+            <Grid.Column>
+              <Input
+                fluid
+                disabled
+                label='Owner'
+                defaultValue={this.state.owner}
+                action={{
+                  color: 'teal',
+                  icon: 'copy',
+                  content: 'Copy'
+                }}
+                style={{
+                  width: '600px'
+                }}
+              />
+            </Grid.Column>
+
+            <Grid.Column>
+              <Input
+                fluid
+                disabled
+                label='System'
+                defaultValue={this.state.systemAddress}
+                action={{
+                  color: 'teal',
+                  icon: 'copy',
+                  content: 'Copy'
+                }}
+                style={{
+                  width: '600px'
+                }}
+              />
             </Grid.Column>
           </Grid.Row>
         </Grid>
@@ -196,6 +264,9 @@ class Universe extends Component {
               }}
               defaultValue={this.state.cosmoIndex}
               onChange={this.changeGetCosmoInput}
+              style={{
+                width: '100px'
+              }}
             />
           </Grid.Column>
 
@@ -209,21 +280,45 @@ class Universe extends Component {
                 icon: 'copy',
                 content: 'Copy'
               }}
+              style={{
+                width: '600px'
+              }}
             />
           </Grid.Column>
         </Grid>
 
         <Divider />
 
-        <Grid textAlign='center' columns={2}>
-          <Grid.Row>
+        <Grid textAlign='center'>
+          <Grid.Row columns={2}>
             <Grid.Column>
-              <Statistic label='Name' value={this.state.cosmoName} size='small' />
+              <h3>COSMONUTS</h3>
             </Grid.Column>
 
             <Grid.Column>
-              <Statistic label='Cosmo Address' value={this.state.cosmosAddress} size='mini' />
+              <Input
+                fluid
+                disabled
+                label='CosmoNuts'
+                defaultValue={this.state.cosmosAddress}
+                action={{
+                  color: 'teal',
+                  icon: 'copy',
+                  content: 'Copy'
+                }}
+                style={{
+                  width: '600px'
+                }}
+              />
             </Grid.Column>
+          </Grid.Row>
+
+          <Grid.Row>
+            <Button
+              primary
+              content='MINT'
+              onClick={this.mintNut}
+            />
           </Grid.Row>
         </Grid>
 
@@ -253,15 +348,9 @@ class Universe extends Component {
           </Grid.Row>
 
           <Grid.Row>
-            <Statistic horizontal label='Total Matter' value={this.state.totalMatter} size='mini' />
-          </Grid.Row>
-
-          <Grid.Row>
-            <Statistic horizontal label='Treasury Matter' value={this.state.treasuryMatter} size='mini' />
-          </Grid.Row>
-
-          <Grid.Row>
-            <Statistic horizontal label='System Matter' value={this.state.systemMatter} size='mini' />
+            <Statistic label='Total Matter' value={this.state.totalMatter} size='mini' />
+            <Statistic label='Treasury Matter' value={this.state.treasuryMatter} size='mini' />
+            <Statistic label='System Matter' value={this.state.systemMatter} size='mini' />
           </Grid.Row>
 
           <Grid.Row>
@@ -300,28 +389,59 @@ class Universe extends Component {
 
         <Divider />
 
-        <Grid textAlign='center' columns={2}>
-          <Grid.Row>
+        <Grid textAlign='center'>
+          <Grid.Row columns={2}>
             <Grid.Column>
               <h1>TREASURY</h1>
             </Grid.Column>
 
             <Grid.Column>
-              <Statistic label='Treasury Address' value={this.state.treasuryAddress} size='mini' />
+              <Input
+                fluid
+                disabled
+                label='Treasury'
+                defaultValue={this.state.treasuryAddress}
+                action={{
+                  color: 'teal',
+                  icon: 'copy',
+                  content: 'Copy'
+                }}
+                style={{
+                  width: '600px'
+                }}
+              />
             </Grid.Column>
+          </Grid.Row>
+
+          <Grid.Row>
+            <Statistic label='wei' value={this.state.price} size='mini' />
+            <Statistic label='wei/matter' value={this.state.rate} size='mini' />
           </Grid.Row>
         </Grid>
 
       <Divider />
 
-      <Grid textAlign='center' columns={2}>
-        <Grid.Row>
+      <Grid textAlign='center'>
+        <Grid.Row columns={2}>
           <Grid.Column>
             <h1>VAULT</h1>
           </Grid.Column>
 
           <Grid.Column>
-            <Statistic label='Vault Address' value={this.state.vaultAddress} size='mini' />
+            <Input
+              fluid
+              disabled
+              label='Treasury'
+              defaultValue={this.state.vaultAddress}
+              action={{
+                color: 'teal',
+                icon: 'copy',
+                content: 'Copy'
+              }}
+              style={{
+                width: '600px'
+              }}
+            />
           </Grid.Column>
         </Grid.Row>
       </Grid>
