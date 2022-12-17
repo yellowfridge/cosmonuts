@@ -37,7 +37,8 @@ class Universe extends Component {
       butterWeight: 0,
       seedsCreated: 0,
       seedsGrown: 0, // Does not exist yet,
-      nutId: 0
+      nutId: 0,
+      numNuts: 0
     }
 
     this.collectUniverse = this.collectUniverse.bind(this);
@@ -47,7 +48,6 @@ class Universe extends Component {
     this.changeMatterOfInput = this.changeMatterOfInput.bind(this);
     this.mintNut = this.mintNut.bind(this);
     this.createButter = this.createButter.bind(this);
-    //this.butterFormChange = this.butterFormChange.bind(this);
     this.getUser = this.getUser.bind(this);
   }
 
@@ -111,6 +111,12 @@ class Universe extends Component {
       this.setState({
         treasuryAddress: creation.treasury,
         vaultAddress: creation.vault
+      });
+    });
+
+    await cosmo.methods.totalSupply().call().then((supply) => {
+      this.setState({
+        numNuts: supply
       });
     });
 
@@ -230,28 +236,13 @@ class Universe extends Component {
       console.log("Transaction Hash:", hash);
     }).on('receipt', function(receipt) {
       console.log("Receipt", receipt);
-      alert("SUCCESS!");
+      alert("SUCCESS!", receipt);
     }).on('error', function(error, receipt) {
       console.log("Error:", error);
       console.log("Receipt", receipt);
-      alert("Error!");
+      alert("Error!", receipt);
     });
   }
-
-  // Likely not needed
-  // Create butter below should work fine
-  /*
-  butterFormChange(event) {
-    console.log("event", event);
-    const formNames = [ 'nutId' ];
-    for (let i = 0; i < formNames.length; i++) {
-      var name = formNames[i];
-      this.setState({
-        name: event.target.value
-      });
-    }
-  }
-  */
 
   async createButter(event) {
     const web3 = new Web3(window.ethereum);
@@ -415,9 +406,13 @@ class Universe extends Component {
         <Divider />
 
         <Grid textAlign='center'>
-          <Grid.Row columns={2}>
+          <Grid.Row columns={3}>
             <Grid.Column>
               <h2>COSMONUTS</h2>
+            </Grid.Column>
+
+            <Grid.Column>
+              <Statistic label='# of Nuts' value={this.state.numNuts} size='mini' />
             </Grid.Column>
 
             <Grid.Column>
@@ -467,7 +462,6 @@ class Universe extends Component {
                   label='Nut Id#'
                   defaultValue={this.state.nutId}
                   style={{width: '100px'}}
-                  onChange={this.butterFormChange}
                 />
 
                 <Form.Input
@@ -579,7 +573,6 @@ class Universe extends Component {
           <Grid.Row>
             <Statistic label='Total Matter' value={this.state.totalMatter} size='mini' />
             <Statistic label='Treasury Matter' value={this.state.treasuryMatter} size='mini' />
-            <Statistic label='System Matter' value={this.state.systemMatter} size='mini' />
             <Statistic label='Owner Matter' value={this.state.ownerMatter} size='mini' />
           </Grid.Row>
 
