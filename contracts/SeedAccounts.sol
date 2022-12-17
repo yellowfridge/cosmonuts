@@ -4,6 +4,7 @@ pragma solidity ^0.8.7;
 contract SeedAccounts {
 
     uint256 public seedsCreated = 0; // Number of seeds that have been created (never reduced)
+    uint256 public seedsGrown = 0; // New addition, not in current implementation
     mapping(uint256 => uint256[]) public seedsOfNut;
     mapping(uint256 => uint256[]) public seedsGrownOfNut;
     mapping(uint256 => uint256) public nutOfSeed; // The parent nut of the given seed

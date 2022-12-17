@@ -21,6 +21,8 @@ interface ICosmoTreasury {
 
     function getPrice() external view returns (uint256);
 
+    function getRate() external view returns (uint256);
+
     function ethToHold(uint256 _nutId) external view returns (uint256);
 
     function grantApproval(address _owner, address _spender, uint256 _allowance) external returns (bool);
