@@ -12,6 +12,7 @@ class Universe extends Component {
     super();
 
     this.state = {
+      user: '',
       universeAddress: '0x78d61C45d0A7BE65C42F2D56d8745122d5e66261',
       cosmoIndex: 0,
       systemAddress: '',
@@ -46,11 +47,20 @@ class Universe extends Component {
     this.changeMatterOfInput = this.changeMatterOfInput.bind(this);
     this.mintNut = this.mintNut.bind(this);
     this.createButter = this.createButter.bind(this);
-    this.butterFormChange = this.butterFormChange.bind(this);
+    //this.butterFormChange = this.butterFormChange.bind(this);
+    this.getUser = this.getUser.bind(this);
   }
 
   componentDidMount() {
+    this.getUser();
     this.collectUniverse();
+  }
+
+  async getUser() {
+    const provider = await detectEthereumProvider();
+    this.setState({
+      user: provider.selectedAddress
+    });
   }
 
   async collectUniverse() {
@@ -228,8 +238,9 @@ class Universe extends Component {
     });
   }
 
-  // HOW DO YOU DO THIS????
-  // Maybe need to pull in as a Form Group - that may have more of the options available
+  // Likely not needed
+  // Create butter below should work fine
+  /*
   butterFormChange(event) {
     console.log("event", event);
     const formNames = [ 'nutId' ];
@@ -240,14 +251,35 @@ class Universe extends Component {
       });
     }
   }
+  */
 
   async createButter(event) {
     const web3 = new Web3(window.ethereum);
     const cosmos = new web3.eth.Contract(CosmoNuts, this.state.cosmosAddress);
     const provider = await detectEthereumProvider();
 
-    console.log("IN HERE BOI", event);
-    console.log("Trying to pulll Nut Id Value", event.target[0].value)
+    let nutId = event.target[0].value;
+    let secretHash = event.target[1].value;
+    let matterContributed = event.target[2].value;
+    let drawRate = event.target[3].value.value;
+    let cidPath = event.target[4].value;
+    let sig = event.target[5].value;
+
+    const butterLocation = await cosmos.methods.createButter(
+      nutId, secretHash, matterContributed, drawRate, cidPath, sig
+    ).send({
+      from: provider.selectedAddress
+    }).on('transactionHash', function(hash) {
+      console.log("Transaction Hash:", hash);
+    }).on('receipt', function(receipt) {
+      console.log("Receipt", receipt);
+      alert("BUTTER CREATED!");
+    }).on('error', function(error, receipt) {
+      console.log("Error:", error);
+      console.log("Receipt", receipt);
+      alert("Error!");
+    });
+
   }
 
   render() {
@@ -267,7 +299,20 @@ class Universe extends Component {
             </Grid.Column>
 
             <Grid.Column>
-              hey
+              <Input
+                fluid
+                disabled
+                label='Wallet Address'
+                defaultValue={this.state.user}
+                action={{
+                  color: 'teal',
+                  icon: 'copy',
+                  content: 'Copy'
+                }}
+                style={{
+                  width: '600px'
+                }}
+              />
             </Grid.Column>
           </Grid.Row>
         </Grid>
@@ -427,23 +472,23 @@ class Universe extends Component {
 
                 <Form.Input
                   label='Secret Hash'
-                  value='0xb68fe43f0d1a0d7aef123722670be50268e15365401c442f8806ef83b612976b'
+                  defaultValue='0xb68fe43f0d1a0d7aef123722670be50268e15365401c442f8806ef83b612976b'
                   style={{width: '550px'}}
                 />
 
-                <Form.Input inline label='Matter Contributed' value='0' style={{width: '150px'}} />
-                <Form.Input inline label='Matter Draw Rate' value='0' style={{width: '150px'}} />
+                <Form.Input inline label='Matter Contributed' defaultValue='0' style={{width: '150px'}} />
+                <Form.Input inline label='Matter Draw Rate' defaultValue='0' style={{width: '150px'}} />
 
                 <Form.Input
                   inline
                   label='CID Path'
-                  value='https://ipfs.io/ipfs/__ipfsPath__'
+                  defaultValue='https://ipfs.io/ipfs/__ipfsPath__'
                   style={{width: '400px'}}
                 />
 
                 <Form.Input
                   label='Signature'
-                  value='0x1915322bb77cd62486904890606dacba59ebca71d5a3b7b9a6a2dd87acba65c876298cab2f73c063f74058249f3ee68a0564559fd023e249638a0747799999531c'
+                  defaultValue='0x1915322bb77cd62486904890606dacba59ebca71d5a3b7b9a6a2dd87acba65c876298cab2f73c063f74058249f3ee68a0564559fd023e249638a0747799999531c'
                   style={{width: '1060px'}}
                 />
 
@@ -457,24 +502,29 @@ class Universe extends Component {
 
             <Grid.Column>
               <Form>
-                <Form.Input inline label='Nut Id#' placeholder='0' style={{width: '100px'}} />
+                <Form.Input
+                  inline
+                  label='Nut Id#'
+                  defaultValue={this.state.nutId}
+                  style={{width: '100px'}}
+                />
 
                 <Form.Input
                   label='Secret Hash'
-                  placeholder='0xb68fe43f0d1a0d7aef123722670be50268e15365401c442f8806ef83b612976b'
+                  defaultValue='0xb68fe43f0d1a0d7aef123722670be50268e15365401c442f8806ef83b612976b'
                   style={{width: '550px'}}
                 />
 
                 <Form.Input
                   inline
                   label='CID Path'
-                  placeholder='https://ipfs.io/ipfs/__ipfsPath__'
+                  defaultValue='https://ipfs.io/ipfs/__ipfsPath__'
                   style={{width: '400px'}}
                 />
 
                 <Form.Input
                   label='Signature'
-                  placeholder='0x1915322bb77cd62486904890606dacba59ebca71d5a3b7b9a6a2dd87acba65c876298cab2f73c063f74058249f3ee68a0564559fd023e249638a0747799999531c'
+                  defaultValue='0x1915322bb77cd62486904890606dacba59ebca71d5a3b7b9a6a2dd87acba65c876298cab2f73c063f74058249f3ee68a0564559fd023e249638a0747799999531c'
                   style={{width: '1060px'}}
                 />
 
