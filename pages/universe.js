@@ -47,7 +47,9 @@ class Universe extends Component {
       cidPath: 'https://ipfs.io/ipfs/__ipfsPath__',
       signature: '0x2182747c1b90d215030d12a9422cd3f9c11062bff6e9d0d7656767d31b764b2a70d8b03ad9e0b3b85e848aa9803e368e1ec2c21be6fb0f26e159fb7018b3917b1c',
       butterId: 0,
-      butterLocation: '0x6f06f0B1063Df141d986B45189686aa4C1B620bA'
+      butterLocation: '',
+      seedId: 0,
+      seedLocation: ''
     }
 
     this.collectUniverse = this.collectUniverse.bind(this);
@@ -62,7 +64,9 @@ class Universe extends Component {
     this.pathChage = this.pathChage.bind(this);
     this.getButterLocation = this.getButterLocation.bind(this);
     this.changeButterId = this.changeButterId.bind(this);
-    this.makeCards = this.makeCards.bind(this);
+    this.makeButterCards = this.makeButterCards.bind(this);
+    this.getSeedLocation = this.getSeedLocation.bind(this);
+    this.changeSeedId = this.changeSeedId.bind(this);
   }
 
   componentDidMount() {
@@ -207,7 +211,7 @@ class Universe extends Component {
       });
     });
 
-    this.makeCards();
+    this.makeButterCards();
   }
 
   async handleGetCosmo() {
@@ -249,6 +253,12 @@ class Universe extends Component {
   changeButterId(event) {
     this.setState({
       butterId: event.target.value
+    });
+  }
+
+  changeSeedId(event) {
+    this.setState({
+      seedId: event.target.value
     });
   }
 
@@ -329,6 +339,16 @@ class Universe extends Component {
     return butterLocation;
   }
 
+  async getSeedLocation(id) {
+    const web3 = new Web3(window.ethereum);
+    const treasury = new web3.eth.Contract(CosmoTreasury, this.state.treasuryAddress);
+
+    const seedLocation = await treasury.methods.seedLocations(id).call();
+    this.setState({seedLocation});
+
+    return seedLocation;
+  }
+
   async collectButter() {
     const web3 = new Web3(window.ethereum);
 
@@ -349,7 +369,7 @@ class Universe extends Component {
     return butterItems;
   }
 
-  async makeCards() {
+  async makeButterCards() {
     console.log("Making Cards");
     const butterItems = this.collectButter();
 
@@ -757,6 +777,7 @@ class Universe extends Component {
           <Grid.Row columns={2}>
             <Grid.Column>
               <Input
+                label="Butter Id #"
                 action={{
                   content: 'Get Location',
                   onClick: () => this.getButterLocation(this.state.butterId)
@@ -774,6 +795,39 @@ class Universe extends Component {
                 fluid
                 disabled
                 defaultValue={this.state.butterLocation}
+                action={{
+                  color: 'teal',
+                  icon: 'copy',
+                  content: 'Copy'
+                }}
+                style={{
+                  width: '500px'
+                }}
+              />
+            </Grid.Column>
+          </Grid.Row>
+
+          <Grid.Row columns={2}>
+            <Grid.Column>
+              <Input
+                label='Seed Id #'
+                action={{
+                  content: 'Get Location',
+                  onClick: () => this.getSeedLocation(this.state.seedId)
+                }}
+                defaultValue={this.state.seedId}
+                style={{
+                  width: '100px'
+                }}
+                onChange={this.changeSeedId}
+              />
+            </Grid.Column>
+
+            <Grid.Column width={5}>
+              <Input
+                fluid
+                disabled
+                defaultValue={this.state.seedLocation}
                 action={{
                   color: 'teal',
                   icon: 'copy',
