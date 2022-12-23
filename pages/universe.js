@@ -5,7 +5,8 @@ import detectEthereumProvider from '@metamask/detect-provider';
 import CosmoUniverse from '../ethereum/build_manual/CosmoUniverse_abi.json';
 import CosmoNuts from '../ethereum/build_manual/CosmoNuts_abi.json';
 import CosmoTreasury from '../ethereum/build_manual/CosmoTreasury_abi.json';
-import { Input, Grid, Divider, Button, Statistic, Form, Container, Card } from 'semantic-ui-react';
+import CosmoButter from '../ethereum/build_manual/CosmoButter_abi.json';
+import { Input, Grid, Divider, Button, Statistic, Form, Container, Card, Label } from 'semantic-ui-react';
 import EthCrypto from 'eth-crypto';
 import { getSecret } from '../components/helpers/apiRequests';
 
@@ -44,7 +45,9 @@ class Universe extends Component {
       secret: 'password',
       secretHash: '0xb68fe43f0d1a0d7aef123722670be50268e15365401c442f8806ef83b612976b',
       cidPath: 'https://ipfs.io/ipfs/__ipfsPath__',
-      signature: '0x2182747c1b90d215030d12a9422cd3f9c11062bff6e9d0d7656767d31b764b2a70d8b03ad9e0b3b85e848aa9803e368e1ec2c21be6fb0f26e159fb7018b3917b1c'
+      signature: '0x2182747c1b90d215030d12a9422cd3f9c11062bff6e9d0d7656767d31b764b2a70d8b03ad9e0b3b85e848aa9803e368e1ec2c21be6fb0f26e159fb7018b3917b1c',
+      butterId: 0,
+      butterLocation: '0x6f06f0B1063Df141d986B45189686aa4C1B620bA'
     }
 
     this.collectUniverse = this.collectUniverse.bind(this);
@@ -57,6 +60,9 @@ class Universe extends Component {
     this.getUser = this.getUser.bind(this);
     this.secretChange = this.secretChange.bind(this);
     this.pathChage = this.pathChage.bind(this);
+    this.getButterLocation = this.getButterLocation.bind(this);
+    this.changeButterId = this.changeButterId.bind(this);
+    this.makeCards = this.makeCards.bind(this);
   }
 
   componentDidMount() {
@@ -200,6 +206,8 @@ class Universe extends Component {
         seedsCreated: createdSeeds
       });
     });
+
+    this.makeCards();
   }
 
   async handleGetCosmo() {
@@ -235,6 +243,12 @@ class Universe extends Component {
   changeMatterOfInput(event) {
     this.setState({
       matterOfAddress: event.target.value
+    });
+  }
+
+  changeButterId(event) {
+    this.setState({
+      butterId: event.target.value
     });
   }
 
@@ -278,7 +292,7 @@ class Universe extends Component {
       console.log("Transaction Hash:", hash);
     }).on('receipt', function(receipt) {
       console.log("Receipt", receipt);
-      alert("BUTTER CREATED!");
+      alert("BUTTER CREATED!", receipt);
     }).on('error', function(error, receipt) {
       console.log("Error:", error);
       console.log("Receipt", receipt);
@@ -304,6 +318,55 @@ class Universe extends Component {
       });
     });
   }
+
+  async getButterLocation(id) {
+    const web3 = new Web3(window.ethereum);
+    const treasury = new web3.eth.Contract(CosmoTreasury, this.state.treasuryAddress);
+
+    const butterLocation = await treasury.methods.butterLocations(id).call();
+    this.setState({butterLocation});
+
+    return butterLocation;
+  }
+
+  async collectButter() {
+    const web3 = new Web3(window.ethereum);
+
+    const butterItems = [];
+    for (let i = 0; i < this.state.butterJars; i++) {
+      var butterLocation = await this.getButterLocation(i);
+      var butter = new web3.eth.Contract(CosmoButter, butterLocation);
+
+      await butter.methods.butter().call().then((info) => {
+        butterItems.push({
+          parentNutId: info[1],
+          amount: info[2],
+          drawRate: info[3]
+        });
+      });
+    }
+
+    return butterItems;
+  }
+
+  async makeCards() {
+    console.log("Making Cards");
+    const butterItems = this.collectButter();
+
+    const cardItems = []
+    for (let i = 0; i < this.state.butterJars; i++) {
+        cardItems.push({
+          header: 'BUTTER ' + i
+        });
+    }
+
+    console.log("Card Items", cardItems);
+    return (
+      <h1>{cardItems}</h1>
+    );
+  }
+
+
 
   render() {
 
@@ -680,9 +743,47 @@ class Universe extends Component {
             </Grid.Column>
           </Grid.Row>
 
-          <Grid.Row>
-            <Statistic label='wei' value={this.state.price} size='mini' />
-            <Statistic label='wei/matter' value={this.state.rate} size='mini' />
+          <Grid.Row columns={2}>
+            <Grid.Column width={3}>
+              <h3>Universe Constants</h3>
+            </Grid.Column>
+
+            <Grid.Column width={7}>
+              <Statistic label='wei' value={this.state.price} size='mini' />
+              <Statistic label='wei/matter' value={this.state.rate} size='mini' />
+            </Grid.Column>
+          </Grid.Row>
+
+          <Grid.Row columns={2}>
+            <Grid.Column>
+              <Input
+                action={{
+                  content: 'Get Location',
+                  onClick: () => this.getButterLocation(this.state.butterId)
+                }}
+                defaultValue={this.state.butterId}
+                style={{
+                  width: '100px'
+                }}
+                onChange={this.changeButterId}
+              />
+            </Grid.Column>
+
+            <Grid.Column width={5}>
+              <Input
+                fluid
+                disabled
+                defaultValue={this.state.butterLocation}
+                action={{
+                  color: 'teal',
+                  icon: 'copy',
+                  content: 'Copy'
+                }}
+                style={{
+                  width: '500px'
+                }}
+              />
+            </Grid.Column>
           </Grid.Row>
 
           <Grid.Row>
@@ -735,6 +836,10 @@ class Universe extends Component {
               <Container style={{marginTop: '10px'}}>
                 <Statistic horizontal label='Butter Remaining' value='10' size='mini' />
                 <Statistic horizontal label='Butter Draw Rate' value='1' size='mini' />
+                <Label ribbon>
+                  Parent Nut:
+                  <Label.Detail>0x1a5b5a096e7c3305931f10c807f2749fa517601e_</Label.Detail>
+                </Label>
               </Container>
             </Card.Meta>
             <Card.Description>
@@ -764,6 +869,8 @@ class Universe extends Component {
           </Card.Content>
         </Card>
       </Card.Group>
+
+      <Divider />
 
       <Divider />
 
