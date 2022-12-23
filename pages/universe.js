@@ -5,7 +5,9 @@ import detectEthereumProvider from '@metamask/detect-provider';
 import CosmoUniverse from '../ethereum/build_manual/CosmoUniverse_abi.json';
 import CosmoNuts from '../ethereum/build_manual/CosmoNuts_abi.json';
 import CosmoTreasury from '../ethereum/build_manual/CosmoTreasury_abi.json';
-import { Input, Grid, Divider, Button, Statistic, Form } from 'semantic-ui-react';
+import { Input, Grid, Divider, Button, Statistic, Form, Container, Card } from 'semantic-ui-react';
+import EthCrypto from 'eth-crypto';
+import { getSecret } from '../components/helpers/apiRequests';
 
 class Universe extends Component {
   constructor() {
@@ -38,7 +40,11 @@ class Universe extends Component {
       seedsCreated: 0,
       seedsGrown: 0, // Does not exist yet,
       nutId: 0,
-      numNuts: 0
+      numNuts: 0,
+      secret: 'password',
+      secretHash: '0xb68fe43f0d1a0d7aef123722670be50268e15365401c442f8806ef83b612976b',
+      cidPath: 'https://ipfs.io/ipfs/__ipfsPath__',
+      signature: '0x2182747c1b90d215030d12a9422cd3f9c11062bff6e9d0d7656767d31b764b2a70d8b03ad9e0b3b85e848aa9803e368e1ec2c21be6fb0f26e159fb7018b3917b1c'
     }
 
     this.collectUniverse = this.collectUniverse.bind(this);
@@ -49,6 +55,8 @@ class Universe extends Component {
     this.mintNut = this.mintNut.bind(this);
     this.createButter = this.createButter.bind(this);
     this.getUser = this.getUser.bind(this);
+    this.secretChange = this.secretChange.bind(this);
+    this.pathChage = this.pathChage.bind(this);
   }
 
   componentDidMount() {
@@ -58,9 +66,15 @@ class Universe extends Component {
 
   async getUser() {
     const provider = await detectEthereumProvider();
-    this.setState({
-      user: provider.selectedAddress
-    });
+    if (provider.selectedAddress == null) {
+      this.setState({
+        user: "Wallet not Enabled"
+      });
+    } else {
+      this.setState({
+        user: provider.selectedAddress
+      });
+    }
   }
 
   async collectUniverse() {
@@ -250,11 +264,11 @@ class Universe extends Component {
     const provider = await detectEthereumProvider();
 
     let nutId = event.target[0].value;
-    let secretHash = event.target[1].value;
-    let matterContributed = event.target[2].value;
-    let drawRate = event.target[3].value.value;
-    let cidPath = event.target[4].value;
-    let sig = event.target[5].value;
+    let secretHash = event.target[2].value;
+    let matterContributed = event.target[3].value;
+    let drawRate = event.target[4].value;
+    let cidPath = event.target[5].value;
+    let sig = event.target[6].value;
 
     const butterLocation = await cosmos.methods.createButter(
       nutId, secretHash, matterContributed, drawRate, cidPath, sig
@@ -271,6 +285,24 @@ class Universe extends Component {
       alert("Error!");
     });
 
+  }
+
+  secretChange(event) {
+    const secret = event.target.value;
+    const secretHash = EthCrypto.hash.keccak256(secret);
+    this.setState({
+      secretHash: secretHash
+    });
+  }
+
+  async pathChage(event) {
+    const cidPath = event.target.value;
+    const pathHash = EthCrypto.hash.keccak256(cidPath);
+    getSecret(pathHash).then((sig) => {
+      this.setState({
+        signature: sig.signedImage // Bad naming convention (not sig of image in this case)
+      });
+    });
   }
 
   render() {
@@ -465,8 +497,17 @@ class Universe extends Component {
                 />
 
                 <Form.Input
+                  inline
+                  label='Secret'
+                  defaultValue={this.state.secret}
+                  style={{width: '200px'}}
+                  onChange={this.secretChange}
+                />
+
+                <Form.Input
+                  disabled
                   label='Secret Hash'
-                  defaultValue='0xb68fe43f0d1a0d7aef123722670be50268e15365401c442f8806ef83b612976b'
+                  value={this.state.secretHash}
                   style={{width: '550px'}}
                 />
 
@@ -476,13 +517,15 @@ class Universe extends Component {
                 <Form.Input
                   inline
                   label='CID Path'
-                  defaultValue='https://ipfs.io/ipfs/__ipfsPath__'
+                  defaultValue={this.state.cidPath}
                   style={{width: '400px'}}
+                  onChange={this.pathChage}
                 />
 
                 <Form.Input
+                  disabled
                   label='Signature'
-                  defaultValue='0x1915322bb77cd62486904890606dacba59ebca71d5a3b7b9a6a2dd87acba65c876298cab2f73c063f74058249f3ee68a0564559fd023e249638a0747799999531c'
+                  value={this.state.signature}
                   style={{width: '1060px'}}
                 />
 
@@ -512,8 +555,9 @@ class Universe extends Component {
                 <Form.Input
                   inline
                   label='CID Path'
-                  defaultValue='https://ipfs.io/ipfs/__ipfsPath__'
+                  defaultValue={this.state.cidPath}
                   style={{width: '400px'}}
+                  onChange={this.pathChage}
                 />
 
                 <Form.Input
@@ -678,6 +722,54 @@ class Universe extends Component {
       </Grid>
 
       <Divider />
+
+      <Container textAlign='center'>
+        <h1>BUTTERS</h1>
+      </Container>
+
+      <Card.Group centered style={{marginTop: '10px'}}>
+        <Card raised style={{width: '400px'}}>
+          <Card.Content>
+            <Card.Header>BUTTER 1</Card.Header>
+            <Card.Meta>
+              <Container style={{marginTop: '10px'}}>
+                <Statistic horizontal label='Butter Remaining' value='10' size='mini' />
+                <Statistic horizontal label='Butter Draw Rate' value='1' size='mini' />
+              </Container>
+            </Card.Meta>
+            <Card.Description>
+              Mirror, mirror, on the wall, what is the easiest <strong>password</strong> to remember of them all?
+            </Card.Description>
+          </Card.Content>
+          <Card.Content extra>
+            <Form>
+              <Form.Input
+                label='Answer'
+                placeholder='Provide your answer from above ...'
+                style={{width: '360px'}}
+              />
+
+              <Form.Input
+                label='Ethereum Wallet Address'
+                defaultValue={this.state.user}
+                style={{width: '360px'}}
+              />
+
+              <Button
+                primary
+                type='submit'
+                content='Claim Butter'
+              />
+            </Form>
+          </Card.Content>
+        </Card>
+      </Card.Group>
+
+      <Divider />
+
+      <Container textAlign='center'>
+        <h1>SEEDS</h1>
+      </Container>
 
       </div>
     )
