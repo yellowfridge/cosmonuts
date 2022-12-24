@@ -312,12 +312,36 @@ class Universe extends Component {
     }).on('error', function(error, receipt) {
       console.log("Error:", error);
       console.log("Receipt", receipt);
-      alert("Error!");
+      alert("Error!", error);
     });
   }
 
   async createSeed(event) {
     console.log("Creating Seed");
+    const web3 = new Web3(window.ethereum);
+    const cosmos = new web3.eth.Contract(CosmoNuts, this.state.cosmosAddress);
+    const provider = await detectEthereumProvider();
+
+    let nutId = event.target[0].value;
+    let secretSeedHash = event.target[2].value;
+    let cidPath = event.target[3].value;
+    let sig = event.target[4].value;
+
+    const seedLocation = await cosmos.methods.createSeed(
+      nutId, secretSeedHash, cidPath, sig
+    ).send({
+      from: provider.selectedAddress
+    }).on('transactionHash', function(hash) {
+      console.log("Transaction Hash:", hash);
+    }).on('receipt', function(recipt) {
+      console.log("Receipt", receipt);
+      alert("SEED CREATED!", receipt);
+    }).on('error', function(error, receipt) {
+      console.log("Error:", error);
+      console.log("Receipt", receipt);
+      alert("Error!", error)
+    });
+
   }
 
   secretButterChange(event) {
