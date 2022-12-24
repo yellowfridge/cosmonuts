@@ -5,7 +5,7 @@ export default async function getSecret(req, res) {
   const imgHash = req.body.imgHash;
   const privateKey = process.env.PRIVATE_KEY;
 
-  console.log("Image Hash:", imgHash);
+  //console.log("Image Hash:", imgHash);
 
   //const ethHash = EthCrypto.hash.keccak256(imgHash);
   //console.log("Eth Hash", ethHash);
@@ -14,7 +14,7 @@ export default async function getSecret(req, res) {
     privateKey,
     imgHash
   );
-  console.log("Signature", signature);
+  //console.log("Signature", signature);
 
   res.status(200).json({ signedImage: signature });
 }

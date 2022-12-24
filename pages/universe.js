@@ -42,10 +42,13 @@ class Universe extends Component {
       seedsGrown: 0, // Does not exist yet,
       nutId: 0,
       numNuts: 0,
-      secret: 'password',
-      secretHash: '0xb68fe43f0d1a0d7aef123722670be50268e15365401c442f8806ef83b612976b',
+      secretButter: 'password',
+      secretButterHash: '0xb68fe43f0d1a0d7aef123722670be50268e15365401c442f8806ef83b612976b',
+      secretSeed: 'password',
+      secretSeedHash: '0xb68fe43f0d1a0d7aef123722670be50268e15365401c442f8806ef83b612976b',
       cidPath: 'https://ipfs.io/ipfs/__ipfsPath__',
-      signature: '0x2182747c1b90d215030d12a9422cd3f9c11062bff6e9d0d7656767d31b764b2a70d8b03ad9e0b3b85e848aa9803e368e1ec2c21be6fb0f26e159fb7018b3917b1c',
+      butterSignature: '0x2182747c1b90d215030d12a9422cd3f9c11062bff6e9d0d7656767d31b764b2a70d8b03ad9e0b3b85e848aa9803e368e1ec2c21be6fb0f26e159fb7018b3917b1c',
+      seedSignature: '0x2182747c1b90d215030d12a9422cd3f9c11062bff6e9d0d7656767d31b764b2a70d8b03ad9e0b3b85e848aa9803e368e1ec2c21be6fb0f26e159fb7018b3917b1c',
       butterId: 0,
       butterLocation: '',
       seedId: 0,
@@ -60,13 +63,16 @@ class Universe extends Component {
     this.mintNut = this.mintNut.bind(this);
     this.createButter = this.createButter.bind(this);
     this.getUser = this.getUser.bind(this);
-    this.secretChange = this.secretChange.bind(this);
-    this.pathChage = this.pathChage.bind(this);
+    this.secretButterChange = this.secretButterChange.bind(this);
+    this.secretSeedChange = this.secretSeedChange.bind(this);
+    this.pathButterChange = this.pathButterChange.bind(this);
+    this.pathSeedChange = this.pathSeedChange.bind(this);
     this.getButterLocation = this.getButterLocation.bind(this);
     this.changeButterId = this.changeButterId.bind(this);
     this.makeButterCards = this.makeButterCards.bind(this);
     this.getSeedLocation = this.getSeedLocation.bind(this);
     this.changeSeedId = this.changeSeedId.bind(this);
+    this.createSeed = this.createSeed.bind(this);
   }
 
   componentDidMount() {
@@ -288,14 +294,14 @@ class Universe extends Component {
     const provider = await detectEthereumProvider();
 
     let nutId = event.target[0].value;
-    let secretHash = event.target[2].value;
+    let secretButterHash = event.target[2].value;
     let matterContributed = event.target[3].value;
     let drawRate = event.target[4].value;
     let cidPath = event.target[5].value;
     let sig = event.target[6].value;
 
     const butterLocation = await cosmos.methods.createButter(
-      nutId, secretHash, matterContributed, drawRate, cidPath, sig
+      nutId, secretButterHash, matterContributed, drawRate, cidPath, sig
     ).send({
       from: provider.selectedAddress
     }).on('transactionHash', function(hash) {
@@ -308,23 +314,40 @@ class Universe extends Component {
       console.log("Receipt", receipt);
       alert("Error!");
     });
-
   }
 
-  secretChange(event) {
-    const secret = event.target.value;
-    const secretHash = EthCrypto.hash.keccak256(secret);
-    this.setState({
-      secretHash: secretHash
-    });
+  async createSeed(event) {
+    console.log("Creating Seed");
   }
 
-  async pathChage(event) {
+  secretButterChange(event) {
+    const secretButter = event.target.value;
+    const secretButterHash = EthCrypto.hash.keccak256(secretButter);
+    this.setState({secretButterHash});
+  }
+
+  secretSeedChange(event) {
+    const secretSeed = event.target.value;
+    const secretSeedHash = EthCrypto.hash.keccak256(secretSeed);
+    this.setState({secretSeedHash})
+  }
+
+  async pathButterChange(event) {
     const cidPath = event.target.value;
     const pathHash = EthCrypto.hash.keccak256(cidPath);
     getSecret(pathHash).then((sig) => {
       this.setState({
-        signature: sig.signedImage // Bad naming convention (not sig of image in this case)
+        butterSignature: sig.signedImage // Bad naming convention (not sig of image in this case)
+      });
+    });
+  }
+
+  async pathSeedChange(event) {
+    const cidPath = event.target.value;
+    const pathHash = EthCrypto.hash.keccak256(cidPath);
+    getSecret(pathHash).then((sig) => {
+      this.setState({
+        seedSignature: sig.signedImage // Bad naming convention (not sig of image in this case)
       });
     });
   }
@@ -582,15 +605,15 @@ class Universe extends Component {
                 <Form.Input
                   inline
                   label='Secret'
-                  defaultValue={this.state.secret}
+                  defaultValue={this.state.secretButter}
                   style={{width: '200px'}}
-                  onChange={this.secretChange}
+                  onChange={this.secretButterChange}
                 />
 
                 <Form.Input
                   disabled
                   label='Secret Hash'
-                  value={this.state.secretHash}
+                  value={this.state.secretButterHash}
                   style={{width: '550px'}}
                 />
 
@@ -602,13 +625,13 @@ class Universe extends Component {
                   label='CID Path'
                   defaultValue={this.state.cidPath}
                   style={{width: '400px'}}
-                  onChange={this.pathChage}
+                  onChange={this.pathButterChange}
                 />
 
                 <Form.Input
                   disabled
                   label='Signature'
-                  value={this.state.signature}
+                  value={this.state.butterSignature}
                   style={{width: '1060px'}}
                 />
 
@@ -621,7 +644,7 @@ class Universe extends Component {
             </Grid.Column>
 
             <Grid.Column>
-              <Form>
+              <Form onSubmit={this.createSeed}>
                 <Form.Input
                   inline
                   label='Nut Id#'
@@ -630,8 +653,17 @@ class Universe extends Component {
                 />
 
                 <Form.Input
+                  inline
+                  label='Secret'
+                  defaultValue={this.state.secretSeed}
+                  style={{width: '200px'}}
+                  onChange={this.secretSeedChange}
+                />
+
+                <Form.Input
+                  disabled
                   label='Secret Hash'
-                  defaultValue='0xb68fe43f0d1a0d7aef123722670be50268e15365401c442f8806ef83b612976b'
+                  value={this.state.secretSeedHash}
                   style={{width: '550px'}}
                 />
 
@@ -640,12 +672,13 @@ class Universe extends Component {
                   label='CID Path'
                   defaultValue={this.state.cidPath}
                   style={{width: '400px'}}
-                  onChange={this.pathChage}
+                  onChange={this.pathSeedChange}
                 />
 
                 <Form.Input
+                  disabled
                   label='Signature'
-                  defaultValue='0x1915322bb77cd62486904890606dacba59ebca71d5a3b7b9a6a2dd87acba65c876298cab2f73c063f74058249f3ee68a0564559fd023e249638a0747799999531c'
+                  defaultValue={this.state.seedSignature}
                   style={{width: '1060px'}}
                 />
 
@@ -765,7 +798,7 @@ class Universe extends Component {
 
           <Grid.Row columns={2}>
             <Grid.Column width={3}>
-              <h3>Universe Constants</h3>
+              <h3>CosmoNut Constants</h3>
             </Grid.Column>
 
             <Grid.Column width={7}>
