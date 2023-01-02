@@ -8,12 +8,15 @@ import "./CosmoBang.sol";
 import "./ICosmoMatter.sol";
 
 /**
- * CosmoUniverse is the top contract for the developer to create the planned system.
- * The creation of this contract creates an ERC20 coin called CosmoMatter.
- * The owner of this contract has the option to create a big bang starting the CosmoNuts universe.
- * Each universe is comprised of an NFT collection and a Treasury to manage funds of that NFT collection.
+ * @title CosmoUniverse - Cosmos containing ERC721 NFT Collections
+ * @author yellowfridge
+ * @notice Main contract which ties all other contracts together.  Start here.
+ * @dev The creation of this contract creates an ERC20 coin.  CosmoMatter.
+ * @dev The owner of this contract has the option to create a big bang starting a new cosmo.
+ * @dev Each cosmo is comprised of an NFT collection, a Treasury to manage funds of that NFT collection,
+ * and a Vault to insure security.
  */
- contract CosmoUniverse is Ownable {
+contract CosmoUniverse is Ownable {
 
     uint256 public COSMO_INDEX = 0;
     address public SYSTEM_ADDRESS;
@@ -30,6 +33,14 @@ import "./ICosmoMatter.sol";
 
     CosmoMatter matter;
 
+    /**
+     * @notice Beginning of a Universe requires three inputs.
+     * @param _systemAddress is the wallet address of the application designed to manage front-end access.
+     * @param _matterName will serve as the input for the ERC20 name in the creation of a coin.
+     * @param _matterSymbol will serve as the input for the ERC20 symbol in the creation of a coin.
+     * @dev Name and symbol are the only two inputs required to create a ERC20 compliant coin.
+     * @dev There are no coins in circulation at the absolute beginning.
+     */
     constructor(
         address _systemAddress,
         string memory _matterName,

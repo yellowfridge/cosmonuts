@@ -11,7 +11,14 @@ import { Clones } from "openzeppelin-solidity/contracts/proxy/Clones.sol";
 import "./ICosmoTreasury.sol";
 import "./CosmoVault.sol";
 
+/**
+ * @title CosmoCreation - The Forming of the Cosmo
+ * @notice Handles the creation process of the NFT collection.
+ * @dev Implementation of the ERC721 contract occurs here.  Name and symbol are only inputs required.
+ */
 contract CosmoCreation is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
+
+    using ECDSA for bytes32;
 
     struct Creation {
         uint256 initialSupply;
@@ -22,7 +29,7 @@ contract CosmoCreation is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
     }
     Creation public creation;
 
-    using ECDSA for bytes32;
+    event NutMinted(address indexed _to, uint256 _nutId, string _nutCID);
 
     constructor(
         string memory _name,
@@ -53,18 +60,27 @@ contract CosmoCreation is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
         return creation.vault;
     }
 
+    /**
+     * @notice Creates a new nut and assigns ownership to the caller provided they have paid the required price in ETH.
+     * @dev Once the initial supply of nuts is depleted, this function will no longer work.
+     */
     function mintNut(string memory _nutCID) public payable {
+        /// @param nutIndex is the current id number of the nut.  First Nut is 0.
         uint256 nutIndex = totalSupply();
         require(nutIndex < creation.initialSupply, "Initial supply of nuts is depleted");
+
+        /// @param nutPrice is the amount needed and is stored under the Treasury contract.
         uint256 nutPrice = ICosmoTreasury(creation.treasury).getPrice();
         require(msg.value >= nutPrice, "Ether value provided is not enough");
 
         _safeMint(msg.sender, nutIndex);
         _setTokenURI(nutIndex, _nutCID);
         ICosmoTreasury(creation.treasury).assignMintBalance(msg.sender);
+
+        emit NutMinted(msg.sender, nutIndex, _nutCID);
     }
 
-    // ----- The following functions are overrides required by Solidity -----
+    /// @dev The following functions are overrides required due to inheritance of ERC721 Enumerable and Storage.
     function _beforeTokenTransfer(address from, address to, uint256 tokenId) internal override(ERC721, ERC721Enumerable) {
         super._beforeTokenTransfer(from, to, tokenId);
     }
