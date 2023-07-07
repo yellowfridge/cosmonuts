@@ -52,7 +52,8 @@ class Universe extends Component {
       butterId: 0,
       butterLocation: '',
       seedId: 0,
-      seedLocation: ''
+      seedLocation: '',
+      butterCards: ''
     }
 
     this.collectUniverse = this.collectUniverse.bind(this);
@@ -217,7 +218,7 @@ class Universe extends Component {
       });
     });
 
-    this.makeButterCards();
+    //this.makeButterCards();
   }
 
   async handleGetCosmo() {
@@ -426,14 +427,12 @@ class Universe extends Component {
           header: 'BUTTER ' + i
         });
     }
-
     console.log("Card Items", cardItems);
+
     return (
-      <h1>{cardItems}</h1>
+      <h1>hey</h1>
     );
   }
-
-
 
   render() {
 
@@ -938,6 +937,10 @@ class Universe extends Component {
       <Container textAlign='center'>
         <h1>BUTTERS</h1>
       </Container>
+
+      <Card.Group centered style={{marginTop: '10px'}}>
+        STUCK HERE - DYNAMIC CARD CREATION
+      </Card.Group>
 
       <Card.Group centered style={{marginTop: '10px'}}>
         <Card raised style={{width: '400px'}}>

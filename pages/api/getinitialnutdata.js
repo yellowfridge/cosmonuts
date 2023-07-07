@@ -6,7 +6,7 @@ export default async function getInitialNutData(req, res) {
   const privateKey = process.env.PRIVATE_KEY;
   const infuraKey = process.env.INFURA_MNEMONIC;
   // BELOW NEEDS TO BE DYNAMIC - EVERYWHERE
-  const contractAddress = '0XF9A938EE9F7EE1EF8457C3C6E4CDF94A00AFA58E';
+  const contractAddress = '0xF9A938eE9F7ee1EF8457c3c6e4CDf94A00afa58e';
   const infuraID = "https://goerli.infura.io/v3/7062ef4505da4e3d9e333b9ed6a07c6d";
 
   let web3 = new Web3(new Web3.providers.HttpProvider(infuraID));
