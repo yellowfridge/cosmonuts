@@ -433,6 +433,10 @@ class Universe extends Component {
     const butterItems = await this.collectButter();
     console.log("Butter Items", butterItems);
 
+    const createHandleButterAnswer = (cardIndex) => (event) => {
+      this.handleButterAnswer(event, cardIndex);
+    };
+
     const cards = []
     for (let i = 0; i < this.state.butterJars; i++) {
       cards.push(
@@ -459,7 +463,7 @@ class Universe extends Component {
                 label='Answer'
                 name='butterAnswer'
                 value={this.state.butterAnswers[i] || ''}
-                onChange={(e) => this.handleButterAnswer(e, i)}
+                onChange={createHandleButterAnswer(i)}
                 placeholder='Provide your answer from above ...'
                 style={{width: '360px'}}
               />
