@@ -53,7 +53,8 @@ class Universe extends Component {
       butterLocation: '',
       seedId: 0,
       seedLocation: '',
-      butterCards: ''
+      butterCards: '',
+      cardItems: [],
     }
 
     this.collectUniverse = this.collectUniverse.bind(this);
@@ -79,6 +80,7 @@ class Universe extends Component {
   componentDidMount() {
     this.getUser();
     this.collectUniverse();
+    this.makeButterCards();
   }
 
   async getUser() {
@@ -419,20 +421,52 @@ class Universe extends Component {
 
   async makeButterCards() {
     console.log("Making Cards");
-    const butterItems = this.collectButter();
+    const butterItems = await this.collectButter();
+    console.log("Butter Items", butterItems);
 
-    const cardItems = []
+    const cards = []
     for (let i = 0; i < this.state.butterJars; i++) {
-        cardItems.push({
-          header: 'BUTTER ' + i
-        });
+      cards.push(
+        <Card raised style={{width: '400px'}} key={i}>
+          <Card.Content>
+            <Card.Header>{'BUTTER ' + (i + 1)}</Card.Header>
+            <Card.Meta>
+              <Container style={{marginTop: '10px'}}>
+                <Statistic horizontal label='Butter Remaining' value={butterItems[i]?.remaining || 'N/A'} size='mini' />
+                <Statistic horizontal label='Butter Draw Rate' value={butterItems[i]?.drawRate || 'N/A'} size='mini' />
+                <Label ribbon>
+                  Parent Nut:
+                  <Label.Detail>{butterItems[i]?.parentNut || '0x...'}</Label.Detail>
+                </Label>
+              </Container>
+            </Card.Meta>
+            <Card.Description>
+              {butterItems[i]?.description || 'Description not available'}
+            </Card.Description>
+          </Card.Content>
+          <Card.Content extra>
+            <Form>
+              <Form.Input
+                label='Answer'
+                placeholder='Provide your answer from above ...'
+                style={{width: '360px'}}
+              />
+              <Form.Input
+                label='Ethereum Wallet Address'
+                defaultValue={this.state.user}
+                style={{width: '360px'}}
+              />
+              <Button primary type='submit' content='Claim Butter' />
+            </Form>
+          </Card.Content>
+        </Card>
+      );
     }
-    console.log("Card Items", cardItems);
+    console.log("Card Items", cards);
 
-    return (
-      <h1>hey</h1>
-    );
+    this.setState({ cardItems: cards });
   }
+
 
   render() {
 
@@ -939,7 +973,7 @@ class Universe extends Component {
       </Container>
 
       <Card.Group centered style={{marginTop: '10px'}}>
-        STUCK HERE - DYNAMIC CARD CREATION
+        {this.state.cardItems}
       </Card.Group>
 
       <Card.Group centered style={{marginTop: '10px'}}>
