@@ -462,7 +462,7 @@ class Universe extends Component {
               <Form.Input
                 label='Answer'
                 name='butterAnswer'
-                value={this.state.butterAnswers[i] || ''}
+                value={this.state.butterAnswers[i]}
                 onChange={createHandleButterAnswer(i)}
                 placeholder='Provide your answer from above ...'
                 style={{width: '360px'}}
@@ -491,14 +491,13 @@ class Universe extends Component {
     console.log("Card Index", cardIndex);
 
     console.log("Butter Answers before set state:", this.state.butterAnswers);
-    this.setState((prevState) => ({
+    this.setState({
       butterAnswers: {
-        ...prevState.butterAnswers,
+        ...this.state.butterAnswers,
         [cardIndex]: value
       }
-    }), () => {
-      console.log("Butter Answers after set state:", this.state.butterAnswers);
     });
+    console.log("Butter Answers after set state:", this.state.butterAnswers);
   }
 
   render() {
