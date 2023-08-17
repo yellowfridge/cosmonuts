@@ -406,13 +406,19 @@ class Universe extends Component {
     for (let i = 0; i < this.state.butterJars; i++) {
       var butterLocation = await this.getButterLocation(i);
       var butter = new web3.eth.Contract(CosmoButter, butterLocation);
+      const cosmos = new web3.eth.Contract(CosmoNuts, this.state.cosmosAddress);
 
-      await butter.methods.butter().call().then((info) => {
+      await butter.methods.butter().call().then(async (info) => {
         console.log("Info", info);
+
+        var parentNutOwner = await cosmos.methods.ownerOf(info[1]).call();
+        console.log("Parent Nut Owner", parentNutOwner);
+
         butterItems.push({
           parentNutId: info[1],
           amount: info[2],
-          drawRate: info[3]
+          drawRate: info[3],
+          parentNutOwner: parentNutOwner,
         });
       });
     }
@@ -437,7 +443,7 @@ class Universe extends Component {
                 <Statistic horizontal label='Butter Draw Rate' value={butterItems[i]?.drawRate || 'N/A'} size='mini' />
                 <Label ribbon>
                   Parent Nut:
-                  <Label.Detail>{butterItems[i]?.parentNut || '0x...'}</Label.Detail>
+                  <Label.Detail>{butterItems[i]?.parentNutOwner || '0x...'}</Label.Detail>
                 </Label>
               </Container>
             </Card.Meta>
@@ -971,64 +977,28 @@ class Universe extends Component {
 
       <Container textAlign='center'>
         <Grid columns={2}>
-          <Grid.Column>
-            <h1>BUTTERS</h1>
-          </Grid.Column>
+          <Grid.Row>
+            <Grid.Column>
+                <h1>BUTTERS</h1>
+            </Grid.Column>
 
-          <Grid.Column>
-            <Button
-              secondary
-              content='Create Butter Cards'
-              onClick={this.makeButterCards}
-            />
-          </Grid.Column>
+            <Grid.Column>
+              <Button
+                secondary
+                content='Create Butter Cards'
+                onClick={this.makeButterCards}
+              />
+            </Grid.Column>
+          </Grid.Row>
+
+          <Grid.Row>
+            Not sure where description is coming from. Hardcoded value was: Mirror, mirror, on the wall, what is the easiest <strong>password</strong> to remember of them all?
+          </Grid.Row>
         </Grid>
       </Container>
 
       <Card.Group centered style={{marginTop: '10px'}}>
         {this.state.cardItems}
-      </Card.Group>
-
-      <Card.Group centered style={{marginTop: '10px'}}>
-        <Card raised style={{width: '400px'}}>
-          <Card.Content>
-            <Card.Header>BUTTER 1</Card.Header>
-            <Card.Meta>
-              <Container style={{marginTop: '10px'}}>
-                <Statistic horizontal label='Butter Remaining' value='10' size='mini' />
-                <Statistic horizontal label='Butter Draw Rate' value='1' size='mini' />
-                <Label ribbon>
-                  Parent Nut:
-                  <Label.Detail>0x1a5b5a096e7c3305931f10c807f2749fa517601e_</Label.Detail>
-                </Label>
-              </Container>
-            </Card.Meta>
-            <Card.Description>
-              Mirror, mirror, on the wall, what is the easiest <strong>password</strong> to remember of them all?
-            </Card.Description>
-          </Card.Content>
-          <Card.Content extra>
-            <Form>
-              <Form.Input
-                label='Answer'
-                placeholder='Provide your answer from above ...'
-                style={{width: '360px'}}
-              />
-
-              <Form.Input
-                label='Ethereum Wallet Address'
-                defaultValue={this.state.user}
-                style={{width: '360px'}}
-              />
-
-              <Button
-                primary
-                type='submit'
-                content='Claim Butter'
-              />
-            </Form>
-          </Card.Content>
-        </Card>
       </Card.Group>
 
       <Divider />
