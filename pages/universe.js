@@ -80,7 +80,6 @@ class Universe extends Component {
   componentDidMount() {
     this.getUser();
     this.collectUniverse();
-    this.makeButterCards();
   }
 
   async getUser() {
@@ -403,6 +402,7 @@ class Universe extends Component {
     const web3 = new Web3(window.ethereum);
 
     const butterItems = [];
+    console.log("Butter Jars in collectButter", this.state.butterJars);
     for (let i = 0; i < this.state.butterJars; i++) {
       var butterLocation = await this.getButterLocation(i);
       var butter = new web3.eth.Contract(CosmoButter, butterLocation);
@@ -969,7 +969,19 @@ class Universe extends Component {
       <Divider />
 
       <Container textAlign='center'>
-        <h1>BUTTERS</h1>
+        <Grid columns={2}>
+          <Grid.Column>
+            <h1>BUTTERS</h1>
+          </Grid.Column>
+
+          <Grid.Column>
+            <Button
+              secondary
+              content='Create Butter Cards'
+              onClick={this.makeButterCards}
+            />
+          </Grid.Column>
+        </Grid>
       </Container>
 
       <Card.Group centered style={{marginTop: '10px'}}>
