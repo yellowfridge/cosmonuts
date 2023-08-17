@@ -490,12 +490,15 @@ class Universe extends Component {
     console.log("Value", value);
     console.log("Card Index", cardIndex);
 
+    console.log("Butter Answers before set state:", this.state.butterAnswers);
     this.setState((prevState) => ({
       butterAnswers: {
         ...prevState.butterAnswers,
         [cardIndex]: value
       }
-    }));
+    }), () => {
+      console.log("Butter Answers after set state:", this.state.butterAnswers);
+    });
   }
 
   render() {
