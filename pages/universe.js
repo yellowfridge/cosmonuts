@@ -77,6 +77,7 @@ class Universe extends Component {
     this.changeSeedId = this.changeSeedId.bind(this);
     this.createSeed = this.createSeed.bind(this);
     this.handleButterAnswer = this.handleButterAnswer.bind(this);
+    this.claimButter = this.claimButter.bind(this);
   }
 
   componentDidMount() {
@@ -437,6 +438,10 @@ class Universe extends Component {
       this.handleButterAnswer(event, cardIndex);
     };
 
+    const createClaimButter = (cardIndex) => (event) => {
+      this.claimButter(event, cardIndex);
+    }
+
     const cards = []
     for (let i = 0; i < this.state.butterJars; i++) {
       cards.push(
@@ -472,7 +477,11 @@ class Universe extends Component {
                 defaultValue={this.state.user}
                 style={{width: '360px'}}
               />
-              <Button primary type='submit' content='Claim Butter' />
+              <Button
+                primary
+                content='Claim Butter'
+                onClick={createClaimButter(i)}
+              />
             </Form>
           </Card.Content>
         </Card>
@@ -498,6 +507,15 @@ class Universe extends Component {
       }
     });
     console.log("Butter Answers after set state:", this.state.butterAnswers);
+  }
+
+  claimButter(event, cardIndex) {
+    console.log("Event", event);
+    console.log("Event Target", event.target.value);
+    console.log("Card Index", cardIndex);
+    const butterAnswer = this.state.butterAnswers[cardIndex];
+    console.log("Claiming Butter for Card", cardIndex);
+    console.log("Butter Answer:", butterAnswer);
   }
 
   render() {
