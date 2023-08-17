@@ -408,6 +408,7 @@ class Universe extends Component {
       var butter = new web3.eth.Contract(CosmoButter, butterLocation);
 
       await butter.methods.butter().call().then((info) => {
+        console.log("Info", info);
         butterItems.push({
           parentNutId: info[1],
           amount: info[2],
@@ -432,7 +433,7 @@ class Universe extends Component {
             <Card.Header>{'BUTTER ' + (i + 1)}</Card.Header>
             <Card.Meta>
               <Container style={{marginTop: '10px'}}>
-                <Statistic horizontal label='Butter Remaining' value={butterItems[i]?.remaining || 'N/A'} size='mini' />
+                <Statistic horizontal label='Butter Remaining' value={butterItems[i]?.amount || 'N/A'} size='mini' />
                 <Statistic horizontal label='Butter Draw Rate' value={butterItems[i]?.drawRate || 'N/A'} size='mini' />
                 <Label ribbon>
                   Parent Nut:
