@@ -55,6 +55,7 @@ class Universe extends Component {
       seedLocation: '',
       butterCards: '',
       cardItems: [],
+      butterAnswers: {},
     }
 
     this.collectUniverse = this.collectUniverse.bind(this);
@@ -75,6 +76,7 @@ class Universe extends Component {
     this.getSeedLocation = this.getSeedLocation.bind(this);
     this.changeSeedId = this.changeSeedId.bind(this);
     this.createSeed = this.createSeed.bind(this);
+    this.handleButterAnswer = this.handleButterAnswer.bind(this);
   }
 
   componentDidMount() {
@@ -455,6 +457,9 @@ class Universe extends Component {
             <Form>
               <Form.Input
                 label='Answer'
+                name='butterAnswer'
+                value={this.state.butterAnswers[i] || ''}
+                onChange={(e) => this.handleButterAnswer(e, i)}
                 placeholder='Provide your answer from above ...'
                 style={{width: '360px'}}
               />
@@ -474,6 +479,20 @@ class Universe extends Component {
     this.setState({ cardItems: cards });
   }
 
+  handleButterAnswer(event, cardIndex) {
+    console.log("Butter answer event", event);
+    console.log("Butter answer target", event.target.value);
+    const { value } = event.target;
+    console.log("Value", value);
+    console.log("Card Index", cardIndex);
+
+    this.setState((prevState) => ({
+      butterAnswers: {
+        ...prevState.butterAnswers,
+        [cardIndex]: value
+      }
+    }));
+  }
 
   render() {
 
