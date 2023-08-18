@@ -6,6 +6,7 @@ import CosmoUniverse from '../ethereum/build_manual/CosmoUniverse_abi.json';
 import CosmoNuts from '../ethereum/build_manual/CosmoNuts_abi.json';
 import CosmoTreasury from '../ethereum/build_manual/CosmoTreasury_abi.json';
 import CosmoButter from '../ethereum/build_manual/CosmoButter_abi.json';
+import CosmoSeed from '../ethereum/build_manual/CosmoSeed_abi.json';
 import { Input, Grid, Divider, Button, Statistic, Form, Container, Card, Label } from 'semantic-ui-react';
 import EthCrypto from 'eth-crypto';
 import { getSecret } from '../components/helpers/apiRequests';
@@ -53,8 +54,10 @@ class Universe extends Component {
       butterLocation: '',
       seedId: 0,
       seedLocation: '',
-      cardItems: [],
+      butterCardItems: [],
+      seedCardItems: [],
       butterAnswers: {},
+      seedAnswers: {},
     }
 
     this.collectUniverse = this.collectUniverse.bind(this);
@@ -77,6 +80,9 @@ class Universe extends Component {
     this.createSeed = this.createSeed.bind(this);
     this.handleButterAnswer = this.handleButterAnswer.bind(this);
     this.claimButter = this.claimButter.bind(this);
+    this.makeSeedCards = this.makeSeedCards.bind(this);
+    this.handleSeedAnswer = this.handleSeedAnswer.bind(this);
+    this.spawnNut = this.spawnNut.bind(this);
   }
 
   componentDidMount() {
@@ -221,7 +227,6 @@ class Universe extends Component {
       });
     });
 
-    //this.makeButterCards();
   }
 
   async handleGetCosmo() {
@@ -320,6 +325,7 @@ class Universe extends Component {
     });
   }
 
+  // CANT BE RIGHT - because need to send money
   async createSeed(event) {
     console.log("Creating Seed");
     const web3 = new Web3(window.ethereum);
@@ -430,6 +436,34 @@ class Universe extends Component {
     return butterItems;
   }
 
+  async collectSeeds() {
+    const web3 = new Web3(window.ethereum);
+
+    const seedItems = [];
+    for (let i = 0; i < this.state.seedsCreated; i++) {
+      var seedLocation = await this.getSeedLocation(i);
+      console.log("Seed Location[" + i + "]: " + seedLocation);
+      var seed = new web3.eth.Contract(CosmoSeed, seedLocation);
+      const cosmos = new web3.eth.Contract(CosmoNuts, this.state.cosmosAddress);
+
+      const seedInfo = await seed.methods.seed().call();
+      console.log("Seed Info", seedInfo);
+      var parentNutOwner = await cosmos.methods.ownerOf(seedInfo.nutId).call();
+
+      seedItems.push({
+        id: seedInfo.id,
+        location: seedInfo.location,
+        parentNutId: seedInfo.nutId,
+        heldEther: seedInfo.heldEther/10000000000000000000,
+        matterNeeded: seedInfo.matterNeeded,
+        parentNutOwner: parentNutOwner,
+      });
+    }
+
+    console.log("Seed Items", seedItems);
+    return seedItems;
+  }
+
   async makeButterCards() {
     const butterItems = await this.collectButter();
 
@@ -497,7 +531,7 @@ class Universe extends Component {
     }
     console.log("Card Items", cards);
 
-    this.setState({ cardItems: cards });
+    this.setState({ butterCardItems: cards });
   }
 
   handleButterAnswer(event, cardIndex) {
@@ -518,7 +552,7 @@ class Universe extends Component {
     //console.log("Card Items", this.state.cardItems[cardIndex]);
 
     const butterLocation = (
-      this.state.cardItems[cardIndex].props.children[0]
+      this.state.butterCardItems[cardIndex].props.children[0]
       .props.children[0].props.children[1].props.children
     );
     //console.log("Butter Location", butterLocation);
@@ -549,6 +583,92 @@ class Universe extends Component {
       alert("Error!", error);
     });
 
+  }
+
+  async makeSeedCards() {
+    console.log("make seed cards");
+    const seedItems = await this.collectSeeds();
+
+    const createHandleSeedAnswer = (cardIndex) => (event) => {
+      this.handleSeedAnswer(event, cardIndex);
+    };
+
+    const createSpawnNut = (cardIndex) => (event) => {
+      this.spawnNut(event, cardIndex);
+    };
+
+    const cards = []
+    for (let i = 0; i < this.state.seedsCreated; i++) {
+      cards.push(
+        <Card raised style={{width: '400px'}} key={i}>
+          <Card.Content>
+            <Grid columns={2}>
+              <Grid.Column width={5}>
+                <h3>{'SEED ' + (i + 1)}</h3>
+              </Grid.Column>
+
+              <Grid.Column width={11} style={{ fontSize: '10px' }}>
+                {seedItems[i].location}
+              </Grid.Column>
+            </Grid>
+            <Card.Meta>
+              <Container style={{marginTop: '10px'}}>
+                <Statistic horizontal label='Locked ETH' value={seedItems[i]?.heldEther || 'N/A'} size='mini' />
+                <Statistic horizontal label='Matter Needed' value={seedItems[i]?.matterNeeded || 'N/A'} size='mini' />
+                <Label ribbon>
+                  Parent Nut:
+                  <Label.Detail>{seedItems[i]?.parentNutOwner || '0x...'}</Label.Detail>
+                </Label>
+              </Container>
+            </Card.Meta>
+            <Card.Description>
+              {seedItems[i]?.description || 'Description not available'}
+            </Card.Description>
+          </Card.Content>
+          <Card.Content extra>
+            <Form>
+              <Form.Input
+                label='Answer'
+                name='seedAnswer'
+                value={this.state.seedAnswers[i]}
+                onChange={createHandleSeedAnswer(i)}
+                placeholder='Provide your answer from above ...'
+                style={{width: '360px'}}
+              />
+              <Form.Input
+                disabled
+                label='Ethereum Wallet Address'
+                value={this.state.user}
+                style={{width: '360px'}}
+              />
+              <Button
+                primary
+                content='Claim Seed'
+                onClick={createSpawnNut(i)}
+              />
+            </Form>
+          </Card.Content>
+        </Card>
+      );
+    }
+
+    console.log("Card Items", cards);
+    this.setState({ seedCardItems: cards });
+  }
+
+  handleSeedAnswer(event, cardIndex) {
+    const { value } = event.target;
+
+    this.setState({
+      seedAnswers: {
+        ...this.state.seedAnswers,
+        [cardIndex]: value
+      }
+    });
+  }
+
+  async spawnNut(event, cardIndex) {
+    console.log("In Spawn Nut Card Index: ", cardIndex);
   }
 
   render() {
@@ -685,15 +805,15 @@ class Universe extends Component {
 
         <Grid textAlign='center'>
           <Grid.Row columns={3}>
-            <Grid.Column>
+            <Grid.Column width={4}>
               <h2>COSMONUTS</h2>
             </Grid.Column>
 
-            <Grid.Column>
+            <Grid.Column width={4}>
               <Statistic label='# of Nuts' value={this.state.numNuts} size='mini' />
             </Grid.Column>
 
-            <Grid.Column>
+            <Grid.Column width={8}>
               <Input
                 fluid
                 disabled
@@ -1074,7 +1194,7 @@ class Universe extends Component {
       </Container>
 
       <Card.Group centered style={{marginTop: '10px'}}>
-        {this.state.cardItems}
+        {this.state.butterCardItems}
       </Card.Group>
 
       <Divider />
@@ -1082,8 +1202,26 @@ class Universe extends Component {
       <Divider />
 
       <Container textAlign='center'>
-        <h1>SEEDS</h1>
+        <Grid columns={2}>
+          <Grid.Row>
+            <Grid.Column>
+                <h1>SEEDS</h1>
+            </Grid.Column>
+
+            <Grid.Column>
+              <Button
+                secondary
+                content='Create Seed Cards'
+                onClick={this.makeSeedCards}
+              />
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
       </Container>
+
+      <Card.Group centered style={{marginTop: '10px'}}>
+        {this.state.seedCardItems}
+      </Card.Group>
 
       </div>
     )

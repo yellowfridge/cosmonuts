@@ -1,0 +1,165 @@
+[
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_seedId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_nutId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "address",
+				"name": "_matter",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "_treasury",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "_cosmos",
+				"type": "address"
+			},
+			{
+				"internalType": "bytes32",
+				"name": "_secretHash",
+				"type": "bytes32"
+			}
+		],
+		"name": "initialize",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "_secret",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_cidPath",
+				"type": "string"
+			},
+			{
+				"internalType": "bytes",
+				"name": "_signature",
+				"type": "bytes"
+			}
+		],
+		"name": "spawnNut",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"stateMutability": "payable",
+		"type": "receive"
+	},
+	{
+		"inputs": [],
+		"name": "getBalance",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "matterNeeded",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "nutId",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "seed",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "id",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "nutId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "heldEther",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "matterNeeded",
+				"type": "uint256"
+			},
+			{
+				"internalType": "address",
+				"name": "location",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "matter",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "treasury",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "cosmos",
+				"type": "address"
+			},
+			{
+				"internalType": "bytes32",
+				"name": "secretHash",
+				"type": "bytes32"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	}
+]

@@ -48,11 +48,12 @@ export default function Mint(props) {
       '0xb97C6312F412b58cCfac2c0E63609df0c2599CAa' // Need to set this in one place
     );
 
-    const isSaleActive = await cosmonuts.methods.saleIsActive().call();
-    console.log('IS SALE ON?', isSaleActive);
+    // Looks like this was removed
+    //const isSaleActive = await cosmonuts.methods.saleIsActive().call();
+    //console.log('IS SALE ON?', isSaleActive);
 
-    const nutPrice = await cosmonuts.methods.nutPrice().call();
-    console.log("Nut Price", nutPrice, 'type', typeof nutPrice);
+    //const nutPrice = await cosmonuts.methods.nutPrice().call();
+    //console.log("Nut Price", nutPrice, 'type', typeof nutPrice);
 
     var numOfTokens = '1';
     const mintedNut = await cosmonuts.methods.mintNut(numOfTokens).send({
