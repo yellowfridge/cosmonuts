@@ -58,6 +58,8 @@ class Universe extends Component {
       seedCardItems: [],
       butterAnswers: {},
       seedAnswers: {},
+      nutsHeld: 0,
+      ownedNuts: [],
     }
 
     this.collectUniverse = this.collectUniverse.bind(this);
@@ -146,6 +148,7 @@ class Universe extends Component {
   async collectCosmo() {
     const web3 = new Web3(window.ethereum);
     const cosmo = new web3.eth.Contract(CosmoNuts, this.state.cosmosAddress)
+    const provider = await detectEthereumProvider();
 
     await cosmo.methods.creation().call().then((creation) => {
       this.setState({
@@ -158,6 +161,27 @@ class Universe extends Component {
       this.setState({
         numNuts: supply
       });
+    });
+
+    await cosmo.methods.balanceOf(provider.selectedAddress).call().then((numOfNuts) => {
+      this.setState({
+        nutsHeld: numOfNuts,
+      });
+      console.log("Num of Nuts", numOfNuts);
+
+      const loopyNuts = async () => {
+        for (let n = 0; n < numOfNuts; n++) {
+          await cosmo.methods.tokenOfOwnerByIndex(provider.selectedAddress, n).call().then(async (nut) => {
+            var nutId = parseInt(nut); // convert string to number type
+            console.log("Owned Nut Ids: ", nutId);
+
+            await this.setState((prevState) => {
+              ownedNuts: [...prevState.ownedNuts, nutId]
+            });
+          });
+        }
+      }
+      loopyNuts();
     });
 
     this.collectTreasury();
@@ -876,6 +900,10 @@ class Universe extends Component {
                 }}
               />
             </Grid.Column>
+          </Grid.Row>
+
+          <Grid.Row>
+            <h3>{'Owned Nuts ' + this.state.ownedNuts}</h3>
           </Grid.Row>
 
           <Grid.Row>
