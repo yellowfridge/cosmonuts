@@ -669,6 +669,33 @@ class Universe extends Component {
 
   async spawnNut(event, cardIndex) {
     console.log("In Spawn Nut Card Index: ", cardIndex);
+    const seedAnswer = this.state.seedAnswers[cardIndex];
+
+    const seedLocation = (
+      this.state.seedCardItems[cardIndex].props.children[0]
+      .props.children[0].props.children[1].props.children
+    );
+    console.log("Seed Location", seedLocation);
+
+    const web3 = new Web3(window.ethereum);
+    const seed = new web3.eth.Contract(CosmoSeed, seedLocation);
+    const provider = await detectEthereumProvider();
+
+    const seedPath = this.state.cidPath;
+    const seedSig = this.state.seedSignature;
+
+    await seed.methods.spawnNut(seedAnswer, seedPath, seedSig).send({
+      from: provider.selectedAddress
+    }).on('transactionHash', function(hash) {
+      console.log("Transaction Hash:", hash);
+    }).on('receipt', function(receipt) {
+      console.log("Receipt", receipt);
+      alert("SUCCESS!", receipt);
+    }).on('error', function(error, receipt) {
+      console.log("Error:", error);
+      console.log("Receipt", receipt);
+      alert("Error!", receipt);
+    });
   }
 
   render() {
