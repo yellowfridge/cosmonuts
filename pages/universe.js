@@ -53,7 +53,6 @@ class Universe extends Component {
       butterLocation: '',
       seedId: 0,
       seedLocation: '',
-      butterCards: '',
       cardItems: [],
       butterAnswers: {},
     }
@@ -405,7 +404,7 @@ class Universe extends Component {
     const web3 = new Web3(window.ethereum);
 
     const butterItems = [];
-    console.log("Butter Jars in collectButter", this.state.butterJars);
+    //console.log("Butter Jars in collectButter", this.state.butterJars);
     for (let i = 0; i < this.state.butterJars; i++) {
       var butterLocation = await this.getButterLocation(i);
       var butter = new web3.eth.Contract(CosmoButter, butterLocation);
@@ -415,24 +414,24 @@ class Universe extends Component {
         console.log("Info", info);
 
         var parentNutOwner = await cosmos.methods.ownerOf(info[1]).call();
-        console.log("Parent Nut Owner", parentNutOwner);
+        //console.log("Parent Nut Owner", parentNutOwner);
 
         butterItems.push({
           parentNutId: info[1],
           amount: info[2],
           drawRate: info[3],
           parentNutOwner: parentNutOwner,
+          location: info[4],
         });
       });
     }
 
+    console.log("Butter Items", butterItems);
     return butterItems;
   }
 
   async makeButterCards() {
-    console.log("Making Cards");
     const butterItems = await this.collectButter();
-    console.log("Butter Items", butterItems);
 
     const createHandleButterAnswer = (cardIndex) => (event) => {
       this.handleButterAnswer(event, cardIndex);
@@ -447,7 +446,15 @@ class Universe extends Component {
       cards.push(
         <Card raised style={{width: '400px'}} key={i}>
           <Card.Content>
-            <Card.Header>{'BUTTER ' + (i + 1)}</Card.Header>
+            <Grid columns={2}>
+              <Grid.Column width={5}>
+                <h3>{'BUTTER ' + (i + 1)}</h3>
+              </Grid.Column>
+
+              <Grid.Column width={11} style={{ fontSize: '10px' }}>
+                {butterItems[i].location}
+              </Grid.Column>
+            </Grid>
             <Card.Meta>
               <Container style={{marginTop: '10px'}}>
                 <Statistic horizontal label='Butter Remaining' value={butterItems[i]?.amount || 'N/A'} size='mini' />
@@ -473,8 +480,9 @@ class Universe extends Component {
                 style={{width: '360px'}}
               />
               <Form.Input
+                disabled
                 label='Ethereum Wallet Address'
-                defaultValue={this.state.user}
+                value={this.state.user}
                 style={{width: '360px'}}
               />
               <Button
@@ -493,29 +501,33 @@ class Universe extends Component {
   }
 
   handleButterAnswer(event, cardIndex) {
-    console.log("Butter answer event", event);
-    console.log("Butter answer target", event.target.value);
     const { value } = event.target;
-    console.log("Value", value);
-    console.log("Card Index", cardIndex);
 
-    console.log("Butter Answers before set state:", this.state.butterAnswers);
     this.setState({
       butterAnswers: {
         ...this.state.butterAnswers,
         [cardIndex]: value
       }
     });
-    console.log("Butter Answers after set state:", this.state.butterAnswers);
   }
 
   claimButter(event, cardIndex) {
-    console.log("Event", event);
-    console.log("Event Target", event.target.value);
-    console.log("Card Index", cardIndex);
+    console.log("Card Index in Claim Butter", cardIndex);
     const butterAnswer = this.state.butterAnswers[cardIndex];
-    console.log("Claiming Butter for Card", cardIndex);
     console.log("Butter Answer:", butterAnswer);
+    console.log("Eth Wallet Address", this.state.user);
+    console.log("Card Items", this.state.cardItems[cardIndex]);
+
+    const butterLocation = (
+      this.state.cardItems[cardIndex].props.children[0]
+      .props.children[0].props.children[1].props.children
+    );
+    console.log("Butter Location", butterLocation);
+
+    const web3 = new Web3(window.ethereum);
+    const butter = new web3.eth.Contract(CosmoButter, butterLocation);
+    //await butter.methods.drawButter(butterAnswer)
+
   }
 
   render() {
