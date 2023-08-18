@@ -7,7 +7,7 @@ import CosmoNuts from '../ethereum/build_manual/CosmoNuts_abi.json';
 import CosmoTreasury from '../ethereum/build_manual/CosmoTreasury_abi.json';
 import CosmoButter from '../ethereum/build_manual/CosmoButter_abi.json';
 import CosmoSeed from '../ethereum/build_manual/CosmoSeed_abi.json';
-import { Input, Grid, Divider, Button, Statistic, Form, Container, Card, Label } from 'semantic-ui-react';
+import { Input, Header, Grid, Divider, Button, Statistic, Form, Container, Card, Label } from 'semantic-ui-react';
 import EthCrypto from 'eth-crypto';
 import { getSecret } from '../components/helpers/apiRequests';
 
@@ -352,7 +352,6 @@ class Universe extends Component {
     });
   }
 
-  // CANT BE RIGHT - because need to send money
   async createSeed(event) {
     console.log("Creating Seed");
     const web3 = new Web3(window.ethereum);
@@ -905,7 +904,7 @@ class Universe extends Component {
           </Grid.Row>
 
           <Grid.Row>
-            <h3>{'Owned Nuts ' + this.state.ownedNuts}</h3>
+            <Header block as='h3'>{'Owned Nuts ' + this.state.ownedNuts}</Header>
           </Grid.Row>
 
           <Grid.Row>
@@ -1080,7 +1079,7 @@ class Universe extends Component {
                   content: 'Matter Of',
                   onClick: () => this.handleGetMatterOf()
                 }}
-                defaultValue={this.state.owner}
+                value={this.state.user}
                 onChange={this.changeMatterOfInput}
                 style={{
                   width: '500px'
@@ -1262,10 +1261,6 @@ class Universe extends Component {
                 onClick={this.makeButterCards}
               />
             </Grid.Column>
-          </Grid.Row>
-
-          <Grid.Row>
-            Not sure where description is coming from. Hardcoded value was: Mirror, mirror, on the wall, what is the easiest <strong>password</strong> to remember of them all?
           </Grid.Row>
         </Grid>
       </Container>
