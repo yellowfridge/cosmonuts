@@ -499,11 +499,12 @@ class Universe extends Component {
       //console.log("Seed Info", seedInfo);
       var parentNutOwner = await cosmos.methods.ownerOf(seedInfo.nutId).call();
 
+      // ISSUE WITH HELDETHER ** doublecheck contract formula
       seedItems.push({
         id: seedInfo.id,
         location: seedInfo.location,
         parentNutId: seedInfo.nutId,
-        heldEther: seedInfo.heldEther/10000000000000000000,
+        heldEther: seedInfo.heldEther/1000000000000000000,
         matterNeeded: seedInfo.matterNeeded,
         parentNutOwner: parentNutOwner,
         balance: seedBalance,
