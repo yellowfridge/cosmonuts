@@ -511,22 +511,43 @@ class Universe extends Component {
     });
   }
 
-  claimButter(event, cardIndex) {
-    console.log("Card Index in Claim Butter", cardIndex);
+  async claimButter(event, cardIndex) {
+    //console.log("Card Index in Claim Butter", cardIndex);
     const butterAnswer = this.state.butterAnswers[cardIndex];
-    console.log("Butter Answer:", butterAnswer);
-    console.log("Eth Wallet Address", this.state.user);
-    console.log("Card Items", this.state.cardItems[cardIndex]);
+    //console.log("Butter Answer:", butterAnswer);
+    //console.log("Card Items", this.state.cardItems[cardIndex]);
 
     const butterLocation = (
       this.state.cardItems[cardIndex].props.children[0]
       .props.children[0].props.children[1].props.children
     );
-    console.log("Butter Location", butterLocation);
+    //console.log("Butter Location", butterLocation);
 
     const web3 = new Web3(window.ethereum);
     const butter = new web3.eth.Contract(CosmoButter, butterLocation);
-    //await butter.methods.drawButter(butterAnswer)
+    const provider = await detectEthereumProvider();
+    //console.log("Eth Wallet Address (provider)", provider.selectedAddress);
+
+    const butterPath = this.state.cidPath;
+    //console.log("Butter Path", butterPath);
+    const butterSig = this.state.butterSignature;
+    //console.log("Butter Signature", butterSig);
+
+    await butter.methods.drawButter(
+      butterAnswer,
+      butterPath,
+      butterSig
+    ).send({
+      from: provider.selectedAddress
+    }).on('transactionHash', function(hash) {
+      console.log("Transaction Hash", hash);
+    }).on('receipt', function(receipt) {
+      console.log("Receipt", receipt);
+    }).on('error', function(error, receipt) {
+      console.log("Error:", error);
+      console.log("Receipt", receipt);
+      alert("Error!", error);
+    });
 
   }
 
