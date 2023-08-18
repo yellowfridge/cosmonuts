@@ -163,25 +163,28 @@ class Universe extends Component {
       });
     });
 
-    await cosmo.methods.balanceOf(provider.selectedAddress).call().then((numOfNuts) => {
+    await cosmo.methods.balanceOf(provider.selectedAddress).call().then(async (numOfNuts) => {
       this.setState({
         nutsHeld: numOfNuts,
       });
-      console.log("Num of Nuts", numOfNuts);
+      //console.log("Num of Nuts", numOfNuts);
 
       const loopyNuts = async () => {
+        const updatedOwnedNuts = [];
         for (let n = 0; n < numOfNuts; n++) {
-          await cosmo.methods.tokenOfOwnerByIndex(provider.selectedAddress, n).call().then(async (nut) => {
+          await cosmo.methods.tokenOfOwnerByIndex(provider.selectedAddress, n).call().then((nut) => {
             var nutId = parseInt(nut); // convert string to number type
-            console.log("Owned Nut Ids: ", nutId);
+            //console.log("Owned Nut Ids: ", nutId);
 
-            await this.setState((prevState) => {
-              ownedNuts: [...prevState.ownedNuts, nutId]
-            });
+            updatedOwnedNuts.push(nutId);
           });
         }
+        this.setState({
+          ownedNuts: updatedOwnedNuts,
+        });
+        //console.log("Owned Nuts List", this.state.ownedNuts);
       }
-      loopyNuts();
+      await loopyNuts();
     });
 
     this.collectTreasury();
@@ -441,7 +444,7 @@ class Universe extends Component {
       const cosmos = new web3.eth.Contract(CosmoNuts, this.state.cosmosAddress);
 
       await butter.methods.butter().call().then(async (info) => {
-        console.log("Info", info);
+        //console.log("Info", info);
 
         var parentNutOwner = await cosmos.methods.ownerOf(info[1]).call();
         //console.log("Parent Nut Owner", parentNutOwner);
@@ -451,7 +454,7 @@ class Universe extends Component {
             return true;
           } else { return false; }
         }
-        console.log("isActive:", isActive());
+        //console.log("isActive:", isActive());
 
         butterItems.push({
           parentNutId: info[1],
@@ -464,7 +467,7 @@ class Universe extends Component {
       });
     }
 
-    console.log("Butter Items", butterItems);
+    //console.log("Butter Items", butterItems);
     return butterItems;
   }
 
@@ -474,7 +477,7 @@ class Universe extends Component {
     const seedItems = [];
     for (let i = 0; i < this.state.seedsCreated; i++) {
       var seedLocation = await this.getSeedLocation(i);
-      console.log("Seed Location[" + i + "]: " + seedLocation);
+      //console.log("Seed Location[" + i + "]: " + seedLocation);
       var seed = new web3.eth.Contract(CosmoSeed, seedLocation);
       const cosmos = new web3.eth.Contract(CosmoNuts, this.state.cosmosAddress);
 
@@ -484,10 +487,10 @@ class Universe extends Component {
           return true;
         } else { return false; }
       }
-      console.log("isActive:", isActive());
+      //console.log("isActive:", isActive());
 
       const seedInfo = await seed.methods.seed().call();
-      console.log("Seed Info", seedInfo);
+      //console.log("Seed Info", seedInfo);
       var parentNutOwner = await cosmos.methods.ownerOf(seedInfo.nutId).call();
 
       seedItems.push({
@@ -502,7 +505,7 @@ class Universe extends Component {
       });
     }
 
-    console.log("Seed Items", seedItems);
+    //console.log("Seed Items", seedItems);
     return seedItems;
   }
 
@@ -572,7 +575,7 @@ class Universe extends Component {
         </Card>
       );
     }
-    console.log("Card Items", cards);
+    //console.log("Card Items", cards);
 
     this.setState({ butterCardItems: cards });
   }
@@ -629,7 +632,6 @@ class Universe extends Component {
   }
 
   async makeSeedCards() {
-    console.log("make seed cards");
     const seedItems = await this.collectSeeds();
 
     const createHandleSeedAnswer = (cardIndex) => (event) => {
@@ -696,7 +698,7 @@ class Universe extends Component {
       );
     }
 
-    console.log("Card Items", cards);
+    //console.log("Card Items", cards);
     this.setState({ seedCardItems: cards });
   }
 
@@ -712,14 +714,14 @@ class Universe extends Component {
   }
 
   async spawnNut(event, cardIndex) {
-    console.log("In Spawn Nut Card Index: ", cardIndex);
+    //console.log("In Spawn Nut Card Index: ", cardIndex);
     const seedAnswer = this.state.seedAnswers[cardIndex];
 
     const seedLocation = (
       this.state.seedCardItems[cardIndex].props.children[0]
       .props.children[0].props.children[1].props.children
     );
-    console.log("Seed Location", seedLocation);
+    //console.log("Seed Location", seedLocation);
 
     const web3 = new Web3(window.ethereum);
     const seed = new web3.eth.Contract(CosmoSeed, seedLocation);
