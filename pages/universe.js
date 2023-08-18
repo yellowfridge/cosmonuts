@@ -422,12 +422,20 @@ class Universe extends Component {
         var parentNutOwner = await cosmos.methods.ownerOf(info[1]).call();
         //console.log("Parent Nut Owner", parentNutOwner);
 
+        const isActive = () => {
+          if (info[2] > 0) {
+            return true;
+          } else { return false; }
+        }
+        console.log("isActive:", isActive());
+
         butterItems.push({
           parentNutId: info[1],
           amount: info[2],
           drawRate: info[3],
           parentNutOwner: parentNutOwner,
           location: info[4],
+          isActive: isActive(),
         });
       });
     }
@@ -446,6 +454,14 @@ class Universe extends Component {
       var seed = new web3.eth.Contract(CosmoSeed, seedLocation);
       const cosmos = new web3.eth.Contract(CosmoNuts, this.state.cosmosAddress);
 
+      const seedBalance = await seed.methods.getBalance().call();
+      const isActive = () => {
+        if (seedBalance > 0) {
+          return true;
+        } else { return false; }
+      }
+      console.log("isActive:", isActive());
+
       const seedInfo = await seed.methods.seed().call();
       console.log("Seed Info", seedInfo);
       var parentNutOwner = await cosmos.methods.ownerOf(seedInfo.nutId).call();
@@ -457,6 +473,8 @@ class Universe extends Component {
         heldEther: seedInfo.heldEther/10000000000000000000,
         matterNeeded: seedInfo.matterNeeded,
         parentNutOwner: parentNutOwner,
+        balance: seedBalance,
+        isActive: isActive(),
       });
     }
 
@@ -642,6 +660,7 @@ class Universe extends Component {
                 style={{width: '360px'}}
               />
               <Button
+                disabled={!seedItems[i].isActive}
                 primary
                 content='Claim Seed'
                 onClick={createSpawnNut(i)}
