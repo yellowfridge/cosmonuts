@@ -538,6 +538,7 @@ class Universe extends Component {
                 style={{width: '360px'}}
               />
               <Button
+                disabled={!butterItems[i].isActive}
                 primary
                 content='Claim Butter'
                 onClick={createClaimButter(i)}
@@ -662,7 +663,7 @@ class Universe extends Component {
               <Button
                 disabled={!seedItems[i].isActive}
                 primary
-                content='Claim Seed'
+                content='Spawn Nut'
                 onClick={createSpawnNut(i)}
               />
             </Form>
