@@ -108,11 +108,12 @@ class Universe extends Component {
   async collectUniverse() {
     const web3 = new Web3(window.ethereum);
     const universe = new web3.eth.Contract(CosmoUniverse, this.state.universeAddress);
+    const provider = await detectEthereumProvider();
 
     await universe.methods.owner().call().then((owner) => {
       this.setState({
         owner: owner,
-        matterOfAddress: owner
+        matterOfAddress: provider.selectedAddress,
       });
     });
 
@@ -287,6 +288,7 @@ class Universe extends Component {
   }
 
   changeMatterOfInput(event) {
+    console.log("matter of Input Change", event);
     this.setState({
       matterOfAddress: event.target.value
     });
@@ -363,10 +365,15 @@ class Universe extends Component {
     let cidPath = event.target[3].value;
     let sig = event.target[4].value;
 
+    const treasury = new web3.eth.Contract(CosmoTreasury, this.state.treasuryAddress);
+    const ethNeeded = await treasury.methods.ethToHold(nutId).call();
+    console.log("Eth Needed", ethNeeded);
+
     const seedLocation = await cosmos.methods.createSeed(
       nutId, secretSeedHash, cidPath, sig
     ).send({
-      from: provider.selectedAddress
+      from: provider.selectedAddress,
+      value: ethNeeded
     }).on('transactionHash', function(hash) {
       console.log("Transaction Hash:", hash);
     }).on('receipt', function(recipt) {
@@ -1079,7 +1086,7 @@ class Universe extends Component {
                   content: 'Matter Of',
                   onClick: () => this.handleGetMatterOf()
                 }}
-                value={this.state.user}
+                value={this.state.matterOfAddress}
                 onChange={this.changeMatterOfInput}
                 style={{
                   width: '500px'
