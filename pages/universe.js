@@ -500,6 +500,7 @@ class Universe extends Component {
       var parentNutOwner = await cosmos.methods.ownerOf(seedInfo.nutId).call();
 
       // ISSUE WITH HELDETHER ** doublecheck contract formula
+      // Figured out issue '^' is not power of '**' is (need to change in contract)
       seedItems.push({
         id: seedInfo.id,
         location: seedInfo.location,
@@ -552,7 +553,7 @@ class Universe extends Component {
               </Container>
             </Card.Meta>
             <Card.Description>
-              {butterItems[i]?.description || 'Description not available'}
+              Mirror, mirror, on the wall, what's the easiest password of them all.
             </Card.Description>
           </Card.Content>
           <Card.Content extra>
@@ -674,7 +675,7 @@ class Universe extends Component {
               </Container>
             </Card.Meta>
             <Card.Description>
-              {seedItems[i]?.description || 'Description not available'}
+              Mirror, mirror, on the wall, what's the easiest password of them all.
             </Card.Description>
           </Card.Content>
           <Card.Content extra>
